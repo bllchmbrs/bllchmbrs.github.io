@@ -107,6 +107,9 @@ ol {
     color:#999;
     border-bottom: 1px solid #eee;
 }
+.post-info p {
+	color:#999;
+}
 .post-info ul {
 	width:100%;
 	float:left;
@@ -179,6 +182,37 @@ article img{
 	text-align: center;
     width: 400px;
 }
+#personal_intro .entry-title {
+ height:.8em;
+}
+
+#personal_intro .post-info {
+	/*border-bottom:0px;	*/
+}
+
+#personal_intro .post-info p.sound {
+	margin-bottom:0px;
+	height:.8em;
+}
+
+#personal_intro .post-info p.pre-def {
+	margin-bottom:0px;
+	margin-top: 0.5em;
+	margin-left:2%;
+}
+
+#personal_intro .post-info p.def {
+margin-left: 4%;
+}
+
+#personal_intro .post-info p.ref {
+font-size:0.66em;
+width:100%;
+/*border-bottom-width: 1px;
+border-bottom-color: #eee;
+border-bottom-style: solid;*/
+}
+
 /***** Layout *****/
 .body {
     clear: both;
@@ -276,7 +310,7 @@ img.left, figure.left {float: left; margin: 0 2em 2em 0;}
 /*
 	Featured
 *****************/
-#featured {
+.featured {
     width: 95%;
     padding: 10px 0 10px 350px;
     float: left;
@@ -292,19 +326,19 @@ img.left, figure.left {float: left; margin: 0 2em 2em 0;}
 	/*box-shadow: 0px 3px 8px 0px #ccc;*/
 }
 
-#featured figure {
+.featured figure {
 	border: 2px solid #eee;
 	float: right;
 	margin: 0.786em 2em 0 5em;
 	width: 248px;
 }
-#featured figure img {display: block; float: right;}
+.featured figure img {display: block; float: right;}
 
-#featured h2 {color: #333; font-size: 1.714em; margin-bottom: 0.333em;}
-#featured h3 {font-size: 1.429em; margin-bottom: .5em;}
+.featured h2 {color: #333; font-size: 1.714em; margin-bottom: 0.333em;}
+.featured h3 {font-size: 1.429em; margin-bottom: .5em;}
 
-#featured h3 a:link, #featured h3 a:visited {color: #000305; text-decoration: none;}
-#featured h3 a:hover, #featured h3 a:active {color: #fff;}
+.featured h3 a:link, .featured h3 a:visited {color: #000305; text-decoration: none;}
+.featured h3 a:hover, .featured h3 a:active {color: #fff;}
 
 /*
 	Body
@@ -509,7 +543,7 @@ li:last-child .hentry, #content > .hentry {border: 0; margin: 0;}
         position: static;
         margin: 20px auto 10px;
     }
-    #featured {
+    .featured {
         padding: 0;
         margin: 0 auto;
         float: none;
