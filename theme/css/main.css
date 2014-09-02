@@ -186,8 +186,12 @@ article img{
  height:.8em;
 }
 
-#personal_intro .post-info {
-	/*border-bottom:0px;	*/
+#personal_intro .post-info p.statement {
+	color:#606060;
+}
+
+.no-border-bottom {
+	border-bottom-width: 0px;
 }
 
 #personal_intro .post-info p.sound {
