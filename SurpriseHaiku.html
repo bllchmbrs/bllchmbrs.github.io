@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-        <title>SurpriseHaiku - Discovering Unusual Haikus On Twitter</title>
+        <title>WorldCupChatter.com - Graphing Tweets in Real Time</title>
         <meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="shortcut icon" href="http://launchyard.com/images/favicon.png"/>
@@ -27,14 +27,14 @@
 </a>
 	
 	      <div class="l-detail"><p><img src="/static/anabranch.jpg" width="140" height="140" alt="Anabranching River"><br/>
-            <a href="http://www.anabranch.me/index.html">Home</a> | <a href="http://www.anabranch.me/about.html">About</a> | <a href="http://www.anabranch.me/category/articles.html">Thoughts</a> | <a href="http://www.anabranch.me/category/projects.html">Projects</a> </p></div>
+            <a href="http://www.anabranch.me/about.html">About</a> | <a href="http://www.anabranch.me/category/articles.html">Thoughts</a> | <a href="http://www.anabranch.me/category/projects.html">Projects</a> </p></div>
 <section id="content" >
     <div class="body">
       <article>
         <header>
           <h1 class="entry-title">
             <a href="http://www.anabranch.me/SurpriseHaiku.html" rel="bookmark"
-               title="Permalink to SurpriseHaiku - Discovering Unusual Haikus On Twitter">SurpriseHaiku - Discovering Unusual Haikus On Twitter</a></h1>
+               title="Permalink to WorldCupChatter.com - Graphing Tweets in Real Time">WorldCupChatter.com - Graphing Tweets in Real Time</a></h1>
 
         </header>
 
@@ -44,61 +44,58 @@
         <li class="vcard author">
                  by&nbsp;<a class="url fn" href="http://www.anabranch.me/author/bill-chambers.html">Bill Chambers</a>
         </li>
-        <li class="published" title="2014-08-20T00:00:00">
-          on&nbsp;Wed 20 August 2014
+        <li class="published" title="2014-09-20T00:00:00">
+          on&nbsp;Sat 20 September 2014
         </li>
 
 	</ul>
-<p>Tags: <a href="http://www.anabranch.me/tag/hyphenation.html">Hyphenation</a>  <a href="http://www.anabranch.me/tag/twitter.html">Twitter</a>  <a href="http://www.anabranch.me/tag/python.html">Python</a>  <a href="http://www.anabranch.me/tag/nlp.html">NLP</a>  </p></div><!-- /.post-info -->
-<p><em>Earlier this year I created a simple twitter application that attempted to hyphenate tweets and discern whether or not they had a Haiku in them.</em></p>          <p>This project is about 9 months old but it's still relevant and one that I wanted to write about now that I have this portfolio site.</p>
-<h2>About @SurpriseHaiku</h2>
-<p>SurpriseHaiku was an experiment that parsed random twitter tweets to see if they followed the Haiku cadence of 5 / 7 / 5 (syllables). I ran this experiment during the 2014 Olympics to try and focus around Olympics related tweets. This is one of my first applications (not scripts) that I built to learn more about the twitter API and to try some different packages.</p>
-<p>While the application is not running at this point, you can check out the historical tweets on <a href="https://twitter.com/surprisehaiku">the twitter profile.</a></p>
-<h3>Methodology</h3>
-<p>The simplest explanation is:</p>
-<ul>
-<li>Normalize the tweets text</li>
-<li>Split it by syllable/ each word by syllable</li>
-<li>see if we get a 5/7/5 combination</li>
-</ul>
-<p>Identifying the syllables on the English language is tough. We've got a lot of different ways of pronouncing things not to mention crazy spellings and dealing with other languages. I use two methods to split up syllables:</p>
-<ul>
-<li>Use a dictionary of Hyphenated words</li>
-<li>Use a hyphenator</li>
-</ul>
-<p>I then compared those values, if we had a dictionary entry I would use it, if not I would use what the hyphenator spit out.</p>
-<h3>Tools</h3>
-<p>The tools I used in this project are:</p>
-<ul>
-<li>Python</li>
-<li><a href="https://pypi.python.org/pypi/PyHyphen/2.0.5">PyHyphen</a> which is the hyphenation library of LibreOffice and FireFox</li>
-<li>Tweepy for my Twitter API Integration</li>
-<li>Project Gutenberg Etext of Movy Hyphenator by Grady Ward (basically a dictionary of hyphenated words)</li>
-</ul>
-<h3>Notable Examples</h3>
-<p>Although not every tweet was successful, there were definitely some notable examples.</p>
-<p>This one really seems to flow although the sentence composition doesn't line up perfectly, the syllables do.
-<blockquote class="twitter-tweet" lang="en"><p>A <a href="https://twitter.com/hashtag/haiku?src=hash">#haiku</a>: <a href="https://t.co/Nn55PyBqab">https://t.co/Nn55PyBqab</a>&#10;&#10;Lets Show Why Baseball&#10;Is The Best Sport RT if&#10;you want Baseball back</p>&mdash; SurpriseHaiku (@surprisehaiku) <a href="https://twitter.com/surprisehaiku/status/432752455831392258">February 10, 2014</a></blockquote>
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
-<p>I also ran this experiment during the Olympics, this one gave me a chuckle.
-<blockquote class="twitter-tweet" lang="en"><p>A <a href="https://twitter.com/hashtag/haiku?src=hash">#haiku</a>: <a href="https://t.co/zei5yF4E2D">https://t.co/zei5yF4E2D</a>&#10;&#10;every time they show&#10;putin i get really&#10;uncomfortable</p>&mdash; SurpriseHaiku (@surprisehaiku) <a href="https://twitter.com/surprisehaiku/status/432752315594842112">February 10, 2014</a></blockquote>
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
-<p>As did this one
-<blockquote class="twitter-tweet" lang="en"><p>A <a href="https://twitter.com/hashtag/haiku?src=hash">#haiku</a>: <a href="https://t.co/2PpXgTSshU">https://t.co/2PpXgTSshU</a>&#10;&#10;Russia Putin Poses&#10;as Defender of Christian&#10;Civilization</p>&mdash; SurpriseHaiku (@surprisehaiku) <a href="https://twitter.com/surprisehaiku/status/432750753199820800">February 10, 2014</a></blockquote>
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
-<h3>Challenges</h3>
-<p>As many know about natural language processing, it's really difficult. <a href="http://people.ischool.berkeley.edu/~hearst/">Marti Hearst</a>, my NLP professor at UC Berkeley has stressed that you can never get it all right and the more I've experimented the more I've realized that she is completely right.</p>
-<p>The challenges with this project is in NLP. Think of it this way, how do we know that RT means retweet without explicitly telling the computer that?</p>
-<h3>Improvements and take aways</h3>
-<p>I think there are a number of improvements that could be made but this was a short experiment, not a complete study.</p>
-<p>Firstly I think I could use some textual analysis to prevent tweets like this:</p>
-<blockquote class="twitter-tweet" lang="en"><p>A <a href="https://twitter.com/hashtag/haiku?src=hash">#haiku</a>: <a href="https://t.co/dnq4ji8nSw">https://t.co/dnq4ji8nSw</a>&#10;&#10;I just dont see how&#10;school is gonna be a part&#10;of my life with the</p>&mdash; SurpriseHaiku (@surprisehaiku) <a href="https://twitter.com/surprisehaiku/status/432738235840614400">February 10, 2014</a></blockquote>
+<p>Tags: <a href="http://www.anabranch.me/tag/world-cup.html">World Cup</a>  <a href="http://www.anabranch.me/tag/twitter.html">Twitter</a>  <a href="http://www.anabranch.me/tag/nodejs.html">Node.js</a>  <a href="http://www.anabranch.me/tag/d3js.html">D3.js</a>  </p></div><!-- /.post-info -->
+<p><em>During the World Cup of 2014, I wrote a twitter bot that read tweets about the world cup, associated them with teams then graphed them out in real time.</em></p>          <p>This was my first production experience with Node.js. There Are definitely some really interesting things about JavaScript on the backend that allow you to take advantage of events. That is namely what I tried to do with this project. Learn a little bit more about node.js, about streaming data and analysis, and offloading responsibility to the client.</p>
+<p>The framework I used was <a href="http://socket.io/">socket.io</a>. My knowledge is certainly introductory but it provided a simple way for me to communicate real time data between the client's browser as well as the server. I wrote up a small intro on the site to allow people to understand what was happening</p>
+<p><img alt="World Cup Chatter Graph" src="/static/world_cup_chatter_intro.jpg" /></p>
+<h3>The Code</h3>
+<p>The server is incredibly simple and essentially boils down to this code:</p>
+<div class="highlight"><pre><span class="nx">io</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;connection&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">socket</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Connected...&quot;</span><span class="p">);</span>
+    <span class="nx">stream</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;tweet&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">tweet</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">socket</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;new tweet&#39;</span><span class="p">,</span> <span class="nx">tweet</span><span class="p">);</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;TWEET&quot;</span><span class="p">);</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
 
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-<p>The problem with this haiku is that it ends in "the". There's no continuity and it doesn't end logically. Using something like Markov Chains could help me out here.</p>
-<p>Other improvements include, automating deployment, ignoring tweets with a lot of gibberish or words that are likely to be wrong, automate adding new words to the dictionary, adding plurals to the dictionary.</p>
-<p>I learned a ton doing this project and hope to continue doing this sort of experimentation in the future.</p>
+<p>With that server running we run everything else using D3.js to graph our tweets. The client runs a heavily modified version of <a href="http://bost.ocks.org/mike/path/">Mike Bostock's path transitions examples</a>. Concretely, every time the client receives a tweet from the server it pushes it to a list. </p>
+<div class="highlight"><pre><span class="nx">socket</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;new tweet&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">tweet</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">tweet</span><span class="cp">[</span><span class="s1">&#39;created_at&#39;</span><span class="cp">]</span> <span class="o">=</span> <span class="nx">parseTwitterDate</span><span class="p">(</span><span class="nx">tweet</span><span class="cp">[</span><span class="s1">&#39;created_at&#39;</span><span class="cp">]</span><span class="p">);</span>
+    <span class="nx">master_tweet_list</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">tweet</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Received Tweet&quot;</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+
+
+<p>That list is then filtered (did the tweet occur in the last second) and pushed onto the relevant list every 'tick', or every second. </p>
+<div class="highlight"><pre><span class="n">master_tweet_list</span> <span class="o">=</span> <span class="n">master_tweet_list</span><span class="p">.</span><span class="n">filter</span><span class="p">(</span><span class="n">within1Second2</span><span class="p">)</span>
+<span class="n">data</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">master_tweet_list</span><span class="p">.</span><span class="n">length</span><span class="p">);</span>
+</pre></div>
+
+
+<p>This all produces a graph like this as time continues.</p>
+<p><img alt="World Cup Chatter Graph" src="/static/world_cup_chatter.jpeg" /></p>
+<p>What's nice is D3.js provides us with some nice smoothing abilities, this allows us to smooth out the animation when we append to the list, the code is this. It's important to know that the x-axis moves with our data.</p>
+<div class="highlight"><pre><span class="n">var</span> <span class="n">x</span> <span class="o">=</span> <span class="n">d3</span><span class="p">.</span><span class="n">time</span><span class="p">.</span><span class="n">scale</span><span class="p">()</span>
+    <span class="p">.</span><span class="n">domain</span><span class="p">([</span><span class="n">now</span> <span class="o">-</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">duration</span><span class="p">,</span> <span class="n">now</span> <span class="o">-</span> <span class="n">duration</span><span class="p">])</span>
+    <span class="p">.</span><span class="n">range</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="n">width</span><span class="p">]);</span>
+</pre></div>
+
+
+<p>Beyond this, the code is more or less boilerplate. Obviously there's some styling, some rolling up of the layout but more or less everything important was happening here.</p>
+<h3>Challenges &amp; Take-Aways</h3>
+<p>Real-time data is hard. Period. Twitter scale is also hard. Period.</p>
+<p>I didn't have a lot of money to shell out for the server at this point so sending information to more than 10-15 clients at once reduced the ability for my server to send out tweets effectively to all clients. </p>
+<p>Another issue was memory leaks. When I would leave my browser open for an extended period of time, I found quality and degradation in my map and pushing functions. Trying to analyze the time of 10,000 tweets at once was difficult for a browser and took longer than a second. This caused my graphs to be off at certain periods of time.</p>
+<p>There are so many small little issues that come up in programming that end up having significant implications.</p>
+<p><a href="https://github.com/anabranch/World-Cup-Chatter">Check out the project on Github.</a></p>
         </div><!-- /.entry-content -->
 
       </article>
