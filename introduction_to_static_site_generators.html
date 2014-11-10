@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <title>A Gentle Introduction to Static Site Generators</title>
+        <meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="static/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="static/favicon.ico" type="image/x-icon">
+        <link rel="stylesheet" href="/theme/css/main.css" type="text/css" />
+
+        <!--[if IE]>
+                <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+        <!--[if lte IE 7]>
+                <link rel="stylesheet" type="text/css" media="all" href="http://www.billchambers.me/css/ie.css"/>
+                <script src="http://www.billchambers.me/js/IE8.js" type="text/javascript"></script><![endif]-->
+
+        <!--[if lt IE 7]>
+                <link rel="stylesheet" type="text/css" media="all" href="http://www.billchambers.me/css/ie6.css"/><![endif]-->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js" type="text/javascript"></script>
+<link href='http://www.billchambers.me/theme/Aaargh/Aaargh.ttf' rel='stylesheet' type='text/css'>
+
+
+</head>
+
+<body id="index" class="home">
+<a href="https://www.github.com/anabranch">
+<img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub" />
+</a>
+	      <div class="l-detail"><p><img src="/static/anabranch.jpg" width="140" height="140" alt="Anabranching River"><br/>
+            <a href="http://www.billchambers.me/index.html">Home</a><br/><a href="http://www.billchambers.me/about.html">About</a><br/><a href="http://www.billchambers.me/category/projects.html">Projects</a><br/><a href="http://www.billchambers.me/category/articles.html">Writings</a></p></div>
+<section id="content" >
+    <div class="body">
+      <article>
+        <header>
+          <h1 class="entry-title">
+            <a href="http://www.billchambers.me/introduction_to_static_site_generators.html" rel="bookmark"
+               title="Permalink to A Gentle Introduction to Static Site Generators">A Gentle Introduction to Static Site Generators</a></h1>
+
+        </header>
+
+        <div class="entry-content">
+<div class="post-info">
+	<ul>
+        <li class="vcard author">
+                 by&nbsp;<a class="url fn" href="http://www.billchambers.me/author/bill-chambers.html">Bill Chambers</a>
+        </li>
+        <li class="published" title="2014-11-10T00:00:00">
+          on&nbsp;Mon 10 November 2014
+        </li>
+
+	</ul>
+<p>Tags: <a href="http://www.billchambers.me/tag/static-sites.html">Static Sites</a>  <a href="http://www.billchambers.me/tag/ruby.html">Ruby</a>  <a href="http://www.billchambers.me/tag/.html"></a>  </p></div><!-- /.post-info -->
+<p><em>This document was originally written for a presentation I did for a portfolio class at the UC Berkeley School of Information.</em></p>          <h1>A Gentle Introduction to Static Site Generators</h1>
+<p>This document will be a simple introduction to static site generators. We'll go over the basics of what they are, why you should use them, which one you should use and finally how to get started.</p>
+<p>The intended audiences for this tutorial are designers or novice developers with little to no programming experience but with some HTML/CSS skill, simple command line experience. This document was originally written for a presentation I did for a portfolio class at the UC Berkeley School of Information.</p>
+<p>I'm using one on this website called <a href="http://docs.getpelican.com/en/3.5.0/">Pelican</a> but there are <a href="https://staticsitegenerators.net/">many different kinds</a>. Feel free to send me an email with any questions and I can recommend the best one for you.</p>
+<h3>What is a static site generator?</h3>
+<p>Simply a static site generator generates a static site. You give it a simple format of documents of a certain type and it converts those into HTML content for you. This makes it easy to maintain any changes you make to the underlying pages.</p>
+<h5>Let's work through <strong>the problem that it solves.</strong></h5>
+<p>I want a website or portfolio. I want to continue to add to it overtime and be able to make changes to my template and have those go to every single page of my website.</p>
+<p>If I just have raw html pages, changing every single one for every single page is a nightmare. If I want to change something like the layout, I'd have to copy and paste my content into every single one. I could use a web framework like Ruby on Rails or Django but then I have to deal with hosting and all the associated overhead and knowledge those things require. Additionally those require full fledged webservers (if you don't know what this is don't worry about it). You can <a href="https://pages.github.com/">serve static sites for free.</a></p>
+<p>Static site generators abstract the compilation of templates and source writing or documents.
+3</p>
+<h3>How does it generate this information?</h3>
+<p>In simplest terms it takes a template of structure and layout and inserts the content you write in other formats into that template.</p>
+<p>I think the working example is easiest to understand.</p>
+<p>So you've got a directory like this: (this is just writing)</p>
+<div class="highlight"><pre><span class="o">-</span> <span class="n">Articles</span> <span class="p">(</span><span class="n">the</span> <span class="n">folder</span><span class="p">)</span>
+    <span class="o">-</span> <span class="n">my_article_about_stuff</span><span class="p">.</span><span class="n">md</span>
+    <span class="o">-</span> <span class="n">My_other_article_about</span> <span class="n">stuff</span><span class="p">.</span><span class="n">md</span>
+    <span class="o">-</span> <span class="n">ux_review</span><span class="p">.</span><span class="n">md</span>
+</pre></div>
+
+
+<p>Generates a folder structure like this: (that you can use to serve it)</p>
+<div class="highlight"><pre><span class="o">-</span> <span class="n">about</span><span class="p">.</span><span class="n">html</span>
+<span class="o">-</span> <span class="n">home</span><span class="p">.</span><span class="n">html</span>
+<span class="o">-</span> <span class="n">articles</span>
+    <span class="o">-</span> <span class="n">my_article_about_stuff</span><span class="p">.</span><span class="n">html</span>
+    <span class="o">-</span> <span class="n">My_other_article_about</span> <span class="n">stuff</span><span class="p">.</span><span class="n">html</span>
+    <span class="o">-</span> <span class="n">ux_review</span><span class="p">.</span><span class="n">html</span>
+</pre></div>
+
+
+<p>That would give you a website like this: (that goes on the internet)</p>
+<div class="highlight"><pre><span class="n">mywebsite</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">about</span><span class="p">.</span><span class="n">html</span>
+<span class="n">mywebsite</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">home</span><span class="p">.</span><span class="n">html</span>
+<span class="n">mywebsite</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">articles</span><span class="o">/</span><span class="n">my_article_about_stuff</span><span class="p">.</span><span class="n">html</span>
+<span class="p">...</span>
+</pre></div>
+
+
+<h3>how does one get started?</h3>
+<p><strong>THIS TUTORIAL IS INTENDED FOR MAC USERS</strong></p>
+<p>Let's get started with <a href="http://jekyllrb.com/">Jekyll</a>. It's the most popular static site generator and is fairly friendly.</p>
+<p>You'll need two things for these next steps:
+- Your Favorite Text Editor (sublime text, text edit, etc.)
+- A Terminal (search spotlight for terminal and open it up). </p>
+<p>From now on, anything you see in <code>code writing</code> should be executed in the <code>terminal</code> unless otherwise stated.</p>
+<p>On Mac run:
+<code>gem install jekyll</code></p>
+<p>if you have any problems you may need to run. Don't worry about what it's doing, it's just making sure everying you have is up to date.</p>
+<div class="highlight"><pre>rvm get stable
+rvm osx-ssl-certs update all
+rvm rubygems latest
+</pre></div>
+
+
+<p>then finally <code>gem install jekyll --source http://rubygems.org</code></p>
+<p>Now you've installed jekyll. What I always like to do is start with something and modifying it to meet my needs So we'll create a basic blog then go from there.</p>
+<div class="highlight"><pre><span class="n">jekyll</span> <span class="n">new</span> <span class="n">myblog</span>
+<span class="n">cd</span> <span class="n">myblog</span>
+<span class="n">jekyll</span> <span class="n">serve</span>
+</pre></div>
+
+
+<p>You'll see some text like. Again, not important what it says, just that it says something like this.</p>
+<div class="highlight"><pre>Configuration file: /sometext/myblog/_config.yml
+            Source: /sometext/myblog
+       Destination: /sometext/myblog/_site
+      Generating... <span class="k">done</span>.
+<span class="o">[</span>2014-11-10 14:10:42<span class="o">]</span> INFO  WEBrick 1.3.1
+<span class="o">[</span>2014-11-10 14:10:42<span class="o">]</span> INFO  ruby 2.0.0 <span class="o">(</span>2013-06-27<span class="o">)</span> <span class="o">[</span>x86_64-darwin12.3.0<span class="o">]</span>
+<span class="o">[</span>2014-11-10 14:10:42<span class="o">]</span> INFO  WEBrick::HTTPServer#start: <span class="nv">pid</span><span class="o">=</span>62126 <span class="nv">port</span><span class="o">=</span>4000
+</pre></div>
+
+
+<p>Now go to <a href="http://localhost:4000/">http://localhost:4000/</a> and BOOM you've got a website.</p>
+<p>So let's dive into customizing the website a bit more.</p>
+<p>Take a look at the directory structure but it should be pretty self explanatory.</p>
+<p><strong>_layouts</strong> is where you've got the layouts. Typically you'll have a more navigation centric one then a more post centric one.</p>
+<p><strong>_posts</strong> is where you store...you guessed it. Any posts you want to publish.</p>
+<p><strong>_site</strong> is the actual website that jekyll generates. You'll see that it organizes things by date. <em>You will NEVER edit anything in here.</em></p>
+<p><strong>css</strong> is where you store the css for your project. Most of what you'll be modifying will be <strong>main.css</strong></p>
+<p><strong>index.html</strong> is the base page for your website.</p>
+<p>Here's the code for <strong>index.html</strong>:</p>
+<div class="highlight"><pre>---
+layout: default
+title: Your New Jekyll Site
+---
+
+<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;home&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;h1&gt;</span>Blog Posts<span class="nt">&lt;/h1&gt;</span>
+  <span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">&quot;posts&quot;</span><span class="nt">&gt;</span>
+    {% for post in site.posts %}
+      <span class="nt">&lt;li&gt;&lt;span&gt;</span>{{ post.date | date_to_string }}<span class="nt">&lt;/span&gt;</span> <span class="ni">&amp;raquo;</span> <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;{{ post.url }}&quot;</span><span class="nt">&gt;</span>{{ post.title }}<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+    {% endfor %}
+  <span class="nt">&lt;/ul&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+
+
+<p>Now remember, we making <em>your</em> website so we need to customize it for you!</p>
+<p>In your terminal hit <code>control + c</code> where you entered <code>jekyll serve</code>. </p>
+<p>This will turn off the server you started above.</p>
+<p>Now run <code>jekyll serve --watch</code>. What this allows us to do is make changes to our files and jekyll will see those changes and automatically change the files that we see on <a href="http://localhost:4000/">http://localhost:4000/</a>.</p>
+<h4>Changing HTML</h4>
+<p>Open up <strong>index.html</strong> in your text editor and let's make some changes.</p>
+<p>First, this isn't a blog, it's a portfolio. So I want to make two changes. I want to change the title and the text in the <code>&lt;h1&gt;</code> tag. Here's what I changed in my <strong>index.html</strong> file.</p>
+<div class="highlight"><pre>---
+layout: default
+title: Bill&#39;s Fantastic Portfolio
+---
+
+<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;home&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;h1&gt;</span>Portfolio<span class="nt">&lt;/h1&gt;</span>
+  <span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">&quot;posts&quot;</span><span class="nt">&gt;</span>
+    {% for post in site.posts %}
+      <span class="nt">&lt;li&gt;&lt;span&gt;</span>{{ post.date | date_to_string }}<span class="nt">&lt;/span&gt;</span> <span class="ni">&amp;raquo;</span> <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;{{ post.url }}&quot;</span><span class="nt">&gt;</span>{{ post.title }}<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+    {% endfor %}
+  <span class="nt">&lt;/ul&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+
+
+<p>Now navigate to <a href="http://localhost:4000/">http://localhost:4000/</a> in your browser and refresh the page. You'll see the title is different now. </p>
+<h4>Changing CSS</h4>
+<p>Now let's say I want every <code>&lt;h1&gt;</code> tag to be blue. That means changing some css, so I'll head over to <strong>main.css</strong>.</p>
+<p>and add one line at the end of the file</p>
+<div class="highlight"><pre><span class="nt">h1</span> <span class="p">{</span>
+  <span class="k">color</span><span class="o">:</span><span class="nb">blue</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Now go back to <a href="http://localhost:4000/">http://localhost:4000/</a> and you'll see that Portfolio on the page is now blue!</p>
+<p>You've now learned basically everything you need to know to run your own static site. 
+- Change the home page by editing <strong>index.html</strong>
+- Change the styles in <strong>main.css</strong>
+- Add or edit your "posts" in <strong>_posts</strong> by creating <a href="http://daringfireball.net/projects/markdown/syntax">markdown</a> files.
+- To put this up on github pages check out this <a href="https://help.github.com/articles/using-jekyll-with-pages/">tutorial</a>.</p>
+<p><strong>Typically any questions you have will just be a Google away or <a href="http://jekyllrb.com/docs/usage/">Check out the jekyll site for great documentation.</a></strong></p>
+<p><em>As a side note, when you're ready to finalize the version of the site that you want to run <code>jekyll build</code>.</em></p>
+        </div><!-- /.entry-content -->
+
+      </article>
+    </div>
+</section>
+        <section id="extras" >
+       
+        
+        </section><!-- /#extras -->
+	
+        <footer id="contentinfo" >
+                <address id="about" class="vcard ">
+                Proudly powered by <a href="http://getpelican.com/" target="_blank">Pelican</a>, which takes
+                great advantage of <a href="http://python.org" target="_blank">Python</a>. &copy; <a class="url fn" href="http://www.billchambers.me">Bill Chambers</a>
+		
+                </address><!-- /#about -->
+		
+
+                
+        </footer><!-- /#contentinfo -->
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-54337529-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

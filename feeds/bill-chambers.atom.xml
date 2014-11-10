@@ -1,5 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>"The Personal Website &amp; Portfolio of Bill Chambers"</title><link href="http://www.billchambers.me/" rel="alternate"></link><link href="http://www.billchambers.me/feeds/bill-chambers.atom.xml" rel="self"></link><id>http://www.billchambers.me/</id><updated>2014-10-08T00:00:00+02:00</updated><entry><title>DataKindSF - Data Analysis for the Greater Good</title><link href="http://www.billchambers.me/DataKindSF_data_for_good.html" rel="alternate"></link><updated>2014-10-08T00:00:00+02:00</updated><author><name>Bill Chambers</name></author><id>tag:www.billchambers.me,2014-10-08:DataKindSF_data_for_good.html</id><summary type="html">&lt;p&gt;DataKindSF just got their start and the reception was incredible. There was a huge turn out of people wanting to contribute by using high impact skills for greater good. I found out about the program through &lt;a href="http://www.meetup.com/DataKind-SF-Bay-Area/"&gt;their meetup&lt;/a&gt;.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>"The Personal Website &amp; Portfolio of Bill Chambers"</title><link href="http://www.billchambers.me/" rel="alternate"></link><link href="http://www.billchambers.me/feeds/bill-chambers.atom.xml" rel="self"></link><id>http://www.billchambers.me/</id><updated>2014-11-10T00:00:00+01:00</updated><entry><title>A Gentle Introduction to Static Site Generators</title><link href="http://www.billchambers.me/introduction_to_static_site_generators.html" rel="alternate"></link><updated>2014-11-10T00:00:00+01:00</updated><author><name>Bill Chambers</name></author><id>tag:www.billchambers.me,2014-11-10:introduction_to_static_site_generators.html</id><summary type="html">&lt;h1&gt;A Gentle Introduction to Static Site Generators&lt;/h1&gt;
+&lt;p&gt;This document will be a simple introduction to static site generators. We'll go over the basics of what they are, why you should use them, which one you should use and finally how to get started.&lt;/p&gt;
+&lt;p&gt;The intended audiences for this tutorial are designers or novice developers with little to no programming experience but with some HTML/CSS skill, simple command line experience. This document was originally written for a presentation I did for a portfolio class at the UC Berkeley School of Information.&lt;/p&gt;
+&lt;p&gt;I'm using one on this website called &lt;a href="http://docs.getpelican.com/en/3.5.0/"&gt;Pelican&lt;/a&gt; but there are &lt;a href="https://staticsitegenerators.net/"&gt;many different kinds&lt;/a&gt;. Feel free to send me an email with any questions and I can recommend the best one for you.&lt;/p&gt;
+&lt;h3&gt;What is a static site generator?&lt;/h3&gt;
+&lt;p&gt;Simply a static site generator generates a static site. You give it a simple format of documents of a certain type and it converts those into HTML content for you. This makes it easy to maintain any changes you make to the underlying pages.&lt;/p&gt;
+&lt;h5&gt;Let's work through &lt;strong&gt;the problem that it solves.&lt;/strong&gt;&lt;/h5&gt;
+&lt;p&gt;I want a website or portfolio. I want to continue to add to it overtime and be able to make changes to my template and have those go to every single page of my website.&lt;/p&gt;
+&lt;p&gt;If I just have raw html pages, changing every single one for every single page is a nightmare. If I want to change something like the layout, I'd have to copy and paste my content into every single one. I could use a web framework like Ruby on Rails or Django but then I have to deal with hosting and all the associated overhead and knowledge those things require. Additionally those require full fledged webservers (if you don't know what this is don't worry about it). You can &lt;a href="https://pages.github.com/"&gt;serve static sites for free.&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Static site generators abstract the compilation of templates and source writing or documents.
+3&lt;/p&gt;
+&lt;h3&gt;How does it generate this information?&lt;/h3&gt;
+&lt;p&gt;In simplest terms it takes a template of structure and layout and inserts the content you write in other formats into that template.&lt;/p&gt;
+&lt;p&gt;I think the working example is easiest to understand.&lt;/p&gt;
+&lt;p&gt;So you've got a directory like this: (this is just writing)&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;Articles&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;folder&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;my_article_about_stuff&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;md&lt;/span&gt;
+    &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;My_other_article_about&lt;/span&gt; &lt;span class="n"&gt;stuff&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;md&lt;/span&gt;
+    &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;ux_review&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;md&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Generates a folder structure like this: (that you can use to serve it)&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;about&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;html&lt;/span&gt;
+&lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;home&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;html&lt;/span&gt;
+&lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;articles&lt;/span&gt;
+    &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;my_article_about_stuff&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;html&lt;/span&gt;
+    &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;My_other_article_about&lt;/span&gt; &lt;span class="n"&gt;stuff&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;html&lt;/span&gt;
+    &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;ux_review&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;html&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;That would give you a website like this: (that goes on the internet)&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;mywebsite&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;about&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;html&lt;/span&gt;
+&lt;span class="n"&gt;mywebsite&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;home&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;html&lt;/span&gt;
+&lt;span class="n"&gt;mywebsite&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;articles&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;my_article_about_stuff&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;html&lt;/span&gt;
+&lt;span class="p"&gt;...&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;how does one get started?&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;THIS TUTORIAL IS INTENDED FOR MAC USERS&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Let's get started with &lt;a href="http://jekyllrb.com/"&gt;Jekyll&lt;/a&gt;. It's the most popular static site generator and is fairly friendly.&lt;/p&gt;
+&lt;p&gt;You'll need two things for these next steps:
+- Your Favorite Text Editor (sublime text, text edit, etc.)
+- A Terminal (search spotlight for terminal and open it up). &lt;/p&gt;
+&lt;p&gt;From now on, anything you see in &lt;code&gt;code writing&lt;/code&gt; should be executed in the &lt;code&gt;terminal&lt;/code&gt; unless otherwise stated.&lt;/p&gt;
+&lt;p&gt;On Mac run:
+&lt;code&gt;gem install jekyll&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;if you have any problems you may need to run. Don't worry about what it's doing, it's just making sure everying you have is up to date.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;rvm get stable
+rvm osx-ssl-certs update all
+rvm rubygems latest
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;then finally &lt;code&gt;gem install jekyll --source http://rubygems.org&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Now you've installed jekyll. What I always like to do is start with something and modifying it to meet my needs So we'll create a basic blog then go from there.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;jekyll&lt;/span&gt; &lt;span class="n"&gt;new&lt;/span&gt; &lt;span class="n"&gt;myblog&lt;/span&gt;
+&lt;span class="n"&gt;cd&lt;/span&gt; &lt;span class="n"&gt;myblog&lt;/span&gt;
+&lt;span class="n"&gt;jekyll&lt;/span&gt; &lt;span class="n"&gt;serve&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;You'll see some text like. Again, not important what it says, just that it says something like this.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;Configuration file: /sometext/myblog/_config.yml
+            Source: /sometext/myblog
+       Destination: /sometext/myblog/_site
+      Generating... &lt;span class="k"&gt;done&lt;/span&gt;.
+&lt;span class="o"&gt;[&lt;/span&gt;2014-11-10 14:10:42&lt;span class="o"&gt;]&lt;/span&gt; INFO  WEBrick 1.3.1
+&lt;span class="o"&gt;[&lt;/span&gt;2014-11-10 14:10:42&lt;span class="o"&gt;]&lt;/span&gt; INFO  ruby 2.0.0 &lt;span class="o"&gt;(&lt;/span&gt;2013-06-27&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt;x86_64-darwin12.3.0&lt;span class="o"&gt;]&lt;/span&gt;
+&lt;span class="o"&gt;[&lt;/span&gt;2014-11-10 14:10:42&lt;span class="o"&gt;]&lt;/span&gt; INFO  WEBrick::HTTPServer#start: &lt;span class="nv"&gt;pid&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;62126 &lt;span class="nv"&gt;port&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;4000
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now go to &lt;a href="http://localhost:4000/"&gt;http://localhost:4000/&lt;/a&gt; and BOOM you've got a website.&lt;/p&gt;
+&lt;p&gt;So let's dive into customizing the website a bit more.&lt;/p&gt;
+&lt;p&gt;Take a look at the directory structure but it should be pretty self explanatory.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;_layouts&lt;/strong&gt; is where you've got the layouts. Typically you'll have a more navigation centric one then a more post centric one.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;_posts&lt;/strong&gt; is where you store...you guessed it. Any posts you want to publish.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;_site&lt;/strong&gt; is the actual website that jekyll generates. You'll see that it organizes things by date. &lt;em&gt;You will NEVER edit anything in here.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;css&lt;/strong&gt; is where you store the css for your project. Most of what you'll be modifying will be &lt;strong&gt;main.css&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;index.html&lt;/strong&gt; is the base page for your website.&lt;/p&gt;
+&lt;p&gt;Here's the code for &lt;strong&gt;index.html&lt;/strong&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;---
+layout: default
+title: Your New Jekyll Site
+---
+
+&lt;span class="nt"&gt;&amp;lt;div&lt;/span&gt; &lt;span class="na"&gt;id=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;home&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;h1&amp;gt;&lt;/span&gt;Blog Posts&lt;span class="nt"&gt;&amp;lt;/h1&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;ul&lt;/span&gt; &lt;span class="na"&gt;class=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;posts&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+    {% for post in site.posts %}
+      &lt;span class="nt"&gt;&amp;lt;li&amp;gt;&amp;lt;span&amp;gt;&lt;/span&gt;{{ post.date | date_to_string }}&lt;span class="nt"&gt;&amp;lt;/span&amp;gt;&lt;/span&gt; &lt;span class="ni"&gt;&amp;amp;raquo;&lt;/span&gt; &lt;span class="nt"&gt;&amp;lt;a&lt;/span&gt; &lt;span class="na"&gt;href=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;{{ post.url }}&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;{{ post.title }}&lt;span class="nt"&gt;&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;&lt;/span&gt;
+    {% endfor %}
+  &lt;span class="nt"&gt;&amp;lt;/ul&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now remember, we making &lt;em&gt;your&lt;/em&gt; website so we need to customize it for you!&lt;/p&gt;
+&lt;p&gt;In your terminal hit &lt;code&gt;control + c&lt;/code&gt; where you entered &lt;code&gt;jekyll serve&lt;/code&gt;. &lt;/p&gt;
+&lt;p&gt;This will turn off the server you started above.&lt;/p&gt;
+&lt;p&gt;Now run &lt;code&gt;jekyll serve --watch&lt;/code&gt;. What this allows us to do is make changes to our files and jekyll will see those changes and automatically change the files that we see on &lt;a href="http://localhost:4000/"&gt;http://localhost:4000/&lt;/a&gt;.&lt;/p&gt;
+&lt;h4&gt;Changing HTML&lt;/h4&gt;
+&lt;p&gt;Open up &lt;strong&gt;index.html&lt;/strong&gt; in your text editor and let's make some changes.&lt;/p&gt;
+&lt;p&gt;First, this isn't a blog, it's a portfolio. So I want to make two changes. I want to change the title and the text in the &lt;code&gt;&amp;lt;h1&amp;gt;&lt;/code&gt; tag. Here's what I changed in my &lt;strong&gt;index.html&lt;/strong&gt; file.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;---
+layout: default
+title: Bill&amp;#39;s Fantastic Portfolio
+---
+
+&lt;span class="nt"&gt;&amp;lt;div&lt;/span&gt; &lt;span class="na"&gt;id=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;home&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;h1&amp;gt;&lt;/span&gt;Portfolio&lt;span class="nt"&gt;&amp;lt;/h1&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;ul&lt;/span&gt; &lt;span class="na"&gt;class=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;posts&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+    {% for post in site.posts %}
+      &lt;span class="nt"&gt;&amp;lt;li&amp;gt;&amp;lt;span&amp;gt;&lt;/span&gt;{{ post.date | date_to_string }}&lt;span class="nt"&gt;&amp;lt;/span&amp;gt;&lt;/span&gt; &lt;span class="ni"&gt;&amp;amp;raquo;&lt;/span&gt; &lt;span class="nt"&gt;&amp;lt;a&lt;/span&gt; &lt;span class="na"&gt;href=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;{{ post.url }}&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;{{ post.title }}&lt;span class="nt"&gt;&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;&lt;/span&gt;
+    {% endfor %}
+  &lt;span class="nt"&gt;&amp;lt;/ul&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now navigate to &lt;a href="http://localhost:4000/"&gt;http://localhost:4000/&lt;/a&gt; in your browser and refresh the page. You'll see the title is different now. &lt;/p&gt;
+&lt;h4&gt;Changing CSS&lt;/h4&gt;
+&lt;p&gt;Now let's say I want every &lt;code&gt;&amp;lt;h1&amp;gt;&lt;/code&gt; tag to be blue. That means changing some css, so I'll head over to &lt;strong&gt;main.css&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;and add one line at the end of the file&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nt"&gt;h1&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="k"&gt;color&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="nb"&gt;blue&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now go back to &lt;a href="http://localhost:4000/"&gt;http://localhost:4000/&lt;/a&gt; and you'll see that Portfolio on the page is now blue!&lt;/p&gt;
+&lt;p&gt;You've now learned basically everything you need to know to run your own static site. 
+- Change the home page by editing &lt;strong&gt;index.html&lt;/strong&gt;
+- Change the styles in &lt;strong&gt;main.css&lt;/strong&gt;
+- Add or edit your "posts" in &lt;strong&gt;_posts&lt;/strong&gt; by creating &lt;a href="http://daringfireball.net/projects/markdown/syntax"&gt;markdown&lt;/a&gt; files.
+- To put this up on github pages check out this &lt;a href="https://help.github.com/articles/using-jekyll-with-pages/"&gt;tutorial&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Typically any questions you have will just be a Google away or &lt;a href="http://jekyllrb.com/docs/usage/"&gt;Check out the jekyll site for great documentation.&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;As a side note, when you're ready to finalize the version of the site that you want to run &lt;code&gt;jekyll build&lt;/code&gt;.&lt;/em&gt;&lt;/p&gt;</summary><category term="Static Sites"></category><category term="Ruby"></category><category term=""></category></entry><entry><title>DataKindSF - Data Analysis for the Greater Good</title><link href="http://www.billchambers.me/DataKindSF_data_for_good.html" rel="alternate"></link><updated>2014-10-08T00:00:00+02:00</updated><author><name>Bill Chambers</name></author><id>tag:www.billchambers.me,2014-10-08:DataKindSF_data_for_good.html</id><summary type="html">&lt;p&gt;DataKindSF just got their start and the reception was incredible. There was a huge turn out of people wanting to contribute by using high impact skills for greater good. I found out about the program through &lt;a href="http://www.meetup.com/DataKind-SF-Bay-Area/"&gt;their meetup&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;What I found particularly interesting about the whole thing was the vast possibilities for improving the ways that non-profits do business. At Procore, I helped guide the direction of our data quality and was a led the large scale reset of our data architecture and this kind of critical thinking could really make a difference for a lot of organizations.&lt;/p&gt;
 &lt;p&gt;Volunteering is typically a low impact activity. It obviously impacts individuals but the possibility to impact others at scale is particularly intriguing!&lt;/p&gt;
 &lt;p&gt;&lt;a href="http://www.datakind.org/getinvolved/"&gt;Sign up on their website&lt;/a&gt;.&lt;/p&gt;</summary><category term="Data Science"></category><category term="Data"></category><category term="Non-Profits"></category></entry><entry><title>WorldCupChatter.com - Graphing Tweets in Real Time</title><link href="http://www.billchambers.me/World_Cup_Chatter.html" rel="alternate"></link><updated>2014-09-15T00:00:00+02:00</updated><author><name>Bill Chambers</name></author><id>tag:www.billchambers.me,2014-09-15:World_Cup_Chatter.html</id><summary type="html">&lt;p&gt;This was my first production experience with Node.js. There Are definitely some really interesting things about JavaScript on the backend that allow you to take advantage of events. That is namely what I tried to do with this project. Learn a little bit more about node.js, about streaming data and analysis, and offloading responsibility to the client.&lt;/p&gt;
