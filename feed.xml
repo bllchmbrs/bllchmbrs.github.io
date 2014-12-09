@@ -8,7 +8,7 @@
 		
 			<item>
 				<title>Getting Started with Apache Spark - Part 1</title>
-				<description>&lt;p&gt;Lately I&amp;#39;ve been playing around with &lt;a href=&quot;https://spark.apache.org/&quot;&gt;Spark&lt;/a&gt; for data processing. It provides some really amazing features like &lt;a href=&quot;https://spark.apache.org/sql/&quot;&gt;MLLib&lt;/a&gt; and &lt;a href=&quot;https://spark.apache.org/sql/&quot;&gt;Spark SQL&lt;/a&gt; and there&amp;#39;s no better way to learn something that to use it. I&amp;#39;ve attended a couple of meet ups about Spark and its related tools including the famous &lt;a href=&quot;http://ampcamp.berkeley.edu/&quot;&gt;ampcamp&lt;/a&gt; put on by the developers of spark and, although I&amp;#39;m not an expert, I thought it would be good to consolidate my knowledge and teach others.&lt;/p&gt;
+				<description>&lt;p&gt;Lately I&amp;#39;ve been playing around with &lt;a href=&quot;https://spark.apache.org/&quot;&gt;Spark&lt;/a&gt; for data processing. It provides some really amazing features like &lt;a href=&quot;https://spark.apache.org/mllib/&quot;&gt;MLLib&lt;/a&gt; and &lt;a href=&quot;https://spark.apache.org/sql/&quot;&gt;Spark SQL&lt;/a&gt; and there&amp;#39;s no better way to learn something that to use it. I&amp;#39;ve attended a couple of meet ups about Spark and its related tools including the famous &lt;a href=&quot;http://ampcamp.berkeley.edu/&quot;&gt;ampcamp&lt;/a&gt; put on by the developers of spark and, although I&amp;#39;m not an expert, I thought it would be good to consolidate my knowledge and teach others.&lt;/p&gt;
 
 &lt;h2&gt;The Problem Spark Solves&lt;/h2&gt;
 
