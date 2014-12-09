@@ -1,0 +1,892 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>The Portfolio &amp; Writings of Bill Chambers</title>
+		<description></description>		
+		<link></link>
+		<atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
+		
+			<item>
+				<title>Getting Started with Apache Spark - Part 1</title>
+				<description>&lt;p&gt;Lately I&amp;#39;ve been playing around with &lt;a href=&quot;https://spark.apache.org/&quot;&gt;Spark&lt;/a&gt; for data processing. It provides some really amazing features like &lt;a href=&quot;https://spark.apache.org/sql/&quot;&gt;MLLib&lt;/a&gt; and &lt;a href=&quot;https://spark.apache.org/sql/&quot;&gt;Spark SQL&lt;/a&gt; and there&amp;#39;s no better way to learn something that to use it. I&amp;#39;ve attended a couple of meet ups about Spark and its related tools including the famous &lt;a href=&quot;http://ampcamp.berkeley.edu/&quot;&gt;ampcamp&lt;/a&gt; put on by the developers of spark and, although I&amp;#39;m not an expert, I thought it would be good to consolidate my knowledge and teach others.&lt;/p&gt;
+
+&lt;h2&gt;The Problem Spark Solves&lt;/h2&gt;
+
+&lt;p&gt;I always like to best understand the problem that is being solved when I approach new tools. To throw some buzzwords around, you&amp;#39;re looking to perform some data science on some big data. More simply, you&amp;#39;ve got a ton of information that you want to understand more about and doing it on your computer would just be too slow. &lt;/p&gt;
+
+&lt;p&gt;Some great examples of data problems that are solved well by a tool like Apache Spark include:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Analyzing Log Data
+
+&lt;ul&gt;
+&lt;li&gt;In order to hunt down a bug happening on a production server(s)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Massive Natural Language Processing
+
+&lt;ul&gt;
+&lt;li&gt;Finally some use for all that twitter data you&amp;#39;ve been downloading...&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Large Scale Recommendation Systems or General Machine Learning Tasks
+
+&lt;ul&gt;
+&lt;li&gt;Recommending products to users or trying to find related groups&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;While this is far from an exhaustive list, it gives a starting point to the problem we&amp;#39;re solving: we&amp;#39;ve got a ton of information and we want to (actionable) extract information from it.&lt;/p&gt;
+
+&lt;h3&gt;Version Information&lt;/h3&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;In this tutorial I&amp;#39;ll be using &lt;a href=&quot;http://d3kbcqa49mib13.cloudfront.net/spark-1.1.1.tgz&quot;&gt;Spark 1.1.1&lt;/a&gt;. I&amp;#39;ll also assume that your on some sort of Unix system.&lt;/p&gt;
+
+&lt;p&gt;It&amp;#39;s important to note that I&amp;#39;ll be focusing on PySpark and you can check out the (&lt;a href=&quot;https://spark.apache.org/docs/latest/api/python/index.html&quot;&gt;documentation&lt;/a&gt;) for the code examples.&lt;/p&gt;
+
+&lt;h3&gt;Download&lt;/h3&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;Go ahead and download &lt;a href=&quot;http://d3kbcqa49mib13.cloudfront.net/spark-1.1.1.tgz&quot;&gt;Spark 1.1.1&lt;/a&gt; right here.&lt;/p&gt;
+
+&lt;p&gt;You can download other versions of &lt;a href=&quot;https://spark.apache.org/downloads.html&quot;&gt;Apache Spark on the site.&lt;/a&gt; &lt;/p&gt;
+
+&lt;h3&gt;The Basics&lt;/h3&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;Once we&amp;#39;ve got Spark downloaded, let&amp;#39;s get started. You&amp;#39;re going to have to build Spark yourself once you&amp;#39;ve downloaded it but as the readme will show you, it&amp;#39;s pretty straight forward. Just run &lt;code&gt;./sbt/sbt assembly&lt;/code&gt; in the root download folder directory. It may take a while to build (took me 15+ minutes from scratch) but just be patient. I&amp;#39;d grab a cup of coffee.&lt;/p&gt;
+
+&lt;p&gt;Once it&amp;#39;s all built, you should be ready to go. Let&amp;#39;s dive right into the &lt;code&gt;PySpark&lt;/code&gt; shell with &lt;code&gt;./bin/pyspark&lt;/code&gt; on the command line.&lt;/p&gt;
+
+&lt;p&gt;You should see some log information then boom you&amp;#39;ll be in the Spark Shell.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;py language-py&quot; data-lang=&quot;py&quot;&gt;&lt;span class=&quot;n&quot;&gt;Welcome&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;to&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;____&lt;/span&gt;              &lt;span class=&quot;n&quot;&gt;__&lt;/span&gt;
+     &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;__&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;__&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;___&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_____&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;__&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;_&lt;/span&gt;\ \&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_&lt;/span&gt; \&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;__&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;  &lt;span class=&quot;s&quot;&gt;&amp;#39;_/&lt;/span&gt;
+   &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;__&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;__&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;\&lt;span class=&quot;n&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;\&lt;span class=&quot;n&quot;&gt;_&lt;/span&gt;\   &lt;span class=&quot;n&quot;&gt;version&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;1.1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+      &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;Using&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Python&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;version&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;2.7&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;default&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Sep&lt;/span&gt;  &lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2014&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mo&quot;&gt;04&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;36&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;SparkContext&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;available&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;On a quick note while I love the regular python shell, I really like the &lt;a href=&quot;http://ipython.org/&quot;&gt;IPython Shell&lt;/a&gt; much better. It&amp;#39;s got tons of handy tools built right in and using IPython with PySpark is super easy. Just close out of that Python Shell and set the IPYTHON environmental variable to 1. Run this in your bash shell.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;sh language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;IPYTHON&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1
+./bin/pyspark
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Now we&amp;#39;re loaded up into a python shell and we can finally get to work! Now the python shell we&amp;#39;re in is the same python shell that you have on your machine. We can import libraries, do math, same &amp;#39;ol stuff.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;py language-py&quot; data-lang=&quot;py&quot;&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;numpy&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;np&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# 2&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# 5&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;There is however, one difference, the &lt;code&gt;sc&lt;/code&gt; variable or SparkContext. You can see this is what was made available when we started up the shell previously.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;py language-py&quot; data-lang=&quot;py&quot;&gt;&lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# pyspark.context.SparkContext&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;This spark context is the source for all of our handy Spark features. &lt;/p&gt;
+
+&lt;p&gt;Let&amp;#39;s go ahead and get started analyzing some data so we can better understand the SparkContext. Let&amp;#39;s start small to understand the concepts. I&amp;#39;ll be using &lt;a href=&quot;https://www.kaggle.com/c/sentiment-analysis-on-movie-reviews&quot;&gt;the Rotten Tomatoes Dataset from Kaggle&lt;/a&gt;. Go ahead and download it and put it in the same Spark download folder on your machine. &lt;/p&gt;
+
+&lt;p&gt;Now, let&amp;#39;s go ahead and open it on up and get things started. We load in data with the &lt;code&gt;sc.textFile(&amp;#39;file/path&amp;#39;)&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;py language-py&quot; data-lang=&quot;py&quot;&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;textFile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;../rotten_tomatoes_train.tsv&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# pyspark.rdd.RDD&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Our dataset is now loaded into spark as an &lt;strong&gt;RDD&lt;/strong&gt; or &lt;strong&gt;Resilient Distributed Dataset&lt;/strong&gt;. This is the fundamental abstraction in Spark and basically it is a representation of a dataset that is distributed through the cluster. &lt;em&gt;Obviously at this point we don&amp;#39;t have a cluster running as we are just on our local machine but the same concepts apply.&lt;/em&gt; &lt;/p&gt;
+
+&lt;p&gt;One of the most important concepts concerning RDDs is that they are immutable. What you&amp;#39;re doing is applying a series of &lt;code&gt;transformations&lt;/code&gt; to data (stored in the RDD) then finally performing an &lt;code&gt;action&lt;/code&gt; in order to get an answer. &lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Just as a note, our columns are tab separated and arranged as follows:&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;PhraseId   SentenceId Phrase Sentiment&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;First let&amp;#39;s get the count, how many items(lines) do we have in our data? This is an example of an &lt;code&gt;action&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;py language-py&quot; data-lang=&quot;py&quot;&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# ...log statements&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# 156061&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;There we get an answer because we&amp;#39;re requesting an &lt;code&gt;action&lt;/code&gt; as opposed to a &lt;code&gt;transformation&lt;/code&gt;. Let&amp;#39;s perform one of those now.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;py language-py&quot; data-lang=&quot;py&quot;&gt;&lt;span class=&quot;n&quot;&gt;negative_reviews&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;0&amp;#39;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\t&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;negative_reviews&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# PythonRDD[14] at RDD at PythonRDD.scala:43&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;negative_reviews&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# &amp;lt;class &amp;#39;pyspark.rdd.PipelinedRDD&amp;#39;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Notice how when we go to print it, it prints out that it is an RDD and that the type is a &lt;code&gt;PipelinedRDD&lt;/code&gt; not a list of values as we might expect. That&amp;#39;s because we haven&amp;#39;t performed an &lt;code&gt;action&lt;/code&gt; yet, we&amp;#39;ve only performed a &lt;code&gt;transformation&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;As a side note, we could write the above code this way as well.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;py language-py&quot; data-lang=&quot;py&quot;&gt;&lt;span class=&quot;n&quot;&gt;negative_reviews&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; \
+                    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\t&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; \
+                    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;0&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;You&amp;#39;ll notice that when we run &lt;code&gt;transformation&lt;/code&gt; commands, nothing gets printed out. That&amp;#39;s because Spark commands are &lt;strong&gt;lazily evaluated&lt;/strong&gt;. We set up a &lt;code&gt;transformation&lt;/code&gt; from RDD to RDD to prepare to run an &lt;code&gt;action&lt;/code&gt; to get back results.&lt;/p&gt;
+
+&lt;p&gt;Here are some examples of other &lt;code&gt;actions&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;py language-py&quot; data-lang=&quot;py&quot;&gt;&lt;span class=&quot;n&quot;&gt;negative_reviews&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# 7072&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;negative_reviews&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;first&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# [u&amp;#39;102&amp;#39;, u&amp;#39;3&amp;#39;, u&amp;#39;would have a hard time sitting through this one&amp;#39;, u&amp;#39;0&amp;#39;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Now that we&amp;#39;ve got a better idea about how Spark works and executes commands through &lt;code&gt;transformations&lt;/code&gt; and &lt;code&gt;actions&lt;/code&gt; let&amp;#39;s write ourselves a little MapReduce job to figure out what words show up most commonly in the negative reviews.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;py language-py&quot; data-lang=&quot;py&quot;&gt;&lt;span class=&quot;n&quot;&gt;word_counts&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;negative_reviews&lt;/span&gt; \
+                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flatMap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt; \
+                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;word&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;word&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; \
+                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;reduceByKey&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;What we&amp;#39;re doing above is getting the word counts. We do that by tokenizing the review text in a &lt;code&gt;flatMap&lt;/code&gt; which basically just makes it into one big giant list of words. Then we map each word to 1 and &lt;code&gt;reduceByKey&lt;/code&gt; which parallelizes our reduce operation to each key in our data set.&lt;/p&gt;
+
+&lt;p&gt;The above code is equivalent to:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;py language-py&quot; data-lang=&quot;py&quot;&gt;&lt;span class=&quot;n&quot;&gt;word_counts&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;negative_reviews&lt;/span&gt; \
+                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flatMap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt; \
+                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;word&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;word&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; \
+                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;groupByKey&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; \
+                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])))&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# basically the value and the generator&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Now let&amp;#39;s get the most common word we can find in the reviews.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;py language-py&quot; data-lang=&quot;py&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;most_common&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;comp1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;comp2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;word1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;count1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;comp1&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;word2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;count2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;comp2&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;count1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;count2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;word1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;count1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;word2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;count2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;most_common_word&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;word_counts&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;reduce&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;most_common&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;most_common_word&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# (u&amp;#39;,&amp;#39;, 3722)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Knowing that it is a comma isn&amp;#39;t too useful, let&amp;#39;s try it without punctuation, which means rewriting our map function.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;py language-py&quot; data-lang=&quot;py&quot;&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;string&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;clean_words&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;word&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;word&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;punctuation&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;word&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;word&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;word_counts&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;negative_reviews&lt;/span&gt; \
+                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flatMap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt; \
+                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;clean_words&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; \
+                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;reduceByKey&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;most_common_word&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;word_counts&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;reduce&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;most_common&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;most_common_word&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# (u&amp;#39;the&amp;#39;, 3070)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Now that&amp;#39;s not particularly useful either so let&amp;#39;s try getting just the top 5. We&amp;#39;ll keep using the word_counts that excludes punctuation.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;py language-py&quot; data-lang=&quot;py&quot;&gt;&lt;span class=&quot;n&quot;&gt;word_counts&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sortBy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;take&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# (u&amp;#39;the&amp;#39;, 3070), (u&amp;#39;a&amp;#39;, 2572), (u&amp;#39;and&amp;#39;, 2507), (u&amp;#39;of&amp;#39;, 2236), (u&amp;#39;to&amp;#39;, 1880)]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Note how we had to multiply it by negative one in order to sort it least to greatest.&lt;/p&gt;
+
+&lt;p&gt;Finally now that we&amp;#39;ve performed some analysis. We might want to store those &lt;code&gt;word_counts&lt;/code&gt; for some later use. Speaking of which, it&amp;#39;d also be valuable to store the &lt;code&gt;negative_reviews&lt;/code&gt; too. It&amp;#39;s helpful to imagine this being a much larger dataset as this is a trivial example but let&amp;#39;s go ahead and save it.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;py language-py&quot; data-lang=&quot;py&quot;&gt;&lt;span class=&quot;n&quot;&gt;negative_reviews&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;saveAsTextFile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;negative_reviews&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;word_counts&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;saveAsSequenceFile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;word_counts_negative_reviews&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Note that negative reviews is saved as a Hadoop text file while word counts is saved as a sequence file. Because these datasets are typically large, we have to save them as these distributed data files. Here&amp;#39;s a list of some of the ways you can save these files.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;py language-py&quot; data-lang=&quot;py&quot;&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;saveAsHadoopDataset&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;saveAsNewAPIHadoopFile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;saveAsTextFile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;saveAsHadoopFile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;saveAsPickleFile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;saveAsNewAPIHadoopDataset&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;saveAsSequenceFile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Those are the basics for how to analyze data in Spark. In some later posts I&amp;#39;ll be going over how to analyze larger sets of data. Going over how to run MapReduce jobs on Spark, using SparkSQL and more.&lt;/p&gt;
+</description>
+				<pubDate>Sat, 06 Dec 2014 00:00:00 -0800</pubDate>
+				<link>/tutorials/2014/12/06/getting-started-with-apache-spark.html</link>
+				<guid isPermaLink="true">/tutorials/2014/12/06/getting-started-with-apache-spark.html</guid>
+			</item>
+		
+			<item>
+				<title>The Future of Privacy</title>
+				<description>&lt;p&gt;Contemporary notions of privacy are complex and it is common to hear commentators calling the current state of privacy, or lack thereof, unprecedented. I would challenge the notion of an unprecedented violations of privacy on the basis of historical relativity. In absolute terms there is little question that the world we live in challenges any notions of privacy that have ever existed. However in relative terms, from a certain level of privacy to another, the rise of newspapers and the telegraph are interesting to compare to the modern era. In this paper I will revisit several key cultural and legal landmarks that have guided us to our current construct of privacy and look at future privacy implications of technologies like Amazon Echo and services like Facebook.&lt;/p&gt;
+
+&lt;p&gt;The United States definition of humans as beings imbued with inalienable rights is something not found (to such an extreme) in other parts of the world. over the last several hundred years, culturally we have come to believe that privacy is one of these rights when in fact there is no mention of it in the Constitution. Two Amendments are the core foundations to privacy. Amendment IV states that &amp;quot;The right of the people to be secure in their persons, houses, papers, and effects, against unreasonable searches and seizures, shall not be violated, and no Warrants shall issue, but upon probable cause, supported by Oath or affirmation, and particularly describing the place to be searched, and the persons or things to be seized.&amp;quot; Amendment V builds on this, &amp;quot;no person shall be... deprived of life, liberty, or property, without due process of law.&amp;quot; It is important to note that these definitions refer to physical property or land. There is no mention of a person&amp;#39;s right to privacy, to their own information or to be left alone.&lt;/p&gt;
+
+&lt;p&gt;In reality these documents only hold small hints of our modern notions of privacy, however they get built upon over the following hundreds of years as the increasing capabilities of technology force their creating generations to redefine property, life, and personal freedom. While some might fault the Founding Fathers for not being explicit about rights of personal information and defining personal privacy, the values they instilled in the Constitution were a reflection of the technologies of the time. All citizens had a reasonable expectation of privacy because violating privacy meant violating physical space and distributing that information requires significant resources. Privacy was an implicit right and need not be put in the Constitution. In more structured terms, privacy was always been an implicit right due to three specific factors:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;It was logistically impossible to follow all citizens around all the time. Technology never existed to allow for the routine and consistent surveillance of individuals all the time.&lt;/li&gt;
+&lt;li&gt;It has been difficult to invade someone’s privacy without physically access a location you were not supposed to access. It was impossible get something out of someone&amp;#39;s house without physically going into their house.&lt;/li&gt;
+&lt;li&gt;When information was acquired it was often difficult to store this information or feed it to interested parties. Collecting and transferring information quickly has been a challenge without technology.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Thus privacy has always been an implicit right, not guaranteed by a document like the Constitution but guaranteed by physical limitations. Privacy had never been an explicit right because of the difficulties in collecting, storing, and transferring information. These limitations all evolve out of one core limitation: the physicality of information. At the writing of the constitution, information that could be transferred to another party was either verbal, requiring direct human to human contact, or written, requiring people to carry it from location to location.&lt;/p&gt;
+
+&lt;p&gt;Moves towards defining a right to privacy came in the mid to late 1800&amp;#39;s with the spread of newspapers. With the explosion of railroads, telegraphs, and newspapers, information became increasingly valuable. However because its new value people wanted more of it and got it more quickly. Technology completely reshaped the way information is shared. For the first time in history, information could travel faster than a human, without a human carrying some sort of message. Due to technological advancements like the telegraph, information became orders of magnitude more valuable than it had been previously. This spurred the publishing of one of the first documents to truly describe a fundamental part of our modern conception of privacy - The Right To Privacy by Samuel Warren and Louis D. Brandeis.&lt;/p&gt;
+
+&lt;p&gt;This document crystallizes the seed of our modern conception of property and privacy. In the century since Independence, privacy has become something that people expect and that needs protection. They state that a right to not be deprived of life, ergo a right to life, &amp;quot;has come to mean the right to enjoy life--the right to be let alone&amp;quot;. More importantly, they state that &amp;quot;the term &amp;#39;property&amp;#39; has grown to compromise every form of possession-- intangible, as well as tangible.&amp;quot; One&amp;#39;s &amp;quot;things&amp;quot; are no longer limited to physical objects but include intangible resources like thoughts and relationships. While these seem obvious in contemporary understandings of day to day life, in the historical context of this document, these are powerful statements.&lt;/p&gt;
+
+&lt;p&gt;At this point in history, newspapers and mass publishing were in full swing and technologies like railroads and telegraphs have helped mold a more information focused culture. These factors, along with the ability of information to travel quickly, are important because they challenge two aspects of the three implicit enforcements of privacy I enumerated above, specifically points (2) and (3). Firstly, invading someone&amp;#39;s property no longer means invading their personal space. Because the population began to desire more information and newspapers began to hunt for more and more stories, it became natural to begin reporting on the lives of other human beings - not just events. Secondly, newspapers and telegraphs enable the rapid dissemination of information, so that distributing more stories about more things more of the time is feasible.&lt;/p&gt;
+
+&lt;p&gt;The technology and population begin to mold one another. It’s easy to share information, so people want to more because they can digest the information that is shared quickly. The information travels quickly and people begin to expect that something must always be happening. Because of the technology, the population’s desire feeds back into the system. A flywheel has been created.Information travels faster so more people get access to information, because of this expectation the population begins to want more information.&lt;/p&gt;
+
+&lt;p&gt;This flywheel, in many respects, introduces the concept of near real time information virality. However rapid information dissemination and an increase in the generation of information begs the question, if free speech is guaranteed by the Constitution, why can&amp;#39;t any and all information be published? Our modern concepts of privacy, and the associated right to be left alone, seems contradictory to that of free speech. This contradiction continues however we resolve it by digging deeper into The Right to Privacy and its references.&lt;/p&gt;
+
+&lt;p&gt;In Millar v Taylor it is stated that &amp;quot;it is certain every man has a right to keep his own sentiments, if he pleases. He has certainly a right to judge whether he will make them public, or commit them only to the sight of his friends.&amp;quot; This historic case is referenced by Samuel Warren and Louis Brandeis who build on its foundation. They find that no matter the means of expression, &amp;quot;no other has the right to publish his productions in any form, without his consent&amp;quot; and the right is only lost when the author himself communicates his production to the public -- in other words, publishes it. Finally, and most importantly, &amp;quot;the common-law right is lost &lt;em&gt;as soon as&lt;/em&gt; there is a publication.&amp;quot;&lt;/p&gt;
+
+&lt;p&gt;We have now uncovered their understanding of what privacy means. Publishing someone&amp;#39;s personal journal violates someone&amp;#39;s right to be left alone unless they have explicitly published it themselves. In this lies one of the greatest contrasts between the writing of the Constitution, the Right to Privacy and our contemporary early 21st Century understanding of privacy. Publishing in 1890 means something far different than publishing in today&amp;#39;s world and required much more effort and deliberate action on behalf of the owner of the material.&lt;/p&gt;
+
+&lt;p&gt;While the above document laid the foundation for the cultural construction of privacy, the rulings of Katz v United States and Smith v Maryland the United States define privacy in legal senses. In Katz v United States a person&amp;#39;s reasonable expectation of privacy is defined more specifically and the ideals declared in &amp;quot;The Right To Privacy&amp;quot; are help. The case was decided by stating that &amp;quot;the Fourth Amendment governs not only the seizure of tangible items, but extends as well to the recording of oral statements.&amp;quot; At this point there becomes a more strict legal framework for what defines a privacy and whether or not that includes information.
+The waters muddy when we visit Smith v Maryland which defines what a &amp;quot;search&amp;quot; is within the Fourth Amendment. This is a particularly important case because it sets precedence in the telecommunications industry, of particular relevant today. The ruling states that looking at telecommunications information is not a &amp;quot;search&amp;quot;, with this verdict resting upon several keys facts. Firstly, that using a public telephone cannot possibly be private because users in general understand that the phone numbers must be conveyed to the company for completion. Simply, the information is being recorded and therefore the user cannot possibly have some expectation of privacy.&lt;/p&gt;
+
+&lt;p&gt;Most importantly, even if the user did have some subjective expectation of privacy, this is not one that society finds reasonable. By dialing the phone number, that information is exposed to the phone company&amp;#39;s equipment and therefore could be revealed by the company. The verdict in this case cannot be misunderstood or misconstrued it sets a powerful legal precedence that is used in the modern context to an extreme. Legally speaking when one channels information through a service provider, all rights to privacy concerning that information. That information, in the legal sense, is published. While this may have seemed legitimate decades ago, the modern reality throws this notion completely out the window.&lt;/p&gt;
+
+&lt;p&gt;This ruling came at a time when we did not carry our lives in our pockets or on our computers. How can one ever expect reasonable privacy when we send all of our information to service providers like Facebook or Amazon?  The implications of these legal concepts are astounding. As citizens, our information does not belong to us simply because we use these services. Even if we aren’t interacting with them directly, these fundamental underlying platforms are involved in nearly every application that has any utility. In all seriousness, these legal decisions completely ignore the technological realities of the current time.&lt;/p&gt;
+
+&lt;p&gt;Does having a microphone in my computer or on my phone mean that I can never reasonably expect to have a private conversation simply because there&amp;#39;s a device that can record what it is that I am saying? Beyond that, because of the presence of a telephone in my presence, research by Doug Tygar of UC Berkeley shows that with a microphone up to 96% of keystrokes on a keyboard can be identified and recovered. Creativity is the only limit by which one can figure out ways that our personal space and privacy can be invaded.&lt;/p&gt;
+
+&lt;p&gt;However our challenges are not unprecedented. The rise of newspapers and telegraphs all saw technology completely uproot the legal and cultural frameworks with respect to privacy. Just as the Right to Privacy was published as a reaction to the technological underpinnings brought before our country over a century ago, I believe that soon, due to technology helping to mold our understandings of privacy and information, that our generation too will create a legal framework to help protect the information we channel through third parties.&lt;/p&gt;
+</description>
+				<pubDate>Fri, 05 Dec 2014 00:00:00 -0800</pubDate>
+				<link>/essays/2014/12/05/the-future-of-privacy.html</link>
+				<guid isPermaLink="true">/essays/2014/12/05/the-future-of-privacy.html</guid>
+			</item>
+		
+			<item>
+				<title>Deploying PostgreSQL for the California Civic Data Coalition&#39;s Django Project</title>
+				<description>&lt;p&gt;First, I&amp;#39;d like to introduce the &lt;a href=&quot;http://www.californiacivicdata.org/&quot;&gt;California Civic Data Coalition&lt;/a&gt;. They are self described as a loosely coupled team from the Los Angeles Times Data Desk, The Center for Investigative Reporting and Stanford&amp;#39;s Computational Journalism Lab. &lt;/p&gt;
+
+&lt;p&gt;I am not a part of the Los Angeles Times nor Stanford&amp;#39;s computation Journalism Lab. However &lt;strong&gt;I am passionate about open data and leveraging my skills to help others.&lt;/strong&gt; So I decided to start contributing. I started off with a rather small change then decided to sink my teeth into PostgreSQL support.&lt;/p&gt;
+
+&lt;p&gt;As a final thought I would encourage anyone and everyone to contribute to open data projects. I learned a lot setting up this feature and there is a lot of room for further contributions.&lt;/p&gt;
+
+&lt;p&gt;The aim of this document is to be a reference for others that may be challenged by similar feature development. I&amp;#39;ll be covering some of the minute differences between MySQL and PostgreSQL and how I managed those differences. The project is written in Python and Django and started with only MySQL support.&lt;/p&gt;
+
+&lt;p&gt;Typically &lt;a href=&quot;https://www.djangoproject.com/&quot;&gt;Django&lt;/a&gt; has a pretty strong background for supporting multiple databases so I figured that supporting one or another would be trivial, especially coming from MySQL. I was wrong.&lt;/p&gt;
+
+&lt;p&gt;What you&amp;#39;ll find below is a fairly detailed log of the changes that I made and why I wrote the code that I wrote. &lt;a href=&quot;https://github.com/california-civic-data-coalition/django-calaccess-raw-data/blob/master/calaccess_raw/management/commands/loadcalaccessrawfile.py&quot;&gt;Feel free to take a look at the code.&lt;/a&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;We load our data using some fairly sophisticated Django management commands. Using MySQL&amp;#39;s &lt;a href=&quot;http://dev.mysql.com/doc/refman/5.1/en/load-data.html&quot;&gt;&lt;code&gt;INFILE&lt;/code&gt;&lt;/a&gt; support we bulk insert each file (while rearranging, cleaning, and renaming columns on the fly). Now PostgreSQL doesn&amp;#39;t support &lt;code&gt;INFILE&lt;/code&gt; loading but they&amp;#39;ve got a derivative: &lt;a href=&quot;http://www.postgresql.org/docs/9.2/static/sql-copy.html&quot;&gt;&lt;code&gt;COPY&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Here&amp;#39;s an example of a MySQL LOAD DATA INFO commandatabase&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;sql language-sql&quot; data-lang=&quot;sql&quot;&gt;&lt;span class=&quot;k&quot;&gt;LOAD&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;DATA&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;LOCAL&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;INFILE&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;&amp;lt;file name&amp;gt;&amp;#39;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;INTO&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;TABLE&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;table&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;var1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;SET&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Date&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;str_to_date&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SUBSTR&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;var1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;%m/%d/%Y&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; 
+&lt;span class=&quot;n&quot;&gt;Time&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SUBSTR&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;var1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;14&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; 
+&lt;span class=&quot;n&quot;&gt;WindVelocity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SUBSTR&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;var1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;26&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;WindDirection&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SUBSTR&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;var1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;33&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;WindCompass&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SUBSTR&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;var1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;38&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;WindNorth&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SUBSTR&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;var1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;43&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;WindEast&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SUBSTR&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;var1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;51&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;WindSamples&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SUBSTR&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;var1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;61&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;It&amp;#39;s important to note all the &lt;code&gt;@var&lt;/code&gt; fanciness. That&amp;#39;s what makes this so easy(ish).&lt;/p&gt;
+
+&lt;p&gt;The problem is that &lt;code&gt;COPY&lt;/code&gt; in Postgres, from my interpretation, is meant for unloading to a text file then loading it back in without really performing any modifications. It doesn&amp;#39;t have any of the dexterity shown above. Here&amp;#39;s an example of a &lt;a href=&quot;http://www.postgresql.org/docs/9.2/static/sql-copy.html&quot;&gt;&lt;code&gt;COPY&lt;/code&gt;&lt;/a&gt; command.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;sql language-sql&quot; data-lang=&quot;sql&quot;&gt;&lt;span class=&quot;k&quot;&gt;COPY&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;country&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;/usr1/proj/bray/sql/country_data&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Obviously, we&amp;#39;re not just unloading data and loading it back in. We are transforming dates and substrings, not to mention we are moving data from a completely different system into Postgres. That&amp;#39;s where things get tricky. I can&amp;#39;t format data on the fly and renaming columns isn&amp;#39;t going to work with the support &lt;code&gt;COPY&lt;/code&gt; has. I don&amp;#39;t have nearly as many tools as MySQL does.&lt;/p&gt;
+
+&lt;h3&gt;First Attempt: Clean before Insert&lt;/h3&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;So I figured I could write some little &lt;a href=&quot;https://www.python.org/&quot;&gt;python&lt;/a&gt; script to clean the the data before inputting it. The problem is some of the files are huge (&amp;gt; 1gb) so I could not do it with anything resembling speed. This attempt failed miserably, it was just too slow.&lt;/p&gt;
+
+&lt;h3&gt;Second Attempt: A Temporary Table&lt;/h3&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;Here&amp;#39;s the process from a 10,000 foot view.&lt;/p&gt;
+
+&lt;p&gt;I create an empty table and insert all CSV data into that table. I then, through &lt;code&gt;INSERT INTO&lt;/code&gt; and &lt;code&gt;SELECT&lt;/code&gt; statements move that data from the temporary table into its true table. In this process I end up having to deal with a lot of unique cases not limited to integer fields being &amp;quot;Y/N&amp;quot;, dates formatted in strange and inconsistent ways, and null constraints that are violated by the insert. These are all detailed in the methods like the one below.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;py language-py&quot; data-lang=&quot;py&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;_make_XXXXXXX_case&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_col&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;....&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;I construct the insert and select statements on the fly as there are issues with column ordering, then attempt to insert - returning the errors with detailed reasoning. &lt;/p&gt;
+
+&lt;p&gt;Here&amp;#39;s how I got there.&lt;/p&gt;
+
+&lt;p&gt;I had to use some special case statements in postgres to be able to coerce these types when taking them from the temporary table to our new table.&lt;/p&gt;
+
+&lt;p&gt;The second catch was a bit more nuanced. Basically for certain tables, we add certain fields (in Django). I&amp;#39;m not quite sure &lt;em&gt;why&lt;/em&gt; these fields have been added but they have. Unfortunately we can&amp;#39;t just ignore them because Null is not set the True in the model.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;py language-py&quot; data-lang=&quot;py&quot;&gt;    &lt;span class=&quot;n&quot;&gt;intr_adr1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CharField&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;max_length&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;il&quot;&gt;55L&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;db_column&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;INTR_ADR1&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;blank&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;So we have to manage that explicit case as well.&lt;/p&gt;
+
+&lt;p&gt;The third catch was boolean fields. In the remote database, these fields are stored as &amp;quot;Y&amp;quot;/&amp;quot;N&amp;quot;. Now this shouldn&amp;#39;t cause a problem however we insert them as integers in our database. This isn&amp;#39;t really covered in the documentation so I was just getting errors where my inserts would fail.&lt;/p&gt;
+
+&lt;p&gt;Snooping around in my models showed me this code.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;py language-py&quot; data-lang=&quot;py&quot;&gt;    &lt;span class=&quot;n&quot;&gt;accept_limit_yn&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;IntegerField&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;db_column&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;ACCEPT_LIMIT_YN&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;blank&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;That&amp;#39;s clearly meant to be a yes/no(read:boolean) field. So I had to modify my case statements to handle that. This is an example of accidental complexity - using the correct field type in our model could have allowed for a more graceful management of this information but instead we&amp;#39;re adding another case statement to this in the database.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;sql language-sql&quot; data-lang=&quot;sql&quot;&gt;        &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;CASE&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;WHEN&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;&amp;quot;ACCEPT_LIMIT_YN&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;&amp;#39;&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;THEN&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;NULL&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;WHEN&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;&amp;quot;ACCEPT_LIMIT_YN&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;Y&amp;#39;&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;THEN&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;WHEN&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;&amp;quot;ACCEPT_LIMIT_YN&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;N&amp;#39;&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;THEN&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;WHEN&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;&amp;quot;ACCEPT_LIMIT_YN&amp;quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;IS&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;NOT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;NULL&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;THEN&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;&amp;quot;ACCEPT_LIMIT_YN&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;END&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;&amp;quot;ACCEPT_LIMIT_YN&amp;quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The fourth issue was an interesting one, here&amp;#39;s the select code we were using to transfer into the true table.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;sql language-sql&quot; data-lang=&quot;sql&quot;&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;&amp;quot;&amp;quot;&lt;/span&gt;
+
+        &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;CASE&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;WHEN&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;&amp;quot;FILING_ID&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;&amp;#39;&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;THEN&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;NULL&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;WHEN&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;&amp;quot;FILING_ID&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;Y&amp;#39;&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;THEN&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;WHEN&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;&amp;quot;FILING_ID&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;N&amp;#39;&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;THEN&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;WHEN&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;&amp;quot;FILING_ID&amp;quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;IS&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;NOT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;NULL&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;THEN&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;&amp;quot;FILING_ID&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;END&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;&amp;quot;FILING_ID&amp;quot;&lt;/span&gt;
+
+        &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;CASE&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;WHEN&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;&amp;quot;FILING_TYPE&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;&amp;#39;&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;THEN&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;NULL&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;WHEN&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;&amp;quot;FILING_TYPE&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;Y&amp;#39;&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;THEN&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;WHEN&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;&amp;quot;FILING_TYPE&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;N&amp;#39;&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;THEN&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;WHEN&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;&amp;quot;FILING_TYPE&amp;quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;IS&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;NOT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;NULL&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;THEN&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;&amp;quot;FILING_TYPE&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;END&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;&amp;quot;FILING_TYPE&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temporary_table&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Now &lt;code&gt;SELECT &amp;quot;&amp;quot;&lt;/code&gt; obviously isn&amp;#39;t going to work. What was happening is that the columns in that model were getting modified with the case statements. We have to add a dummy column to the temporary table and the new table, then remove it after the successful or unsuccessful insert.&lt;/p&gt;
+
+&lt;p&gt;When I got to this stage, I started getting some strange errors. MySQL using &lt;code&gt;LOAD DATA&lt;/code&gt; seems to automatically truncate fields if they are too long. This made things complicated for me because PostgreSQL does no such thing with &lt;code&gt;COPY&lt;/code&gt;. I had to find which fields were causing the issues and resolve them.&lt;/p&gt;
+
+&lt;p&gt;When I would &lt;code&gt;grep&lt;/code&gt; certain files I&amp;#39;d see that there were plenty of fields causing issues. This is a great example (more can be seen in the &lt;a href=&quot;https://github.com/california-civic-data-coalition/django-calaccess-raw-data/issues/68&quot;&gt;Github issue&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;The python code:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;py language-py&quot; data-lang=&quot;py&quot;&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;FilernameCd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CalAccessBaseModel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;DATE_FIELDS&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;EFFECT_DT&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;xref_filer_id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CharField&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;max_length&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;il&quot;&gt;7L&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;db_column&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;XREF_FILER_ID&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;db_index&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;help_text&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;The external filer id saved in the forms tables&amp;quot;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The relevant file:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;sh language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;head -1 filername_cd.csv
+&lt;span class=&quot;s2&quot;&gt;&amp;quot;XREF_FILER_ID&amp;quot;&lt;/span&gt;,&lt;span class=&quot;s2&quot;&gt;&amp;quot;FILER_ID&amp;quot;&lt;/span&gt;,&lt;span class=&quot;s2&quot;&gt;&amp;quot;FILER_TYPE&amp;quot;&lt;/span&gt;,&lt;span class=&quot;s2&quot;&gt;&amp;quot;STATUS&amp;quot;&lt;/span&gt;,&lt;span class=&quot;s2&quot;&gt;&amp;quot;EFFECT_DT&amp;quot;&lt;/span&gt;,&lt;span class=&quot;s2&quot;&gt;&amp;quot;NAML&amp;quot;&lt;/span&gt;,&lt;span class=&quot;s2&quot;&gt;&amp;quot;NAMF&amp;quot;&lt;/span&gt;,&lt;span class=&quot;s2&quot;&gt;&amp;quot;NAMT&amp;quot;&lt;/span&gt;,&lt;span class=&quot;s2&quot;&gt;&amp;quot;NAMS&amp;quot;&lt;/span&gt;,&lt;span class=&quot;s2&quot;&gt;&amp;quot;ADR1&amp;quot;&lt;/span&gt;,&lt;span class=&quot;s2&quot;&gt;&amp;quot;ADR2&amp;quot;&lt;/span&gt;,&lt;span class=&quot;s2&quot;&gt;&amp;quot;CITY&amp;quot;&lt;/span&gt;,&lt;span class=&quot;s2&quot;&gt;&amp;quot;ST&amp;quot;&lt;/span&gt;,&lt;span class=&quot;s2&quot;&gt;&amp;quot;ZIP4&amp;quot;&lt;/span&gt;,&lt;span class=&quot;s2&quot;&gt;&amp;quot;PHON&amp;quot;&lt;/span&gt;,&lt;span class=&quot;s2&quot;&gt;&amp;quot;FAX&amp;quot;&lt;/span&gt;,&lt;span class=&quot;s2&quot;&gt;&amp;quot;EMAIL&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;grep -E &lt;span class=&quot;s2&quot;&gt;&amp;quot;R98\*-\d+&amp;quot;&lt;/span&gt; filername_cd.csv | wc -l
+     609
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The grep data:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;sh language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;XREF_FILER_ID&amp;quot;&lt;/span&gt;,....
+&lt;span class=&quot;s2&quot;&gt;&amp;quot;R98*-185420615&amp;quot;&lt;/span&gt;,....
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Finally the same data in the MySQL database:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;sql language-sql&quot; data-lang=&quot;sql&quot;&gt;&lt;span class=&quot;n&quot;&gt;mysql&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;XREF_FILER_ID&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;FILERNAME_CD&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;where&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;XREF_FILER_ID&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;like&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;R98*-18%&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;---------------+&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;XREF_FILER_ID&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;---------------+&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;R98&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;18&lt;/span&gt;       &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;R98&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;18&lt;/span&gt;       &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;R98&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;18&lt;/span&gt;       &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;....&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;---------------+&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;29&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rows&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;00&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;We can see there the data is getting truncated. It&amp;#39;s unfortunate there was no warning that it was but I think that&amp;#39;s still a response to how PostgreSQL and MySQL respond to data inserts.&lt;/p&gt;
+
+&lt;p&gt;So I&amp;#39;m running some of my final tests, end-to-end and I stumble upon another issue: incorrect data (or data definitions).&lt;/p&gt;
+
+&lt;p&gt;Here&amp;#39;s where the issue was occuring:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;sh language-sh&quot; data-lang=&quot;sh&quot;&gt; Loading CvrRegistrationCd
+dataerror error,  invalid input syntax &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;integer: &lt;span class=&quot;s2&quot;&gt;&amp;quot;01/0&amp;quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;py language-py&quot; data-lang=&quot;py&quot;&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CvrRegistrationCd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CalAccessBaseModel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;ls_beg_yr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;IntegerField&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;db_column&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;LS_BEG_YR&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;blank&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;ls_end_yr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;IntegerField&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;db_column&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;LS_END_YR&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;sh language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;head -1 cvr_registration_cd.csv
+&lt;span class=&quot;s2&quot;&gt;&amp;quot;FILING_ID&amp;quot;&lt;/span&gt;...&lt;span class=&quot;s2&quot;&gt;&amp;quot;RPT_DATE&amp;quot;&lt;/span&gt;,&lt;span class=&quot;s2&quot;&gt;&amp;quot;LS_BEG_YR&amp;quot;&lt;/span&gt;,&lt;span class=&quot;s2&quot;&gt;&amp;quot;LS_END_YR&amp;quot;&lt;/span&gt;....
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;grep &lt;span class=&quot;s2&quot;&gt;&amp;quot;01/0&amp;quot;&lt;/span&gt; cvr_registration_cd.csv
+&lt;span class=&quot;s2&quot;&gt;&amp;quot;938431&amp;quot;&lt;/span&gt;...&lt;span class=&quot;s2&quot;&gt;&amp;quot;6/7/2003 12:00:00 AM&amp;quot;&lt;/span&gt;,&lt;span class=&quot;s2&quot;&gt;&amp;quot;01/0&amp;quot;&lt;/span&gt;,&lt;span class=&quot;s2&quot;&gt;&amp;quot;12/3&amp;quot;&lt;/span&gt;...
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;It&amp;#39;s one line in the file where the files should be integers but are instead &lt;strong&gt;&amp;quot;01/0&amp;quot;,&amp;quot;12/3&amp;quot;&lt;/strong&gt;. That had to be handled explicitly too.&lt;/p&gt;
+
+&lt;h3&gt;Conclusions&lt;/h3&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;All this logic took a serious amount of time to be able to complete in an appropriate way. Handling these edge cases is an important thing to do and when you&amp;#39;re doing it in a system that will be used by a lot of others you have to be confident in what you&amp;#39;re doing. &lt;/p&gt;
+
+&lt;p&gt;I hope others come and contribute to this project, it&amp;#39;s been really rewarding to work on.&lt;/p&gt;
+</description>
+				<pubDate>Tue, 25 Nov 2014 00:00:00 -0800</pubDate>
+				<link>/projects/2014/11/25/civic-data-postgresql-support.html</link>
+				<guid isPermaLink="true">/projects/2014/11/25/civic-data-postgresql-support.html</guid>
+			</item>
+		
+			<item>
+				<title>A Gentle Introduction to Static Site Generators</title>
+				<description>&lt;p&gt;This document will be a simple introduction to static site generators. We&amp;#39;ll go over the basics of what they are, why you should use them, which one you should use and finally how to get started.&lt;/p&gt;
+
+&lt;p&gt;The intended audiences for this tutorial are designers or novice developers with little to no programming experience but with some HTML/CSS skill, simple command line experience. This document was originally written for a presentation I did for a portfolio class at the UC Berkeley School of Information. &lt;a href=&quot;https://docs.google.com/a/berkeley.edu/presentation/d/1vnIX6JzYBaHuWY914bSjlNvUoSg7-AB-LEJXM4NsCsI/edit?usp=sharing&quot;&gt;You can see the presentation I made here&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strike&gt;I&amp;#39;m using one on this website called &lt;a href=&quot;http://docs.getpelican.com/en/3.5.0/&quot;&gt;Pelican&lt;/a&gt;&lt;/strike&gt; but there are &lt;a href=&quot;https://staticsitegenerators.net/&quot;&gt;many different kinds&lt;/a&gt;. Feel free to send me an email with any questions and I can recommend the best one for you.
+&lt;em&gt;When I wrote this tutorial I saw how much more enjoyable it was to use jekyll, so I made the switch myself.&lt;/em&gt;&lt;/p&gt;
+
+&lt;h3&gt;What is a static site generator?&lt;/h3&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;Simply a static site generator generates a static site. You give it a simple format of documents of a certain type and it converts those into HTML content for you. This makes it easy to maintain any changes you make to the underlying pages.&lt;/p&gt;
+
+&lt;h3&gt;What problem does it solve?&lt;/h3&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;You want a website or portfolio. You want to continue to add to it overtime and be able to make changes to my template and have those go to every single page of my website.&lt;/p&gt;
+
+&lt;p&gt;If you just have raw html pages, changing details on every page is a nightmare. If you want to change something like the layout, I&amp;#39;d have to copy and paste my content into every single one. You could use a web framework like Ruby on Rails or Django but then you have to deal with hosting and all the associated overhead and knowledge those things require. Additionally those require full fledged web servers (if you don&amp;#39;t know what this is don&amp;#39;t worry about it). You can &lt;a href=&quot;https://pages.github.com/&quot;&gt;serve static sites for free.&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Static site generators abstract the compilation of templates and source writing of documents. Instead of having that done on the server, it does it on your local machine and allows you to take that static site and put it elsewhere.&lt;/p&gt;
+
+&lt;p&gt;In simplest terms it takes a template of structure and layout and inserts the content you write in other formats into that template.&lt;/p&gt;
+
+&lt;p&gt;I think the working example is easiest to understand.&lt;/p&gt;
+
+&lt;p&gt;So you&amp;#39;ve got a directory like this: (this is just writing)&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;- Articles (the folder)
+    - my_article_about_stuff.md
+    - My_other_article_about stuff.md
+    - ux_review.md
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The static site generator generates a folder structure like this: (that you can put on a web server)&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;- about.html
+- home.html
+- articles
+    - my_article_about_stuff.html
+    - My_other_article_about stuff.html
+    - ux_review.html
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;That would give you a website like this: (that goes on the internet)&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;mywebsite.com/about.html
+mywebsite.com/home.html
+mywebsite.com/articles/my_article_about_stuff.html
+...
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;how does one get started?&lt;/h3&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;&lt;strong&gt;THIS TUTORIAL IS INTENDED FOR MAC USERS&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Let&amp;#39;s get started with &lt;a href=&quot;http://jekyllrb.com/&quot;&gt;Jekyll&lt;/a&gt;. It&amp;#39;s the most popular static site generator and is fairly friendly.&lt;/p&gt;
+
+&lt;p&gt;You&amp;#39;ll need two things for these next steps:
+- Your Favorite Text Editor (sublime text, text edit, etc.)
+- A Terminal (search spotlight for terminal and open it up). &lt;/p&gt;
+
+&lt;p&gt;From now on, anything you see in &lt;code&gt;code writing&lt;/code&gt; should be executed in the &lt;code&gt;terminal&lt;/code&gt; unless otherwise stated.&lt;/p&gt;
+
+&lt;p&gt;On Mac run:
+&lt;code&gt;gem install jekyll&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;if you have any problems you may need to run. 
+&lt;code&gt;sh
+rvm get stable
+rvm osx-ssl-certs update all
+rvm rubygems latest
+&lt;/code&gt;
+You may have to do this stuff with &lt;code&gt;sudo&lt;/code&gt; in front of it.&lt;/p&gt;
+
+&lt;p&gt;These commands just make sure everything you have is up to date.&lt;/p&gt;
+
+&lt;p&gt;Then finally run &lt;code&gt;gem install jekyll --source http://rubygems.org&lt;/code&gt; in the terminal.&lt;/p&gt;
+
+&lt;p&gt;Now you&amp;#39;ve installed jekyll. What I always like to do is start with the basics and modifying it to meet my needs. Let&amp;#39;s create a basic blog then go from there.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;jekyll new myblog
+cd myblog
+jekyll serve
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;You&amp;#39;ll see some text like. It&amp;#39;s not important what it says, just that it says something like this.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;sh language-sh&quot; data-lang=&quot;sh&quot;&gt;Configuration file: /sometext/myblog/_config.yml
+            Source: /sometext/myblog
+       Destination: /sometext/myblog/_site
+      Generating... &lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;.
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;2014-11-10 14:10:42&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; INFO  WEBrick 1.3.1
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;2014-11-10 14:10:42&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; INFO  ruby 2.0.0 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;2013-06-27&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;x86_64-darwin12.3.0&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;2014-11-10 14:10:42&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; INFO  WEBrick::HTTPServer#start: &lt;span class=&quot;nv&quot;&gt;pid&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;62126 &lt;span class=&quot;nv&quot;&gt;port&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;4000
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Now go to &lt;a href=&quot;http://localhost:4000/&quot;&gt;http://localhost:4000/&lt;/a&gt; and BOOM you&amp;#39;ve got a website.&lt;/p&gt;
+
+&lt;p&gt;So let&amp;#39;s dive into customizing the website a bit more.&lt;/p&gt;
+
+&lt;p&gt;Take a look at the directory structure but it should be pretty self explanatory.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;_layouts/&lt;/strong&gt; is where you&amp;#39;ve got the layouts. Typically you&amp;#39;ll have a more navigation centric one then a more post centric one.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;_posts/&lt;/strong&gt; is where you store...you guessed it. Any posts you want to publish.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;_site/&lt;/strong&gt; is the actual website that jekyll generates. You&amp;#39;ll see that it organizes things by date. &lt;em&gt;You will NEVER edit anything in here because it won&amp;#39;t get saved permanently and you&amp;#39;ll forget to do it next time.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;css/&lt;/strong&gt; is where you store the css for your project. Most of what you&amp;#39;ll be modifying will be &lt;strong&gt;main.css&lt;/strong&gt; in the &lt;strong&gt;css/&lt;/strong&gt; folder.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;index.html&lt;/strong&gt; is the home page for your website.&lt;/p&gt;
+
+&lt;p&gt;Here&amp;#39;s the code for &lt;strong&gt;index.html&lt;/strong&gt;:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;html language-html&quot; data-lang=&quot;html&quot;&gt;---
+layout: default
+title: Your New Jekyll Site
+---
+
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;home&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;h1&amp;gt;&lt;/span&gt;Blog Posts&lt;span class=&quot;nt&quot;&gt;&amp;lt;/h1&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;ul&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;posts&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    {% for post in site.posts %}
+      &lt;span class=&quot;nt&quot;&gt;&amp;lt;li&amp;gt;&amp;lt;span&amp;gt;&lt;/span&gt;{{ post.date | date_to_string }}&lt;span class=&quot;nt&quot;&gt;&amp;lt;/span&amp;gt;&lt;/span&gt; &lt;span class=&quot;ni&quot;&gt;&amp;amp;raquo;&lt;/span&gt; 
+      &lt;span class=&quot;nt&quot;&gt;&amp;lt;a&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;{{ post.url }}&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;{{ post.title }}&lt;span class=&quot;nt&quot;&gt;&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;&lt;/span&gt;
+    {% endfor %}
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;/ul&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Now remember, we making &lt;em&gt;your&lt;/em&gt; website so we need to customize it for you!&lt;/p&gt;
+
+&lt;p&gt;In your terminal hit &lt;code&gt;control + c&lt;/code&gt; where you entered &lt;code&gt;jekyll serve&lt;/code&gt;. &lt;/p&gt;
+
+&lt;p&gt;This will turn off the server you started above.&lt;/p&gt;
+
+&lt;p&gt;Now run &lt;code&gt;jekyll serve --watch&lt;/code&gt;. What this allows us to do is make changes to our files and jekyll will see those changes and automatically compile our new website on &lt;a href=&quot;http://localhost:4000/&quot;&gt;http://localhost:4000/&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3&gt;Changing HTML&lt;/h3&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;Open up &lt;strong&gt;index.html&lt;/strong&gt; in your text editor and let&amp;#39;s make some changes.&lt;/p&gt;
+
+&lt;p&gt;First, this isn&amp;#39;t a blog, it&amp;#39;s a portfolio. So I want to make two changes. I want to change the title and the text in the &lt;code&gt;&amp;lt;h1&amp;gt;&lt;/code&gt; tag. Here&amp;#39;s what I changed in my &lt;strong&gt;index.html&lt;/strong&gt; file.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;html language-html&quot; data-lang=&quot;html&quot;&gt;---
+layout: default
+title: Bill&amp;#39;s Fantastic Portfolio
+---
+
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;home&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;h1&amp;gt;&lt;/span&gt;Portfolio&lt;span class=&quot;nt&quot;&gt;&amp;lt;/h1&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;ul&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;posts&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    {% for post in site.posts %}
+      &lt;span class=&quot;nt&quot;&gt;&amp;lt;li&amp;gt;&amp;lt;span&amp;gt;&lt;/span&gt;{{ post.date | date_to_string }}&lt;span class=&quot;nt&quot;&gt;&amp;lt;/span&amp;gt;&lt;/span&gt; &lt;span class=&quot;ni&quot;&gt;&amp;amp;raquo;&lt;/span&gt; 
+      &lt;span class=&quot;nt&quot;&gt;&amp;lt;a&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;{{ post.url }}&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;{{ post.title }}&lt;span class=&quot;nt&quot;&gt;&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;&lt;/span&gt;
+    {% endfor %}
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;/ul&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Now navigate to &lt;a href=&quot;http://localhost:4000/&quot;&gt;http://localhost:4000/&lt;/a&gt; in your browser and refresh the page. You&amp;#39;ll see the title is different now. &lt;/p&gt;
+
+&lt;h2&gt;Changing CSS&lt;/h2&gt;
+
+&lt;p&gt;Now let&amp;#39;s say I want every &lt;code&gt;&amp;lt;h1&amp;gt;&lt;/code&gt; tag to be blue. That means changing some css, so I&amp;#39;ll head over to &lt;strong&gt;main.css&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;and add one line at the end of the file&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;css language-css&quot; data-lang=&quot;css&quot;&gt;&lt;span class=&quot;nt&quot;&gt;h1&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;blue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Now go back to &lt;a href=&quot;http://localhost:4000/&quot;&gt;http://localhost:4000/&lt;/a&gt; and you&amp;#39;ll see that Portfolio on the page is now blue!&lt;/p&gt;
+
+&lt;p&gt;At this point you&amp;#39;ve now learned basically everything you need to know to run your own static site. We learned how to:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Change the home page by editing &lt;strong&gt;index.html&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Change the styles in &lt;strong&gt;main.css&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Add or edit your &amp;quot;posts&amp;quot; in &lt;strong&gt;_posts&lt;/strong&gt; by creating &lt;a href=&quot;http://daringfireball.net/projects/markdown/syntax&quot;&gt;markdown&lt;/a&gt; files.&lt;/li&gt;
+&lt;li&gt;To put this up on Github pages check out this &lt;a href=&quot;https://help.github.com/articles/using-jekyll-with-pages/&quot;&gt;tutorial&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Typically any questions you have will just be a Google away or &lt;a href=&quot;http://jekyllrb.com/docs/usage/&quot;&gt;Check out the jekyll site for great documentation.&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;As a side note, when you&amp;#39;re ready to finalize the version of the site that you want to run &lt;code&gt;jekyll build&lt;/code&gt;. This will put the final version in your _site which you can send up to your static host (like Github Pages).&lt;/em&gt;&lt;/p&gt;
+</description>
+				<pubDate>Tue, 11 Nov 2014 00:00:00 -0800</pubDate>
+				<link>/tutorials/2014/11/11/introduction-to-static-site-generators.html</link>
+				<guid isPermaLink="true">/tutorials/2014/11/11/introduction-to-static-site-generators.html</guid>
+			</item>
+		
+			<item>
+				<title>DataKindSF - Data Analysis for the Greater Good</title>
+				<description>&lt;p&gt;DataKindSF just got their start and the reception was incredible. There was a huge turn out of people wanting to contribute by using high impact skills for greater good. I found out about the program through &lt;a href=&quot;http://www.meetup.com/DataKind-SF-Bay-Area/&quot;&gt;their meetup&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;What I found particularly interesting about the whole thing was the vast possibilities for improving the ways that non-profits do business. At Procore, I helped guide the direction of our data quality and was a led the large scale reset of our data architecture and this kind of critical thinking could really make a difference for a lot of organizations.&lt;/p&gt;
+
+&lt;p&gt;Volunteering is typically a low impact activity. It obviously impacts individuals but the possibility to impact others at scale is particularly intriguing!&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.datakind.org/getinvolved/&quot;&gt;Sign up on their website&lt;/a&gt;.&lt;/p&gt;
+</description>
+				<pubDate>Wed, 08 Oct 2014 00:00:00 -0700</pubDate>
+				<link>/miscellaneous/2014/10/08/datakind-sf-first-meetup.html</link>
+				<guid isPermaLink="true">/miscellaneous/2014/10/08/datakind-sf-first-meetup.html</guid>
+			</item>
+		
+			<item>
+				<title>WorldCupChatter.com - Graphing Tweets in Real Time</title>
+				<description>&lt;p&gt;&lt;em&gt;During the World Cup of 2014, I wrote a twitter bot that read tweets about the world cup, associated them with teams then graphed them out in real time.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;This was my first production experience with Node.js. There Are definitely some really interesting things about JavaScript on the backend that allow you to take advantage of events. That is namely what I tried to do with this project. Learn a little bit more about node.js, about streaming data and analysis, and offloading responsibility to the client.&lt;/p&gt;
+
+&lt;p&gt;The framework I used was &lt;a href=&quot;http://socket.io/&quot;&gt;socket.io&lt;/a&gt;. My knowledge is certainly introductory but it provided a simple way for me to communicate real time data between the client&amp;#39;s browser as well as the server. I wrote up a small intro on the site to allow people to understand what was happening&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/world_cup_chatter_intro.jpg&quot; alt=&quot;World Cup Chatter Graph&quot;&gt;&lt;/p&gt;
+
+&lt;h3&gt;The Code&lt;/h3&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;The server is incredibly simple and essentially boils down to this code:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;js language-js&quot; data-lang=&quot;js&quot;&gt;&lt;span class=&quot;nx&quot;&gt;io&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;connection&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;socket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;Connected...&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;stream&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;tweet&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;tweet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;socket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;emit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;new tweet&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;tweet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;TWEET&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;With that server running we run everything else using D3.js to graph our tweets. The client runs a heavily modified version of &lt;a href=&quot;http://bost.ocks.org/mike/path/&quot;&gt;Mike Bostock&amp;#39;s path transitions examples&lt;/a&gt;. Concretely, every time the client receives a tweet from the server it pushes it to a list. &lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;js language-js&quot; data-lang=&quot;js&quot;&gt;&lt;span class=&quot;nx&quot;&gt;socket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;new tweet&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;tweet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+   &lt;span class=&quot;nx&quot;&gt;tweet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;created_at&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;parseTwitterDate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;tweet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;created_at&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+   &lt;span class=&quot;nx&quot;&gt;master_tweet_list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;tweet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+   &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;Received Tweet&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;That list is then filtered (did the tweet occur in the last second) and pushed onto the relevant list every &amp;#39;tick&amp;#39;, or every second. &lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;js language-js&quot; data-lang=&quot;js&quot;&gt;&lt;span class=&quot;nx&quot;&gt;master_tweet_list&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;master_tweet_list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;within1Second2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;master_tweet_list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;This all produces a graph like this as time continues.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/world_cup_chatter.jpeg&quot; alt=&quot;World Cup Chatter Graph&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;What&amp;#39;s nice is D3.js provides us with some nice smoothing abilities, this allows us to smooth out the animation when we append to the list, the code is this. It&amp;#39;s important to know that the x-axis moves with our data.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;js language-js&quot; data-lang=&quot;js&quot;&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;d3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;time&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;scale&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+   &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;domain&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;now&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;duration&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;now&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;duration&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+   &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;width&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Beyond this, the code is more or less boilerplate. Obviously there&amp;#39;s some styling, some rolling up of the layout but more or less everything important was happening here.&lt;/p&gt;
+
+&lt;h3&gt;Challenges &amp;amp; Conclusions&lt;/h3&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;Real-time data is hard. Period. Twitter scale is also hard. Period.&lt;/p&gt;
+
+&lt;p&gt;I didn&amp;#39;t have a lot of money to shell out for the server at this point so sending information to more than 10-15 clients at once reduced the ability for my server to send out tweets effectively to all clients. &lt;/p&gt;
+
+&lt;p&gt;Another issue was memory leaks. When I would leave my browser open for an extended period of time, I found quality and degradation in my map and pushing functions. Trying to analyze the time of 10,000 tweets at once was difficult for a browser and took longer than a second. This caused my graphs to be off at certain periods of time.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/anabranch/World-Cup-Chatter&quot;&gt;Check out the project on Github.&lt;/a&gt;&lt;/p&gt;
+</description>
+				<pubDate>Mon, 15 Sep 2014 00:00:00 -0700</pubDate>
+				<link>/projects/2014/09/15/world-cup-chatter.html</link>
+				<guid isPermaLink="true">/projects/2014/09/15/world-cup-chatter.html</guid>
+			</item>
+		
+			<item>
+				<title>EverDone - A Project for An Evernote Hackathon</title>
+				<description>&lt;p&gt;Wow, Hackathons are an experience. Firstly I was amazed by the turn out, realistically probably 40 teams all competed in a 12 hour hackathon for &lt;a href=&quot;http://www.evernote.com&quot;&gt;Evernote&lt;/a&gt; at the &lt;a href=&quot;http://eecs.berkeley.edu&quot;&gt;Computer Science Department at Berkeley&lt;/a&gt;. I found the atmosphere to be supportive and fiercely competitive at the same time. Hackathon&amp;#39;s are a strange creation and I&amp;#39;ve struggled to come up with a parallel in history. But that&amp;#39;s for another post.&lt;/p&gt;
+
+&lt;h3&gt;The Application - EverDone&lt;/h3&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;The project we worked on was Everdone. Simply put, EverDone is an organizational assistant. Every Saturday we&amp;#39;ll collect your notes from the week and place them into the EverDone notebook for you to easily know what your tasks are for the week.&lt;/p&gt;
+
+&lt;p&gt;One list.
+All your tasks.&lt;/p&gt;
+
+&lt;p&gt;We also implemented a hashtag based organizing system, so you can write something like &amp;quot;#homework finish my paper&amp;quot; and we&amp;#39;ll categorize it under homework.&lt;/p&gt;
+
+&lt;p&gt;The user flow is relatively straightforward, we start off with the main page and introduce the application.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/everdone_login.jpg&quot; alt=&quot;EverDone&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;After the OAuth cycle, we need to get the user&amp;#39;s email in order to send them their to do list every week.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/everdone_authorize.jpg&quot; alt=&quot;EverDone&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;Finally we give them an instant refresh, any to do created in the last week will get sent to their EverDone folder.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/everdone_success.jpg&quot; alt=&quot;EverDone&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;You can check out the code on my &lt;a href=&quot;https://github.com/anabranch/Evernote-Hacks&quot;&gt;Github&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3&gt;What did I learn?&lt;/h3&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;I learned how intense hackathons are. it being my first one, I wasn&amp;#39;t quite sure what to expect. There are a few shortcomings in our product that made it difficult for us to place.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;It is incredible what can be built in 13 hours.&lt;/li&gt;
+&lt;li&gt;Our application, although built didn&amp;#39;t demo very well. It&amp;#39;s an invisible service that helps you keep track of your to dos. It wasn&amp;#39;t something you would interact with directly, which we struggled to present effectively.&lt;/li&gt;
+&lt;li&gt;You get nervous presenting in front of people. We didn&amp;#39;t really prepare enough for our demonstration and were under-prepared.&lt;/li&gt;
+&lt;li&gt;There are a lot of intelligent people at UC Berkeley!&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;There&amp;#39;s also some interesting possibilities to building on this application. A mobile app integration could be a nice plus, if it basically pulled out all of your to dos, attached some metadata (which notebook &amp;amp; note) and you could organize them that way. Maybe some day!&lt;/p&gt;
+</description>
+				<pubDate>Wed, 10 Sep 2014 00:00:00 -0700</pubDate>
+				<link>/projects/2014/09/10/evernote-hackathon-experience.html</link>
+				<guid isPermaLink="true">/projects/2014/09/10/evernote-hackathon-experience.html</guid>
+			</item>
+		
+			<item>
+				<title>User Experience Critique - Habits in Timeful</title>
+				<description>&lt;p&gt;&lt;em&gt;Several weeks ago I sent a review of a feature in an app I use called &lt;a href=&quot;http://www.timeful.com&quot;&gt;Timeful&lt;/a&gt;. This is my letter to that company where I tried to get a better understanding of their motivations for the user experience of part of their application.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Timeful team,&lt;/p&gt;
+
+&lt;p&gt;Great application. I use it everyday, several times a day! I’m a beast at a to do list, I’m just not so good at scheduling things or getting them on a calendar. This brought me to Timeful. I wanted to declare what I wanted to do on certain days or weekly or monthly, and I wanted Timeful to help me fill that out. There doesn’t exist an application where I can have that list of to dos and drag them onto the calendar with such ease. That’s why I like Timeful so much. In using the application I noticed a small irregularity I’d like to submit.&lt;/p&gt;
+
+&lt;p&gt;I wanted to provide some feedback and ask a small definitional question.&lt;/p&gt;
+
+&lt;p&gt;Why do you display a habit (with defined preferred days) differently than a to do that has to occur on a certain day?&lt;/p&gt;
+
+&lt;p&gt;I’ll show you how I’ve arrived at that question and you all can decide if it’s worth your time learning more about. This is not about the color of the application or anything, just about the placement of the habit on the calendar and not the daily list too.&lt;/p&gt;
+
+&lt;p&gt;The issue really popped up around daily habits.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/timeful_review_1.png&quot; alt=&quot;To Dos&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;Let’s take the example of exercise and programming. These are two things that I have set up in the exact same way. I want to do them 7 times a week, every single day. Please keep in mind that when I set this up Timeful does not allow me to do more, you are reinforcing that this is something that is to happen every single day. The enforcement is so strong I can’t even create habits that should occur more than once a day. The screens below are the walk through of creating that exercise habit.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/timeful_review_2.png&quot; alt=&quot;To Dos&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;There’s reinforcement that this is to occur every single day on every screen.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/timeful_review_3.png&quot; alt=&quot;To Dos&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;Timeful helpfully shows me the things that I want to do over the course of time which is super helpful. But then there is the “not scheduled” bit on the screen below. I don’t quite know what my week is going to look like so it’s difficult to schedule it right now. Although as we can see above (and below) it’s clearly something I want to do every day.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/timeful_review_4.png&quot; alt=&quot;To Dos&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;Now I go to look at my schedule today. I can see what I need to be doing. Timeful automatically start throwing habits and tasks onto my calendar as suggestions. It’s fantastic. I’ve got a list of my to dos for the day and suggestions as to when they should be scheduled. I can see what tasks I need to start knocking out for the day and what are good times to do them.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/timeful_review_5.png&quot; alt=&quot;To Dos&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;My task “pay for school” shows up in both locations, at the top of the app and also has a recommended time on my calendar. This is ideal behavior because it shows that it’s still not nailed down yet (until I accept the time).&lt;/p&gt;
+
+&lt;p&gt;But wait, what about my habits? Those are things I need to do today, but I can’t see them above. I have to scroll through the entire day to see if all my habits are there because they don’t show up on the list even if I haven’t accepted their time. Why is a declared daily habit not showing up in my daily to do list? It’s already something I told you I want to do every day and it shows up on the calendar but not in the list. Daily habits should show up on the day’s to do list in addition to the calendar. As we can see above, I told Timeful I want to do it every day, why doesn’t it show up on the list?&lt;/p&gt;
+
+&lt;p&gt;An unscheduled daily habit is much closer to a to do for a day. It’s something that I need to get nailed down. But you won’t put it in the top of the list unless I do one of two things. (Go back to the habits screen and schedule it for today or click the recommended time and drag it to the top list.)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/timeful_review_6.png&quot; alt=&quot;To Dos&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;Unfortunately my other daily habit of “Programming” is nowhere to be seen. Programming is a daily habit that I want to put on my calendar. However it doesn’t show up in my unscheduled section nor is there a recommended time for me to do it because my schedule is filled with other recommendations from Timeful. Now I may not realize that I can exercise later if it gives me an uninterrupted block of programming at that time. The only way that I can see that my daily habit of programming is missing is by jumping back to the list screen and seeing that programming is “not scheduled”. But why should I have to schedule it? I already told Timeful I wanted to do it 7 times a week on every day of the week.&lt;/p&gt;
+
+&lt;p&gt;So here’s the situational review.&lt;/p&gt;
+
+&lt;p&gt;I have specified a habit as something that I would like to complete everyday. However that habit will only show up every day on my calendar if your algorithm determines that I have time to perform this activity. If it doesn’t then that habit may not happen, crippling the habit. Now this isn’t a nightmare, but I have to move back to another screen to see my list of habits, review them, click into it to schedule a session for today (remember you enforced me previously to say that I wanted to do it every day already) then it gets on that days to do list and I can now be looking at my calendar and all the things I have to do today. Rinse and repeat for each daily habit.&lt;/p&gt;
+
+&lt;p&gt;The fix I propose is simple. Add any habit that is declared as scheduled for each day of the week to each day of the week’s to do list like a task (it can be the color red like a habit but you get the point). You could abstract this further so that any habit that is declared to be preferred on a specific day shows up in the to do list and the calendar recommendations for that specific day. (if I declare something I want to happen once a week on sundays, have it show up on the to do list on sundays, don’t force me to schedule it for next sunday every time).&lt;/p&gt;
+
+&lt;p&gt;One should not have to schedule a habit for everyday of the week when you already declared that you want to do a habit everyday of the week.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;The CEO of Timeful responded to my email in a professional manner and filled me in on some features that are up and coming. Definitely a company that is responsive to their users! My Hat is off to you &lt;a href=&quot;http://www.timeful.com&quot;&gt;Timeful&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
+</description>
+				<pubDate>Sun, 31 Aug 2014 00:00:00 -0700</pubDate>
+				<link>/essays/2014/08/31/timeful-user-experience-review.html</link>
+				<guid isPermaLink="true">/essays/2014/08/31/timeful-user-experience-review.html</guid>
+			</item>
+		
+			<item>
+				<title>SurpriseHaiku - Discovering Unusual Haikus On Twitter</title>
+				<description>&lt;p&gt;SurpriseHaiku was an experiment that parsed random twitter tweets to see if they followed the Haiku cadence of 5 / 7 / 5 (syllables). I ran this experiment during the 2014 Olympics to try and focus around Olympics related tweets. This was an application that I built to learn more about the twitter API and dip my toes in the world of Natural Language Parsing or NLP.&lt;/p&gt;
+
+&lt;p&gt;While the application is not running at this point, you can check out the historical tweets on &lt;a href=&quot;https://twitter.com/surprisehaiku&quot;&gt;the twitter profile.&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3&gt;Methodology&lt;/h3&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;The simplest explanation is:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Normalize and tokenize the tweet text&lt;/li&gt;
+&lt;li&gt;Split it by syllable/ each word by syllable&lt;/li&gt;
+&lt;li&gt;see if we get a 5/7/5 combination&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Identifying the syllables in the English language is tough. We&amp;#39;ve got a lot of different ways of pronouncing things not to mention crazy spellings and the presence of other languages. I use two methods to split up syllables:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Use a dictionary of hyphenated words&lt;/li&gt;
+&lt;li&gt;Use a hyphenator&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I then compared the return values. If we had a dictionary entry I would use it, if not I would use what the hyphenator spat out.&lt;/p&gt;
+
+&lt;h3&gt;Tools&lt;/h3&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;The tools I used in this project are:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Python&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://pypi.python.org/pypi/PyHyphen/2.0.5&quot;&gt;PyHyphen&lt;/a&gt; which is the hyphenation library of LibreOffice and FireFox&lt;/li&gt;
+&lt;li&gt;Tweepy for my Twitter API Integration&lt;/li&gt;
+&lt;li&gt;Project Gutenberg Etext of Movy Hyphenator by Grady Ward (basically a dictionary of hyphenated words)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;Notable Examples&lt;/h3&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;Although not every tweet was successful, there were definitely some notable examples.&lt;/p&gt;
+
+&lt;p&gt;This one really seems to flow although the sentence composition doesn&amp;#39;t line up perfectly, the syllables do.
+&lt;blockquote class=&quot;twitter-tweet&quot; lang=&quot;en&quot;&gt;&lt;p&gt;A &lt;a href=&quot;https://twitter.com/hashtag/haiku?src=hash&quot;&gt;#haiku&lt;/a&gt;: &lt;a href=&quot;https://t.co/Nn55PyBqab&quot;&gt;https://t.co/Nn55PyBqab&lt;/a&gt;&amp;#10;&amp;#10;Lets Show Why Baseball&amp;#10;Is The Best Sport RT if&amp;#10;you want Baseball back&lt;/p&gt;&amp;mdash; SurpriseHaiku (@surprisehaiku) &lt;a href=&quot;https://twitter.com/surprisehaiku/status/432752455831392258&quot;&gt;February 10, 2014&lt;/a&gt;&lt;/blockquote&gt;
+&lt;script async src=&quot;//platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;&lt;/p&gt;
+
+&lt;p&gt;I also ran this experiment during the Olympics, this one gave me a chuckle.
+&lt;blockquote class=&quot;twitter-tweet&quot; lang=&quot;en&quot;&gt;&lt;p&gt;A &lt;a href=&quot;https://twitter.com/hashtag/haiku?src=hash&quot;&gt;#haiku&lt;/a&gt;: &lt;a href=&quot;https://t.co/zei5yF4E2D&quot;&gt;https://t.co/zei5yF4E2D&lt;/a&gt;&amp;#10;&amp;#10;every time they show&amp;#10;putin i get really&amp;#10;uncomfortable&lt;/p&gt;&amp;mdash; SurpriseHaiku (@surprisehaiku) &lt;a href=&quot;https://twitter.com/surprisehaiku/status/432752315594842112&quot;&gt;February 10, 2014&lt;/a&gt;&lt;/blockquote&gt;
+&lt;script async src=&quot;//platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;&lt;/p&gt;
+
+&lt;p&gt;As did this one.
+&lt;blockquote class=&quot;twitter-tweet&quot; lang=&quot;en&quot;&gt;&lt;p&gt;A &lt;a href=&quot;https://twitter.com/hashtag/haiku?src=hash&quot;&gt;#haiku&lt;/a&gt;: &lt;a href=&quot;https://t.co/2PpXgTSshU&quot;&gt;https://t.co/2PpXgTSshU&lt;/a&gt;&amp;#10;&amp;#10;Russia Putin Poses&amp;#10;as Defender of Christian&amp;#10;Civilization&lt;/p&gt;&amp;mdash; SurpriseHaiku (@surprisehaiku) &lt;a href=&quot;https://twitter.com/surprisehaiku/status/432750753199820800&quot;&gt;February 10, 2014&lt;/a&gt;&lt;/blockquote&gt;
+&lt;script async src=&quot;//platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;&lt;/p&gt;
+
+&lt;h3&gt;Challenges&lt;/h3&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;As many know about natural language processing, it&amp;#39;s really difficult to get right. &lt;a href=&quot;http://people.ischool.berkeley.edu/%7Ehearst/&quot;&gt;Marti Hearst&lt;/a&gt;, my NLP professor at UC Berkeley, has stressed that you can never get it all right. The more I&amp;#39;ve experimented, the more I&amp;#39;ve come to realize she is right.&lt;/p&gt;
+
+&lt;p&gt;The challenges with this project is in NLP. Think of it this way, how do we know that RT means retweet without explicitly telling the computer that? Fundamentally how are we crossing the semantic gap - how do we communicate semantics to a machine?&lt;/p&gt;
+
+&lt;h3&gt;Improvements and Conclusions&lt;/h3&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;I think there are a number of improvements that could be made to this project - but this was a short experiment, not a complete study.&lt;/p&gt;
+
+&lt;p&gt;Firstly I think I could use some semantic analysis to prevent tweets like this:&lt;/p&gt;
+
+&lt;blockquote class=&quot;twitter-tweet&quot; lang=&quot;en&quot;&gt;&lt;p&gt;A &lt;a href=&quot;https://twitter.com/hashtag/haiku?src=hash&quot;&gt;#haiku&lt;/a&gt;: &lt;a href=&quot;https://t.co/dnq4ji8nSw&quot;&gt;https://t.co/dnq4ji8nSw&lt;/a&gt;&amp;#10;&amp;#10;I just dont see how&amp;#10;school is gonna be a part&amp;#10;of my life with the&lt;/p&gt;&amp;mdash; SurpriseHaiku (@surprisehaiku) &lt;a href=&quot;https://twitter.com/surprisehaiku/status/432738235840614400&quot;&gt;February 10, 2014&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;script async src=&quot;//platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;The problem with this haiku is that it ends in &amp;quot;the&amp;quot;. There&amp;#39;s no continuity and it doesn&amp;#39;t end logically. We could improve this with part-of-speech tagging and preventing certain word endings.&lt;/p&gt;
+
+&lt;p&gt;Other improvements include, automating deployment, ignoring tweets with a lot of gibberish or words that are likely to be wrong, automating the addition of new words to the dictionary, and adding plurals to the dictionary could all be helpful.&lt;/p&gt;
+</description>
+				<pubDate>Wed, 20 Aug 2014 00:00:00 -0700</pubDate>
+				<link>/projects/2014/08/20/surprisehaiku.html</link>
+				<guid isPermaLink="true">/projects/2014/08/20/surprisehaiku.html</guid>
+			</item>
+		
+	</channel>
+</rss>
