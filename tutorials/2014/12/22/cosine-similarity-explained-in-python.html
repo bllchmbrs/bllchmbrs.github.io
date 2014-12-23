@@ -85,7 +85,7 @@
         <span class="k">return</span> <span class="mi">0</span>
     <span class="k">return</span> <span class="n">dot_product</span><span class="o">/</span><span class="n">magnitude</span>
 </code></pre></div>
-<p>Now that we have a vector representation and a way to compare different vectors we can put it to good use.</p>
+<p>Now that we have a vector representation and a way to compare different vectors we can put it to good use. But before we do, we should add that the final benefit of cosine similarity is now all our documents are off the same length, this removes any bias we had towards longer documents (like with Jaccard Similarity).</p>
 <div class="highlight"><pre><code class="py language-py" data-lang="py"><span class="n">tfidf_representation</span> <span class="o">=</span> <span class="n">tfidf</span><span class="p">(</span><span class="n">all_documents</span><span class="p">)</span>
 <span class="n">our_tfidf_comparisons</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">for</span> <span class="n">count_0</span><span class="p">,</span> <span class="n">doc_0</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">tfidf_representation</span><span class="p">):</span>
