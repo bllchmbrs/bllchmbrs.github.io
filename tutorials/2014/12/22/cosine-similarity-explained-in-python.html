@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Basic Statistical NLP Part 2: TF-IDF And Cosine Similarity</title>
+        <meta name="viewport" content="width=device-width">
+
+        <!-- syntax highlighting CSS -->
+        <link rel="stylesheet" href="/css/github.css">
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="/css/main.css">
+
+    </head>
+    <body>
+
+        <div class="container">
+          <div class="site">
+              <div class="header">
+    <h1>The Portfolio & Writings of Bill Chambers</h1>
+    <div class='link-icons'>
+        <a onmouseover="vis_on('hhm');" onmouseout="vis_off('hhm');" href="/"><i class="mdi mdi-home"></i></a>
+        <a onmouseover="vis_on('hab');" onmouseout="vis_off('hab');" href="/about.html"><i class="mdi mdi-account"></i></a>
+        <a onmouseover="vis_on('hes');" onmouseout="vis_off('hes');" href="/essays.html"><i class="mdi mdi-file-document"></i></a>
+        <a onmouseover="vis_on('hpr');" onmouseout="vis_off('hpr');" href="/projects.html"><i class="mdi mdi-beaker"></i></a>
+        <a onmouseover="vis_on('htu');" onmouseout="vis_off('htu');" href="/tutorials.html"><i class="mdi mdi-cog"></i></a>
+    </div>
+    <div class='link-descriptions'>
+        <a onmouseover="vis_on('hhm');" onmouseout="vis_off('hhm');" id='hhm' class='sibling' href="/">home</a>
+        <a onmouseover="vis_on('hab');" onmouseout="vis_off('hab');" id='hab' class='sibling' href="/about.html">about</a>
+        <a onmouseover="vis_on('hes');" onmouseout="vis_off('hes');" id='hes' class='sibling' href="/essays.html">essays</a>
+        <a onmouseover="vis_on('hpr');" onmouseout="vis_off('hpr');" id='hpr' class='sibling' href="/projects.html">projects</a>
+        <a onmouseover="vis_on('htu');" onmouseout="vis_off('htu');" id='htu' class='sibling' href="/tutorials.html">tutorials</a>
+    </div>
+</div>
+
+
+              <article class="post">
+
+    <div class='titles'>
+        <h2>Basic Statistical NLP Part 2: TF-IDF And Cosine Similarity</h2>
+        <p class="meta">
+            <!-- <span class='tags'>
+                Tags:
+
+            
+            </span> -->
+            <span class='date'>
+            22 December 2014
+            </span>
+        </p>
+    </div>
+
+<p><em><a href="/tutorials/2014/12/22/tf-idf-explained-in-python.html">This is a two part post, you can see part 1 here.</a> Please read that post (if you haven&#39;t already) before continuing or just check out the code in this gist.</em>
+<script src="https://gist.github.com/anabranch/02217b94ef02ea13c7ee.js"> </script></p>
+
+<h3>Cosine Similarity</h3>
+
+<hr>
+
+<p>Now that we&#39;ve covered TF-IDF and how to do with our own code as well as Scikit-Learn. Let&#39;s take a look at how we can actually compare different documents with cosine similarity or the Euclidean dot product formula.</p>
+
+<p>At this point our documents are represented as vectors.</p>
+<div class="highlight"><pre><code class="py language-py" data-lang="py"><span class="k">print</span> <span class="n">tfidf_representation</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="k">print</span> <span class="n">sklearn_representation</span><span class="o">.</span><span class="n">toarray</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+</code></pre></div>
+<p>This will show you what they actually are.</p>
+
+<p>With cosine similarity we can measure the similarity between two document vectors. I&#39;m not going to delve into the mathematical details about how this works but basically we turn each document into a line going from point X to point Y. We then compare that directionality with the second document into a line going from point V to point W. We measure how large the cosine angle is in between those representations. </p>
+
+<p><img src="http://upload.wikimedia.org/math/f/5/b/f5bc23b26d095a4040d25dd340554f5d.png" alt="Euclidean dot product"></p>
+
+<p>We can rearrange the above formula to a more implementable representation like that below.</p>
+
+<p><img src="http://upload.wikimedia.org/math/f/3/6/f369863aa2814d6e283f859986a1574d.png" alt="Cosine Similarity"></p>
+
+<p>Now in our case, if the cosine similarity is 1, they are the same document. If it is 0, the documents share nothing. This is because term frequency cannot be negative so the angle between the two vectors cannot be greater than 90°.</p>
+
+<p>Here&#39;s our python representation of cosine similarity of two vectors in python.</p>
+<div class="highlight"><pre><code class="py language-py" data-lang="py"><span class="k">def</span> <span class="nf">cosine_similarity</span><span class="p">(</span><span class="n">vector1</span><span class="p">,</span> <span class="n">vector2</span><span class="p">):</span>
+    <span class="n">dot_product</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">p</span><span class="o">*</span><span class="n">q</span> <span class="k">for</span> <span class="n">p</span><span class="p">,</span><span class="n">q</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">vector1</span><span class="p">,</span> <span class="n">vector2</span><span class="p">))</span>
+    <span class="n">magnitude</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">sum</span><span class="p">([</span><span class="n">val</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">vector1</span><span class="p">]))</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">sum</span><span class="p">([</span><span class="n">val</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">vector2</span><span class="p">]))</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">magnitude</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>
+    <span class="k">return</span> <span class="n">dot_product</span><span class="o">/</span><span class="n">magnitude</span>
+</code></pre></div>
+<p>Now that we have a vector representation and a way to compare different vectors we can put it to good use.</p>
+<div class="highlight"><pre><code class="py language-py" data-lang="py"><span class="n">tfidf_representation</span> <span class="o">=</span> <span class="n">tfidf</span><span class="p">(</span><span class="n">all_documents</span><span class="p">)</span>
+<span class="n">our_tfidf_comparisons</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">count_0</span><span class="p">,</span> <span class="n">doc_0</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">tfidf_representation</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">count_1</span><span class="p">,</span> <span class="n">doc_1</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">tfidf_representation</span><span class="p">):</span>
+        <span class="n">our_tfidf_comparisons</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">cosine_similarity</span><span class="p">(</span><span class="n">doc_0</span><span class="p">,</span> <span class="n">doc_1</span><span class="p">),</span> <span class="n">count_0</span><span class="p">,</span> <span class="n">count_1</span><span class="p">))</span>
+
+<span class="n">skl_tfidf_comparisons</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">count_0</span><span class="p">,</span> <span class="n">doc_0</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sklearn_representation</span><span class="o">.</span><span class="n">toarray</span><span class="p">()):</span>
+    <span class="k">for</span> <span class="n">count_1</span><span class="p">,</span> <span class="n">doc_1</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sklearn_representation</span><span class="o">.</span><span class="n">toarray</span><span class="p">()):</span>
+        <span class="n">skl_tfidf_comparisons</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">cosine_similarity</span><span class="p">(</span><span class="n">doc_0</span><span class="p">,</span> <span class="n">doc_1</span><span class="p">),</span> <span class="n">count_0</span><span class="p">,</span> <span class="n">count_1</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">our_tfidf_comparisons</span><span class="p">,</span> <span class="n">reverse</span> <span class="o">=</span> <span class="bp">True</span><span class="p">),</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">skl_tfidf_comparisons</span><span class="p">,</span> <span class="n">reverse</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)):</span>
+    <span class="k">print</span> <span class="n">x</span>
+
+<span class="c"># ((1.0000000000000002, 4, 4), (1.0000000000000002, 6, 6))</span>
+<span class="c"># ((1.0000000000000002, 3, 3), (1.0000000000000002, 5, 5))</span>
+<span class="c"># ...</span>
+<span class="c"># ((0.2931092569884059, 4, 2), (0.29310925698840595, 4, 2))</span>
+<span class="c"># ((0.2931092569884059, 2, 4), (0.29310925698840595, 2, 4))</span>
+<span class="c"># ((0.16506306906464613, 6, 3), (0.16506306906464616, 6, 3))</span>
+<span class="c"># ...</span>
+<span class="c"># ((0.0, 1, 4), (0.0, 1, 4))</span>
+<span class="c"># ((0.0, 1, 3), (0.0, 1, 3))</span>
+<span class="c"># ((0.0, 1, 2), (0.0, 1, 2))</span>
+<span class="c"># ignore the .00000...2, it&#39;s just float representations in python being off of what they should be</span>
+</code></pre></div>
+<p>What is interesting here is that we&#39;re getting the exact same similarities from our representation as well as Scikit-Learn&#39;s. This is because we&#39;re doing apples to apples comparisons (they are creating the vectors through the same way). We say that even though the TFIDF matrices generated by our different algorithms were different. It doesn&#39;t change anything down the road because vectors are just numerical representations of our sentences.</p>
+
+<p>Now you&#39;ve learned a lot so far. We&#39;ve created some vectors to better understand document vector representations, we&#39;ve compared them and seen how we can leverage that representation to take a look at similarity. With a little tweaking you could even create a simple search engine that would search documents for certain terms.</p>
+
+<p>Now there are plenty of places for improvement, better tokenization and <a href="https://pypi.python.org/pypi/PyStemmer/">stemming</a> could really help to improve our algorithms but that&#39;s for another post.</p>
+
+<p>Here is all the code I used for this post series.</p>
+
+<script src="https://gist.github.com/anabranch/48c5c0124ba4e162b2e3.js"> </script>
+
+<p>For further reference:</p>
+
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Cosine_similarity">Cosine Similarity</a></li>
+</ul>
+
+</article>
+
+<!-- <div id="disqus_thread"></div>
+<script type="text/javascript">
+/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'bills-site'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+ -->
+
+
+              <div class="footer">
+    <!-- <h1>The Portfolio & Writings of Bill Chambers</h1> -->
+    <!-- <h3>Internal Navigation</h3> -->
+    <div class='link-icons'>
+        <a onmouseover="vis_on('fhm');" onmouseout="vis_off('fhm');" href="/"><i class="mdi mdi-home"></i></a>
+        <a onmouseover="vis_on('fab');" onmouseout="vis_off('fab');" href="/about.html"><i class="mdi mdi-account"></i></a>
+        <a onmouseover="vis_on('fes');" onmouseout="vis_off('fes');" href="/essays.html"><i class="mdi mdi-file-document"></i></a>
+        <a onmouseover="vis_on('fpr');" onmouseout="vis_off('fpr');" href="/projects.html"><i class="mdi mdi-beaker"></i></a>
+        <a onmouseover="vis_on('ftu');" onmouseout="vis_off('ftu');" href="/tutorials.html"><i class="mdi mdi-cog"></i></a>
+    </div>
+    <div class='link-descriptions'>
+        <a onmouseover="vis_on('fhm');" onmouseout="vis_off('fhm');" id='fhm' class='sibling' href="/">home</a>
+        <a onmouseover="vis_on('fab');" onmouseout="vis_off('fab');" id='fab' class='sibling' href="/about.html">about</a>
+        <a onmouseover="vis_on('fes');" onmouseout="vis_off('fes');" id='fes' class='sibling' href="/essays.html">essays</a>
+        <a onmouseover="vis_on('fpr');" onmouseout="vis_off('fpr');" id='fpr' class='sibling' href="/projects.html">projects</a>
+        <a onmouseover="vis_on('ftu');" onmouseout="vis_off('ftu');" id='ftu' class='sibling' href="/tutorials.html">tutorials</a>
+        <a onmouseover="vis_on('fli');" onmouseout="vis_off('fli');" id='fli' class='sibling' href="https://www.linkedin.com/in/wachambers">linkedin</a>
+        <a onmouseover="vis_on('fgh');" onmouseout="vis_off('fgh');" id='fgh' class='sibling' href="http://github.com/anabranch/">github</a>
+        <a onmouseover="vis_on('ftw');" onmouseout="vis_off('ftw');" id='ftw' class='sibling' href="http://twitter.com/b_a_chambers/">twitter</a>
+        <a onmouseover="vis_on('fem');" onmouseout="vis_off('fem');" id='fem' class='sibling' href="mailto:wchambers@ischool.berkeley.edu">email</a>
+    </div>
+    <!-- <h3>External Navigation</h3> -->
+    <div class='link-icons'>
+        <a onmouseover="vis_on('fli');" onmouseout="vis_off('fli');" href="https://www.linkedin.com/in/wachambers"><i class="mdi mdi-linkedin"></i></a>
+        <a onmouseover="vis_on('fgh');" onmouseout="vis_off('fgh');" href="http://github.com/anabranch/"><i class="mdi mdi-github-box"></i></a>
+        <a onmouseover="vis_on('ftw');" onmouseout="vis_off('ftw');" href="http://twitter.com/b_a_chambers/"><i class="mdi mdi-twitter-box"></i></a>
+        <a onmouseover="vis_on('fem');" onmouseout="vis_off('fem');" href="mailto:wchambers@ischool.berkeley.edu"><i class="mdi mdi-email"></i></a>
+    </div>
+    <!-- <div class='link-descriptions'>
+    </div> -->
+</div>
+
+
+          </div>
+        </div> <!-- /container -->
+    </body>
+    
+<script charset="utf-8">
+var hovered_el;
+function vis_on(id) {
+    var e = document.getElementById(id);
+        e.style.display = 'block';
+    var siblings = document.getElementsByClassName("sibling");
+    hovered_el = e;
+    for (var i = 0; i < siblings.length; i++) {
+        if (siblings[i].id !== id) {
+            siblings[i].style.display = 'none';
+        }
+    }
+}
+
+function vis_off(id) {
+    hovered_el = undefined;
+    setTimeout(function(){
+        if (hovered_el == undefined) {
+            var e = document.getElementById(id);
+                e.style.display = 'none';
+        }
+    }, 400);
+}
+</script>
+
+</html>
