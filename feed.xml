@@ -7,6 +7,259 @@
 		<atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
+				<title>Basic Statistical NLP Part 1: Jaccard Similarity and TF-IDF</title>
+				<description>&lt;p&gt;&lt;em&gt;&lt;a href=&quot;/tutorials/2014/12/22/cosine-similarity-explained-in-python.html&quot;&gt;This is a two part post, you can see part 2 here.&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;In my natural language processing class we&amp;#39;ve been playing around with similarity measures and I thought it would be useful to write them up here. Obviously this isn&amp;#39;t an exhaustive list but I think it would be a good resource for anyone looking to learn a bit more about ways of measuring similarity between documents.&lt;/p&gt;
+
+&lt;p&gt;One of the first steps in many NLP operations is tokenization. Tokenization is the process by which we split a string into a list of &amp;quot;tokens&amp;quot; or words. While the below formula isn&amp;#39;t exhaustive, it works well for simple things.&lt;/p&gt;
+
+&lt;p&gt;Here&amp;#39;s the code in python: &lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;py language-py&quot; data-lang=&quot;py&quot;&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;__future__&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;division&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;string&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;math&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;tokenize&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;doc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;doc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lower&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot; &amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Now of course we&amp;#39;ll need some documents.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;py language-py&quot; data-lang=&quot;py&quot;&gt;&lt;span class=&quot;n&quot;&gt;document_0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;China has a strong economy that is growing at a rapid pace. However politically it differs greatly from the US Economy.&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;document_1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;At last, China seems serious about confronting an endemic problem: domestic violence and corruption.&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;document_2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;Japan&amp;#39;s prime minister, Shinzo Abe, is working towards healing the economic turmoil in his own country for his view on the future of his people.&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;document_3&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;Vladimir Putin is working hard to fix the economy in Russia as the Ruble has tumbled.&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;document_4&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;What&amp;#39;s the future of Abenomics? We asked Shinzo Abe for his views&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;document_5&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;Obama has eased sanctions on Cuba while accelerating those against the Russian Economy, even as the Ruble&amp;#39;s value falls almost daily.&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;document_6&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;Vladimir Putin was found to be riding a horse, again, without a shirt on while hunting deer. Vladimir Putin always seems so serious about things - even riding horses.&amp;quot;&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;all_documents&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;document_0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;document_1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;document_2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;document_3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;document_4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;document_5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;document_6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;tokenized_documents&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tokenize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;all_documents&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# tokenized docs&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;all_tokens_set&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;item&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sublist&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tokenized_documents&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;item&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sublist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;These are just a random set of documents that I&amp;#39;ve written. Some are derived from some tweets that I read, others are just made up entirely. However we can see that there are some that are more similar to one another than others.&lt;/p&gt;
+
+&lt;h3&gt;Jaccard Similarity&lt;/h3&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;Jaccard Similarity is the simplest of the similarities and is nothing more than a combination of binary operations of set algebra. To calculate the Jaccard Distance or similarity is treat our document as a set of tokens. Mathematically the formula is as follows:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload.wikimedia.org/math/1/8/6/186c7f4e83da32e889d606140fae25a0.png&quot; alt=&quot;Jaccard Similarity&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;source: Wikipedia&lt;/p&gt;
+
+&lt;p&gt;It&amp;#39;s simply the length of the intersection of the sets of tokens divided by the length of the union of the two sets.&lt;/p&gt;
+
+&lt;p&gt;In Python we can write the Jaccard Similarity as follows:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;py language-py&quot; data-lang=&quot;py&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;jaccard_similarity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;intersection&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;intersection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;union&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;union&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;intersection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;union&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Here we are running it on a couple of the documents:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;py language-py&quot; data-lang=&quot;py&quot;&gt;&lt;span class=&quot;c&quot;&gt;# comparing document_2 and document_4&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;jaccard_similarity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tokenized_documents&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tokenized_documents&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# 0.16666666666666666&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;We can see that these documents are a better match, but still far from perfect. There are a couple of things throwing us off. Document length has a big effect and common words carry the same weight as non common words. Let&amp;#39;s take a look at the intersection to understand what I&amp;#39;m talking about.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;py language-py&quot; data-lang=&quot;py&quot;&gt;&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tokenized_documents&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;intersection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tokenized_documents&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]))&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# {&amp;#39;abe&amp;#39;, &amp;#39;his&amp;#39;, &amp;#39;shinzo&amp;#39;, &amp;#39;the&amp;#39;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;As we can see, &amp;quot;his&amp;quot; and &amp;quot;the&amp;quot; have the same weight as &amp;quot;abe&amp;quot; and &amp;quot;shinzo&amp;quot;. Let&amp;#39;s take a more extreme example.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;py language-py&quot; data-lang=&quot;py&quot;&gt;&lt;span class=&quot;n&quot;&gt;jaccard_similarity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tokenized_documents&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tokenized_documents&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# 0.08571428571428572&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tokenized_documents&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;intersection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tokenized_documents&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]))&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# {&amp;#39;about&amp;#39;, &amp;#39;seems&amp;#39;, &amp;#39;serious&amp;#39;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;These documents have nothing in common. However they are rated as 8% relevant. This examples identifies the fundamental issues with Jaccard Similarity:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Length is irrelevant. (bias towards longer documents).&lt;/li&gt;
+&lt;li&gt;Words that appear in a lot of documents are weighted the same as those that appear in few. (bias towards longer documents as well as non-descriptive words)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;We need a way to weigh certain words differently than others. Words that appear in all the documents are not going to be good at identifying documents because of the fact that, well...they appear in all the documents. Let&amp;#39;s move onto another similarity measure that takes this into account TF-IDF and Cosine Similarity.&lt;/p&gt;
+
+&lt;p&gt;References:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://en.wikipedia.org/wiki/Jaccard_index&quot;&gt;Jaccard Similarity on Wikipedia&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;TF-IDF&lt;/h3&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;TF, or Term Frequency, measures one thing: the count of words in a document. It&amp;#39;s the first step for TF-IDF or Term Frequency Inverse Document Frequency.&lt;/p&gt;
+
+&lt;p&gt;First comes the easy part.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;py language-py&quot; data-lang=&quot;py&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;term_frequency&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;term&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tokenized_document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tokenized_document&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;term&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Above we&amp;#39;ve created a simple way of counting the number of occurrences of a token in a document. There are plenty of ways to do this, through collections or for loops but they all end with the same result, how many times does a token appear in a document.&lt;/p&gt;
+
+&lt;p&gt;However this does not resolve the issue we&amp;#39;ve mentioned above - this is still biased towards longer documents. To remedy this we should weight terms according to document length or normalize them on another scale. This process is called normalization. While there are several ways to do this, I&amp;#39;ll only show two, sub-linear term frequency and augmented frequency measurement. Here&amp;#39;s the formula:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload.wikimedia.org/math/5/c/c/5cc18acd4dbd9be636047fc2a7a10105.png&quot; alt=&quot;augmented frequency&quot;&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;py language-py&quot; data-lang=&quot;py&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;sublinear_term_frequency&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;term&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tokenized_document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;math&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tokenized_document&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;term&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;augmented_term_frequency&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;term&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tokenized_document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;max_count&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;term_frequency&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tokenized_document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tokenized_document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.5&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.5&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;term_frequency&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;term&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tokenized_document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;max_count&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;These two different normalization techniques obviously approach our goal differently. I&amp;#39;ll be focusing on the sub-linear term frequency as it will tie into exploring Tfidf with &lt;a href=&quot;http://scikit-learn.org/stable/&quot;&gt;Scikit-Learn&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;The next part of TF-IDF is the &lt;code&gt;IDF&lt;/code&gt; or inverse document frequency. Basically we want to target the words that are unique to certain documents instead of those that appear in all the documents because by definition, those are not good identifiers for any given document. Here&amp;#39;s our equation for IDF.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload.wikimedia.org/math/b/a/e/bae842b33a4cafc0f22519cf960b052a.png&quot; alt=&quot;IDF&quot;&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;py language-py&quot; data-lang=&quot;py&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;inverse_document_frequencies&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tokenized_documents&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;idf_values&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;all_tokens_set&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;item&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sublist&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tokenized_documents&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;item&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sublist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tkn&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;all_tokens_set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;contains_token&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;doc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tkn&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;doc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tokenized_documents&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;idf_values&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tkn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;math&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tokenized_documents&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;contains_token&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;idf_values&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Now we&amp;#39;ve got a weight for every token in every document. This helps determine the important words from the unimportant ones.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;py language-py&quot; data-lang=&quot;py&quot;&gt;&lt;span class=&quot;n&quot;&gt;idf_values&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;inverse_document_frequencies&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tokenized_documents&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;idf_values&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;abenomics&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# 2.94591014906&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;idf_values&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;the&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# 1.33647223662&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Now we see the power of TF-IDF. We&amp;#39;ve taken the inverse of a token&amp;#39;s document frequency. This means that words that appear a lot like &amp;quot;the&amp;quot; are weighted much less than words like &amp;quot;abenomics&amp;quot;. However TF-IDF allows us to do so much more. We can create vector representations of sentences or more simply, we can transform documents into numbers and lists of documents into matrices.&lt;/p&gt;
+
+&lt;p&gt;While this seems relatively unimportant, it actually allows us to do a lot of exception things. We have a mathematical representation of a sentence and we can now use that representation in mathematical ways.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;py language-py&quot; data-lang=&quot;py&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;tfidf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;documents&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;tokenized_documents&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tokenize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;documents&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;idf&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;inverse_document_frequencies&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tokenized_documents&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;tfidf_documents&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;document&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tokenized_documents&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;doc_tfidf&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;term&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;idf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;keys&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;tf&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sublinear_term_frequency&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;term&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;doc_tfidf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tf&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;idf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;term&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;tfidf_documents&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;doc_tfidf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tfidf_documents&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Now that we&amp;#39;ve got a way of performing tfidf, let&amp;#39;s run it!&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;py language-py&quot; data-lang=&quot;py&quot;&gt;&lt;span class=&quot;n&quot;&gt;tfidf_representation&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tfidf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;all_documents&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tfidf_representation&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;document_0&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# doc vector and document&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;These two representations are functionally equivalent at this point. Now up until this point we&amp;#39;ve done all this by hand, while it&amp;#39;s been a good exercise there are packages that implement this much more quickly - like Scikit-Learn.&lt;/p&gt;
+
+&lt;p&gt;Let&amp;#39;s take a look at how we might code this in Scikit-Learn.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;py language-py&quot; data-lang=&quot;py&quot;&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;sklearn.feature_extraction.text&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;TfidfVectorizer&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;sklearn_tfidf&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;TfidfVectorizer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;norm&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;l2&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;min_df&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;use_idf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;smooth_idf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sublinear_tf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tokenizer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tokenize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;sklearn_representation&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sklearn_tfidf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fit_transform&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;all_documents&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tfidf_representation&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sklearn_representation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;toarray&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tolist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;document_0&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;While you will notice that the values in each matrix are not the same because Scikit-learn presents the IDF ordering in a different way (in that fitted model). However we can see in the next part of this tutorial that the exact numbers are irrelevant, it is the vectors that are important. &lt;a href=&quot;/tutorials/2014/12/22/cosine-similarity-explained-in-python.html&quot;&gt;The next post focuses on cosine similarity or the Euclidean dot product formula in python.&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Here&amp;#39;s all of our code so far:
+&lt;script src=&quot;https://gist.github.com/anabranch/02217b94ef02ea13c7ee.js&quot;&gt; &lt;/script&gt;&lt;/p&gt;
+
+&lt;p&gt;Further References:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://en.wikipedia.org/wiki/Tf%E2%80%93idf&quot;&gt;TF-IDF&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://scikit-learn.org/stable/modules/classes.html#module-sklearn.feature_extraction.text&quot;&gt;Scikit-Learn TF-IDF&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+				<pubDate>Mon, 22 Dec 2014 00:00:00 -0800</pubDate>
+				<link>/tutorials/2014/12/22/tf-idf-explained-in-python.html</link>
+				<guid isPermaLink="true">/tutorials/2014/12/22/tf-idf-explained-in-python.html</guid>
+			</item>
+		
+			<item>
+				<title>Basic Statistical NLP Part 2: TF-IDF And Cosine Similarity</title>
+				<description>&lt;p&gt;&lt;em&gt;&lt;a href=&quot;/tutorials/2014/12/22/tf-idf-explained-in-python.html&quot;&gt;This is a two part post, you can see part 1 here.&lt;/a&gt; Please read that post (if you haven&amp;#39;t already) before continuing or just check out the code in this gist.&lt;/em&gt;
+&lt;script src=&quot;https://gist.github.com/anabranch/02217b94ef02ea13c7ee.js&quot;&gt; &lt;/script&gt;&lt;/p&gt;
+
+&lt;h3&gt;Cosine Similarity&lt;/h3&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;Now that we&amp;#39;ve covered TF-IDF and how to do with our own code as well as Scikit-Learn. Let&amp;#39;s take a look at how we can actually compare different documents with cosine similarity or the Euclidean dot product formula.&lt;/p&gt;
+
+&lt;p&gt;At this point our documents are represented as vectors.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;py language-py&quot; data-lang=&quot;py&quot;&gt;&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tfidf_representation&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sklearn_representation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;toarray&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tolist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;This will show you what they actually are.&lt;/p&gt;
+
+&lt;p&gt;With cosine similarity we can measure the similarity between two document vectors. I&amp;#39;m not going to delve into the mathematical details about how this works but basically we turn each document into a line going from point X to point Y. We then compare that directionality with the second document into a line going from point V to point W. We measure how large the cosine angle is in between those representations. &lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload.wikimedia.org/math/f/5/b/f5bc23b26d095a4040d25dd340554f5d.png&quot; alt=&quot;Euclidean dot product&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;We can rearrange the above formula to a more implementable representation like that below.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://upload.wikimedia.org/math/f/3/6/f369863aa2814d6e283f859986a1574d.png&quot; alt=&quot;Cosine Similarity&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;Now in our case, if the cosine similarity is 1, they are the same document. If it is 0, the documents share nothing. This is because term frequency cannot be negative so the angle between the two vectors cannot be greater than 90°.&lt;/p&gt;
+
+&lt;p&gt;Here&amp;#39;s our python representation of cosine similarity of two vectors in python.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;py language-py&quot; data-lang=&quot;py&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;cosine_similarity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vector1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vector2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;dot_product&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;q&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;q&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;zip&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vector1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vector2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;magnitude&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;math&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sqrt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vector1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;math&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sqrt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vector2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]))&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;magnitude&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dot_product&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;magnitude&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Now that we have a vector representation and a way to compare different vectors we can put it to good use.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;py language-py&quot; data-lang=&quot;py&quot;&gt;&lt;span class=&quot;n&quot;&gt;tfidf_representation&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tfidf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;all_documents&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;our_tfidf_comparisons&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;count_0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;doc_0&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;enumerate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tfidf_representation&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;count_1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;doc_1&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;enumerate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tfidf_representation&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;our_tfidf_comparisons&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cosine_similarity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;doc_0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;doc_1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;count_0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;count_1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;skl_tfidf_comparisons&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;count_0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;doc_0&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;enumerate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sklearn_representation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;toarray&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()):&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;count_1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;doc_1&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;enumerate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sklearn_representation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;toarray&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()):&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;skl_tfidf_comparisons&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cosine_similarity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;doc_0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;doc_1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;count_0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;count_1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;zip&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sorted&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;our_tfidf_comparisons&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;reverse&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sorted&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;skl_tfidf_comparisons&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;reverse&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)):&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# ((1.0000000000000002, 4, 4), (1.0000000000000002, 6, 6))&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# ((1.0000000000000002, 3, 3), (1.0000000000000002, 5, 5))&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# ...&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# ((0.2931092569884059, 4, 2), (0.29310925698840595, 4, 2))&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# ((0.2931092569884059, 2, 4), (0.29310925698840595, 2, 4))&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# ((0.16506306906464613, 6, 3), (0.16506306906464616, 6, 3))&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# ...&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# ((0.0, 1, 4), (0.0, 1, 4))&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# ((0.0, 1, 3), (0.0, 1, 3))&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# ((0.0, 1, 2), (0.0, 1, 2))&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# ignore the .00000...2, it&amp;#39;s just float representations in python being off of what they should be&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;What is interesting here is that we&amp;#39;re getting the exact same similarities from our representation as well as Scikit-Learn&amp;#39;s. This is because we&amp;#39;re doing apples to apples comparisons (they are creating the vectors through the same way). We say that even though the TFIDF matrices generated by our different algorithms were different. It doesn&amp;#39;t change anything down the road because vectors are just numerical representations of our sentences.&lt;/p&gt;
+
+&lt;p&gt;Now you&amp;#39;ve learned a lot so far. We&amp;#39;ve created some vectors to better understand document vector representations, we&amp;#39;ve compared them and seen how we can leverage that representation to take a look at similarity. With a little tweaking you could even create a simple search engine that would search documents for certain terms.&lt;/p&gt;
+
+&lt;p&gt;Now there are plenty of places for improvement, better tokenization and &lt;a href=&quot;https://pypi.python.org/pypi/PyStemmer/&quot;&gt;stemming&lt;/a&gt; could really help to improve our algorithms but that&amp;#39;s for another post.&lt;/p&gt;
+
+&lt;p&gt;Here is all the code I used for this post series.&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/anabranch/48c5c0124ba4e162b2e3.js&quot;&gt; &lt;/script&gt;
+
+&lt;p&gt;For further reference:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://en.wikipedia.org/wiki/Cosine_similarity&quot;&gt;Cosine Similarity&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+				<pubDate>Mon, 22 Dec 2014 00:00:00 -0800</pubDate>
+				<link>/tutorials/2014/12/22/cosine-similarity-explained-in-python.html</link>
+				<guid isPermaLink="true">/tutorials/2014/12/22/cosine-similarity-explained-in-python.html</guid>
+			</item>
+		
+			<item>
 				<title>Getting Started with Apache Spark - Part 1</title>
 				<description>&lt;p&gt;Lately I&amp;#39;ve been playing around with &lt;a href=&quot;https://spark.apache.org/&quot;&gt;Spark&lt;/a&gt; for data processing. It provides some really amazing features like &lt;a href=&quot;https://spark.apache.org/mllib/&quot;&gt;MLLib&lt;/a&gt; and &lt;a href=&quot;https://spark.apache.org/sql/&quot;&gt;Spark SQL&lt;/a&gt; and there&amp;#39;s no better way to learn something that to use it. I&amp;#39;ve attended a couple of meet ups about Spark and its related tools including the famous &lt;a href=&quot;http://ampcamp.berkeley.edu/&quot;&gt;ampcamp&lt;/a&gt; put on by the developers of spark and, although I&amp;#39;m not an expert, I thought it would be good to consolidate my knowledge and teach others.&lt;/p&gt;
 
@@ -40,7 +293,7 @@
 
 &lt;hr&gt;
 
-&lt;p&gt;In this tutorial I&amp;#39;ll be using &lt;a href=&quot;http://d3kbcqa49mib13.cloudfront.net/spark-1.1.1.tgz&quot;&gt;Spark 1.1.1&lt;/a&gt;. I&amp;#39;ll also assume that your on some sort of Unix system.&lt;/p&gt;
+&lt;p&gt;In this tutorial I&amp;#39;ll be using &lt;a href=&quot;http://d3kbcqa49mib13.cloudfront.net/spark-1.1.1.tgz&quot;&gt;Spark 1.1.1&lt;/a&gt;. I&amp;#39;ll also assume that you&amp;#39;re on some sort of Unix system.&lt;/p&gt;
 
 &lt;p&gt;It&amp;#39;s important to note that I&amp;#39;ll be focusing on PySpark and you can check out the (&lt;a href=&quot;https://spark.apache.org/docs/latest/api/python/index.html&quot;&gt;documentation&lt;/a&gt;) for the code examples.&lt;/p&gt;
 
@@ -199,8 +452,8 @@
 &lt;p&gt;Those are the basics for how to analyze data in Spark. In some later posts I&amp;#39;ll be going over how to analyze larger sets of data. Going over how to run MapReduce jobs on Spark, using SparkSQL and more.&lt;/p&gt;
 </description>
 				<pubDate>Sat, 06 Dec 2014 00:00:00 -0800</pubDate>
-				<link>/tutorials/2014/12/06/getting-started-with-apache-spark.html</link>
-				<guid isPermaLink="true">/tutorials/2014/12/06/getting-started-with-apache-spark.html</guid>
+				<link>/tutorials/2014/12/06/getting-started-with-apache-spark-part-1.html</link>
+				<guid isPermaLink="true">/tutorials/2014/12/06/getting-started-with-apache-spark-part-1.html</guid>
 			</item>
 		
 			<item>
@@ -279,7 +532,7 @@
 
 &lt;p&gt;We load our data using some fairly sophisticated Django management commands. Using MySQL&amp;#39;s &lt;a href=&quot;http://dev.mysql.com/doc/refman/5.1/en/load-data.html&quot;&gt;&lt;code&gt;INFILE&lt;/code&gt;&lt;/a&gt; support we bulk insert each file (while rearranging, cleaning, and renaming columns on the fly). Now PostgreSQL doesn&amp;#39;t support &lt;code&gt;INFILE&lt;/code&gt; loading but they&amp;#39;ve got a derivative: &lt;a href=&quot;http://www.postgresql.org/docs/9.2/static/sql-copy.html&quot;&gt;&lt;code&gt;COPY&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;Here&amp;#39;s an example of a MySQL LOAD DATA INFO commandatabase&lt;/p&gt;
+&lt;p&gt;Here&amp;#39;s an example of a MySQL LOAD DATA INFO command.&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;sql language-sql&quot; data-lang=&quot;sql&quot;&gt;&lt;span class=&quot;k&quot;&gt;LOAD&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;DATA&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;LOCAL&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;INFILE&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;&amp;lt;file name&amp;gt;&amp;#39;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;INTO&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;TABLE&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;table&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;var1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;SET&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Date&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;str_to_date&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SUBSTR&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;var1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;%m/%d/%Y&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; 
@@ -811,93 +1064,6 @@ All your tasks.&lt;/p&gt;
 				<pubDate>Sun, 31 Aug 2014 00:00:00 -0700</pubDate>
 				<link>/essays/2014/08/31/timeful-user-experience-review.html</link>
 				<guid isPermaLink="true">/essays/2014/08/31/timeful-user-experience-review.html</guid>
-			</item>
-		
-			<item>
-				<title>SurpriseHaiku - Discovering Unusual Haikus On Twitter</title>
-				<description>&lt;p&gt;SurpriseHaiku was an experiment that parsed random twitter tweets to see if they followed the Haiku cadence of 5 / 7 / 5 (syllables). I ran this experiment during the 2014 Olympics to try and focus around Olympics related tweets. This was an application that I built to learn more about the twitter API and dip my toes in the world of Natural Language Parsing or NLP.&lt;/p&gt;
-
-&lt;p&gt;While the application is not running at this point, you can check out the historical tweets on &lt;a href=&quot;https://twitter.com/surprisehaiku&quot;&gt;the twitter profile.&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3&gt;Methodology&lt;/h3&gt;
-
-&lt;hr&gt;
-
-&lt;p&gt;The simplest explanation is:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Normalize and tokenize the tweet text&lt;/li&gt;
-&lt;li&gt;Split it by syllable/ each word by syllable&lt;/li&gt;
-&lt;li&gt;see if we get a 5/7/5 combination&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Identifying the syllables in the English language is tough. We&amp;#39;ve got a lot of different ways of pronouncing things not to mention crazy spellings and the presence of other languages. I use two methods to split up syllables:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Use a dictionary of hyphenated words&lt;/li&gt;
-&lt;li&gt;Use a hyphenator&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;I then compared the return values. If we had a dictionary entry I would use it, if not I would use what the hyphenator spat out.&lt;/p&gt;
-
-&lt;h3&gt;Tools&lt;/h3&gt;
-
-&lt;hr&gt;
-
-&lt;p&gt;The tools I used in this project are:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Python&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://pypi.python.org/pypi/PyHyphen/2.0.5&quot;&gt;PyHyphen&lt;/a&gt; which is the hyphenation library of LibreOffice and FireFox&lt;/li&gt;
-&lt;li&gt;Tweepy for my Twitter API Integration&lt;/li&gt;
-&lt;li&gt;Project Gutenberg Etext of Movy Hyphenator by Grady Ward (basically a dictionary of hyphenated words)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3&gt;Notable Examples&lt;/h3&gt;
-
-&lt;hr&gt;
-
-&lt;p&gt;Although not every tweet was successful, there were definitely some notable examples.&lt;/p&gt;
-
-&lt;p&gt;This one really seems to flow although the sentence composition doesn&amp;#39;t line up perfectly, the syllables do.
-&lt;blockquote class=&quot;twitter-tweet&quot; lang=&quot;en&quot;&gt;&lt;p&gt;A &lt;a href=&quot;https://twitter.com/hashtag/haiku?src=hash&quot;&gt;#haiku&lt;/a&gt;: &lt;a href=&quot;https://t.co/Nn55PyBqab&quot;&gt;https://t.co/Nn55PyBqab&lt;/a&gt;&amp;#10;&amp;#10;Lets Show Why Baseball&amp;#10;Is The Best Sport RT if&amp;#10;you want Baseball back&lt;/p&gt;&amp;mdash; SurpriseHaiku (@surprisehaiku) &lt;a href=&quot;https://twitter.com/surprisehaiku/status/432752455831392258&quot;&gt;February 10, 2014&lt;/a&gt;&lt;/blockquote&gt;
-&lt;script async src=&quot;//platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;&lt;/p&gt;
-
-&lt;p&gt;I also ran this experiment during the Olympics, this one gave me a chuckle.
-&lt;blockquote class=&quot;twitter-tweet&quot; lang=&quot;en&quot;&gt;&lt;p&gt;A &lt;a href=&quot;https://twitter.com/hashtag/haiku?src=hash&quot;&gt;#haiku&lt;/a&gt;: &lt;a href=&quot;https://t.co/zei5yF4E2D&quot;&gt;https://t.co/zei5yF4E2D&lt;/a&gt;&amp;#10;&amp;#10;every time they show&amp;#10;putin i get really&amp;#10;uncomfortable&lt;/p&gt;&amp;mdash; SurpriseHaiku (@surprisehaiku) &lt;a href=&quot;https://twitter.com/surprisehaiku/status/432752315594842112&quot;&gt;February 10, 2014&lt;/a&gt;&lt;/blockquote&gt;
-&lt;script async src=&quot;//platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;&lt;/p&gt;
-
-&lt;p&gt;As did this one.
-&lt;blockquote class=&quot;twitter-tweet&quot; lang=&quot;en&quot;&gt;&lt;p&gt;A &lt;a href=&quot;https://twitter.com/hashtag/haiku?src=hash&quot;&gt;#haiku&lt;/a&gt;: &lt;a href=&quot;https://t.co/2PpXgTSshU&quot;&gt;https://t.co/2PpXgTSshU&lt;/a&gt;&amp;#10;&amp;#10;Russia Putin Poses&amp;#10;as Defender of Christian&amp;#10;Civilization&lt;/p&gt;&amp;mdash; SurpriseHaiku (@surprisehaiku) &lt;a href=&quot;https://twitter.com/surprisehaiku/status/432750753199820800&quot;&gt;February 10, 2014&lt;/a&gt;&lt;/blockquote&gt;
-&lt;script async src=&quot;//platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;&lt;/p&gt;
-
-&lt;h3&gt;Challenges&lt;/h3&gt;
-
-&lt;hr&gt;
-
-&lt;p&gt;As many know about natural language processing, it&amp;#39;s really difficult to get right. &lt;a href=&quot;http://people.ischool.berkeley.edu/%7Ehearst/&quot;&gt;Marti Hearst&lt;/a&gt;, my NLP professor at UC Berkeley, has stressed that you can never get it all right. The more I&amp;#39;ve experimented, the more I&amp;#39;ve come to realize she is right.&lt;/p&gt;
-
-&lt;p&gt;The challenges with this project is in NLP. Think of it this way, how do we know that RT means retweet without explicitly telling the computer that? Fundamentally how are we crossing the semantic gap - how do we communicate semantics to a machine?&lt;/p&gt;
-
-&lt;h3&gt;Improvements and Conclusions&lt;/h3&gt;
-
-&lt;hr&gt;
-
-&lt;p&gt;I think there are a number of improvements that could be made to this project - but this was a short experiment, not a complete study.&lt;/p&gt;
-
-&lt;p&gt;Firstly I think I could use some semantic analysis to prevent tweets like this:&lt;/p&gt;
-
-&lt;blockquote class=&quot;twitter-tweet&quot; lang=&quot;en&quot;&gt;&lt;p&gt;A &lt;a href=&quot;https://twitter.com/hashtag/haiku?src=hash&quot;&gt;#haiku&lt;/a&gt;: &lt;a href=&quot;https://t.co/dnq4ji8nSw&quot;&gt;https://t.co/dnq4ji8nSw&lt;/a&gt;&amp;#10;&amp;#10;I just dont see how&amp;#10;school is gonna be a part&amp;#10;of my life with the&lt;/p&gt;&amp;mdash; SurpriseHaiku (@surprisehaiku) &lt;a href=&quot;https://twitter.com/surprisehaiku/status/432738235840614400&quot;&gt;February 10, 2014&lt;/a&gt;&lt;/blockquote&gt;
-
-&lt;script async src=&quot;//platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
-
-&lt;p&gt;The problem with this haiku is that it ends in &amp;quot;the&amp;quot;. There&amp;#39;s no continuity and it doesn&amp;#39;t end logically. We could improve this with part-of-speech tagging and preventing certain word endings.&lt;/p&gt;
-
-&lt;p&gt;Other improvements include, automating deployment, ignoring tweets with a lot of gibberish or words that are likely to be wrong, automating the addition of new words to the dictionary, and adding plurals to the dictionary could all be helpful.&lt;/p&gt;
-</description>
-				<pubDate>Wed, 20 Aug 2014 00:00:00 -0700</pubDate>
-				<link>/projects/2014/08/20/surprisehaiku.html</link>
-				<guid isPermaLink="true">/projects/2014/08/20/surprisehaiku.html</guid>
 			</item>
 		
 	</channel>

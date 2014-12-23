@@ -229,8 +229,8 @@ ul.posts span {
 }
 
 .site img {
-    width:150px;
-    /*height:25%;*/
+    /*width:200px;*/
+    height:25%;
     margin:auto;
     display:block;
 }

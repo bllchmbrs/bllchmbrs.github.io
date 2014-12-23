@@ -101,7 +101,7 @@
 
 <p>We load our data using some fairly sophisticated Django management commands. Using MySQL&#39;s <a href="http://dev.mysql.com/doc/refman/5.1/en/load-data.html"><code>INFILE</code></a> support we bulk insert each file (while rearranging, cleaning, and renaming columns on the fly). Now PostgreSQL doesn&#39;t support <code>INFILE</code> loading but they&#39;ve got a derivative: <a href="http://www.postgresql.org/docs/9.2/static/sql-copy.html"><code>COPY</code></a>.</p>
 
-<p>Here&#39;s an example of a MySQL LOAD DATA INFO commandatabase</p>
+<p>Here&#39;s an example of a MySQL LOAD DATA INFO command.</p>
 <div class="highlight"><pre><code class="sql language-sql" data-lang="sql"><span class="k">LOAD</span> <span class="k">DATA</span> <span class="k">LOCAL</span> <span class="n">INFILE</span> <span class="s1">&#39;&lt;file name&gt;&#39;</span> <span class="k">INTO</span> <span class="k">TABLE</span> <span class="o">&lt;</span><span class="k">table</span><span class="o">&gt;</span>
 <span class="p">(</span><span class="o">@</span><span class="n">var1</span><span class="p">)</span>
 <span class="k">SET</span> <span class="nb">Date</span><span class="o">=</span><span class="n">str_to_date</span><span class="p">(</span><span class="n">SUBSTR</span><span class="p">(</span><span class="o">@</span><span class="n">var1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span><span class="s1">&#39;%m/%d/%Y&#39;</span><span class="p">),</span> 
