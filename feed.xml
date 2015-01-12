@@ -706,8 +706,8 @@ terminal for a customer to rent.&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Those are the basics for how to analyze data in Spark. In some later posts I&amp;#39;ll be going over how to analyze larger sets of data. Going over how to run MapReduce jobs on Spark, using SparkSQL and more.&lt;/p&gt;
 </description>
 				<pubDate>Sat, 06 Dec 2014 00:00:00 -0800</pubDate>
-				<link>/tutorials/2014/12/06/getting-started-with-apache-spark-part-1.html</link>
-				<guid isPermaLink="true">/tutorials/2014/12/06/getting-started-with-apache-spark-part-1.html</guid>
+				<link>/tutorials/2014/12/06/getting-started-with-apache-spark.html</link>
+				<guid isPermaLink="true">/tutorials/2014/12/06/getting-started-with-apache-spark.html</guid>
 			</item>
 		
 			<item>
