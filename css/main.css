@@ -15,30 +15,15 @@ html, body { height: 100%; }
 
 body {
   background-color: #FFF;
-  font-family: 'Trebuchet MS', Trebuchet, 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  font-size: small;
-  text-align: center;
-  /*color:#36393B;*/
+  /*font-family: 'Trebuchet MS', Trebuchet, 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;*/
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-weight: 400;
-    line-height: 1.1;
-    margin-bottom: .8em;
     font-family: 'Vollkorn', serif;
-    color:#0c0c0c;
   }
 
-/*h1 { margin-bottom: 1em; }*/
-p {
-    margin: 1em 0;
-    /*text-indent:15px;*/
-}
 
-.personal-intro{
-    text-align:center;
-    /*font-family: 'Vollkorn', sans-serif;*/
-}
+
 a, a:visited {
      color: #607B8B;
      text-decoration:none;
@@ -46,83 +31,21 @@ a, a:visited {
 a:hover   { color: #000; }
  { color: #00a; }
 
-.container{
-  width:100%;
-  height:100%;
-}
 
 /*****************************************************************************/
 /*
-/* Header
+/* Header and Footer
 /*
 /*****************************************************************************/
 
-
-.header{
+.personal-intro{
     text-align:center;
-    margin-bottom:3%;
 }
-.header h1{
-    margin-bottom:5px;
-}
-
-.header nav div.nav-wrap {
-    width:60px;
-    display:block;
-    height:40px;
-    float:left;
-}
-
-
-.header div.link-icons {
-    height:25px;
-}
-.header div.link-icons i {
-    width:60px;
-}
-.header div.link-descriptions {
-    height:15px;
-}
-.header div.link-descriptions a {
-    text-align:center;
-    display:none;
-}
-
-/*****************************************************************************/
-/*
-/* Footer
-/*
-/*****************************************************************************/
-
-
 .footer{
     text-align:center;
-    /*margin-bottom:3%;*/
-    font-size:12px;
     border-top: 4px solid #eee;
-    padding-top:10px;
-}
-.footer h1{
-    margin-bottom:5px;
 }
 
-.footer div.link-icons {
-    height:25px;
-}
-.footer div.link-icons i {
-    width:60px;
-}
-.footer div.link-descriptions {
-    height:15px;
-    padding-bottom:10px;
-}
-.footer div.link-descriptions a {
-    text-align:center;
-    display:none;
-    font-weight:bold;
-    margin:auto;
-    width:100px;
-}
 
 /*****************************************************************************/
 /*
@@ -131,30 +54,12 @@ a:hover   { color: #000; }
 /*****************************************************************************/
 
 
-#particles-js{
-  height:50%;
-  width:100%;
-  background:#607B8B;
-  /*position:absolute;*/
-}
-
-canvas{
-  display:block;
-  vertical-align:bottom;
-}
-
 .titles {
-    margin: 0px auto;
     text-align:center;
 }
 
 ul.posts {
   list-style-type: none;
-  margin-bottom: 2em;
-}
-
-ul.posts li {
-  line-height: 1.75em;
 }
 
 ul.posts span {
@@ -164,77 +69,14 @@ ul.posts span {
   float:right;
 }
 
-
-
-/*****************************************************************************/
-/*
-/* Site
-/*
-/*****************************************************************************/
-
-.site {
-  font-size: 125%;
-  text-align: left;
-  width: 42em;
-  position: relative;
-  background-color: white;
-  padding:2%;
-  word-wrap:normal;
-  margin: 0em auto 2em;
-  line-height: 1.5em;
-  z-index: 100;
-  border-color:#ccc;
-  border-width:1px;
+.nav-blocks {
+  text-align: center;
+  height:30px;
 }
 
-.site .header a {
-  font-weight: bold;
-  text-decoration: none;
+div.nav-blocks a {
+  font-size:90%;
 }
-
-.site .header h1.title {
-  /*display: inline-block;*/
-  /*margin-bottom: 2em;*/
-}
-
-.site .header h1.title a {
-  color: #a00;
-}
-
-.site .header h1.title a:hover {
-  color: #000;
-}
-
-.site .header a.extra {
-  color: #aaa;
-  margin-left: 1em;
-}
-
-.site .header a.extra:hover {
-  color: #000;
-}
-
-.site .meta {
-  color: #7e7e7e;
-}
-
-.site .footer .rss {
-  margin-top: 1.1em;
-  margin-right: -.2em;
-  float: right;
-}
-
-.site .footer .rss img {
-  border: 0;
-}
-
-.site img {
-    /*width:200px;*/
-    height:25%;
-    margin:auto;
-    display:block;
-}
-
 /*****************************************************************************/
 /*
 /* Posts
@@ -266,8 +108,7 @@ article.post div.titles p.meta span.date{
 }
 
 article.post img {
-    /*max-width: 500px;*/
-    height:25%;
+    max-width: 60%;
     margin:auto;
     display:block;
 }

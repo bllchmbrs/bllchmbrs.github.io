@@ -7,12 +7,10 @@
 		<atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
-				<title>LeadA Data Challenge Week 1: Rebalancing Bike Terminals in SF</title>
+				<title>Data Challenge: Rebalancing Bike Terminals in SF</title>
 				<description>&lt;p&gt;&lt;a href=&quot;https://www.teamleada.com/&quot;&gt;Leada&lt;/a&gt; has recently set out to email out new datasets every week with a couple of interesting questions. I thought that this week&amp;#39;s challenge posed some interesting questions that provide great examples of ways to use Python&amp;#39;s pandas library.&lt;/p&gt;
 
-&lt;h3&gt;Here is their email&lt;/h3&gt;
-
-&lt;hr&gt;
+&lt;p&gt;Here&amp;#39;s their email.&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;You just made your 2015 New Year&amp;#39;s resolution to improve your data analysis
 skills and become data literate!
 
