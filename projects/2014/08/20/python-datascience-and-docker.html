@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>The Personal Website of Bill Chambers</title>
+        <title>Docker Data Science Hackday</title>
         <meta name="viewport" content="width=device-width">
         <link rel="stylesheet" href="/css/normalize.css">
         <link rel="stylesheet" href="/css/skeleton.css">
@@ -64,45 +64,89 @@
    </div>
 </div>
 
-              <div id="home">
-    <div class='titles'><i class="mdi mdi-file-document"></i><h1>Essays</h1></div>
-    <ul class="posts">
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <li><a href="/essays/2014/12/05/the-future-of-privacy.html">The Future of Privacy</a><span>05 Dec 2014</span></li>
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <li><a href="/essays/2014/08/31/timeful-user-experience-review.html">User Experience Critique - Habits in Timeful</a><span>31 Aug 2014</span></li>
-        
-        
-        
-        
-        
-        
-        
-        
-    </ul>
-</div>
+              <div class="row">
+   <div class="ten offset-by-one columns">
+      <article class="post">
+         <div class='titles'>
+            <h4>Docker Data Science Hackday</h4>
+            <p class="meta">
+               <!-- <span class='tags'>
+                  Tags:
+                  
+                  
+                  </span> -->
+               <span class='date'>
+               20 August 2014
+               </span>
+            </p>
+         </div>
+         <p><img src="logo-wiseio.png" alt="Wise.io"></p>
 
+<p>This past weekend was at the <a href="http://wise.io/">wise.io</a> data science hack day and had a great time. The team is clearly intelligent and I really enjoy working and learning in that kind of environment.</p>
+
+<p><img src="/assets/docker-whale-home-logo.png" alt="Docker"></p>
+
+<p>We went over Docker and its utility in the data science field. While I understood the docker abstraction (and basic motivation) previously I still didn&#39;t feel like I &quot;got it&quot;. This hands on experience with Docker really opened my eyes to how the tool is used and the benefit companies are getting form it. It&#39;s always nice to hear use cases from real companies solving real problems.</p>
+
+<p>While docker doesn&#39;t have a concept of a push to a server (like something like git) the reproducibility of modeling in the data science context is powerful. That is, there is no more dealing with random machines getting results that other machines don&#39;t get or having to set up chef or bash scripts to install a ton of dependencies every time you start a server. Docker really abstracts all that away. </p>
+
+<p>You can package up a model in a docker container, go have that run on some data and return some results - quickly. If you change the model, you can get the exact same volumes that you had before.</p>
+
+<p>On top of that, things like running tests in different environments on a local machine is powerful.</p>
+
+<p>I was able to get my own docker image up and running from the wiseio base and will be maintaining on <a href="https://github.com/anabranch/datascience-docker">my Github.</a> The primary difference is that I added lxml for web-scraping with pandas.</p>
+
+<p>Now I&#39;m using a mac so I have to use boot2docker which seems to work pretty well.</p>
+
+<p>Once I&#39;ve got it all installed, I ran</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">boot2docker up
+</code></pre></div>
+<p>You can get started with the image I creates by cloning it locally and once you&#39;ve <a href="https://docs.docker.com/#installation-guides">installed docker</a> you simply run <code>make</code> in that directory and it will build that docker image and save it locally for you. You can see what images you have on your machine with the <code>docker images</code> command.</p>
+
+<p>Now whenever you want to create a repeatable data science experiment, you just navigate to that directory and run:</p>
+<div class="highlight"><pre><code class="sh language-sh" data-lang="sh"><span class="nb">export </span><span class="nv">IPYTHON_PASSWORD</span><span class="o">=</span>DATASCI
+<span class="nb">alias </span><span class="k">do</span>-ds<span class="o">=</span><span class="s1">&#39;docker run -d -p 80:8888 -v `pwd`:/workspace/ -v `pwd`/data:/workspace/data -e &quot;PASSWORD=$IPYTHON_PASSWORD&quot; ds-base ; echo &quot;Now go to your browser: http://$(boot2docker ip). The password is $IPYTHON_PASSWORD&quot; &#39;</span>
+</code></pre></div>
+<p>Which will set your ipython password as DATASCI and give you the do-ds alias allowing you to start it up in that directory with all the necessary parameters. I just put it into my <code>.zshrc</code> file for future use.</p>
+
+<p><em>Please note you&#39;ve got to use backticks when setting this alias is zsh, but not so in bash (if I&#39;m not mistaken. I had to learn a little for this <a href="http://stackoverflow.com/questions/5566078/get-the-pwd-in-an-alias">SO post.</a></em></p>
+
+<p>And finally run</p>
+<div class="highlight"><pre><code class="sh language-sh" data-lang="sh"><span class="k">do</span>-ds
+</code></pre></div>
+<p>You&#39;ll see a print out similar to</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">423940a7f946eed6f92a15df6d59b9eee8187b8cbd45a30e31f019edfcca9d35
+Now go to your browser: http://192.168.59.103. The password is DATASCI
+</code></pre></div>
+<p>Which gives you the container ID and then url and password for accessing the IPython notebook running in that container. That will also have created a &quot;data&quot; directory on your current directory where you can add files that you want to access from the docker container. Now you can write your code, perform your analysis, and it will automatically save those files for work later on on your local machine.</p>
+
+<p>What&#39;s nice is you get a good, clean build every time you want to study or model something new.</p>
+
+<p>Here&#39;s another example, say that I&#39;ve got a model that works on some data I have on my local directory and I want to see if it operates differently in docker. Obviously this isn&#39;t a real instance of such an example but you can start seeing the power of the docker abstraction.</p>
+<div class="highlight"><pre><code class="sh language-sh" data-lang="sh">cat model.py <span class="c"># simple print statement, but this could be a whole model...</span>
+print <span class="s2">&quot;Testing data...&quot;</span>
+</code></pre></div><div class="highlight"><pre><code class="sh language-sh" data-lang="sh">docker run -t -i -v ~/Desktop/temp/model.py:/model.py ubuntu:14.04 /bin/sh -c <span class="s2">&quot;apt-get install -y python; python model.py;&quot;</span>
+</code></pre></div>
+<p>Our instructions are basically mount the file <code>model.py</code> into the image, install python, then run <code>python model.py</code>.</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">Reading package lists... Done
+Building dependency tree
+...
+After this operation, 16.0 MB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu/ trusty/main libpython2.7-minimal amd64 2.7.6-8 [307 kB]
+...
+Fetched 3734 kB in 9s (409 kB/s)
+...
+Testing data...
+</code></pre></div>
+<p>The container automatically shuts down with model is run.</p>
+
+<p>Finally you can see all the containers you are running by running <code>docker ps</code> and then shut them down with <code>docker stop &lt;container-id&gt;</code> or just by using the name that you&#39;ll see at the far right.</p>
+
+<p>Now there&#39;s obviously a lot more to docker</p>
+
+      </article>
+   </div>
+</div>
 
               <div class="footer">
    <!-- <h1>The Portfolio & Writings of Bill Chambers</h1> -->
