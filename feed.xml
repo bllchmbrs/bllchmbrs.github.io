@@ -68,7 +68,7 @@ Testing data...
 
 &lt;p&gt;Finally you can see all the containers you are running by running &lt;code&gt;docker ps&lt;/code&gt; and then shut them down with &lt;code&gt;docker stop &amp;lt;container-id&amp;gt;&lt;/code&gt; or just by using the name that you&amp;#39;ll see at the far right.&lt;/p&gt;
 
-&lt;p&gt;Now there&amp;#39;s obviously a lot more to docker&lt;/p&gt;
+&lt;p&gt;Now there&amp;#39;s obviously a lot more to docker than just what&amp;#39;s above. Integrations like AWS Container Service and AWS EBS seem extremely powerful to help you scale your docker applications. I will definitely continue to use Docker in my data science projects and would encourage anyone that is interested in giving it a try in their own workflow as well.&lt;/p&gt;
 </description>
 				<pubDate>Sun, 18 Jan 2015 00:00:00 -0800</pubDate>
 				<link>/projects/2015/01/18/python-datascience-and-docker.html</link>
@@ -182,6 +182,8 @@ Testing data...
 &lt;h4&gt;Stemming&lt;/h4&gt;
 
 &lt;p&gt;Stemming the process by which endings are removed from words in order to remove things like tense or plurality. It&amp;#39;s not appropriate for all cases but can make it easier to connect together tenses to see if you&amp;#39;re covering the same subject matter.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://youtu.be/9Zag7uhjdYo?t=30m00s&quot;&gt;Ben Hamner mentions in his Machine Learning Best practices that Kaggle has learned from their competitions that the Porter stemmer is consistently used in winning NLP algorithms for their competitions.&lt;/a&gt;&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;py language-py&quot; data-lang=&quot;py&quot;&gt;&lt;span class=&quot;n&quot;&gt;pstemmer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nltk&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;PorterStemmer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;lstemmer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nltk&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;LancasterStemmer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;wnlemmatizer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nltk&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;WordNetLemmatizer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;

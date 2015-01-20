@@ -13,8 +13,8 @@ categories: projects
 ---
 """
 
-date_string = datetime.now().strftime("%Y-%m-%d-")
+date_string = datetime.now().strftime("%Y-%m-%d")
 
-with open("_drafts/" + date_string + title.replace(" ", "-") + ".md", 'wb') as f:
+with open("_drafts/" + date_string + "-" + title.replace(" ", "-") + ".md", 'wb') as f:
     f.write(start_string % (title.replace(" ", "-"), date_string))
 

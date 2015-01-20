@@ -185,6 +185,8 @@
 <h4>Stemming</h4>
 
 <p>Stemming the process by which endings are removed from words in order to remove things like tense or plurality. It&#39;s not appropriate for all cases but can make it easier to connect together tenses to see if you&#39;re covering the same subject matter.</p>
+
+<p><a href="http://youtu.be/9Zag7uhjdYo?t=30m00s">Ben Hamner mentions in his Machine Learning Best practices that Kaggle has learned from their competitions that the Porter stemmer is consistently used in winning NLP algorithms for their competitions.</a></p>
 <div class="highlight"><pre><code class="py language-py" data-lang="py"><span class="n">pstemmer</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">PorterStemmer</span><span class="p">()</span>
 <span class="n">lstemmer</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">LancasterStemmer</span><span class="p">()</span>
 <span class="n">wnlemmatizer</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">WordNetLemmatizer</span><span class="p">()</span>
