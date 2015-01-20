@@ -327,7 +327,7 @@ Testing data...
 			</item>
 		
 			<item>
-				<title>Data Challenge: Rebalancing Bike Terminals in SF</title>
+				<title>Data Challenge - Rebalancing Bike Terminals in SF</title>
 				<description>&lt;p&gt;&lt;a href=&quot;https://www.teamleada.com/&quot;&gt;Leada&lt;/a&gt; has recently set out to email out new datasets every week with a couple of interesting questions. I thought that this week&amp;#39;s challenge posed some interesting questions that provide great examples of ways to use Python&amp;#39;s pandas library.&lt;/p&gt;
 
 &lt;p&gt;Here&amp;#39;s their email.&lt;/p&gt;
@@ -579,7 +579,7 @@ terminal for a customer to rent.&lt;/strong&gt;&lt;/p&gt;
 			</item>
 		
 			<item>
-				<title>Basic Statistical NLP Part 2: TF-IDF And Cosine Similarity</title>
+				<title>Basic Statistical NLP Part 2 - TF-IDF And Cosine Similarity</title>
 				<description>&lt;p&gt;&lt;em&gt;&lt;a href=&quot;/tutorials/2014/12/21/tf-idf-explained-in-python.html&quot;&gt;This is a two part post, you can see part 1 here.&lt;/a&gt; Please read that post (if you haven&amp;#39;t already) before continuing or just check out the code in this gist.&lt;/em&gt;
 &lt;script src=&quot;https://gist.github.com/anabranch/02217b94ef02ea13c7ee.js&quot;&gt; &lt;/script&gt;&lt;/p&gt;
 
@@ -662,7 +662,7 @@ terminal for a customer to rent.&lt;/strong&gt;&lt;/p&gt;
 			</item>
 		
 			<item>
-				<title>Basic Statistical NLP Part 1: Jaccard Similarity and TF-IDF</title>
+				<title>Basic Statistical NLP Part 1 - Jaccard Similarity and TF-IDF</title>
 				<description>&lt;p&gt;&lt;em&gt;&lt;a href=&quot;/tutorials/2014/12/22/cosine-similarity-explained-in-python.html&quot;&gt;This is a two part post, you can see part 2 here.&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
 
 &lt;p&gt;In my natural language processing class we&amp;#39;ve been playing around with similarity measures and I thought it would be useful to write them up here. Obviously this isn&amp;#39;t an exhaustive list but I think it would be a good resource for anyone looking to learn a bit more about ways of measuring similarity between documents.&lt;/p&gt;
