@@ -1241,7 +1241,7 @@ terminal for a customer to rent.&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;So I&amp;#39;m running some of my final tests, end-to-end and I stumble upon another issue: incorrect data (or data definitions).&lt;/p&gt;
 
-&lt;p&gt;Here&amp;#39;s where the issue was occuring:&lt;/p&gt;
+&lt;p&gt;Here&amp;#39;s where the issue was occurring:&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;sh language-sh&quot; data-lang=&quot;sh&quot;&gt; Loading CvrRegistrationCd
 dataerror error,  invalid input syntax &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;integer: &lt;span class=&quot;s2&quot;&gt;&amp;quot;01/0&amp;quot;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;py language-py&quot; data-lang=&quot;py&quot;&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CvrRegistrationCd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CalAccessBaseModel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;

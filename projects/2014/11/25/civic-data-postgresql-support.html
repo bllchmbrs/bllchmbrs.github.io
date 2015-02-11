@@ -264,7 +264,7 @@
 
 <p>So I&#39;m running some of my final tests, end-to-end and I stumble upon another issue: incorrect data (or data definitions).</p>
 
-<p>Here&#39;s where the issue was occuring:</p>
+<p>Here&#39;s where the issue was occurring:</p>
 <div class="highlight"><pre><code class="sh language-sh" data-lang="sh"> Loading CvrRegistrationCd
 dataerror error,  invalid input syntax <span class="k">for </span>integer: <span class="s2">&quot;01/0&quot;</span>
 </code></pre></div><div class="highlight"><pre><code class="py language-py" data-lang="py"><span class="k">class</span> <span class="nc">CvrRegistrationCd</span><span class="p">(</span><span class="n">CalAccessBaseModel</span><span class="p">):</span>
