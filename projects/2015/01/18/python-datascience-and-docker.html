@@ -88,18 +88,18 @@
 
 <p>While docker doesn&#39;t have a concept of a push to a server (like something like git) the reproducibility of modeling in the data science context is powerful. That is, there is no more dealing with random machines getting results that other machines don&#39;t get or having to set up chef or bash scripts to install a ton of dependencies every time you start a server. Docker really abstracts all that away. </p>
 
-<p>You can package up a model in a docker container, go have that run on some data and return some results - quickly. If you change the model, you can get the exact same volumes that you had before.</p>
+<p>You can package up a model in a docker container, go have that run on some data and return some results - quickly. If you change the model, you can know that other people will be able to replicate the results because of the containerization of the model.</p>
 
-<p>On top of that, things like running tests in different environments on a local machine is powerful.</p>
+<p>On top of that, running automated tests or trying different model parameters in a parallel way is powerful.</p>
 
-<p>I was able to get my own docker image up and running from the wiseio base and will be maintaining on <a href="https://github.com/anabranch/datascience-docker">my Github.</a> The primary difference is that I added lxml for web-scraping with pandas.</p>
+<p>I was able to get my own docker image up and running from the wiseio base and will be maintaining on <a href="https://github.com/anabranch/datascience-docker">my Github.</a> The primary difference is that I added lxml for simple web-scraping with pandas.</p>
 
 <p>Now I&#39;m using a mac so I have to use boot2docker which seems to work pretty well.</p>
 
 <p>Once I&#39;ve got it all installed, I ran</p>
 <div class="highlight"><pre><code class="text language-text" data-lang="text">boot2docker up
 </code></pre></div>
-<p>You can get started with the image I creates by cloning it locally and once you&#39;ve <a href="https://docs.docker.com/#installation-guides">installed docker</a> you simply run <code>make</code> in that directory and it will build that docker image and save it locally for you. You can see what images you have on your machine with the <code>docker images</code> command.</p>
+<p>You can get started with the image I creates by cloning it locally and once you&#39;ve <a href="https://docs.docker.com/#installation-guides">installed docker</a> you simply run <code>make</code> in the github directory and it will build that docker image and save it locally for you. You can see what images you have on your machine with the <code>docker images</code> command.</p>
 
 <p>Now whenever you want to create a repeatable data science experiment, you just navigate to that directory and run:</p>
 <div class="highlight"><pre><code class="sh language-sh" data-lang="sh"><span class="nb">export </span><span class="nv">IPYTHON_PASSWORD</span><span class="o">=</span>DATASCI
@@ -107,9 +107,9 @@
 </code></pre></div>
 <p>Which will set your ipython password as DATASCI and give you the do-ds alias allowing you to start it up in that directory with all the necessary parameters. I just put it into my <code>.zshrc</code> file for future use.</p>
 
-<p><em>Please note you&#39;ve got to use backticks when setting this alias is zsh, but not so in bash (if I&#39;m not mistaken. I had to learn a little for this <a href="http://stackoverflow.com/questions/5566078/get-the-pwd-in-an-alias">SO post.</a></em></p>
+<p><em>Please note you&#39;ve got to use backticks when setting this alias is zsh, but not so in bash if I&#39;m not mistaken. I had to learn a little for this <a href="http://stackoverflow.com/questions/5566078/get-the-pwd-in-an-alias">SO post.</a></em></p>
 
-<p>And finally run</p>
+<p>Finally run</p>
 <div class="highlight"><pre><code class="sh language-sh" data-lang="sh"><span class="k">do</span>-ds
 </code></pre></div>
 <p>You&#39;ll see a print out similar to</p>

@@ -16,18 +16,18 @@
 
 &lt;p&gt;While docker doesn&amp;#39;t have a concept of a push to a server (like something like git) the reproducibility of modeling in the data science context is powerful. That is, there is no more dealing with random machines getting results that other machines don&amp;#39;t get or having to set up chef or bash scripts to install a ton of dependencies every time you start a server. Docker really abstracts all that away. &lt;/p&gt;
 
-&lt;p&gt;You can package up a model in a docker container, go have that run on some data and return some results - quickly. If you change the model, you can get the exact same volumes that you had before.&lt;/p&gt;
+&lt;p&gt;You can package up a model in a docker container, go have that run on some data and return some results - quickly. If you change the model, you can know that other people will be able to replicate the results because of the containerization of the model.&lt;/p&gt;
 
-&lt;p&gt;On top of that, things like running tests in different environments on a local machine is powerful.&lt;/p&gt;
+&lt;p&gt;On top of that, running automated tests or trying different model parameters in a parallel way is powerful.&lt;/p&gt;
 
-&lt;p&gt;I was able to get my own docker image up and running from the wiseio base and will be maintaining on &lt;a href=&quot;https://github.com/anabranch/datascience-docker&quot;&gt;my Github.&lt;/a&gt; The primary difference is that I added lxml for web-scraping with pandas.&lt;/p&gt;
+&lt;p&gt;I was able to get my own docker image up and running from the wiseio base and will be maintaining on &lt;a href=&quot;https://github.com/anabranch/datascience-docker&quot;&gt;my Github.&lt;/a&gt; The primary difference is that I added lxml for simple web-scraping with pandas.&lt;/p&gt;
 
 &lt;p&gt;Now I&amp;#39;m using a mac so I have to use boot2docker which seems to work pretty well.&lt;/p&gt;
 
 &lt;p&gt;Once I&amp;#39;ve got it all installed, I ran&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;boot2docker up
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;You can get started with the image I creates by cloning it locally and once you&amp;#39;ve &lt;a href=&quot;https://docs.docker.com/#installation-guides&quot;&gt;installed docker&lt;/a&gt; you simply run &lt;code&gt;make&lt;/code&gt; in that directory and it will build that docker image and save it locally for you. You can see what images you have on your machine with the &lt;code&gt;docker images&lt;/code&gt; command.&lt;/p&gt;
+&lt;p&gt;You can get started with the image I creates by cloning it locally and once you&amp;#39;ve &lt;a href=&quot;https://docs.docker.com/#installation-guides&quot;&gt;installed docker&lt;/a&gt; you simply run &lt;code&gt;make&lt;/code&gt; in the github directory and it will build that docker image and save it locally for you. You can see what images you have on your machine with the &lt;code&gt;docker images&lt;/code&gt; command.&lt;/p&gt;
 
 &lt;p&gt;Now whenever you want to create a repeatable data science experiment, you just navigate to that directory and run:&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;sh language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;IPYTHON_PASSWORD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;DATASCI
@@ -35,9 +35,9 @@
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Which will set your ipython password as DATASCI and give you the do-ds alias allowing you to start it up in that directory with all the necessary parameters. I just put it into my &lt;code&gt;.zshrc&lt;/code&gt; file for future use.&lt;/p&gt;
 
-&lt;p&gt;&lt;em&gt;Please note you&amp;#39;ve got to use backticks when setting this alias is zsh, but not so in bash (if I&amp;#39;m not mistaken. I had to learn a little for this &lt;a href=&quot;http://stackoverflow.com/questions/5566078/get-the-pwd-in-an-alias&quot;&gt;SO post.&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Please note you&amp;#39;ve got to use backticks when setting this alias is zsh, but not so in bash if I&amp;#39;m not mistaken. I had to learn a little for this &lt;a href=&quot;http://stackoverflow.com/questions/5566078/get-the-pwd-in-an-alias&quot;&gt;SO post.&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
 
-&lt;p&gt;And finally run&lt;/p&gt;
+&lt;p&gt;Finally run&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;sh language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;-ds
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;You&amp;#39;ll see a print out similar to&lt;/p&gt;
