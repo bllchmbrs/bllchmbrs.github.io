@@ -7,6 +7,29 @@
 		<atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
+				<title>Infographic is -Why Hasn’t Russia’s Economic Collapse Affected its Leadership?</title>
+				<description>&lt;p&gt;&lt;img src=&quot;/assets/russia-media-infographic-putin.png&quot; alt=&quot;Russian Media Infographic&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;This was an infographic I created to answer the question: “Why Hasn’t Russia’s Economic Collapse Affected its Leadership?”&lt;/p&gt;
+
+&lt;p&gt;Over the past year, Russia has gone from a fairly stable growth rate to a significant economic contraction. The value of its currency has been chopped in half in 6 months and they’ve had to defend the currency and the economy. I wanted to tell the story about how much this economic situation has changed nothing in Russia in terms of leadership or potential leadership changes. In fact, Putin’s support is through the roof - nearly double that of Obama’s in the US. What’s really going on?&lt;/p&gt;
+
+&lt;p&gt;I’m also interested in a lot of the laws that are being passed in Russia. Foreign media companies have to sell off their stakes in the Russian market, technology companies are being forced to store all customer data on Russian soil. The laws and policies are ever changing, how is the above economic collapse connected to that?&lt;/p&gt;
+
+&lt;p&gt;Through these different perspectives, I wanted to make the point that Russia is trying to control all information from the top down. By limiting free speech and killing/silencing opposition - they’re setting up mechanism for control of the people - and it’s working. Television, the most popular way to consume media in Russia, is completely state-owned either through the state itself or through subsidiaries. Polls in support of Putin are through the roof because of the annexation of Crimea and talks of fighting Nazism is Ukraine.&lt;/p&gt;
+
+&lt;p&gt;Sources:
+Russiavotes.org - survey data
+Global-rates.com = Inflation Rates
+Ruble to Dollar - exchange-rates.org
+Media Ownership and Laws - wikipedia.org&lt;/p&gt;
+</description>
+				<pubDate>Sun, 01 Mar 2015 00:00:00 -0800</pubDate>
+				<link>/projects/2015/03/01/-infographic-russia-leadership.html</link>
+				<guid isPermaLink="true">/projects/2015/03/01/-infographic-russia-leadership.html</guid>
+			</item>
+		
+			<item>
 				<title>Hackday - Data Science and Docker Working Together</title>
 				<description>&lt;p&gt;This past weekend was at the &lt;a href=&quot;http://wise.io/&quot;&gt;wise.io&lt;/a&gt; data science hack day and had a great time. The team is clearly intelligent and I really enjoy working and learning in that kind of environment.&lt;/p&gt;
 
@@ -1453,21 +1476,6 @@ title: Bill&amp;#39;s Fantastic Portfolio
 				<pubDate>Tue, 11 Nov 2014 00:00:00 -0800</pubDate>
 				<link>/tutorials/2014/11/11/introduction-to-static-site-generators.html</link>
 				<guid isPermaLink="true">/tutorials/2014/11/11/introduction-to-static-site-generators.html</guid>
-			</item>
-		
-			<item>
-				<title>DataKindSF - Data Analysis for the Greater Good</title>
-				<description>&lt;p&gt;DataKindSF just got their start and the reception was incredible. There was a huge turn out of people wanting to contribute by using high impact skills for greater good. I found out about the program through &lt;a href=&quot;http://www.meetup.com/DataKind-SF-Bay-Area/&quot;&gt;their meetup&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;What I found particularly interesting about the whole thing was the vast possibilities for improving the ways that non-profits do business. At Procore, I helped guide the direction of our data quality and was a led the large scale reset of our data architecture and this kind of critical thinking could really make a difference for a lot of organizations.&lt;/p&gt;
-
-&lt;p&gt;Volunteering is typically a low impact activity. It obviously impacts individuals but the possibility to impact others at scale is particularly intriguing!&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://www.datakind.org/getinvolved/&quot;&gt;Sign up on their website&lt;/a&gt;.&lt;/p&gt;
-</description>
-				<pubDate>Wed, 08 Oct 2014 00:00:00 -0700</pubDate>
-				<link>/miscellaneous/2014/10/08/datakind-sf-first-meetup.html</link>
-				<guid isPermaLink="true">/miscellaneous/2014/10/08/datakind-sf-first-meetup.html</guid>
 			</item>
 		
 	</channel>
