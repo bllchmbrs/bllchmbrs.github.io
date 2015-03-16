@@ -7,6 +7,103 @@
 		<atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
+				<title>Exploratory Data Analysis of Crime in San Francisco</title>
+				<description>&lt;h3&gt;Data:&lt;/h3&gt;
+
+&lt;p&gt;The dataset I chose was a data set on &lt;a href=&quot;http://data.sfgov.org/d/tmnf-yvry?category=Public-Safety&quot;&gt;crime in San Francisco.&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://data.sfgov.org/d/tmnf-yvry?category=Public-Safety&quot;&gt;http://data.sfgov.org/d/tmnf-yvry?category=Public-Safety&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;I have filtered the dataset which is large at 350 mb down to only theft incidents in 2014. I did this by taking that file and running commands:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;sh language-sh&quot; data-lang=&quot;sh&quot;&gt;egrep &lt;span class=&quot;s2&quot;&gt;&amp;quot;2014&amp;quot;&lt;/span&gt; SFPD_Incidents_-_from_1_January_2003.csv &amp;gt; SFPD_2014.csv
+egrep &lt;span class=&quot;s2&quot;&gt;&amp;quot;LARCENY/THEFT&amp;quot;&lt;/span&gt; SFPD_2014.csv &amp;gt; SFPD_2014_theft.csv
+cat col_format.csv SFPD_2014_theft.csv &amp;gt; SFPD_2014_theft_col.csv
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Dashboards follow each hypothesis.&lt;/p&gt;
+
+&lt;h3&gt;Hypotheses:&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;My first hypothesis is that most thefts occur at night in residential neighborhoods. Given that many people have to park their cars outside at night, I assume that most crime occurs when people are asleep.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;By looking into this data, I decided that it would likely be more interesting to try and look at it day by day (rather than just cumulatively). We can see that evening time is by far the most likely time that thefts will occur with weekdays frequently around 6PM to 8PM while the weekends see a jump in thefts around midnight as well. Sunday was by far the calmest day - something I might want to look at further along.&lt;/p&gt;
+
+&lt;p&gt;After completing that histogram of just dates and times I need to dive deeper into the data and better understand time and certain neighborhoods. &lt;/p&gt;
+
+&lt;p&gt;Then I created a new parameter that is &amp;quot;Residential&amp;quot; and &amp;quot;Non-Residential&amp;quot;.&lt;/p&gt;
+
+&lt;p&gt;Non-Residential:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Southern&lt;/li&gt;
+&lt;li&gt;Central&lt;/li&gt;
+&lt;li&gt;Bayview (kind of)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Residential:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Mission&lt;/li&gt;
+&lt;li&gt;Northern&lt;/li&gt;
+&lt;li&gt;Park&lt;/li&gt;
+&lt;li&gt;Richmond&lt;/li&gt;
+&lt;li&gt;Ingleside&lt;/li&gt;
+&lt;li&gt;Taravel&lt;/li&gt;
+&lt;li&gt;Tenderloin&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I then got the resulting box and whisker plot.&lt;/p&gt;
+
+&lt;p&gt;Once I was able to do that I was able to confirm my hypothesis, it seems that more crime occurs in residential neighborhoods than non-residential neighborhoods on any given day of the week. The one important thing to keep in mind is that I used my personal knowledge of the districts (as well as maps from each police station to classify it as residential or non-residential - this is an unofficial classification). In terms of my hypothesis it is not so clear that most crime occurs at &amp;quot;night&amp;quot; - it seems that dusk is the time at which most crime occurs.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/Hypo1.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Given my previous data, I was able to see that the Southern District has the most theft. My hypothesis is that it has the most unresolved crime. I also hypothesize that more crimes are resolved in the richest neighborhoods than in poor neighborhoods. Specifically, I believe that the Richmond and Northern districts have the high proportion of solved crimes per crime committed.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;I created a new variable which is the number of thefts resolved. A case is unresolved if the Resolution field is NONE.&lt;/p&gt;
+
+&lt;p&gt;This exploration yielded some interesting results and definitely not what I expected. We can see from the percent resolved that nearly 25% of the crimes in the tenderloin are resolved. I think that this might be because it&amp;#39;s such a small area, that many people are caught doing relatively petty things and don&amp;#39;t end up getting very far from where they committed the crime. Interestingly, the Northern District seemed to have the smallest percentage resolved - yet also had a lot of crime numbers. This fact makes me question my Residential/Non-Residential qualifications from earlier - although they may be valid. Interestingly, the Richmond seems to have a low crime resolution rate as well - not necessarily what I would have expected.&lt;/p&gt;
+
+&lt;p&gt;Looking at the resolution field gave me a lot of interesting ideas to explore - what makes a theft something the DA doesn&amp;#39;t want to prosecute? Where is the highest number of juvenile bookings? &lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/Hypo2.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;Unfortunately I realized that my dataset was a bit constrained when I just focused on thefts. So I loaded in all crimes in 2014 to see what else I might be able to dig up.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;sh language-sh&quot; data-lang=&quot;sh&quot;&gt;cat col_format.csv SFPD_2014.csv &amp;gt; SFPD_2014_col.csv
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Gives me all data from 2014.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;I hypothesize that the theft distribution follows a similar distribution to the general population of crime. By this I mean thefts will be a representative sample from the population - that all crimes will occur roughly in the same locations, at the same times, in the same places, at the same amounts.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;By looking at the dashboard - this seems to be roughly true. It seems that they&amp;#39;re more or less the same - obviously the totals are throw off but this brought me to a new visual, what are the most common crimes? (ranked on the right side of this dashboard) It&amp;#39;s not by any means a perfect representation but it was close enough (visually) that it&amp;#39;s fair to say that&amp;#39;s it is a relatively accurate representation of where crime occurs in the city.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/Hypo3.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Now that I had a better idea of how the data might be made up - I thought it would be good to jump into a map perspective. I thought looking at assaults might be a good next step - they&amp;#39;re the 4th most common category of crime in 2014. I hypothesize that thefts and assaults are related and occur in more or less the same locations. By that I mean that their ratios are the same. If assault occurs as X% of total crime in a given district theft will occur at 2X% of total crime.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;I visualized this through 2 mediums. Firstly through a map where I plotted only thefts and assaults at locations that were reported more than 20 times. This gave me a general idea of where thefts and assaults are likely to occur. When we filter out the incidents that occur at locations only one or two times. When we take a look at this we can immediately see that some hotspots are shared and some are different. Assaults clearly occur in the Mission much more than thefts. What&amp;#39;s interesting when we use the map view is that we can see these differences much more quickly (in relation to where in the city they are likely to occur). I noticed immediately that there seems to be a fair amount of theft in a specific location in Golden Gate Park. Definitely worth thinking about and exploring further.&lt;/p&gt;
+
+&lt;p&gt;Looking at the table tells an even more interesting story. I&amp;#39;ve done some working to basically look at the percent of total crime in a given district - we can see that in the Mission - theft is not as common as assault. What does this mean? In SOMA there seems to be a lot more theft, possibly from tourists while in the Mission it seems that more fights may be breaking out leading to assaults instead of thefts.&lt;/p&gt;
+
+&lt;p&gt;Quite simply, I could reject my hypothesis - there seems to be no relation between theft occurring at a certain percent more across the city.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/Hypo4.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/bill-chambers-eda.twbx&quot;&gt;Download the workbook here.&lt;/a&gt;&lt;/p&gt;
+</description>
+				<pubDate>Mon, 16 Mar 2015 00:00:00 -0700</pubDate>
+				<link>/projects/2015/03/16/exploring-sf-crime-tableau.html</link>
+				<guid isPermaLink="true">/projects/2015/03/16/exploring-sf-crime-tableau.html</guid>
+			</item>
+		
+			<item>
 				<title>Infographic - Why Hasn’t Russia’s Economic Collapse Affected its Leadership?</title>
 				<description>&lt;p&gt;&lt;img src=&quot;/assets/russia-media-infographic-putin.png&quot; alt=&quot;Russian Media Infographic&quot;&gt;&lt;/p&gt;
 
@@ -1291,191 +1388,6 @@ dataerror error,  invalid input syntax &lt;span class=&quot;k&quot;&gt;for &lt;/
 				<pubDate>Tue, 25 Nov 2014 00:00:00 -0800</pubDate>
 				<link>/projects/2014/11/25/civic-data-postgresql-support.html</link>
 				<guid isPermaLink="true">/projects/2014/11/25/civic-data-postgresql-support.html</guid>
-			</item>
-		
-			<item>
-				<title>A Gentle Introduction to Static Site Generators</title>
-				<description>&lt;p&gt;This document will be a simple introduction to static site generators. We&amp;#39;ll go over the basics of what they are, why you should use them, which one you should use and finally how to get started.&lt;/p&gt;
-
-&lt;p&gt;The intended audiences for this tutorial are designers or novice developers with little to no programming experience but with some HTML/CSS skill, simple command line experience. This document was originally written for a presentation I did for a portfolio class at the UC Berkeley School of Information. &lt;a href=&quot;https://docs.google.com/a/berkeley.edu/presentation/d/1vnIX6JzYBaHuWY914bSjlNvUoSg7-AB-LEJXM4NsCsI/edit?usp=sharing&quot;&gt;You can see the presentation I made here&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strike&gt;I&amp;#39;m using one on this website called &lt;a href=&quot;http://docs.getpelican.com/en/3.5.0/&quot;&gt;Pelican&lt;/a&gt;&lt;/strike&gt; but there are &lt;a href=&quot;https://staticsitegenerators.net/&quot;&gt;many different kinds&lt;/a&gt;. Feel free to send me an email with any questions and I can recommend the best one for you.
-&lt;em&gt;When I wrote this tutorial I saw how much more enjoyable it was to use jekyll, so I made the switch myself.&lt;/em&gt;&lt;/p&gt;
-
-&lt;h3&gt;What is a static site generator?&lt;/h3&gt;
-
-&lt;hr&gt;
-
-&lt;p&gt;Simply a static site generator generates a static site. You give it a simple format of documents of a certain type and it converts those into HTML content for you. This makes it easy to maintain any changes you make to the underlying pages.&lt;/p&gt;
-
-&lt;h3&gt;What problem does it solve?&lt;/h3&gt;
-
-&lt;hr&gt;
-
-&lt;p&gt;You want a website or portfolio. You want to continue to add to it overtime and be able to make changes to my template and have those go to every single page of my website.&lt;/p&gt;
-
-&lt;p&gt;If you just have raw html pages, changing details on every page is a nightmare. If you want to change something like the layout, I&amp;#39;d have to copy and paste my content into every single one. You could use a web framework like Ruby on Rails or Django but then you have to deal with hosting and all the associated overhead and knowledge those things require. Additionally those require full fledged web servers (if you don&amp;#39;t know what this is don&amp;#39;t worry about it). You can &lt;a href=&quot;https://pages.github.com/&quot;&gt;serve static sites for free.&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Static site generators abstract the compilation of templates and source writing of documents. Instead of having that done on the server, it does it on your local machine and allows you to take that static site and put it elsewhere.&lt;/p&gt;
-
-&lt;p&gt;In simplest terms it takes a template of structure and layout and inserts the content you write in other formats into that template.&lt;/p&gt;
-
-&lt;p&gt;I think the working example is easiest to understand.&lt;/p&gt;
-
-&lt;p&gt;So you&amp;#39;ve got a directory like this: (this is just writing)&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;- Articles (the folder)
-    - my_article_about_stuff.md
-    - My_other_article_about stuff.md
-    - ux_review.md
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;The static site generator generates a folder structure like this: (that you can put on a web server)&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;- about.html
-- home.html
-- articles
-    - my_article_about_stuff.html
-    - My_other_article_about stuff.html
-    - ux_review.html
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;That would give you a website like this: (that goes on the internet)&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;mywebsite.com/about.html
-mywebsite.com/home.html
-mywebsite.com/articles/my_article_about_stuff.html
-...
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;how does one get started?&lt;/h3&gt;
-
-&lt;hr&gt;
-
-&lt;p&gt;&lt;strong&gt;THIS TUTORIAL IS INTENDED FOR MAC USERS&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Let&amp;#39;s get started with &lt;a href=&quot;http://jekyllrb.com/&quot;&gt;Jekyll&lt;/a&gt;. It&amp;#39;s the most popular static site generator and is fairly friendly.&lt;/p&gt;
-
-&lt;p&gt;You&amp;#39;ll need two things for these next steps:
-- Your Favorite Text Editor (sublime text, text edit, etc.)
-- A Terminal (search spotlight for terminal and open it up). &lt;/p&gt;
-
-&lt;p&gt;From now on, anything you see in &lt;code&gt;code writing&lt;/code&gt; should be executed in the &lt;code&gt;terminal&lt;/code&gt; unless otherwise stated.&lt;/p&gt;
-
-&lt;p&gt;On Mac run:
-&lt;code&gt;gem install jekyll&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;if you have any problems you may need to run. 
-&lt;code&gt;sh
-rvm get stable
-rvm osx-ssl-certs update all
-rvm rubygems latest
-&lt;/code&gt;
-You may have to do this stuff with &lt;code&gt;sudo&lt;/code&gt; in front of it.&lt;/p&gt;
-
-&lt;p&gt;These commands just make sure everything you have is up to date.&lt;/p&gt;
-
-&lt;p&gt;Then finally run &lt;code&gt;gem install jekyll --source http://rubygems.org&lt;/code&gt; in the terminal.&lt;/p&gt;
-
-&lt;p&gt;Now you&amp;#39;ve installed jekyll. What I always like to do is start with the basics and modifying it to meet my needs. Let&amp;#39;s create a basic blog then go from there.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;jekyll new myblog
-cd myblog
-jekyll serve
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;You&amp;#39;ll see some text like. It&amp;#39;s not important what it says, just that it says something like this.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;sh language-sh&quot; data-lang=&quot;sh&quot;&gt;Configuration file: /sometext/myblog/_config.yml
-            Source: /sometext/myblog
-       Destination: /sometext/myblog/_site
-      Generating... &lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;.
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;2014-11-10 14:10:42&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; INFO  WEBrick 1.3.1
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;2014-11-10 14:10:42&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; INFO  ruby 2.0.0 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;2013-06-27&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;x86_64-darwin12.3.0&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;2014-11-10 14:10:42&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; INFO  WEBrick::HTTPServer#start: &lt;span class=&quot;nv&quot;&gt;pid&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;62126 &lt;span class=&quot;nv&quot;&gt;port&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;4000
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Now go to &lt;a href=&quot;http://localhost:4000/&quot;&gt;http://localhost:4000/&lt;/a&gt; and BOOM you&amp;#39;ve got a website.&lt;/p&gt;
-
-&lt;p&gt;So let&amp;#39;s dive into customizing the website a bit more.&lt;/p&gt;
-
-&lt;p&gt;Take a look at the directory structure but it should be pretty self explanatory.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;_layouts/&lt;/strong&gt; is where you&amp;#39;ve got the layouts. Typically you&amp;#39;ll have a more navigation centric one then a more post centric one.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;_posts/&lt;/strong&gt; is where you store...you guessed it. Any posts you want to publish.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;_site/&lt;/strong&gt; is the actual website that jekyll generates. You&amp;#39;ll see that it organizes things by date. &lt;em&gt;You will NEVER edit anything in here because it won&amp;#39;t get saved permanently and you&amp;#39;ll forget to do it next time.&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;css/&lt;/strong&gt; is where you store the css for your project. Most of what you&amp;#39;ll be modifying will be &lt;strong&gt;main.css&lt;/strong&gt; in the &lt;strong&gt;css/&lt;/strong&gt; folder.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;index.html&lt;/strong&gt; is the home page for your website.&lt;/p&gt;
-
-&lt;p&gt;Here&amp;#39;s the code for &lt;strong&gt;index.html&lt;/strong&gt;:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;html language-html&quot; data-lang=&quot;html&quot;&gt;---
-layout: default
-title: Your New Jekyll Site
----
-
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;home&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;&amp;lt;h1&amp;gt;&lt;/span&gt;Blog Posts&lt;span class=&quot;nt&quot;&gt;&amp;lt;/h1&amp;gt;&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;&amp;lt;ul&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;posts&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-    {% for post in site.posts %}
-      &lt;span class=&quot;nt&quot;&gt;&amp;lt;li&amp;gt;&amp;lt;span&amp;gt;&lt;/span&gt;{{ post.date | date_to_string }}&lt;span class=&quot;nt&quot;&gt;&amp;lt;/span&amp;gt;&lt;/span&gt; &lt;span class=&quot;ni&quot;&gt;&amp;amp;raquo;&lt;/span&gt; 
-      &lt;span class=&quot;nt&quot;&gt;&amp;lt;a&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;{{ post.url }}&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;{{ post.title }}&lt;span class=&quot;nt&quot;&gt;&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;&lt;/span&gt;
-    {% endfor %}
-  &lt;span class=&quot;nt&quot;&gt;&amp;lt;/ul&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Now remember, we making &lt;em&gt;your&lt;/em&gt; website so we need to customize it for you!&lt;/p&gt;
-
-&lt;p&gt;In your terminal hit &lt;code&gt;control + c&lt;/code&gt; where you entered &lt;code&gt;jekyll serve&lt;/code&gt;. &lt;/p&gt;
-
-&lt;p&gt;This will turn off the server you started above.&lt;/p&gt;
-
-&lt;p&gt;Now run &lt;code&gt;jekyll serve --watch&lt;/code&gt;. What this allows us to do is make changes to our files and jekyll will see those changes and automatically compile our new website on &lt;a href=&quot;http://localhost:4000/&quot;&gt;http://localhost:4000/&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h3&gt;Changing HTML&lt;/h3&gt;
-
-&lt;hr&gt;
-
-&lt;p&gt;Open up &lt;strong&gt;index.html&lt;/strong&gt; in your text editor and let&amp;#39;s make some changes.&lt;/p&gt;
-
-&lt;p&gt;First, this isn&amp;#39;t a blog, it&amp;#39;s a portfolio. So I want to make two changes. I want to change the title and the text in the &lt;code&gt;&amp;lt;h1&amp;gt;&lt;/code&gt; tag. Here&amp;#39;s what I changed in my &lt;strong&gt;index.html&lt;/strong&gt; file.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;html language-html&quot; data-lang=&quot;html&quot;&gt;---
-layout: default
-title: Bill&amp;#39;s Fantastic Portfolio
----
-
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;home&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;&amp;lt;h1&amp;gt;&lt;/span&gt;Portfolio&lt;span class=&quot;nt&quot;&gt;&amp;lt;/h1&amp;gt;&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;&amp;lt;ul&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;posts&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-    {% for post in site.posts %}
-      &lt;span class=&quot;nt&quot;&gt;&amp;lt;li&amp;gt;&amp;lt;span&amp;gt;&lt;/span&gt;{{ post.date | date_to_string }}&lt;span class=&quot;nt&quot;&gt;&amp;lt;/span&amp;gt;&lt;/span&gt; &lt;span class=&quot;ni&quot;&gt;&amp;amp;raquo;&lt;/span&gt; 
-      &lt;span class=&quot;nt&quot;&gt;&amp;lt;a&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;{{ post.url }}&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;{{ post.title }}&lt;span class=&quot;nt&quot;&gt;&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;&lt;/span&gt;
-    {% endfor %}
-  &lt;span class=&quot;nt&quot;&gt;&amp;lt;/ul&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Now navigate to &lt;a href=&quot;http://localhost:4000/&quot;&gt;http://localhost:4000/&lt;/a&gt; in your browser and refresh the page. You&amp;#39;ll see the title is different now. &lt;/p&gt;
-
-&lt;h2&gt;Changing CSS&lt;/h2&gt;
-
-&lt;p&gt;Now let&amp;#39;s say I want every &lt;code&gt;&amp;lt;h1&amp;gt;&lt;/code&gt; tag to be blue. That means changing some css, so I&amp;#39;ll head over to &lt;strong&gt;main.css&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;and add one line at the end of the file&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;css language-css&quot; data-lang=&quot;css&quot;&gt;&lt;span class=&quot;nt&quot;&gt;h1&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;blue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Now go back to &lt;a href=&quot;http://localhost:4000/&quot;&gt;http://localhost:4000/&lt;/a&gt; and you&amp;#39;ll see that Portfolio on the page is now blue!&lt;/p&gt;
-
-&lt;p&gt;At this point you&amp;#39;ve now learned basically everything you need to know to run your own static site. We learned how to:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Change the home page by editing &lt;strong&gt;index.html&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;Change the styles in &lt;strong&gt;main.css&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;Add or edit your &amp;quot;posts&amp;quot; in &lt;strong&gt;_posts&lt;/strong&gt; by creating &lt;a href=&quot;http://daringfireball.net/projects/markdown/syntax&quot;&gt;markdown&lt;/a&gt; files.&lt;/li&gt;
-&lt;li&gt;To put this up on Github pages check out this &lt;a href=&quot;https://help.github.com/articles/using-jekyll-with-pages/&quot;&gt;tutorial&lt;/a&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;Typically any questions you have will just be a Google away or &lt;a href=&quot;http://jekyllrb.com/docs/usage/&quot;&gt;Check out the jekyll site for great documentation.&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;As a side note, when you&amp;#39;re ready to finalize the version of the site that you want to run &lt;code&gt;jekyll build&lt;/code&gt;. This will put the final version in your _site which you can send up to your static host (like Github Pages).&lt;/em&gt;&lt;/p&gt;
-</description>
-				<pubDate>Tue, 11 Nov 2014 00:00:00 -0800</pubDate>
-				<link>/tutorials/2014/11/11/introduction-to-static-site-generators.html</link>
-				<guid isPermaLink="true">/tutorials/2014/11/11/introduction-to-static-site-generators.html</guid>
 			</item>
 		
 	</channel>

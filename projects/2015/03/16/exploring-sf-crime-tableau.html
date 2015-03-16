@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Exploratory Data Analysis of Crime in San Francisco</title>
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" href="/css/normalize.css">
+        <link rel="stylesheet" href="/css/skeleton.css">
+
+        <!-- syntax highlighting CSS -->
+        <link rel="stylesheet" href="/css/github.css">
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="/css/main.css">
+
+    </head>
+    <body>
+
+        <div class="container">
+              <div class="row">
+   <div class="twelve columns personal-intro">
+      <h2>The Portfolio & Writings of Bill Chambers</h2>
+   </div>
+</div>
+<div class="row">
+   <div class="one offset-by-three columns nav-blocks">
+      <a onmouseover="vis_on('hhm');" onmouseout="vis_off('hhm');" href="/"><i class="mdi mdi-home"></i></a>
+   </div>
+   <div class="one columns nav-blocks">
+      <a onmouseover="vis_on('hab');" onmouseout="vis_off('hab');" href="/about.html"><i class="mdi mdi-account"></i></a>
+   </div>
+   <div class="one columns nav-blocks">
+      <a onmouseover="vis_on('hes');" onmouseout="vis_off('hes');" href="/essays.html"><i class="mdi mdi-file-document"></i></a>
+   </div>
+   <div class="one columns nav-blocks">
+      <a onmouseover="vis_on('hpr');" onmouseout="vis_off('hpr');" href="/projects.html"><i class="mdi mdi-beaker"></i></a>
+   </div>
+   <div class="one columns nav-blocks">
+      <a onmouseover="vis_on('htu');" onmouseout="vis_off('htu');" href="/tutorials.html"><i class="mdi mdi-cog"></i></a>
+   </div>
+   <div class="one columns nav-blocks">
+      <a onmouseover="vis_on('hem');" onmouseout="vis_off('hem');" href="mailto:wchambers@ischool.berkeley.edu"><i class="mdi mdi-email"></i></a>
+   </div>
+</div>
+<div class="row">
+   <div class="one offset-by-three columns nav-blocks">
+      <a onmouseover="vis_on('hhm');" onmouseout="vis_off('hhm');" id='hhm' class='sibling' href="/">home</a>
+   </div>
+   <div class="one columns nav-blocks">
+      <a onmouseover="vis_on('hab');" onmouseout="vis_off('hab');" id='hab' class='sibling' href="/about.html">about</a>
+   </div>
+   <div class="one columns nav-blocks">
+      <a onmouseover="vis_on('hes');" onmouseout="vis_off('hes');" id='hes' class='sibling' href="/essays.html">essays</a>
+   </div>
+   <div class="one columns nav-blocks">
+      <a onmouseover="vis_on('hpr');" onmouseout="vis_off('hpr');" id='hpr' class='sibling' href="/projects.html">projects</a>
+   </div>
+   <div class="one columns nav-blocks">
+      <a onmouseover="vis_on('htu');" onmouseout="vis_off('htu');" id='htu' class='sibling' href="/tutorials.html">tutorials</a>
+   </div>
+   <div class="one columns nav-blocks">
+      <a onmouseover="vis_on('hem');" onmouseout="vis_off('hem');" id='hem' class='sibling' href="mailto:wchambers@ischool.berkeley.edu">email</a>
+   </div>
+</div>
+
+              <div class="row">
+   <div class="ten offset-by-one columns">
+      <article class="post">
+         <div class='titles'>
+            <h4>Exploratory Data Analysis of Crime in San Francisco</h4>
+            <p class="meta">
+               <!-- <span class='tags'>
+                  Tags:
+                  
+                  
+                  </span> -->
+               <span class='date'>
+               16 March 2015
+               </span>
+            </p>
+         </div>
+         <h3>Data:</h3>
+
+<p>The dataset I chose was a data set on <a href="http://data.sfgov.org/d/tmnf-yvry?category=Public-Safety">crime in San Francisco.</a></p>
+
+<p><a href="http://data.sfgov.org/d/tmnf-yvry?category=Public-Safety">http://data.sfgov.org/d/tmnf-yvry?category=Public-Safety</a></p>
+
+<p>I have filtered the dataset which is large at 350 mb down to only theft incidents in 2014. I did this by taking that file and running commands:</p>
+<div class="highlight"><pre><code class="sh language-sh" data-lang="sh">egrep <span class="s2">&quot;2014&quot;</span> SFPD_Incidents_-_from_1_January_2003.csv &gt; SFPD_2014.csv
+egrep <span class="s2">&quot;LARCENY/THEFT&quot;</span> SFPD_2014.csv &gt; SFPD_2014_theft.csv
+cat col_format.csv SFPD_2014_theft.csv &gt; SFPD_2014_theft_col.csv
+</code></pre></div>
+<p>Dashboards follow each hypothesis.</p>
+
+<h3>Hypotheses:</h3>
+
+<ol>
+<li>My first hypothesis is that most thefts occur at night in residential neighborhoods. Given that many people have to park their cars outside at night, I assume that most crime occurs when people are asleep.</li>
+</ol>
+
+<p>By looking into this data, I decided that it would likely be more interesting to try and look at it day by day (rather than just cumulatively). We can see that evening time is by far the most likely time that thefts will occur with weekdays frequently around 6PM to 8PM while the weekends see a jump in thefts around midnight as well. Sunday was by far the calmest day - something I might want to look at further along.</p>
+
+<p>After completing that histogram of just dates and times I need to dive deeper into the data and better understand time and certain neighborhoods. </p>
+
+<p>Then I created a new parameter that is &quot;Residential&quot; and &quot;Non-Residential&quot;.</p>
+
+<p>Non-Residential:</p>
+
+<ul>
+<li>Southern</li>
+<li>Central</li>
+<li>Bayview (kind of)</li>
+</ul>
+
+<p>Residential:</p>
+
+<ul>
+<li>Mission</li>
+<li>Northern</li>
+<li>Park</li>
+<li>Richmond</li>
+<li>Ingleside</li>
+<li>Taravel</li>
+<li>Tenderloin</li>
+</ul>
+
+<p>I then got the resulting box and whisker plot.</p>
+
+<p>Once I was able to do that I was able to confirm my hypothesis, it seems that more crime occurs in residential neighborhoods than non-residential neighborhoods on any given day of the week. The one important thing to keep in mind is that I used my personal knowledge of the districts (as well as maps from each police station to classify it as residential or non-residential - this is an unofficial classification). In terms of my hypothesis it is not so clear that most crime occurs at &quot;night&quot; - it seems that dusk is the time at which most crime occurs.</p>
+
+<p><img src="/assets/Hypo1.jpg" alt=""></p>
+
+<ol>
+<li>Given my previous data, I was able to see that the Southern District has the most theft. My hypothesis is that it has the most unresolved crime. I also hypothesize that more crimes are resolved in the richest neighborhoods than in poor neighborhoods. Specifically, I believe that the Richmond and Northern districts have the high proportion of solved crimes per crime committed.</li>
+</ol>
+
+<p>I created a new variable which is the number of thefts resolved. A case is unresolved if the Resolution field is NONE.</p>
+
+<p>This exploration yielded some interesting results and definitely not what I expected. We can see from the percent resolved that nearly 25% of the crimes in the tenderloin are resolved. I think that this might be because it&#39;s such a small area, that many people are caught doing relatively petty things and don&#39;t end up getting very far from where they committed the crime. Interestingly, the Northern District seemed to have the smallest percentage resolved - yet also had a lot of crime numbers. This fact makes me question my Residential/Non-Residential qualifications from earlier - although they may be valid. Interestingly, the Richmond seems to have a low crime resolution rate as well - not necessarily what I would have expected.</p>
+
+<p>Looking at the resolution field gave me a lot of interesting ideas to explore - what makes a theft something the DA doesn&#39;t want to prosecute? Where is the highest number of juvenile bookings? </p>
+
+<p><img src="/assets/Hypo2.jpg" alt=""></p>
+
+<p>Unfortunately I realized that my dataset was a bit constrained when I just focused on thefts. So I loaded in all crimes in 2014 to see what else I might be able to dig up.</p>
+<div class="highlight"><pre><code class="sh language-sh" data-lang="sh">cat col_format.csv SFPD_2014.csv &gt; SFPD_2014_col.csv
+</code></pre></div>
+<p>Gives me all data from 2014.</p>
+
+<ol>
+<li>I hypothesize that the theft distribution follows a similar distribution to the general population of crime. By this I mean thefts will be a representative sample from the population - that all crimes will occur roughly in the same locations, at the same times, in the same places, at the same amounts.</li>
+</ol>
+
+<p>By looking at the dashboard - this seems to be roughly true. It seems that they&#39;re more or less the same - obviously the totals are throw off but this brought me to a new visual, what are the most common crimes? (ranked on the right side of this dashboard) It&#39;s not by any means a perfect representation but it was close enough (visually) that it&#39;s fair to say that&#39;s it is a relatively accurate representation of where crime occurs in the city.</p>
+
+<p><img src="/assets/Hypo3.jpg" alt=""></p>
+
+<ol>
+<li>Now that I had a better idea of how the data might be made up - I thought it would be good to jump into a map perspective. I thought looking at assaults might be a good next step - they&#39;re the 4th most common category of crime in 2014. I hypothesize that thefts and assaults are related and occur in more or less the same locations. By that I mean that their ratios are the same. If assault occurs as X% of total crime in a given district theft will occur at 2X% of total crime.</li>
+</ol>
+
+<p>I visualized this through 2 mediums. Firstly through a map where I plotted only thefts and assaults at locations that were reported more than 20 times. This gave me a general idea of where thefts and assaults are likely to occur. When we filter out the incidents that occur at locations only one or two times. When we take a look at this we can immediately see that some hotspots are shared and some are different. Assaults clearly occur in the Mission much more than thefts. What&#39;s interesting when we use the map view is that we can see these differences much more quickly (in relation to where in the city they are likely to occur). I noticed immediately that there seems to be a fair amount of theft in a specific location in Golden Gate Park. Definitely worth thinking about and exploring further.</p>
+
+<p>Looking at the table tells an even more interesting story. I&#39;ve done some working to basically look at the percent of total crime in a given district - we can see that in the Mission - theft is not as common as assault. What does this mean? In SOMA there seems to be a lot more theft, possibly from tourists while in the Mission it seems that more fights may be breaking out leading to assaults instead of thefts.</p>
+
+<p>Quite simply, I could reject my hypothesis - there seems to be no relation between theft occurring at a certain percent more across the city.</p>
+
+<p><img src="/assets/Hypo4.jpg" alt=""></p>
+
+<p><a href="/assets/bill-chambers-eda.twbx">Download the workbook here.</a></p>
+
+      </article>
+   </div>
+</div>
+
+              <div class="footer">
+   <!-- <h1>The Portfolio & Writings of Bill Chambers</h1> -->
+   <!-- <h3>Internal Navigation</h3> -->
+   <div class="row">
+      <div class="one offset-by-two columns nav-blocks">
+         <a onmouseover="vis_on('fhm');" onmouseout="vis_off('fhm');" href="/"><i class="mdi mdi-home"></i></a>
+      </div>
+      <div class="one columns nav-blocks">
+         <a onmouseover="vis_on('fab');" onmouseout="vis_off('fab');" href="/about.html"><i class="mdi mdi-account"></i></a>
+      </div>
+      <div class="one columns nav-blocks">
+         <a onmouseover="vis_on('fes');" onmouseout="vis_off('fes');" href="/essays.html"><i class="mdi mdi-file-document"></i></a>
+      </div>
+      <div class="one columns nav-blocks">
+         <a onmouseover="vis_on('fpr');" onmouseout="vis_off('fpr');" href="/projects.html"><i class="mdi mdi-beaker"></i></a>
+      </div>
+      <div class="one columns nav-blocks">
+         <a onmouseover="vis_on('ftu');" onmouseout="vis_off('ftu');" href="/tutorials.html"><i class="mdi mdi-cog"></i></a>
+      </div>
+      <div class="one columns nav-blocks">
+         <a onmouseover="vis_on('fli');" onmouseout="vis_off('fli');" href="https://www.linkedin.com/in/wachambers"><i class="mdi mdi-linkedin"></i></a>
+      </div>
+      <div class="one columns nav-blocks">
+         <a onmouseover="vis_on('fgh');" onmouseout="vis_off('fgh');" href="http://github.com/anabranch/"><i class="mdi mdi-github-box"></i></a>
+      </div>
+      <div class="one columns nav-blocks">
+         <a onmouseover="vis_on('ftw');" onmouseout="vis_off('ftw');" href="http://twitter.com/b_a_chambers/"><i class="mdi mdi-twitter-box"></i></a>
+      </div>
+   </div>
+   <div class="row">
+      <div class="one offset-by-two columns nav-blocks">
+         <a onmouseover="vis_on('fhm');" onmouseout="vis_off('fhm');" id='fhm' class='sibling' href="/">home</a>
+      </div>
+      <div class="one columns nav-blocks">
+         <a onmouseover="vis_on('fab');" onmouseout="vis_off('fab');" id='fab' class='sibling' href="/about.html">about</a>
+      </div>
+      <div class="one columns nav-blocks">
+         <a onmouseover="vis_on('fes');" onmouseout="vis_off('fes');" id='fes' class='sibling' href="/essays.html">essays</a>
+      </div>
+      <div class="one columns nav-blocks">
+         <a onmouseover="vis_on('fpr');" onmouseout="vis_off('fpr');" id='fpr' class='sibling' href="/projects.html">projects</a>
+      </div>
+      <div class="one columns nav-blocks">
+         <a onmouseover="vis_on('ftu');" onmouseout="vis_off('ftu');" id='ftu' class='sibling' href="/tutorials.html">tutorials</a>
+      </div>
+      <div class="one columns nav-blocks">
+         <a onmouseover="vis_on('fli');" onmouseout="vis_off('fli');" id='fli' class='sibling' href="https://www.linkedin.com/in/wachambers">linkedin</a>
+      </div>
+      <div class="one columns nav-blocks">
+         <a onmouseover="vis_on('fgh');" onmouseout="vis_off('fgh');" id='fgh' class='sibling' href="http://github.com/anabranch/">github</a>
+      </div>
+      <div class="one columns nav-blocks">
+         <a onmouseover="vis_on('ftw');" onmouseout="vis_off('ftw');" id='ftw' class='sibling' href="http://twitter.com/b_a_chambers/">twitter</a>
+      </div>
+   </div>
+</div>
+
+        </div> <!-- /container -->
+    </body>
+    
+<script charset="utf-8">
+var hovered_el;
+function vis_on(id) {
+    var e = document.getElementById(id);
+        e.style.display = 'block';
+    var siblings = document.getElementsByClassName("sibling");
+    hovered_el = e;
+    for (var i = 0; i < siblings.length; i++) {
+        if (siblings[i].id !== id) {
+            siblings[i].style.display = 'none';
+        }
+    }
+}
+
+function vis_off(id) {
+    hovered_el = undefined;
+    setTimeout(function(){
+        if (hovered_el == undefined) {
+            var e = document.getElementById(id);
+                e.style.display = 'none';
+        }
+    }, 400);
+}
+
+setTimeout(function(){
+["hhm","hab","hes","hpr","htu","hem", 'fhm', 'fab', 'fes', 'fpr', 'ftu', 'fli', 'fgh', 'ftw'].map(vis_off)
+}, 1000);
+
+</script>
+
+</html>
