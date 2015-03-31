@@ -93,7 +93,7 @@
 <hr>
 
 <p>The server is incredibly simple and essentially boils down to this code:</p>
-<div class="highlight"><pre><code class="js language-js" data-lang="js"><span class="nx">io</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;connection&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">socket</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">io</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;connection&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">socket</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Connected...&quot;</span><span class="p">);</span>
     <span class="nx">stream</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;tweet&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">tweet</span><span class="p">)</span> <span class="p">{</span>
         <span class="nx">socket</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;new tweet&#39;</span><span class="p">,</span> <span class="nx">tweet</span><span class="p">);</span>
@@ -102,14 +102,14 @@
 <span class="p">});</span>
 </code></pre></div>
 <p>With that server running we run everything else using D3.js to graph our tweets. The client runs a heavily modified version of <a href="http://bost.ocks.org/mike/path/">Mike Bostock&#39;s path transitions examples</a>. Concretely, every time the client receives a tweet from the server it pushes it to a list. </p>
-<div class="highlight"><pre><code class="js language-js" data-lang="js"><span class="nx">socket</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;new tweet&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">tweet</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">socket</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;new tweet&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">tweet</span><span class="p">)</span> <span class="p">{</span>
    <span class="nx">tweet</span><span class="p">[</span><span class="s1">&#39;created_at&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nx">parseTwitterDate</span><span class="p">(</span><span class="nx">tweet</span><span class="p">[</span><span class="s1">&#39;created_at&#39;</span><span class="p">]);</span>
    <span class="nx">master_tweet_list</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">tweet</span><span class="p">);</span>
    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Received Tweet&quot;</span><span class="p">);</span>
 <span class="p">});</span>
 </code></pre></div>
 <p>That list is then filtered (did the tweet occur in the last second) and pushed onto the relevant list every &#39;tick&#39;, or every second. </p>
-<div class="highlight"><pre><code class="js language-js" data-lang="js"><span class="nx">master_tweet_list</span> <span class="o">=</span> <span class="nx">master_tweet_list</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">within1Second2</span><span class="p">)</span>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">master_tweet_list</span> <span class="o">=</span> <span class="nx">master_tweet_list</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">within1Second2</span><span class="p">)</span>
 <span class="nx">data</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">master_tweet_list</span><span class="p">.</span><span class="nx">length</span><span class="p">);</span>
 </code></pre></div>
 <p>This all produces a graph like this as time continues.</p>
@@ -117,7 +117,7 @@
 <p><img src="/assets/world_cup_chatter.jpeg" alt="World Cup Chatter Graph"></p>
 
 <p>What&#39;s nice is D3.js provides us with some nice smoothing abilities, this allows us to smooth out the animation when we append to the list, the code is this. It&#39;s important to know that the x-axis moves with our data.</p>
-<div class="highlight"><pre><code class="js language-js" data-lang="js"><span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="nx">d3</span><span class="p">.</span><span class="nx">time</span><span class="p">.</span><span class="nx">scale</span><span class="p">()</span>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="nx">d3</span><span class="p">.</span><span class="nx">time</span><span class="p">.</span><span class="nx">scale</span><span class="p">()</span>
    <span class="p">.</span><span class="nx">domain</span><span class="p">([</span><span class="nx">now</span> <span class="o">-</span> <span class="p">(</span><span class="nx">n</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="nx">duration</span><span class="p">,</span> <span class="nx">now</span> <span class="o">-</span> <span class="nx">duration</span><span class="p">])</span>
    <span class="p">.</span><span class="nx">range</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="nx">width</span><span class="p">]);</span>
 </code></pre></div>

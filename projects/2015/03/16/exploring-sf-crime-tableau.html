@@ -87,7 +87,7 @@
 <p><a href="http://data.sfgov.org/d/tmnf-yvry?category=Public-Safety">http://data.sfgov.org/d/tmnf-yvry?category=Public-Safety</a></p>
 
 <p>I have filtered the dataset which is large at 350 mb down to only theft incidents in 2014. I did this by taking that file and running commands:</p>
-<div class="highlight"><pre><code class="sh language-sh" data-lang="sh">egrep <span class="s2">&quot;2014&quot;</span> SFPD_Incidents_-_from_1_January_2003.csv &gt; SFPD_2014.csv
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">egrep <span class="s2">&quot;2014&quot;</span> SFPD_Incidents_-_from_1_January_2003.csv &gt; SFPD_2014.csv
 egrep <span class="s2">&quot;LARCENY/THEFT&quot;</span> SFPD_2014.csv &gt; SFPD_2014_theft.csv
 cat col_format.csv SFPD_2014_theft.csv &gt; SFPD_2014_theft_col.csv
 </code></pre></div>
@@ -144,7 +144,7 @@ cat col_format.csv SFPD_2014_theft.csv &gt; SFPD_2014_theft_col.csv
 <p><img src="/assets/Hypo2.jpg" alt=""></p>
 
 <p>Unfortunately I realized that my dataset was a bit constrained when I just focused on thefts. So I loaded in all crimes in 2014 to see what else I might be able to dig up.</p>
-<div class="highlight"><pre><code class="sh language-sh" data-lang="sh">cat col_format.csv SFPD_2014.csv &gt; SFPD_2014_col.csv
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">cat col_format.csv SFPD_2014.csv &gt; SFPD_2014_col.csv
 </code></pre></div>
 <p>Gives me all data from 2014.</p>
 

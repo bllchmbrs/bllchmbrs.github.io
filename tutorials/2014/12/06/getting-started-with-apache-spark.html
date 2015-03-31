@@ -135,7 +135,7 @@
 <p>Once it&#39;s all built, you should be ready to go. Let&#39;s dive right into the <code>PySpark</code> shell with <code>./bin/pyspark</code> on the command line.</p>
 
 <p>You should see some log information then boom you&#39;ll be in the Spark Shell.</p>
-<div class="highlight"><pre><code class="py language-py" data-lang="py"><span class="n">Welcome</span> <span class="n">to</span>
+<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="n">Welcome</span> <span class="n">to</span>
       <span class="n">____</span>              <span class="n">__</span>
      <span class="o">/</span> <span class="n">__</span><span class="o">/</span><span class="n">__</span>  <span class="n">___</span> <span class="n">_____</span><span class="o">/</span> <span class="o">/</span><span class="n">__</span>
     <span class="n">_</span>\ \<span class="o">/</span> <span class="n">_</span> \<span class="o">/</span> <span class="n">_</span> <span class="err">`</span><span class="o">/</span> <span class="n">__</span><span class="o">/</span>  <span class="s">&#39;_/</span>
@@ -147,11 +147,11 @@
 <span class="o">&gt;&gt;&gt;</span>
 </code></pre></div>
 <p>On a quick note while I love the regular python shell, I really like the <a href="http://ipython.org/">IPython Shell</a> much better. It&#39;s got tons of handy tools built right in and using IPython with PySpark is super easy. Just close out of that Python Shell and set the IPYTHON environmental variable to 1. Run this in your bash shell.</p>
-<div class="highlight"><pre><code class="sh language-sh" data-lang="sh"><span class="nb">export </span><span class="nv">IPYTHON</span><span class="o">=</span>1
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nb">export </span><span class="nv">IPYTHON</span><span class="o">=</span>1
 ./bin/pyspark
 </code></pre></div>
 <p>Now we&#39;re loaded up into a python shell and we can finally get to work! Now the python shell we&#39;re in is the same python shell that you have on your machine. We can import libraries, do math, same &#39;ol stuff.</p>
-<div class="highlight"><pre><code class="py language-py" data-lang="py"><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span>
 <span class="c"># 2</span>
 <span class="n">x</span> <span class="o">=</span> <span class="mi">5</span>
@@ -159,7 +159,7 @@
 <span class="c"># 5</span>
 </code></pre></div>
 <p>There is however, one difference, the <code>sc</code> variable or SparkContext. You can see this is what was made available when we started up the shell previously.</p>
-<div class="highlight"><pre><code class="py language-py" data-lang="py"><span class="nb">type</span><span class="p">(</span><span class="n">sc</span><span class="p">)</span>
+<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="nb">type</span><span class="p">(</span><span class="n">sc</span><span class="p">)</span>
 <span class="c"># pyspark.context.SparkContext</span>
 </code></pre></div>
 <p>This spark context is the source for all of our handy Spark features. </p>
@@ -167,7 +167,7 @@
 <p>Let&#39;s go ahead and get started analyzing some data so we can better understand the SparkContext. Let&#39;s start small to understand the concepts. I&#39;ll be using <a href="https://www.kaggle.com/c/sentiment-analysis-on-movie-reviews">the Rotten Tomatoes Dataset from Kaggle</a>. Go ahead and download it and put it in the same Spark download folder on your machine. </p>
 
 <p>Now, let&#39;s go ahead and open it on up and get things started. We load in data with the <code>sc.textFile(&#39;file/path&#39;)</code></p>
-<div class="highlight"><pre><code class="py language-py" data-lang="py"><span class="n">data</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">textFile</span><span class="p">(</span><span class="s">&#39;../rotten_tomatoes_train.tsv&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="n">data</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">textFile</span><span class="p">(</span><span class="s">&#39;../rotten_tomatoes_train.tsv&#39;</span><span class="p">)</span>
 <span class="nb">type</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 <span class="c"># pyspark.rdd.RDD</span>
 </code></pre></div>
@@ -180,12 +180,12 @@
 <p><em>PhraseId   SentenceId Phrase Sentiment</em></p>
 
 <p>First let&#39;s get the count, how many items(lines) do we have in our data? This is an example of an <code>action</code></p>
-<div class="highlight"><pre><code class="py language-py" data-lang="py"><span class="n">data</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="n">data</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
 <span class="c"># ...log statements</span>
 <span class="c"># 156061</span>
 </code></pre></div>
 <p>There we get an answer because we&#39;re requesting an <code>action</code> as opposed to a <code>transformation</code>. Let&#39;s perform one of those now.</p>
-<div class="highlight"><pre><code class="py language-py" data-lang="py"><span class="n">negative_reviews</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">line</span><span class="p">:</span> <span class="s">&#39;0&#39;</span> <span class="o">==</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\t</span><span class="s">&#39;</span><span class="p">)[</span><span class="mi">3</span><span class="p">])</span>
+<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="n">negative_reviews</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">line</span><span class="p">:</span> <span class="s">&#39;0&#39;</span> <span class="o">==</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\t</span><span class="s">&#39;</span><span class="p">)[</span><span class="mi">3</span><span class="p">])</span>
 <span class="k">print</span> <span class="n">negative_reviews</span>
 <span class="c"># PythonRDD[14] at RDD at PythonRDD.scala:43</span>
 <span class="k">print</span> <span class="nb">type</span><span class="p">(</span><span class="n">negative_reviews</span><span class="p">)</span>
@@ -194,20 +194,20 @@
 <p>Notice how when we go to print it, it prints out that it is an RDD and that the type is a <code>PipelinedRDD</code> not a list of values as we might expect. That&#39;s because we haven&#39;t performed an <code>action</code> yet, we&#39;ve only performed a <code>transformation</code>.</p>
 
 <p>As a side note, we could write the above code this way as well.</p>
-<div class="highlight"><pre><code class="py language-py" data-lang="py"><span class="n">negative_reviews</span> <span class="o">=</span> <span class="n">data</span> \
+<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="n">negative_reviews</span> <span class="o">=</span> <span class="n">data</span> \
                     <span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">line</span><span class="p">:</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\t</span><span class="s">&#39;</span><span class="p">))</span> \
                     <span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">line</span><span class="p">:</span> <span class="n">line</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;0&#39;</span><span class="p">)</span>
 </code></pre></div>
 <p>You&#39;ll notice that when we run <code>transformation</code> commands, nothing gets printed out. That&#39;s because Spark commands are <strong>lazily evaluated</strong>. We set up a <code>transformation</code> from RDD to RDD to prepare to run an <code>action</code> to get back results.</p>
 
 <p>Here are some examples of other <code>actions</code>:</p>
-<div class="highlight"><pre><code class="py language-py" data-lang="py"><span class="n">negative_reviews</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="n">negative_reviews</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
 <span class="c"># 7072</span>
 <span class="n">negative_reviews</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
 <span class="c"># [u&#39;102&#39;, u&#39;3&#39;, u&#39;would have a hard time sitting through this one&#39;, u&#39;0&#39;]</span>
 </code></pre></div>
 <p>Now that we&#39;ve got a better idea about how Spark works and executes commands through <code>transformations</code> and <code>actions</code> let&#39;s write ourselves a little MapReduce job to figure out what words show up most commonly in the negative reviews.</p>
-<div class="highlight"><pre><code class="py language-py" data-lang="py"><span class="n">word_counts</span> <span class="o">=</span> <span class="n">negative_reviews</span> \
+<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="n">word_counts</span> <span class="o">=</span> <span class="n">negative_reviews</span> \
                 <span class="o">.</span><span class="n">flatMap</span><span class="p">(</span><span class="k">lambda</span> <span class="n">line</span><span class="p">:</span> <span class="n">line</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">())</span> \
                 <span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">word</span><span class="p">:</span> <span class="p">(</span><span class="n">word</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span> \
                 <span class="o">.</span><span class="n">reduceByKey</span><span class="p">(</span><span class="k">lambda</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">:</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">)</span>
@@ -215,14 +215,14 @@
 <p>What we&#39;re doing above is getting the word counts. We do that by tokenizing the review text in a <code>flatMap</code> which basically just makes it into one big giant list of words. Then we map each word to 1 and <code>reduceByKey</code> which parallelizes our reduce operation to each key in our data set.</p>
 
 <p>The above code is equivalent to:</p>
-<div class="highlight"><pre><code class="py language-py" data-lang="py"><span class="n">word_counts</span> <span class="o">=</span> <span class="n">negative_reviews</span> \
+<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="n">word_counts</span> <span class="o">=</span> <span class="n">negative_reviews</span> \
                 <span class="o">.</span><span class="n">flatMap</span><span class="p">(</span><span class="k">lambda</span> <span class="n">line</span><span class="p">:</span> <span class="n">line</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">())</span> \
                 <span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">word</span><span class="p">:</span> <span class="p">(</span><span class="n">word</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span> \
                 <span class="o">.</span><span class="n">groupByKey</span><span class="p">()</span> \
                 <span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">val</span><span class="p">:</span> <span class="p">(</span><span class="n">val</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">[</span><span class="mi">1</span><span class="p">])))</span> <span class="c"># basically the value and the generator</span>
 </code></pre></div>
 <p>Now let&#39;s get the most common word we can find in the reviews.</p>
-<div class="highlight"><pre><code class="py language-py" data-lang="py"><span class="k">def</span> <span class="nf">most_common</span><span class="p">(</span><span class="n">comp1</span><span class="p">,</span> <span class="n">comp2</span><span class="p">):</span>
+<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="k">def</span> <span class="nf">most_common</span><span class="p">(</span><span class="n">comp1</span><span class="p">,</span> <span class="n">comp2</span><span class="p">):</span>
     <span class="n">word1</span><span class="p">,</span> <span class="n">count1</span> <span class="o">=</span> <span class="n">comp1</span>
     <span class="n">word2</span><span class="p">,</span> <span class="n">count2</span> <span class="o">=</span> <span class="n">comp2</span>
     <span class="k">if</span> <span class="n">count1</span> <span class="o">&gt;</span> <span class="n">count2</span><span class="p">:</span>
@@ -235,7 +235,7 @@
 <span class="c"># (u&#39;,&#39;, 3722)</span>
 </code></pre></div>
 <p>Knowing that it is a comma isn&#39;t too useful, let&#39;s try it without punctuation, which means rewriting our map function.</p>
-<div class="highlight"><pre><code class="py language-py" data-lang="py"><span class="kn">import</span> <span class="nn">string</span>
+<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="kn">import</span> <span class="nn">string</span>
 <span class="k">def</span> <span class="nf">clean_words</span><span class="p">(</span><span class="n">word</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">word</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">string</span><span class="o">.</span><span class="n">punctuation</span><span class="p">:</span>
         <span class="k">return</span> <span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
@@ -252,17 +252,17 @@
 <span class="c"># (u&#39;the&#39;, 3070)</span>
 </code></pre></div>
 <p>Now that&#39;s not particularly useful either so let&#39;s try getting just the top 5. We&#39;ll keep using the word_counts that excludes punctuation.</p>
-<div class="highlight"><pre><code class="py language-py" data-lang="py"><span class="n">word_counts</span><span class="o">.</span><span class="n">sortBy</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="n">word_counts</span><span class="o">.</span><span class="n">sortBy</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 <span class="c"># (u&#39;the&#39;, 3070), (u&#39;a&#39;, 2572), (u&#39;and&#39;, 2507), (u&#39;of&#39;, 2236), (u&#39;to&#39;, 1880)]</span>
 </code></pre></div>
 <p>Note how we had to multiply it by negative one in order to sort it least to greatest.</p>
 
 <p>Finally now that we&#39;ve performed some analysis. We might want to store those <code>word_counts</code> for some later use. Speaking of which, it&#39;d also be valuable to store the <code>negative_reviews</code> too. It&#39;s helpful to imagine this being a much larger dataset as this is a trivial example but let&#39;s go ahead and save it.</p>
-<div class="highlight"><pre><code class="py language-py" data-lang="py"><span class="n">negative_reviews</span><span class="o">.</span><span class="n">saveAsTextFile</span><span class="p">(</span><span class="s">&#39;negative_reviews&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="n">negative_reviews</span><span class="o">.</span><span class="n">saveAsTextFile</span><span class="p">(</span><span class="s">&#39;negative_reviews&#39;</span><span class="p">)</span>
 <span class="n">word_counts</span><span class="o">.</span><span class="n">saveAsSequenceFile</span><span class="p">(</span><span class="s">&#39;word_counts_negative_reviews&#39;</span><span class="p">)</span>
 </code></pre></div>
 <p>Note that negative reviews is saved as a Hadoop text file while word counts is saved as a sequence file. Because these datasets are typically large, we have to save them as these distributed data files. Here&#39;s a list of some of the ways you can save these files.</p>
-<div class="highlight"><pre><code class="py language-py" data-lang="py"><span class="n">data</span><span class="o">.</span><span class="n">saveAsHadoopDataset</span><span class="p">()</span>
+<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="n">data</span><span class="o">.</span><span class="n">saveAsHadoopDataset</span><span class="p">()</span>
 <span class="n">data</span><span class="o">.</span><span class="n">saveAsNewAPIHadoopFile</span><span class="p">()</span>
 <span class="n">data</span><span class="o">.</span><span class="n">saveAsTextFile</span><span class="p">()</span>
 <span class="n">data</span><span class="o">.</span><span class="n">saveAsHadoopFile</span><span class="p">()</span>

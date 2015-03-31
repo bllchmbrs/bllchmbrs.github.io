@@ -108,13 +108,13 @@
 <p>I think the working example is easiest to understand.</p>
 
 <p>So you&#39;ve got a directory like this: (this is just writing)</p>
-<div class="highlight"><pre><code class="text language-text" data-lang="text">- Articles (the folder)
+<div class="highlight"><pre><code class="language-text" data-lang="text">- Articles (the folder)
     - my_article_about_stuff.md
     - My_other_article_about stuff.md
     - ux_review.md
 </code></pre></div>
 <p>The static site generator generates a folder structure like this: (that you can put on a web server)</p>
-<div class="highlight"><pre><code class="text language-text" data-lang="text">- about.html
+<div class="highlight"><pre><code class="language-text" data-lang="text">- about.html
 - home.html
 - articles
     - my_article_about_stuff.html
@@ -122,7 +122,7 @@
     - ux_review.html
 </code></pre></div>
 <p>That would give you a website like this: (that goes on the internet)</p>
-<div class="highlight"><pre><code class="text language-text" data-lang="text">mywebsite.com/about.html
+<div class="highlight"><pre><code class="language-text" data-lang="text">mywebsite.com/about.html
 mywebsite.com/home.html
 mywebsite.com/articles/my_article_about_stuff.html
 ...
@@ -157,18 +157,18 @@ You may have to do this stuff with <code>sudo</code> in front of it.</p>
 <p>Then finally run <code>gem install jekyll --source http://rubygems.org</code> in the terminal.</p>
 
 <p>Now you&#39;ve installed jekyll. What I always like to do is start with the basics and modifying it to meet my needs. Let&#39;s create a basic blog then go from there.</p>
-<div class="highlight"><pre><code class="text language-text" data-lang="text">jekyll new myblog
+<div class="highlight"><pre><code class="language-text" data-lang="text">jekyll new myblog
 cd myblog
 jekyll serve
 </code></pre></div>
 <p>You&#39;ll see some text like. It&#39;s not important what it says, just that it says something like this.</p>
-<div class="highlight"><pre><code class="sh language-sh" data-lang="sh">Configuration file: /sometext/myblog/_config.yml
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">Configuration file: /sometext/myblog/_config.yml
             Source: /sometext/myblog
        Destination: /sometext/myblog/_site
       Generating... <span class="k">done</span>.
 <span class="o">[</span>2014-11-10 14:10:42<span class="o">]</span> INFO  WEBrick 1.3.1
 <span class="o">[</span>2014-11-10 14:10:42<span class="o">]</span> INFO  ruby 2.0.0 <span class="o">(</span>2013-06-27<span class="o">)</span> <span class="o">[</span>x86_64-darwin12.3.0<span class="o">]</span>
-<span class="o">[</span>2014-11-10 14:10:42<span class="o">]</span> INFO  WEBrick::HTTPServer#start: <span class="nv">pid</span><span class="o">=</span>62126 <span class="nv">port</span><span class="o">=</span>4000
+<span class="o">[</span>2014-11-10 14:10:42<span class="o">]</span> INFO  WEBrick::HTTPServer#start: <span class="nv">pid</span><span class="o">=</span><span class="m">62126</span> <span class="nv">port</span><span class="o">=</span>4000
 </code></pre></div>
 <p>Now go to <a href="http://localhost:4000/">http://localhost:4000/</a> and BOOM you&#39;ve got a website.</p>
 
@@ -187,7 +187,7 @@ jekyll serve
 <p><strong>index.html</strong> is the home page for your website.</p>
 
 <p>Here&#39;s the code for <strong>index.html</strong>:</p>
-<div class="highlight"><pre><code class="html language-html" data-lang="html">---
+<div class="highlight"><pre><code class="language-html" data-lang="html">---
 layout: default
 title: Your New Jekyll Site
 ---
@@ -217,7 +217,7 @@ title: Your New Jekyll Site
 <p>Open up <strong>index.html</strong> in your text editor and let&#39;s make some changes.</p>
 
 <p>First, this isn&#39;t a blog, it&#39;s a portfolio. So I want to make two changes. I want to change the title and the text in the <code>&lt;h1&gt;</code> tag. Here&#39;s what I changed in my <strong>index.html</strong> file.</p>
-<div class="highlight"><pre><code class="html language-html" data-lang="html">---
+<div class="highlight"><pre><code class="language-html" data-lang="html">---
 layout: default
 title: Bill&#39;s Fantastic Portfolio
 ---
@@ -239,7 +239,7 @@ title: Bill&#39;s Fantastic Portfolio
 <p>Now let&#39;s say I want every <code>&lt;h1&gt;</code> tag to be blue. That means changing some css, so I&#39;ll head over to <strong>main.css</strong>.</p>
 
 <p>and add one line at the end of the file</p>
-<div class="highlight"><pre><code class="css language-css" data-lang="css"><span class="nt">h1</span> <span class="p">{</span>
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nt">h1</span> <span class="p">{</span>
   <span class="k">color</span><span class="o">:</span><span class="nb">blue</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>

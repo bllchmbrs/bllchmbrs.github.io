@@ -97,12 +97,12 @@
 <p>Now I&#39;m using a mac so I have to use boot2docker which seems to work pretty well.</p>
 
 <p>Once I&#39;ve got it all installed, I ran</p>
-<div class="highlight"><pre><code class="text language-text" data-lang="text">boot2docker up
+<div class="highlight"><pre><code class="language-text" data-lang="text">boot2docker up
 </code></pre></div>
 <p>You can get started with the image I creates by cloning it locally and once you&#39;ve <a href="https://docs.docker.com/#installation-guides">installed docker</a> you simply run <code>make</code> in the github directory and it will build that docker image and save it locally for you. You can see what images you have on your machine with the <code>docker images</code> command.</p>
 
 <p>Now whenever you want to create a repeatable data science experiment, you just navigate to that directory and run:</p>
-<div class="highlight"><pre><code class="sh language-sh" data-lang="sh"><span class="nb">export </span><span class="nv">IPYTHON_PASSWORD</span><span class="o">=</span>DATASCI
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nb">export </span><span class="nv">IPYTHON_PASSWORD</span><span class="o">=</span>DATASCI
 <span class="nb">alias </span><span class="k">do</span>-ds<span class="o">=</span><span class="s1">&#39;docker run -d -p 80:8888 -v `pwd`:/workspace/ -v `pwd`/data:/workspace/data -e &quot;PASSWORD=$IPYTHON_PASSWORD&quot; ds-base ; echo &quot;Now go to your browser: http://$(boot2docker ip). The password is $IPYTHON_PASSWORD&quot; &#39;</span>
 </code></pre></div>
 <p>Which will set your ipython password as DATASCI and give you the do-ds alias allowing you to start it up in that directory with all the necessary parameters. I just put it into my <code>.zshrc</code> file for future use.</p>
@@ -110,10 +110,10 @@
 <p><em>Please note you&#39;ve got to use backticks when setting this alias is zsh, but not so in bash if I&#39;m not mistaken. I had to learn a little for this <a href="http://stackoverflow.com/questions/5566078/get-the-pwd-in-an-alias">SO post.</a></em></p>
 
 <p>Finally run</p>
-<div class="highlight"><pre><code class="sh language-sh" data-lang="sh"><span class="k">do</span>-ds
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="k">do</span>-ds
 </code></pre></div>
 <p>You&#39;ll see a print out similar to</p>
-<div class="highlight"><pre><code class="text language-text" data-lang="text">423940a7f946eed6f92a15df6d59b9eee8187b8cbd45a30e31f019edfcca9d35
+<div class="highlight"><pre><code class="language-text" data-lang="text">423940a7f946eed6f92a15df6d59b9eee8187b8cbd45a30e31f019edfcca9d35
 Now go to your browser: http://192.168.59.103. The password is DATASCI
 </code></pre></div>
 <p>Which gives you the container ID and then url and password for accessing the IPython notebook running in that container. That will also have created a &quot;data&quot; directory on your current directory where you can add files that you want to access from the docker container. Now you can write your code, perform your analysis, and it will automatically save those files for work later on on your local machine.</p>
@@ -121,12 +121,12 @@ Now go to your browser: http://192.168.59.103. The password is DATASCI
 <p>What&#39;s nice is you get a good, clean build every time you want to study or model something new.</p>
 
 <p>Here&#39;s another example, say that I&#39;ve got a model that works on some data I have on my local directory and I want to see if it operates differently in docker. Obviously this isn&#39;t a real instance of such an example but you can start seeing the power of the docker abstraction.</p>
-<div class="highlight"><pre><code class="sh language-sh" data-lang="sh">cat model.py <span class="c"># simple print statement, but this could be a whole model...</span>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">cat model.py <span class="c"># simple print statement, but this could be a whole model...</span>
 print <span class="s2">&quot;Testing data...&quot;</span>
-</code></pre></div><div class="highlight"><pre><code class="sh language-sh" data-lang="sh">docker run -t -i -v ~/Desktop/temp/model.py:/model.py ubuntu:14.04 /bin/sh -c <span class="s2">&quot;apt-get install -y python; python model.py;&quot;</span>
+</code></pre></div><div class="highlight"><pre><code class="language-sh" data-lang="sh">docker run -t -i -v ~/Desktop/temp/model.py:/model.py ubuntu:14.04 /bin/sh -c <span class="s2">&quot;apt-get install -y python; python model.py;&quot;</span>
 </code></pre></div>
 <p>Our instructions are basically mount the file <code>model.py</code> into the image, install python, then run <code>python model.py</code>.</p>
-<div class="highlight"><pre><code class="text language-text" data-lang="text">Reading package lists... Done
+<div class="highlight"><pre><code class="language-text" data-lang="text">Reading package lists... Done
 Building dependency tree
 ...
 After this operation, 16.0 MB of additional disk space will be used.

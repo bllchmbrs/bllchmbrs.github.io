@@ -87,14 +87,14 @@
 <p>One of the first steps in many NLP operations is tokenization. Tokenization is the process by which we split a string into a list of &quot;tokens&quot; or words. While the below formula isn&#39;t exhaustive, it works well for simple things.</p>
 
 <p>Here&#39;s the code in python: </p>
-<div class="highlight"><pre><code class="py language-py" data-lang="py"><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span>
+<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span>
 <span class="kn">import</span> <span class="nn">string</span>
 <span class="kn">import</span> <span class="nn">math</span>
 
 <span class="n">tokenize</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">doc</span><span class="p">:</span> <span class="n">doc</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">)</span>
 </code></pre></div>
 <p>Now of course we&#39;ll need some documents.</p>
-<div class="highlight"><pre><code class="py language-py" data-lang="py"><span class="n">document_0</span> <span class="o">=</span> <span class="s">&quot;China has a strong economy that is growing at a rapid pace. However politically it differs greatly from the US Economy.&quot;</span>
+<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="n">document_0</span> <span class="o">=</span> <span class="s">&quot;China has a strong economy that is growing at a rapid pace. However politically it differs greatly from the US Economy.&quot;</span>
 <span class="n">document_1</span> <span class="o">=</span> <span class="s">&quot;At last, China seems serious about confronting an endemic problem: domestic violence and corruption.&quot;</span>
 <span class="n">document_2</span> <span class="o">=</span> <span class="s">&quot;Japan&#39;s prime minister, Shinzo Abe, is working towards healing the economic turmoil in his own country for his view on the future of his people.&quot;</span>
 <span class="n">document_3</span> <span class="o">=</span> <span class="s">&quot;Vladimir Putin is working hard to fix the economy in Russia as the Ruble has tumbled.&quot;</span>
@@ -122,22 +122,22 @@
 <p>It&#39;s simply the length of the intersection of the sets of tokens divided by the length of the union of the two sets.</p>
 
 <p>In Python we can write the Jaccard Similarity as follows:</p>
-<div class="highlight"><pre><code class="py language-py" data-lang="py"><span class="k">def</span> <span class="nf">jaccard_similarity</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">document</span><span class="p">):</span>
+<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="k">def</span> <span class="nf">jaccard_similarity</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">document</span><span class="p">):</span>
     <span class="n">intersection</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">query</span><span class="p">)</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">document</span><span class="p">))</span>
     <span class="n">union</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">query</span><span class="p">)</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">document</span><span class="p">))</span>
     <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">intersection</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">union</span><span class="p">)</span>
 </code></pre></div>
 <p>Here we are running it on a couple of the documents:</p>
-<div class="highlight"><pre><code class="py language-py" data-lang="py"><span class="c"># comparing document_2 and document_4</span>
+<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="c"># comparing document_2 and document_4</span>
 <span class="n">jaccard_similarity</span><span class="p">(</span><span class="n">tokenized_documents</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">tokenized_documents</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
 <span class="c"># 0.16666666666666666</span>
 </code></pre></div>
 <p>We can see that these documents are a better match, but still far from perfect. There are a couple of things throwing us off. Document length has a big effect and common words carry the same weight as non common words. Let&#39;s take a look at the intersection to understand what I&#39;m talking about.</p>
-<div class="highlight"><pre><code class="py language-py" data-lang="py"><span class="nb">set</span><span class="p">(</span><span class="n">tokenized_documents</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">tokenized_documents</span><span class="p">[</span><span class="mi">4</span><span class="p">]))</span>
+<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="nb">set</span><span class="p">(</span><span class="n">tokenized_documents</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">tokenized_documents</span><span class="p">[</span><span class="mi">4</span><span class="p">]))</span>
 <span class="c"># {&#39;abe&#39;, &#39;his&#39;, &#39;shinzo&#39;, &#39;the&#39;}</span>
 </code></pre></div>
 <p>As we can see, &quot;his&quot; and &quot;the&quot; have the same weight as &quot;abe&quot; and &quot;shinzo&quot;. Let&#39;s take a more extreme example.</p>
-<div class="highlight"><pre><code class="py language-py" data-lang="py"><span class="n">jaccard_similarity</span><span class="p">(</span><span class="n">tokenized_documents</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">tokenized_documents</span><span class="p">[</span><span class="mi">6</span><span class="p">])</span>
+<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="n">jaccard_similarity</span><span class="p">(</span><span class="n">tokenized_documents</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">tokenized_documents</span><span class="p">[</span><span class="mi">6</span><span class="p">])</span>
 <span class="c"># 0.08571428571428572</span>
 <span class="nb">set</span><span class="p">(</span><span class="n">tokenized_documents</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">tokenized_documents</span><span class="p">[</span><span class="mi">6</span><span class="p">]))</span>
 <span class="c"># {&#39;about&#39;, &#39;seems&#39;, &#39;serious&#39;}</span>
@@ -164,7 +164,7 @@
 <p>TF, or Term Frequency, measures one thing: the count of words in a document. It&#39;s the first step for TF-IDF or Term Frequency Inverse Document Frequency.</p>
 
 <p>First comes the easy part.</p>
-<div class="highlight"><pre><code class="py language-py" data-lang="py"><span class="k">def</span> <span class="nf">term_frequency</span><span class="p">(</span><span class="n">term</span><span class="p">,</span> <span class="n">tokenized_document</span><span class="p">):</span>
+<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="k">def</span> <span class="nf">term_frequency</span><span class="p">(</span><span class="n">term</span><span class="p">,</span> <span class="n">tokenized_document</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">tokenized_document</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">term</span><span class="p">)</span>
 </code></pre></div>
 <p>Above we&#39;ve created a simple way of counting the number of occurrences of a token in a document. There are plenty of ways to do this, through collections or for loops but they all end with the same result, how many times does a token appear in a document.</p>
@@ -172,7 +172,7 @@
 <p>However this does not resolve the issue we&#39;ve mentioned above - this is still biased towards longer documents. To remedy this we should weight terms according to document length or normalize them on another scale. This process is called normalization. While there are several ways to do this, I&#39;ll only show two, sub-linear term frequency and augmented frequency measurement. Here&#39;s the formula:</p>
 
 <p><img src="https://upload.wikimedia.org/math/5/c/c/5cc18acd4dbd9be636047fc2a7a10105.png" alt="augmented frequency"></p>
-<div class="highlight"><pre><code class="py language-py" data-lang="py"><span class="k">def</span> <span class="nf">sublinear_term_frequency</span><span class="p">(</span><span class="n">term</span><span class="p">,</span> <span class="n">tokenized_document</span><span class="p">):</span>
+<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="k">def</span> <span class="nf">sublinear_term_frequency</span><span class="p">(</span><span class="n">term</span><span class="p">,</span> <span class="n">tokenized_document</span><span class="p">):</span>
     <span class="k">return</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">tokenized_document</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">term</span><span class="p">))</span>
 
 <span class="k">def</span> <span class="nf">augmented_term_frequency</span><span class="p">(</span><span class="n">term</span><span class="p">,</span> <span class="n">tokenized_document</span><span class="p">):</span>
@@ -184,7 +184,7 @@
 <p>The next part of TF-IDF is the <code>IDF</code> or inverse document frequency. Basically we want to target the words that are unique to certain documents instead of those that appear in all the documents because by definition, those are not good identifiers for any given document. Here&#39;s our equation for IDF.</p>
 
 <p><img src="http://upload.wikimedia.org/math/b/a/e/bae842b33a4cafc0f22519cf960b052a.png" alt="IDF"></p>
-<div class="highlight"><pre><code class="py language-py" data-lang="py"><span class="k">def</span> <span class="nf">inverse_document_frequencies</span><span class="p">(</span><span class="n">tokenized_documents</span><span class="p">):</span>
+<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="k">def</span> <span class="nf">inverse_document_frequencies</span><span class="p">(</span><span class="n">tokenized_documents</span><span class="p">):</span>
     <span class="n">idf_values</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="n">all_tokens_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="n">item</span> <span class="k">for</span> <span class="n">sublist</span> <span class="ow">in</span> <span class="n">tokenized_documents</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">sublist</span><span class="p">])</span>
     <span class="k">for</span> <span class="n">tkn</span> <span class="ow">in</span> <span class="n">all_tokens_set</span><span class="p">:</span>
@@ -193,7 +193,7 @@
     <span class="k">return</span> <span class="n">idf_values</span>
 </code></pre></div>
 <p>Now we&#39;ve got a weight for every token in every document. This helps determine the important words from the unimportant ones.</p>
-<div class="highlight"><pre><code class="py language-py" data-lang="py"><span class="n">idf_values</span> <span class="o">=</span> <span class="n">inverse_document_frequencies</span><span class="p">(</span><span class="n">tokenized_documents</span><span class="p">)</span>
+<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="n">idf_values</span> <span class="o">=</span> <span class="n">inverse_document_frequencies</span><span class="p">(</span><span class="n">tokenized_documents</span><span class="p">)</span>
 <span class="k">print</span> <span class="n">idf_values</span><span class="p">[</span><span class="s">&#39;abenomics&#39;</span><span class="p">]</span>
 <span class="c"># 2.94591014906</span>
 <span class="k">print</span> <span class="n">idf_values</span><span class="p">[</span><span class="s">&#39;the&#39;</span><span class="p">]</span>
@@ -202,7 +202,7 @@
 <p>Now we see the power of TF-IDF. We&#39;ve taken the inverse of a token&#39;s document frequency. This means that words that appear a lot like &quot;the&quot; are weighted much less than words like &quot;abenomics&quot;. However TF-IDF allows us to do so much more. We can create vector representations of sentences or more simply, we can transform documents into numbers and lists of documents into matrices.</p>
 
 <p>While this seems relatively unimportant, it actually allows us to do a lot of exception things. We have a mathematical representation of a sentence and we can now use that representation in mathematical ways.</p>
-<div class="highlight"><pre><code class="py language-py" data-lang="py"><span class="k">def</span> <span class="nf">tfidf</span><span class="p">(</span><span class="n">documents</span><span class="p">):</span>
+<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="k">def</span> <span class="nf">tfidf</span><span class="p">(</span><span class="n">documents</span><span class="p">):</span>
     <span class="n">tokenized_documents</span> <span class="o">=</span> <span class="p">[</span><span class="n">tokenize</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">documents</span><span class="p">]</span>
     <span class="n">idf</span> <span class="o">=</span> <span class="n">inverse_document_frequencies</span><span class="p">(</span><span class="n">tokenized_documents</span><span class="p">)</span>
     <span class="n">tfidf_documents</span> <span class="o">=</span> <span class="p">[]</span>
@@ -215,14 +215,14 @@
     <span class="k">return</span> <span class="n">tfidf_documents</span>
 </code></pre></div>
 <p>Now that we&#39;ve got a way of performing tfidf, let&#39;s run it!</p>
-<div class="highlight"><pre><code class="py language-py" data-lang="py"><span class="n">tfidf_representation</span> <span class="o">=</span> <span class="n">tfidf</span><span class="p">(</span><span class="n">all_documents</span><span class="p">)</span>
+<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="n">tfidf_representation</span> <span class="o">=</span> <span class="n">tfidf</span><span class="p">(</span><span class="n">all_documents</span><span class="p">)</span>
 <span class="k">print</span> <span class="n">tfidf_representation</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">document_0</span>
 <span class="c"># doc vector and document</span>
 </code></pre></div>
 <p>These two representations are functionally equivalent at this point. Now up until this point we&#39;ve done all this by hand, while it&#39;s been a good exercise there are packages that implement this much more quickly - like Scikit-Learn.</p>
 
 <p>Let&#39;s take a look at how we might code this in Scikit-Learn.</p>
-<div class="highlight"><pre><code class="py language-py" data-lang="py"><span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">TfidfVectorizer</span>
+<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">TfidfVectorizer</span>
 
 <span class="n">sklearn_tfidf</span> <span class="o">=</span> <span class="n">TfidfVectorizer</span><span class="p">(</span><span class="n">norm</span><span class="o">=</span><span class="s">&#39;l2&#39;</span><span class="p">,</span><span class="n">min_df</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">use_idf</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">smooth_idf</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">sublinear_tf</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">tokenizer</span><span class="o">=</span><span class="n">tokenize</span><span class="p">)</span>
 

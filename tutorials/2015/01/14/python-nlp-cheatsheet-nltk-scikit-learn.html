@@ -93,12 +93,12 @@
 <p>Sometimes you want to split sentence by sentence and other times you just want to split words.</p>
 
 <p><strong>Sentence Tokenizers</strong></p>
-<div class="highlight"><pre><code class="py language-py" data-lang="py"><span class="n">sent_tokenizer</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s">&#39;tokenizers/punkt/english.pickle&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="n">sent_tokenizer</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s">&#39;tokenizers/punkt/english.pickle&#39;</span><span class="p">)</span>
 </code></pre></div>
 <p>Here&#39;s a popular word regular expression tokenizer from the NLTK book that works quite well.</p>
 
 <p><strong>Word Tokenizers</strong></p>
-<div class="highlight"><pre><code class="py language-py" data-lang="py"><span class="n">tokenization_pattern</span> <span class="o">=</span> <span class="s">r&#39;&#39;&#39;(?x)    # set flag to allow verbose regexps</span>
+<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="n">tokenization_pattern</span> <span class="o">=</span> <span class="s">r&#39;&#39;&#39;(?x)    # set flag to allow verbose regexps</span>
 <span class="s">([A-Z]\.)+        # abbreviations, e.g. U.S.A.</span>
 <span class="s">| \w+(-\w+)*        # words with optional internal hyphens</span>
 <span class="s">| \$?\d+(\.\d+)?%?  # currency and percentages, e.g. $12.40, 82%</span>
@@ -130,26 +130,26 @@
 <p><strong>Built in tagger</strong></p>
 
 <p>This is the built in tagger, the one that NLTK recommends. It&#39;s pretty slow when working on sort of large corpus.</p>
-<div class="highlight"><pre><code class="py language-py" data-lang="py"><span class="n">nltk</span><span class="o">.</span><span class="n">pos_tag</span><span class="p">(</span><span class="n">sentence</span><span class="p">)</span> <span class="c"># tokenized sentence</span>
+<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="n">nltk</span><span class="o">.</span><span class="n">pos_tag</span><span class="p">(</span><span class="n">sentence</span><span class="p">)</span> <span class="c"># tokenized sentence</span>
 <span class="n">nltk</span><span class="o">.</span><span class="n">batch_pos_tag</span><span class="p">(</span><span class="n">sentences</span><span class="p">)</span> <span class="c"># for lots of tokenized sentences</span>
 </code></pre></div>
 <p><strong>Unigram, Bigram, and Backoff Tagging</strong></p>
 
 <p>These are backoff taggers, basically it&#39;s just a dictionary look up to tag parts of speech. You train it on a tagged corpus(or corpora) and then use it to tag sentences in the future.</p>
-<div class="highlight"><pre><code class="py language-py" data-lang="py"><span class="n">default_tagger</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">DefaultTagger</span><span class="p">(</span><span class="s">&#39;NN&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="n">default_tagger</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">DefaultTagger</span><span class="p">(</span><span class="s">&#39;NN&#39;</span><span class="p">)</span>
 <span class="n">raw</span> <span class="o">=</span> <span class="s">r&#39;&#39;&#39;what will this silly tagger do?&#39;&#39;&#39;</span>
 <span class="n">tokens</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">word_tokenize</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
 <span class="k">print</span> <span class="n">default_tagger</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span>
 <span class="c"># [(&#39;what&#39;, &#39;NN&#39;), (&#39;will&#39;, &#39;NN&#39;), (&#39;this&#39;, &#39;NN&#39;), (&#39;silly&#39;, &#39;NN&#39;), (&#39;tagger&#39;, &#39;NN&#39;), (&#39;do&#39;, &#39;NN&#39;), (&#39;?&#39;, &#39;NN&#39;)]</span>
 </code></pre></div>
 <p>Here&#39;s how you train the tagger on brown, this is a unigram tagger, so it&#39;s not going to perform really well because it will tag everything as a NN (noun) or whatever part of speech we give it.</p>
-<div class="highlight"><pre><code class="py language-py" data-lang="py"><span class="kn">from</span> <span class="nn">nltk.corpus</span> <span class="kn">import</span> <span class="n">brown</span>
+<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="kn">from</span> <span class="nn">nltk.corpus</span> <span class="kn">import</span> <span class="n">brown</span>
 <span class="n">brown_tagged_sents</span> <span class="o">=</span> <span class="n">brown</span><span class="o">.</span><span class="n">tagged_sents</span><span class="p">()</span>
 <span class="n">unigram_tagger</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">UnigramTagger</span><span class="p">(</span><span class="n">brown_tagged_sents</span><span class="p">)</span>
 <span class="k">print</span> <span class="s">&quot;</span><span class="si">%0.3f</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">unigram_tagger</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">test_sents</span><span class="p">)</span> <span class="c"># eval the tagger</span>
 </code></pre></div>
 <p>This is a true backoff tagger that defaults to a certain part of speech. So it will look for trigram occurrences and see if it finds any with a certain word formation, if it does not then it will <em>backoff</em> to the bigram tagger, etc.</p>
-<div class="highlight"><pre><code class="py language-py" data-lang="py"><span class="k">def</span> <span class="nf">build_backoff_tagger</span><span class="p">(</span><span class="n">train_sents</span><span class="p">):</span>
+<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="k">def</span> <span class="nf">build_backoff_tagger</span><span class="p">(</span><span class="n">train_sents</span><span class="p">):</span>
     <span class="n">t0</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">DefaultTagger</span><span class="p">(</span><span class="s">&#39;NN&#39;</span><span class="p">)</span>
     <span class="n">t1</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">UnigramTagger</span><span class="p">(</span><span class="n">train_sents</span><span class="p">,</span> <span class="n">backoff</span><span class="o">=</span><span class="n">t0</span><span class="p">)</span>
     <span class="n">t2</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">BigramTagger</span><span class="p">(</span><span class="n">train_sents</span><span class="p">,</span> <span class="n">backoff</span><span class="o">=</span><span class="n">t1</span><span class="p">)</span>
@@ -158,27 +158,27 @@
 <span class="n">ngram_tagger</span> <span class="o">=</span> <span class="n">build_backoff_tagger</span><span class="p">(</span><span class="n">train_sents</span><span class="p">)</span>
 </code></pre></div>
 <p>What&#39;s nice is to speed things up, you can actually just pickle the backoff tagger so that it&#39;s easier to deploy a tagger if need be.</p>
-<div class="highlight"><pre><code class="py language-py" data-lang="py"><span class="kn">import</span> <span class="nn">pickle</span> <span class="c"># or cPickle</span>
+<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="kn">import</span> <span class="nn">pickle</span> <span class="c"># or cPickle</span>
 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;pickled_file.pickle&#39;</span><span class="p">,</span> <span class="s">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
     <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">ngram_tagger</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
-</code></pre></div><div class="highlight"><pre><code class="py language-py" data-lang="py"><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;pickled_file.pickle&#39;</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</code></pre></div><div class="highlight"><pre><code class="language-py" data-lang="py"><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;pickled_file.pickle&#39;</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
     <span class="n">tagger</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
 </code></pre></div>
 <h4>Removing Punctuation</h4>
 
 <p>At times you&#39;ll need to remove certain punctuation marks - this is an easy way to do so.</p>
-<div class="highlight"><pre><code class="py language-py" data-lang="py"><span class="kn">import</span> <span class="nn">string</span>
+<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="kn">import</span> <span class="nn">string</span>
 <span class="n">nopunct</span> <span class="o">=</span> <span class="p">[</span><span class="n">w</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">text</span> <span class="k">if</span> <span class="n">w</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">string</span><span class="o">.</span><span class="n">punctuation</span><span class="p">]</span>
 <span class="s">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">nopunct</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">100</span><span class="p">])</span>
 </code></pre></div>
 <h4>Stopwords</h4>
 
 <p>Here&#39;s an easy way to remove stop words.</p>
-<div class="highlight"><pre><code class="py language-py" data-lang="py"><span class="kn">from</span> <span class="nn">nltk.corpus</span> <span class="kn">import</span> <span class="n">stopwords</span>
+<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="kn">from</span> <span class="nn">nltk.corpus</span> <span class="kn">import</span> <span class="n">stopwords</span>
 <span class="n">normalized</span> <span class="o">=</span> <span class="p">[</span><span class="n">w</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">text6</span> <span class="k">if</span> <span class="n">w</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">stopwords</span><span class="o">.</span><span class="n">words</span><span class="p">(</span><span class="s">&#39;english&#39;</span><span class="p">)]</span>
 </code></pre></div>
 <p>Extend it with:</p>
-<div class="highlight"><pre><code class="py language-py" data-lang="py"><span class="kn">from</span> <span class="nn">nltk.corpus</span> <span class="kn">import</span> <span class="n">stopwords</span>
+<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="kn">from</span> <span class="nn">nltk.corpus</span> <span class="kn">import</span> <span class="n">stopwords</span>
 <span class="n">my_stops</span> <span class="o">=</span> <span class="n">stopwords</span>
 <span class="n">my_stops</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&quot;shoebox&quot;</span><span class="p">)</span>
 </code></pre></div>
@@ -187,14 +187,14 @@
 <p>Stemming the process by which endings are removed from words in order to remove things like tense or plurality. It&#39;s not appropriate for all cases but can make it easier to connect together tenses to see if you&#39;re covering the same subject matter.</p>
 
 <p><a href="http://youtu.be/9Zag7uhjdYo?t=30m00s">Ben Hamner mentions in his Machine Learning Best practices that Kaggle has learned from their competitions that the Porter stemmer is consistently used in winning NLP algorithms for their competitions.</a></p>
-<div class="highlight"><pre><code class="py language-py" data-lang="py"><span class="n">pstemmer</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">PorterStemmer</span><span class="p">()</span>
+<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="n">pstemmer</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">PorterStemmer</span><span class="p">()</span>
 <span class="n">lstemmer</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">LancasterStemmer</span><span class="p">()</span>
 <span class="n">wnlemmatizer</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">WordNetLemmatizer</span><span class="p">()</span>
 </code></pre></div>
 <h4>Frequency Distributions</h4>
 
 <p>A common go to to see what&#39;s going on with certain text data sets, frequency distributions allow you to see the frequency at which certain words occur and plot it if need be.</p>
-<div class="highlight"><pre><code class="py language-py" data-lang="py"><span class="n">fd</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">FreqDist</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="n">fd</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">FreqDist</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 <span class="n">fd</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 <span class="n">fd</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="n">cumulative</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 <span class="n">fd</span><span class="o">.</span><span class="n">most_common</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
@@ -202,7 +202,7 @@
 <h4>Collocations, Bigrams, Trigrams</h4>
 
 <p>Bigrams and trigrams are just words that are commonly found together and measures their relevance by a certain measurement.</p>
-<div class="highlight"><pre><code class="py language-py" data-lang="py"><span class="n">bigram_measures</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">collocations</span><span class="o">.</span><span class="n">BigramAssocMeasures</span><span class="p">()</span>
+<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="n">bigram_measures</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">collocations</span><span class="o">.</span><span class="n">BigramAssocMeasures</span><span class="p">()</span>
 <span class="n">trigram_measures</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">collocations</span><span class="o">.</span><span class="n">TrigramAssocMeasures</span><span class="p">()</span>
 <span class="n">finder</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">collocations</span><span class="o">.</span><span class="n">BigramCollocationFinder</span><span class="o">.</span><span class="n">from_words</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
 <span class="n">finder</span><span class="o">.</span><span class="n">nbest</span><span class="p">(</span><span class="n">bigram_measures</span><span class="o">.</span><span class="n">pmi</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
@@ -212,7 +212,7 @@
 <p>Chunking basically just grabs chunks of text that might be more meaningful to your research or program. You create a list of parts of speech and run that over your corpus. It will extract the phrasing that you need.</p>
 
 <p>Remember you&#39;ve got to customize it to the part of speech tagger that you&#39;re using, like Brown or the Stanford Tagger.</p>
-<div class="highlight"><pre><code class="py language-py" data-lang="py"><span class="n">technical_term</span> <span class="o">=</span> <span class="s">r&quot;T: {&lt;(JJ|NN|NNS|NNP|NNPS)&gt;+&lt;(NN|NNS|NNP|NNPS|CD)&gt;|&lt;(NN|NNS|NNP|NNPS)&gt;}&quot;</span>
+<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="n">technical_term</span> <span class="o">=</span> <span class="s">r&quot;T: {&lt;(JJ|NN|NNS|NNP|NNPS)&gt;+&lt;(NN|NNS|NNP|NNPS|CD)&gt;|&lt;(NN|NNS|NNP|NNPS)&gt;}&quot;</span>
 <span class="n">cp</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">RegexpParser</span><span class="p">(</span><span class="n">technical_term</span><span class="p">)</span>
 
 <span class="k">for</span> <span class="n">count</span><span class="p">,</span> <span class="n">sent</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">brown</span><span class="o">.</span><span class="n">sents</span><span class="p">()[</span><span class="mi">100</span><span class="p">:</span><span class="mi">104</span><span class="p">]):</span>
@@ -231,7 +231,7 @@
 <p>This splits it into thirds.</p>
 
 <p><strong>Train, Dev, Test Sets</strong></p>
-<div class="highlight"><pre><code class="py language-py" data-lang="py"><span class="k">def</span> <span class="nf">create_training_sets_trips</span><span class="p">(</span><span class="n">feature_function</span><span class="p">,</span> <span class="n">items</span><span class="p">):</span>
+<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="k">def</span> <span class="nf">create_training_sets_trips</span><span class="p">(</span><span class="n">feature_function</span><span class="p">,</span> <span class="n">items</span><span class="p">):</span>
     <span class="n">featuresets</span> <span class="o">=</span> <span class="p">[(</span><span class="n">feature_function</span><span class="p">(</span><span class="n">key</span><span class="p">),</span> <span class="n">value</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="ow">in</span> <span class="n">items</span><span class="p">]</span>
     <span class="n">third</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">featuresets</span><span class="p">))</span> <span class="o">/</span> <span class="mf">3.0</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">items</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">third</span><span class="p">],</span> <span class="n">items</span><span class="p">[</span><span class="n">third</span><span class="p">:</span><span class="n">third</span><span class="o">*</span><span class="mi">2</span><span class="p">],</span> <span class="n">items</span><span class="p">[</span><span class="n">third</span><span class="o">*</span><span class="mi">2</span><span class="p">:],</span> <span class="n">featuresets</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">third</span><span class="p">],</span> <span class="n">featuresets</span><span class="p">[</span><span class="n">third</span><span class="p">:</span><span class="n">third</span><span class="o">*</span><span class="mi">2</span><span class="p">],</span> <span class="n">featuresets</span><span class="p">[</span><span class="n">third</span><span class="o">*</span><span class="mi">2</span><span class="p">:]</span>
@@ -241,7 +241,7 @@
 <p>This splits it into halves.</p>
 
 <p><strong>Simpler Test Sets</strong></p>
-<div class="highlight"><pre><code class="py language-py" data-lang="py"><span class="k">def</span> <span class="nf">create_training_sets</span><span class="p">(</span><span class="n">feature_function</span><span class="p">,</span> <span class="n">items</span><span class="p">):</span>
+<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="k">def</span> <span class="nf">create_training_sets</span><span class="p">(</span><span class="n">feature_function</span><span class="p">,</span> <span class="n">items</span><span class="p">):</span>
     <span class="n">featuresets</span> <span class="o">=</span> <span class="p">[(</span><span class="n">feature_function</span><span class="p">(</span><span class="n">key</span><span class="p">),</span> <span class="n">value</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="ow">in</span> <span class="n">items</span><span class="p">]</span>
     <span class="n">halfsize</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">featuresets</span><span class="p">))</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">)</span>
     <span class="n">train_set</span><span class="p">,</span> <span class="n">test_set</span> <span class="o">=</span> <span class="n">featuresets</span><span class="p">[</span><span class="n">halfsize</span><span class="p">:],</span> <span class="n">featuresets</span><span class="p">[:</span><span class="n">halfsize</span><span class="p">]</span>
@@ -266,7 +266,7 @@
 <p><strong>Naive Bayes Classifiers</strong></p>
 
 <p>This is a simple Naive Bayes classifier.</p>
-<div class="highlight"><pre><code class="py language-py" data-lang="py"><span class="kn">from</span> <span class="nn">sklearn.naive_bayes</span> <span class="kn">import</span> <span class="n">MultinomialNB</span>
+<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="kn">from</span> <span class="nn">sklearn.naive_bayes</span> <span class="kn">import</span> <span class="n">MultinomialNB</span>
 
 <span class="n">cl</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">NaiveBayesClassifier</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">train_set</span><span class="p">)</span>
 <span class="k">print</span> <span class="s">&quot;</span><span class="si">%.3f</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">nltk</span><span class="o">.</span><span class="n">classify</span><span class="o">.</span><span class="n">accuracy</span><span class="p">(</span><span class="n">cl</span><span class="p">,</span> <span class="n">test_set</span><span class="p">)</span>
@@ -276,19 +276,19 @@
 <p><strong>SVC Classifier</strong></p>
 
 <p>SVMs need numerican inputs, it can take text-based features so you have to convert these features into numbers before passing them to this classifier.</p>
-<div class="highlight"><pre><code class="py language-py" data-lang="py"><span class="kn">from</span> <span class="nn">nltk.classify</span> <span class="kn">import</span> <span class="n">SklearnClassifier</span>
+<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="kn">from</span> <span class="nn">nltk.classify</span> <span class="kn">import</span> <span class="n">SklearnClassifier</span>
 <span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>
 <span class="n">svmc</span> <span class="o">=</span> <span class="n">SklearnClassifier</span><span class="p">(</span><span class="n">SVC</span><span class="p">(),</span> <span class="n">sparse</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">train_features</span><span class="p">)</span>
 </code></pre></div>
 <p><strong>Decision Tree Classification</strong></p>
 
 <p>This is a simple decision tree classifier.</p>
-<div class="highlight"><pre><code class="py language-py" data-lang="py"><span class="n">dtc</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">classify</span><span class="o">.</span><span class="n">DecisionTreeClassifier</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">train_features</span><span class="p">,</span> <span class="n">entropy_cutoff</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">support_cutoff</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  
+<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="n">dtc</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">classify</span><span class="o">.</span><span class="n">DecisionTreeClassifier</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">train_features</span><span class="p">,</span> <span class="n">entropy_cutoff</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">support_cutoff</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  
 </code></pre></div>
 <p><strong>Maximum Entropy Classifier</strong></p>
 
 <p>A maximum entropy classifier and <a href="http://www.monlp.com/2011/10/10/support-for-scipy-in-nltks-maximum-entropy-methods/">some helpful explainers here</a>.</p>
-<div class="highlight"><pre><code class="py language-py" data-lang="py"><span class="kn">import</span> <span class="nn">numpy</span>
+<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="kn">import</span> <span class="nn">numpy</span>
 <span class="kn">import</span> <span class="nn">scipy</span>
 
 <span class="kn">from</span> <span class="nn">nltk.classify</span> <span class="kn">import</span> <span class="n">maxent</span>
@@ -301,7 +301,7 @@
 <h4>Cross Validating Classifiers</h4>
 
 <p>One thing you&#39;ll need to avoid over-fitting is you&#39;ll want to cross validate with k-folds. This can help you see where you might be over-fitting in your corpus.</p>
-<div class="highlight"><pre><code class="py language-py" data-lang="py"><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">cross_validation</span>
+<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">cross_validation</span>
 <span class="n">cv</span> <span class="o">=</span> <span class="n">cross_validation</span><span class="o">.</span><span class="n">KFold</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">train_features</span><span class="p">),</span> <span class="n">n_folds</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
 
 <span class="k">for</span> <span class="n">traincv</span><span class="p">,</span> <span class="n">evalcv</span> <span class="ow">in</span> <span class="n">cv</span><span class="p">:</span>
@@ -311,7 +311,7 @@
 <h4>Creating Pipelines for Classifiers</h4>
 
 <p>Finally creating pipelines can help speed things up immensely, especially when you&#39;re moving to more production level code.</p>
-<div class="highlight"><pre><code class="py language-py" data-lang="py"><span class="kn">import</span> <span class="nn">sklearn</span>
+<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="kn">import</span> <span class="nn">sklearn</span>
 <span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">LinearSVC</span>
 <span class="kn">from</span> <span class="nn">nltk.classify.scikitlearn</span> <span class="kn">import</span> <span class="n">SklearnClassifier</span>
 <span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">TfidfTransformer</span>

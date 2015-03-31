@@ -90,7 +90,7 @@
 <p>Now that we&#39;ve covered TF-IDF and how to do with our own code as well as Scikit-Learn. Let&#39;s take a look at how we can actually compare different documents with cosine similarity or the Euclidean dot product formula.</p>
 
 <p>At this point our documents are represented as vectors.</p>
-<div class="highlight"><pre><code class="py language-py" data-lang="py"><span class="k">print</span> <span class="n">tfidf_representation</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="k">print</span> <span class="n">tfidf_representation</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="k">print</span> <span class="n">sklearn_representation</span><span class="o">.</span><span class="n">toarray</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
 </code></pre></div>
 <p>This will show you what they actually are.</p>
@@ -106,7 +106,7 @@
 <p>Now in our case, if the cosine similarity is 1, they are the same document. If it is 0, the documents share nothing. This is because term frequency cannot be negative so the angle between the two vectors cannot be greater than 90°.</p>
 
 <p>Here&#39;s our python representation of cosine similarity of two vectors in python.</p>
-<div class="highlight"><pre><code class="py language-py" data-lang="py"><span class="k">def</span> <span class="nf">cosine_similarity</span><span class="p">(</span><span class="n">vector1</span><span class="p">,</span> <span class="n">vector2</span><span class="p">):</span>
+<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="k">def</span> <span class="nf">cosine_similarity</span><span class="p">(</span><span class="n">vector1</span><span class="p">,</span> <span class="n">vector2</span><span class="p">):</span>
     <span class="n">dot_product</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">p</span><span class="o">*</span><span class="n">q</span> <span class="k">for</span> <span class="n">p</span><span class="p">,</span><span class="n">q</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">vector1</span><span class="p">,</span> <span class="n">vector2</span><span class="p">))</span>
     <span class="n">magnitude</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">sum</span><span class="p">([</span><span class="n">val</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">vector1</span><span class="p">]))</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">sum</span><span class="p">([</span><span class="n">val</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">vector2</span><span class="p">]))</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">magnitude</span><span class="p">:</span>
@@ -114,7 +114,7 @@
     <span class="k">return</span> <span class="n">dot_product</span><span class="o">/</span><span class="n">magnitude</span>
 </code></pre></div>
 <p>Now that we have a vector representation and a way to compare different vectors we can put it to good use. But before we do, we should add that the final benefit of cosine similarity is now all our documents are off the same length, this removes any bias we had towards longer documents (like with Jaccard Similarity).</p>
-<div class="highlight"><pre><code class="py language-py" data-lang="py"><span class="n">tfidf_representation</span> <span class="o">=</span> <span class="n">tfidf</span><span class="p">(</span><span class="n">all_documents</span><span class="p">)</span>
+<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="n">tfidf_representation</span> <span class="o">=</span> <span class="n">tfidf</span><span class="p">(</span><span class="n">all_documents</span><span class="p">)</span>
 <span class="n">our_tfidf_comparisons</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">for</span> <span class="n">count_0</span><span class="p">,</span> <span class="n">doc_0</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">tfidf_representation</span><span class="p">):</span>
     <span class="k">for</span> <span class="n">count_1</span><span class="p">,</span> <span class="n">doc_1</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">tfidf_representation</span><span class="p">):</span>
