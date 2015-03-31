@@ -168,9 +168,9 @@
  <span class="s">&#39;DISORDERLY CONDUCT&#39;</span> <span class="s">&#39;SUICIDE&#39;</span> <span class="s">&#39;SEX OFFENSES, NON FORCIBLE&#39;</span>
  <span class="s">&#39;PORNOGRAPHY/OBSCENE MAT&#39;</span><span class="p">]</span>
 
-<span class="n">sub_crime</span> <span class="o">=</span> <span class="n">crime</span><span class="p">[(</span><span class="n">crime</span><span class="p">[</span><span class="s">&#39;Category&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s">&quot;ASSAULT&quot;</span><span class="p">)]</span>
+<span class="n">sub_crime</span> <span class="o">=</span> <span class="n">crime</span><span class="p">[(</span><span class="n">crime</span><span class="p">[</span><span class="s">&#39;Category&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s">&quot;ASSAULT&quot;</span><span class="p">)]</span> <span class="c">#look at just Assaults</span>
 </code></pre></div>
-<h3>look at just Assaults</h3>
+<p>I looked at just assaults in order to dive a bit deeper into the data itself.</p>
 <div class="highlight"><pre><code class="language-py" data-lang="py"><span class="k">print</span> <span class="nb">len</span><span class="p">(</span><span class="n">crime</span><span class="p">)</span>
 <span class="n">sub_crime</span> <span class="o">=</span> <span class="n">crime</span><span class="p">[(</span><span class="n">crime</span><span class="p">[</span><span class="s">&#39;Category&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s">&quot;ASSAULT&quot;</span><span class="p">)]</span>
 <span class="k">print</span> <span class="nb">len</span><span class="p">(</span><span class="n">sub_crime</span><span class="p">)</span>
