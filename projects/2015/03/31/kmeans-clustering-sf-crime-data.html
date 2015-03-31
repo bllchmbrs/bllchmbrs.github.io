@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Clustering Liquor Stores and Assaults in San Francisco</title>
+        <title>K-Means Clustering - Liquor & Assaults in San Francisco</title>
         <meta name="viewport" content="width=device-width">
         <link rel="stylesheet" href="/css/normalize.css">
         <link rel="stylesheet" href="/css/skeleton.css">
@@ -68,7 +68,7 @@
    <div class="ten offset-by-one columns">
       <article class="post">
          <div class='titles'>
-            <h4>Clustering Liquor Stores and Assaults in San Francisco</h4>
+            <h4>K-Means Clustering - Liquor & Assaults in San Francisco</h4>
             <p class="meta">
                <!-- <span class='tags'>
                   Tags:
@@ -80,7 +80,14 @@
                </span>
             </p>
          </div>
-         <p>This notebook walks through an example of KMeans clustering crime data with alcohol license locations. This clustering is performed solely based on the Lat/Long locations of stores and crimes.</p>
+         <p>This notebook walks through an example of KMeans clustering crime data with alcohol license locations. This clustering is performed solely based on the Lat/Long locations of stores and crimes. The tools I use are</p>
+
+<ul>
+<li><a href="http://pandas.pydata.org/">Pandas</a></li>
+<li><a href="http://www.numpy.org/">Numpy</a></li>
+<li><a href="http://scikit-learn.org/stable/">Scikit-learn</a></li>
+<li>Matplotlib</li>
+</ul>
 
 <p>The most basic question being answered is:</p>
 
@@ -225,7 +232,7 @@
 
 <h3>Leaflet</h3>
 
-<p>I also decided to plot this data in leaflet to exercise my javascript skills a bit. Leaflet is a javascript plotting library.</p>
+<p>I also decided to plot this data in <a href="http://leafletjs.com/">Leaflet</a> to exercise my JavaScript skills a bit. <a href="http://leafletjs.com/">Leaflet is a javascript plotting library.</a></p>
 
 <ul>
 <li>Red: Assault (Centroids being larger)</li>
@@ -251,7 +258,7 @@
 
 <h3>Conclusion</h3>
 
-<p>It appears that there is at least some basic correlation between crimes and liquor stores. Obviously this will vary with the type of crime but it is worth exploring further.</p>
+<p>It appears that there is at least some basic correlation between crimes and liquor stores. Obviously this will vary with the type of crime but it is worth exploring further. This was not intended to be a scientific analysis - much more of an exploration. Due to any number of biases, this information is not something that, at face value, you can derive explicit relationships. I wanted to play around with a visual display of k-means and sci-kit learn.</p>
 
       </article>
    </div>

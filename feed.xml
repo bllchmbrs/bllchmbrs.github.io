@@ -7,8 +7,15 @@
 		<atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
-				<title>Clustering Liquor Stores and Assaults in San Francisco</title>
-				<description>&lt;p&gt;This notebook walks through an example of KMeans clustering crime data with alcohol license locations. This clustering is performed solely based on the Lat/Long locations of stores and crimes.&lt;/p&gt;
+				<title>K-Means Clustering - Liquor &amp; Assaults in San Francisco</title>
+				<description>&lt;p&gt;This notebook walks through an example of KMeans clustering crime data with alcohol license locations. This clustering is performed solely based on the Lat/Long locations of stores and crimes. The tools I use are&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://pandas.pydata.org/&quot;&gt;Pandas&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.numpy.org/&quot;&gt;Numpy&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://scikit-learn.org/stable/&quot;&gt;Scikit-learn&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Matplotlib&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;p&gt;The most basic question being answered is:&lt;/p&gt;
 
@@ -153,7 +160,7 @@
 
 &lt;h3&gt;Leaflet&lt;/h3&gt;
 
-&lt;p&gt;I also decided to plot this data in leaflet to exercise my javascript skills a bit. Leaflet is a javascript plotting library.&lt;/p&gt;
+&lt;p&gt;I also decided to plot this data in &lt;a href=&quot;http://leafletjs.com/&quot;&gt;Leaflet&lt;/a&gt; to exercise my JavaScript skills a bit. &lt;a href=&quot;http://leafletjs.com/&quot;&gt;Leaflet is a javascript plotting library.&lt;/a&gt;&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;Red: Assault (Centroids being larger)&lt;/li&gt;
@@ -179,7 +186,7 @@
 
 &lt;h3&gt;Conclusion&lt;/h3&gt;
 
-&lt;p&gt;It appears that there is at least some basic correlation between crimes and liquor stores. Obviously this will vary with the type of crime but it is worth exploring further.&lt;/p&gt;
+&lt;p&gt;It appears that there is at least some basic correlation between crimes and liquor stores. Obviously this will vary with the type of crime but it is worth exploring further. This was not intended to be a scientific analysis - much more of an exploration. Due to any number of biases, this information is not something that, at face value, you can derive explicit relationships. I wanted to play around with a visual display of k-means and sci-kit learn.&lt;/p&gt;
 </description>
 				<pubDate>Tue, 31 Mar 2015 00:00:00 -0700</pubDate>
 				<link>/projects/2015/03/31/kmeans-clustering-sf-crime-data.html</link>
