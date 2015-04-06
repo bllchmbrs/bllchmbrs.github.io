@@ -1,4 +1,4 @@
-var height = 627,
+$(function(){ var height = 627,
   width = 627,
   originalMatrix,
   matrix,
@@ -21,6 +21,15 @@ var svg = d3.select('#chart')
   .attr('height', height)
   .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
+if(window.navigator.userAgent.indexOf("Firefox") > -1) {
+var groups = svg.append("g")
+  .attr("class", "groups");
+
+var chords = svg.append("g")
+  .attr("class", "chords");
+
+} else {
+
 var groups = svg.append("g")
   .attr("class", "groups")
   .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
@@ -28,6 +37,9 @@ var groups = svg.append("g")
 var chords = svg.append("g")
   .attr("class", "chords")
   .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+}
+
 
 function generateLayout() {
   return d3.layout.chord()
@@ -237,4 +249,6 @@ $.get("/data/flight-airports.csv", function(raw_originalAirports) {
     console.log(matrix.length);
     render();
   });
+});
+
 });
