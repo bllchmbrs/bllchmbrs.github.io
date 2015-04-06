@@ -20,9 +20,12 @@
 
 &lt;p&gt;Scroll through this list to select airports that you want to explore! Hovering over one of the edges of the diagram will highlight which airport you are hovering over. Clicking it with focus in on just that airport. Airports are listed in order clockwise from 12:00.&lt;/p&gt;
 
-&lt;p&gt;References:
-- &lt;a href=&quot;https://soundsuggest.wordpress.com/2012/12/26/d3-js-javascript-library-chord-diagram-example/&quot;&gt;Chord Tutorial&lt;/a&gt;
-- &lt;a href=&quot;https://github.com/mbostock/d3/wiki/Chord-Layout&quot;&gt;Chord Layout Docs&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;References:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://soundsuggest.wordpress.com/2012/12/26/d3-js-javascript-library-chord-diagram-example/&quot;&gt;Chord Tutorial&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/mbostock/d3/wiki/Chord-Layout&quot;&gt;Chord Layout Docs&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;p&gt;&lt;/article&gt;
 &lt;/div&gt;
