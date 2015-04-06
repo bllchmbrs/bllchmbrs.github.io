@@ -87,6 +87,10 @@
 
 <p>This was my favorite assignment, I wish we would have had more time to use d3.</p>
 
+<p>The visualization contains data about the flights that happened in June 1994. Clicking on one of the edge nodes (the groups) will change the visualization to only include that airport and any flights that go in and out of that airport. Hovering over it will show you what you might expect.</p>
+
+<p>Scroll through this list to select airports that you want to explore! Hovering over one of the edges of the diagram will highlight which airport you are hovering over. Clicking it with focus in on just that airport. Airports are listed in order clockwise from 12:00.</p>
+
 <p>References:</p>
 
 <ul>
@@ -102,30 +106,19 @@
       <div class='twelve columns'>
         <h3>June 1994 Flight Data</h3>
       </div>
-    </div>
-    <div class='row'>
-      <div class='twelve columns'>
-        <p>The below visualization contains data about the flights that happened in June 1994. Clicking on one of the edge nodes will change the visualization to only include that airport and any flights that go in and out of that airport. Due to a high number of flights and a relatively large dataset, colors are not shown until you dive deeply enough into the dataset(less 60 items).</p>
-      </div>
-    </div>
-    <div class='row'>
-      <div class='twelve columns'>
-        <h4>Airport Names</h4>
-        <p>Scroll through this list to be select airports that you want to explore! Hovering over one of the edges of the diagram will highlight which airport you are hovering over. Airports are listed in order clockwise from 12:00.</p>
-        <button class='button' onclick="location.reload()">Reset!</button>
-      </div>
-    </div>
-    <div class='row'>
-      <div id='info' class='twelve columns'></div>
-    </div>
-    <div class='row'>
-      <div class='two columns' style='height:10px;'>
-      </div>
-      <div class='eight columns'>
-        <div id='chart'></div>
-      </div>
-    </div>
-  <script src='https://code.jquery.com/jquery-2.1.3.min.js'></script>
+    </div></p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">&lt;div class=&#39;row&#39;&gt;
+  &lt;div id=&#39;info&#39; class=&#39;twelve columns&#39;&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#39;row&#39;&gt;
+  &lt;div class=&#39;two columns&#39; style=&#39;height:10px;&#39;&gt;
+  &lt;/div&gt;
+  &lt;div class=&#39;eight columns&#39;&gt;
+    &lt;div id=&#39;chart&#39;&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre></div>
+<p><script src='https://code.jquery.com/jquery-2.1.3.min.js'></script>
   <script src='https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.2/underscore-min.js'></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
 <script src='/js/flight-viz.js'></script>

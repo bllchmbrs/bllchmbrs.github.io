@@ -16,6 +16,10 @@
 
 &lt;p&gt;This was my favorite assignment, I wish we would have had more time to use d3.&lt;/p&gt;
 
+&lt;p&gt;The visualization contains data about the flights that happened in June 1994. Clicking on one of the edge nodes (the groups) will change the visualization to only include that airport and any flights that go in and out of that airport. Hovering over it will show you what you might expect.&lt;/p&gt;
+
+&lt;p&gt;Scroll through this list to select airports that you want to explore! Hovering over one of the edges of the diagram will highlight which airport you are hovering over. Clicking it with focus in on just that airport. Airports are listed in order clockwise from 12:00.&lt;/p&gt;
+
 &lt;p&gt;References:&lt;/p&gt;
 
 &lt;ul&gt;
@@ -31,30 +35,19 @@
       &lt;div class=&#39;twelve columns&#39;&gt;
         &lt;h3&gt;June 1994 Flight Data&lt;/h3&gt;
       &lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div class=&#39;row&#39;&gt;
-      &lt;div class=&#39;twelve columns&#39;&gt;
-        &lt;p&gt;The below visualization contains data about the flights that happened in June 1994. Clicking on one of the edge nodes will change the visualization to only include that airport and any flights that go in and out of that airport. Due to a high number of flights and a relatively large dataset, colors are not shown until you dive deeply enough into the dataset(less 60 items).&lt;/p&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div class=&#39;row&#39;&gt;
-      &lt;div class=&#39;twelve columns&#39;&gt;
-        &lt;h4&gt;Airport Names&lt;/h4&gt;
-        &lt;p&gt;Scroll through this list to be select airports that you want to explore! Hovering over one of the edges of the diagram will highlight which airport you are hovering over. Airports are listed in order clockwise from 12:00.&lt;/p&gt;
-        &lt;button class=&#39;button&#39; onclick=&quot;location.reload()&quot;&gt;Reset!&lt;/button&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div class=&#39;row&#39;&gt;
-      &lt;div id=&#39;info&#39; class=&#39;twelve columns&#39;&gt;&lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div class=&#39;row&#39;&gt;
-      &lt;div class=&#39;two columns&#39; style=&#39;height:10px;&#39;&gt;
-      &lt;/div&gt;
-      &lt;div class=&#39;eight columns&#39;&gt;
-        &lt;div id=&#39;chart&#39;&gt;&lt;/div&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
-  &lt;script src=&#39;https://code.jquery.com/jquery-2.1.3.min.js&#39;&gt;&lt;/script&gt;
+    &lt;/div&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&amp;lt;div class=&amp;#39;row&amp;#39;&amp;gt;
+  &amp;lt;div id=&amp;#39;info&amp;#39; class=&amp;#39;twelve columns&amp;#39;&amp;gt;&amp;lt;/div&amp;gt;
+&amp;lt;/div&amp;gt;
+&amp;lt;div class=&amp;#39;row&amp;#39;&amp;gt;
+  &amp;lt;div class=&amp;#39;two columns&amp;#39; style=&amp;#39;height:10px;&amp;#39;&amp;gt;
+  &amp;lt;/div&amp;gt;
+  &amp;lt;div class=&amp;#39;eight columns&amp;#39;&amp;gt;
+    &amp;lt;div id=&amp;#39;chart&amp;#39;&amp;gt;&amp;lt;/div&amp;gt;
+  &amp;lt;/div&amp;gt;
+&amp;lt;/div&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;script src=&#39;https://code.jquery.com/jquery-2.1.3.min.js&#39;&gt;&lt;/script&gt;
   &lt;script src=&#39;https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.2/underscore-min.js&#39;&gt;&lt;/script&gt;
   &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js&quot;&gt;&lt;/script&gt;
 &lt;script src=&#39;/js/flight-viz.js&#39;&gt;&lt;/script&gt;
