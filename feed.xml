@@ -7,6 +7,52 @@
 		<atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
+				<title>Visualizing Flights Origins and Departures with D3</title>
+				<description>&lt;p&gt;&lt;/article&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css&quot; /&gt;
+&lt;div class=&#39;row&#39;&gt;
+      &lt;div class=&#39;twelve columns&#39;&gt;
+        &lt;h1&gt;June 1994 Flight Data&lt;/h1&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&#39;row&#39;&gt;
+      &lt;div class=&#39;twelve columns&#39;&gt;
+        &lt;p&gt;The below visualization contains data about the flights that happened in June 1994. Clicking on one of the edge nodes will change the visualization to only include that airport and any flights that go in and out of that airport. Due to a high number of flights and a relatively large dataset, colors are not shown until you dive deeply enough into the dataset(less 60 items).&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&#39;row&#39;&gt;
+      &lt;div class=&#39;twelve columns&#39;&gt;
+        &lt;h4&gt;Airport Names&lt;/h4&gt;
+        &lt;p&gt;Scroll through this list to be select airports that you want to explore! Hovering over one of the edges of the diagram will highlight which airport you are hovering over. Airports are listed in order clockwise from 12:00.&lt;/p&gt;
+        &lt;button class=&#39;button&#39; onclick=&quot;location.reload()&quot;&gt;Reset!&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&#39;row&#39;&gt;
+      &lt;div id=&#39;info&#39; class=&#39;twelve columns&#39;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&#39;row&#39;&gt;
+      &lt;div class=&#39;two columns&#39; style=&#39;height:10px;&#39;&gt;
+      &lt;/div&gt;
+      &lt;div class=&#39;eight columns&#39;&gt;
+        &lt;div id=&#39;chart&#39;&gt;&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;script src=&#39;https://code.jquery.com/jquery-2.1.3.min.js&#39;&gt;&lt;/script&gt;
+  &lt;script src=&#39;https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.2/underscore-min.js&#39;&gt;&lt;/script&gt;
+  &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&#39;/js/flight-viz.js&#39;&gt;&lt;/script&gt;
+&lt;div class=&#39;row&#39;&gt;
+    &lt;div class=&#39;ten offset-by-one columns&#39;&gt;
+&lt;article class=&#39;post&#39;&gt;&lt;/p&gt;
+</description>
+				<pubDate>Sun, 05 Apr 2015 00:00:00 -0700</pubDate>
+				<link>/projects/2015/04/05/d3-visualization-of-different-flights.html</link>
+				<guid isPermaLink="true">/projects/2015/04/05/d3-visualization-of-different-flights.html</guid>
+			</item>
+		
+			<item>
 				<title>K-Means Clustering - Liquor &amp; Assaults in San Francisco</title>
 				<description>&lt;p&gt;This notebook walks through an example of KMeans clustering crime data with alcohol license locations. This clustering is performed solely based on the Lat/Long locations of stores and crimes. The tools I use are&lt;/p&gt;
 
@@ -1374,205 +1420,6 @@ terminal for a customer to rent.&lt;/strong&gt;&lt;/p&gt;
 				<pubDate>Sun, 21 Dec 2014 00:00:00 -0800</pubDate>
 				<link>/tutorials/2014/12/21/tf-idf-explained-in-python.html</link>
 				<guid isPermaLink="true">/tutorials/2014/12/21/tf-idf-explained-in-python.html</guid>
-			</item>
-		
-			<item>
-				<title>Getting Started with Apache Spark</title>
-				<description>&lt;p&gt;Lately I&amp;#39;ve been playing around with &lt;a href=&quot;https://spark.apache.org/&quot;&gt;Spark&lt;/a&gt; for data processing. It provides some really amazing features like &lt;a href=&quot;https://spark.apache.org/mllib/&quot;&gt;MLLib&lt;/a&gt; and &lt;a href=&quot;https://spark.apache.org/sql/&quot;&gt;Spark SQL&lt;/a&gt; and there&amp;#39;s no better way to learn something that to use it. I&amp;#39;ve attended a couple of meet ups about Spark and its related tools including the famous &lt;a href=&quot;http://ampcamp.berkeley.edu/&quot;&gt;ampcamp&lt;/a&gt; put on by the developers of spark and, although I&amp;#39;m not an expert, I thought it would be good to consolidate my knowledge and teach others.&lt;/p&gt;
-
-&lt;h2&gt;The Problem Spark Solves&lt;/h2&gt;
-
-&lt;p&gt;I always like to best understand the problem that is being solved when I approach new tools. To throw some buzzwords around, you&amp;#39;re looking to perform some data science on some big data. More simply, you&amp;#39;ve got a ton of information that you want to understand more about and doing it on your computer would just be too slow. &lt;/p&gt;
-
-&lt;p&gt;Some great examples of data problems that are solved well by a tool like Apache Spark include:&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;Analyzing Log Data
-
-&lt;ul&gt;
-&lt;li&gt;In order to hunt down a bug happening on a production server(s)&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;Massive Natural Language Processing
-
-&lt;ul&gt;
-&lt;li&gt;Finally some use for all that twitter data you&amp;#39;ve been downloading...&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;Large Scale Recommendation Systems or General Machine Learning Tasks
-
-&lt;ul&gt;
-&lt;li&gt;Recommending products to users or trying to find related groups&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;While this is far from an exhaustive list, it gives a starting point to the problem we&amp;#39;re solving: we&amp;#39;ve got a ton of information and we want to (actionable) extract information from it.&lt;/p&gt;
-
-&lt;h3&gt;Version Information&lt;/h3&gt;
-
-&lt;hr&gt;
-
-&lt;p&gt;In this tutorial I&amp;#39;ll be using &lt;a href=&quot;http://d3kbcqa49mib13.cloudfront.net/spark-1.1.1.tgz&quot;&gt;Spark 1.1.1&lt;/a&gt;. I&amp;#39;ll also assume that you&amp;#39;re on some sort of Unix system.&lt;/p&gt;
-
-&lt;p&gt;It&amp;#39;s important to note that I&amp;#39;ll be focusing on PySpark and you can check out the (&lt;a href=&quot;https://spark.apache.org/docs/latest/api/python/index.html&quot;&gt;documentation&lt;/a&gt;) for the code examples.&lt;/p&gt;
-
-&lt;h3&gt;Download&lt;/h3&gt;
-
-&lt;hr&gt;
-
-&lt;p&gt;Go ahead and download &lt;a href=&quot;http://d3kbcqa49mib13.cloudfront.net/spark-1.1.1.tgz&quot;&gt;Spark 1.1.1&lt;/a&gt; right here.&lt;/p&gt;
-
-&lt;p&gt;You can download other versions of &lt;a href=&quot;https://spark.apache.org/downloads.html&quot;&gt;Apache Spark on the site.&lt;/a&gt; &lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/spark-logo.png&quot; alt=&quot;Apache Spark&quot;&gt;&lt;/p&gt;
-
-&lt;h3&gt;The Basics&lt;/h3&gt;
-
-&lt;hr&gt;
-
-&lt;p&gt;Once we&amp;#39;ve got Spark downloaded, let&amp;#39;s get started. You&amp;#39;re going to have to build Spark yourself once you&amp;#39;ve downloaded it but as the readme will show you, it&amp;#39;s pretty straight forward. Just run &lt;code&gt;./sbt/sbt assembly&lt;/code&gt; in the root download folder directory. It may take a while to build (took me 15+ minutes from scratch) but just be patient. I&amp;#39;d grab a cup of coffee.&lt;/p&gt;
-
-&lt;p&gt;Once it&amp;#39;s all built, you should be ready to go. Let&amp;#39;s dive right into the &lt;code&gt;PySpark&lt;/code&gt; shell with &lt;code&gt;./bin/pyspark&lt;/code&gt; on the command line.&lt;/p&gt;
-
-&lt;p&gt;You should see some log information then boom you&amp;#39;ll be in the Spark Shell.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-py&quot; data-lang=&quot;py&quot;&gt;&lt;span class=&quot;n&quot;&gt;Welcome&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;to&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;____&lt;/span&gt;              &lt;span class=&quot;n&quot;&gt;__&lt;/span&gt;
-     &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;__&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;__&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;___&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_____&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;__&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;_&lt;/span&gt;\ \&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_&lt;/span&gt; \&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;__&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;  &lt;span class=&quot;s&quot;&gt;&amp;#39;_/&lt;/span&gt;
-   &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;__&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;__&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;\&lt;span class=&quot;n&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;\&lt;span class=&quot;n&quot;&gt;_&lt;/span&gt;\   &lt;span class=&quot;n&quot;&gt;version&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;1.1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
-      &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;Using&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Python&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;version&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;2.7&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;default&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Sep&lt;/span&gt;  &lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2014&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mo&quot;&gt;04&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;36&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;SparkContext&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;available&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;On a quick note while I love the regular python shell, I really like the &lt;a href=&quot;http://ipython.org/&quot;&gt;IPython Shell&lt;/a&gt; much better. It&amp;#39;s got tons of handy tools built right in and using IPython with PySpark is super easy. Just close out of that Python Shell and set the IPYTHON environmental variable to 1. Run this in your bash shell.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;IPYTHON&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1
-./bin/pyspark
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Now we&amp;#39;re loaded up into a python shell and we can finally get to work! Now the python shell we&amp;#39;re in is the same python shell that you have on your machine. We can import libraries, do math, same &amp;#39;ol stuff.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-py&quot; data-lang=&quot;py&quot;&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;numpy&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;np&lt;/span&gt;
-&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# 2&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# 5&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;There is however, one difference, the &lt;code&gt;sc&lt;/code&gt; variable or SparkContext. You can see this is what was made available when we started up the shell previously.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-py&quot; data-lang=&quot;py&quot;&gt;&lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# pyspark.context.SparkContext&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;This spark context is the source for all of our handy Spark features. &lt;/p&gt;
-
-&lt;p&gt;Let&amp;#39;s go ahead and get started analyzing some data so we can better understand the SparkContext. Let&amp;#39;s start small to understand the concepts. I&amp;#39;ll be using &lt;a href=&quot;https://www.kaggle.com/c/sentiment-analysis-on-movie-reviews&quot;&gt;the Rotten Tomatoes Dataset from Kaggle&lt;/a&gt;. Go ahead and download it and put it in the same Spark download folder on your machine. &lt;/p&gt;
-
-&lt;p&gt;Now, let&amp;#39;s go ahead and open it on up and get things started. We load in data with the &lt;code&gt;sc.textFile(&amp;#39;file/path&amp;#39;)&lt;/code&gt;&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-py&quot; data-lang=&quot;py&quot;&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;textFile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;../rotten_tomatoes_train.tsv&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# pyspark.rdd.RDD&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Our dataset is now loaded into spark as an &lt;strong&gt;RDD&lt;/strong&gt; or &lt;strong&gt;Resilient Distributed Dataset&lt;/strong&gt;. This is the fundamental abstraction in Spark and basically it is a representation of a dataset that is distributed through the cluster. &lt;em&gt;Obviously at this point we don&amp;#39;t have a cluster running as we are just on our local machine but the same concepts apply.&lt;/em&gt; &lt;/p&gt;
-
-&lt;p&gt;One of the most important concepts concerning RDDs is that they are immutable. What you&amp;#39;re doing is applying a series of &lt;code&gt;transformations&lt;/code&gt; to data (stored in the RDD) then finally performing an &lt;code&gt;action&lt;/code&gt; in order to get an answer. &lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;Just as a note, our columns are tab separated and arranged as follows:&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;PhraseId   SentenceId Phrase Sentiment&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;First let&amp;#39;s get the count, how many items(lines) do we have in our data? This is an example of an &lt;code&gt;action&lt;/code&gt;&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-py&quot; data-lang=&quot;py&quot;&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# ...log statements&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# 156061&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;There we get an answer because we&amp;#39;re requesting an &lt;code&gt;action&lt;/code&gt; as opposed to a &lt;code&gt;transformation&lt;/code&gt;. Let&amp;#39;s perform one of those now.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-py&quot; data-lang=&quot;py&quot;&gt;&lt;span class=&quot;n&quot;&gt;negative_reviews&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;0&amp;#39;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\t&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;negative_reviews&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# PythonRDD[14] at RDD at PythonRDD.scala:43&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;negative_reviews&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# &amp;lt;class &amp;#39;pyspark.rdd.PipelinedRDD&amp;#39;&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Notice how when we go to print it, it prints out that it is an RDD and that the type is a &lt;code&gt;PipelinedRDD&lt;/code&gt; not a list of values as we might expect. That&amp;#39;s because we haven&amp;#39;t performed an &lt;code&gt;action&lt;/code&gt; yet, we&amp;#39;ve only performed a &lt;code&gt;transformation&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;As a side note, we could write the above code this way as well.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-py&quot; data-lang=&quot;py&quot;&gt;&lt;span class=&quot;n&quot;&gt;negative_reviews&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; \
-                    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\t&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; \
-                    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;0&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;You&amp;#39;ll notice that when we run &lt;code&gt;transformation&lt;/code&gt; commands, nothing gets printed out. That&amp;#39;s because Spark commands are &lt;strong&gt;lazily evaluated&lt;/strong&gt;. We set up a &lt;code&gt;transformation&lt;/code&gt; from RDD to RDD to prepare to run an &lt;code&gt;action&lt;/code&gt; to get back results.&lt;/p&gt;
-
-&lt;p&gt;Here are some examples of other &lt;code&gt;actions&lt;/code&gt;:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-py&quot; data-lang=&quot;py&quot;&gt;&lt;span class=&quot;n&quot;&gt;negative_reviews&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# 7072&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;negative_reviews&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;first&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# [u&amp;#39;102&amp;#39;, u&amp;#39;3&amp;#39;, u&amp;#39;would have a hard time sitting through this one&amp;#39;, u&amp;#39;0&amp;#39;]&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Now that we&amp;#39;ve got a better idea about how Spark works and executes commands through &lt;code&gt;transformations&lt;/code&gt; and &lt;code&gt;actions&lt;/code&gt; let&amp;#39;s write ourselves a little MapReduce job to figure out what words show up most commonly in the negative reviews.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-py&quot; data-lang=&quot;py&quot;&gt;&lt;span class=&quot;n&quot;&gt;word_counts&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;negative_reviews&lt;/span&gt; \
-                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flatMap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt; \
-                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;word&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;word&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; \
-                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;reduceByKey&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;What we&amp;#39;re doing above is getting the word counts. We do that by tokenizing the review text in a &lt;code&gt;flatMap&lt;/code&gt; which basically just makes it into one big giant list of words. Then we map each word to 1 and &lt;code&gt;reduceByKey&lt;/code&gt; which parallelizes our reduce operation to each key in our data set.&lt;/p&gt;
-
-&lt;p&gt;The above code is equivalent to:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-py&quot; data-lang=&quot;py&quot;&gt;&lt;span class=&quot;n&quot;&gt;word_counts&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;negative_reviews&lt;/span&gt; \
-                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flatMap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt; \
-                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;word&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;word&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; \
-                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;groupByKey&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; \
-                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])))&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# basically the value and the generator&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Now let&amp;#39;s get the most common word we can find in the reviews.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-py&quot; data-lang=&quot;py&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;most_common&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;comp1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;comp2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;word1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;count1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;comp1&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;word2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;count2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;comp2&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;count1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;count2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;word1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;count1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;word2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;count2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;most_common_word&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;word_counts&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;reduce&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;most_common&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;most_common_word&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# (u&amp;#39;,&amp;#39;, 3722)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Knowing that it is a comma isn&amp;#39;t too useful, let&amp;#39;s try it without punctuation, which means rewriting our map function.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-py&quot; data-lang=&quot;py&quot;&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;string&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;clean_words&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;word&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;word&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;punctuation&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;word&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;word&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;word_counts&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;negative_reviews&lt;/span&gt; \
-                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flatMap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt; \
-                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;clean_words&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; \
-                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;reduceByKey&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;most_common_word&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;word_counts&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;reduce&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;most_common&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;most_common_word&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# (u&amp;#39;the&amp;#39;, 3070)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Now that&amp;#39;s not particularly useful either so let&amp;#39;s try getting just the top 5. We&amp;#39;ll keep using the word_counts that excludes punctuation.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-py&quot; data-lang=&quot;py&quot;&gt;&lt;span class=&quot;n&quot;&gt;word_counts&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sortBy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;take&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# (u&amp;#39;the&amp;#39;, 3070), (u&amp;#39;a&amp;#39;, 2572), (u&amp;#39;and&amp;#39;, 2507), (u&amp;#39;of&amp;#39;, 2236), (u&amp;#39;to&amp;#39;, 1880)]&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Note how we had to multiply it by negative one in order to sort it least to greatest.&lt;/p&gt;
-
-&lt;p&gt;Finally now that we&amp;#39;ve performed some analysis. We might want to store those &lt;code&gt;word_counts&lt;/code&gt; for some later use. Speaking of which, it&amp;#39;d also be valuable to store the &lt;code&gt;negative_reviews&lt;/code&gt; too. It&amp;#39;s helpful to imagine this being a much larger dataset as this is a trivial example but let&amp;#39;s go ahead and save it.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-py&quot; data-lang=&quot;py&quot;&gt;&lt;span class=&quot;n&quot;&gt;negative_reviews&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;saveAsTextFile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;negative_reviews&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;word_counts&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;saveAsSequenceFile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;word_counts_negative_reviews&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Note that negative reviews is saved as a Hadoop text file while word counts is saved as a sequence file. Because these datasets are typically large, we have to save them as these distributed data files. Here&amp;#39;s a list of some of the ways you can save these files.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-py&quot; data-lang=&quot;py&quot;&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;saveAsHadoopDataset&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;saveAsNewAPIHadoopFile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;saveAsTextFile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;saveAsHadoopFile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;saveAsPickleFile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;saveAsNewAPIHadoopDataset&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;saveAsSequenceFile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Those are the basics for how to analyze data in Spark. In some later posts I&amp;#39;ll be going over how to analyze larger sets of data. Going over how to run MapReduce jobs on Spark, using SparkSQL and more.&lt;/p&gt;
-</description>
-				<pubDate>Sat, 06 Dec 2014 00:00:00 -0800</pubDate>
-				<link>/tutorials/2014/12/06/getting-started-with-apache-spark.html</link>
-				<guid isPermaLink="true">/tutorials/2014/12/06/getting-started-with-apache-spark.html</guid>
 			</item>
 		
 	</channel>

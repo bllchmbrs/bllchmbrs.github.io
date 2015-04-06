@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>DataKindSF - Data Analysis for the Greater Good</title>
+        <title>Visualizing Flights Origins and Departures with D3</title>
         <meta name="viewport" content="width=device-width">
         <link rel="stylesheet" href="/css/normalize.css">
         <link rel="stylesheet" href="/css/skeleton.css">
@@ -67,7 +67,7 @@
    <div class="ten offset-by-one columns">
       <article class="post">
          <div class='titles'>
-            <h4>DataKindSF - Data Analysis for the Greater Good</h4>
+            <h4>Visualizing Flights Origins and Departures with D3</h4>
             <p class="meta">
                <!-- <span class='tags'>
                   Tags:
@@ -75,17 +75,48 @@
                   
                   </span> -->
                <span class='date'>
-               08 October 2014
+               05 April 2015
                </span>
             </p>
          </div>
-         <p>DataKindSF just got their start and the reception was incredible. There was a huge turn out of people wanting to contribute by using high impact skills for greater good. I found out about the program through <a href="http://www.meetup.com/DataKind-SF-Bay-Area/">their meetup</a>.</p>
-
-<p>What I found particularly interesting about the whole thing was the vast possibilities for improving the ways that non-profits do business. At Procore, I helped guide the direction of our data quality and was a led the large scale reset of our data architecture and this kind of critical thinking could really make a difference for a lot of organizations.</p>
-
-<p>Volunteering is typically a low impact activity. It obviously impacts individuals but the possibility to impact others at scale is particularly intriguing!</p>
-
-<p><a href="http://www.datakind.org/getinvolved/">Sign up on their website</a>.</p>
+         <p></article>
+</div>
+</div>
+<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+<div class='row'>
+      <div class='twelve columns'>
+        <h1>June 1994 Flight Data</h1>
+      </div>
+    </div>
+    <div class='row'>
+      <div class='twelve columns'>
+        <p>The below visualization contains data about the flights that happened in June 1994. Clicking on one of the edge nodes will change the visualization to only include that airport and any flights that go in and out of that airport. Due to a high number of flights and a relatively large dataset, colors are not shown until you dive deeply enough into the dataset(less 60 items).</p>
+      </div>
+    </div>
+    <div class='row'>
+      <div class='twelve columns'>
+        <h4>Airport Names</h4>
+        <p>Scroll through this list to be select airports that you want to explore! Hovering over one of the edges of the diagram will highlight which airport you are hovering over. Airports are listed in order clockwise from 12:00.</p>
+        <button class='button' onclick="location.reload()">Reset!</button>
+      </div>
+    </div>
+    <div class='row'>
+      <div id='info' class='twelve columns'></div>
+    </div>
+    <div class='row'>
+      <div class='two columns' style='height:10px;'>
+      </div>
+      <div class='eight columns'>
+        <div id='chart'></div>
+      </div>
+    </div>
+  <script src='https://code.jquery.com/jquery-2.1.3.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.2/underscore-min.js'></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+<script src='/js/flight-viz.js'></script>
+<div class='row'>
+    <div class='ten offset-by-one columns'>
+<article class='post'></p>
 
       </article>
    </div>
