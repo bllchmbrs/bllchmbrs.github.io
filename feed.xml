@@ -7,8 +7,23 @@
 		<atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
-				<title>Visualizing Flights Origins and Departures with D3</title>
-				<description>&lt;p&gt;&lt;/article&gt;
+				<title>Visualizing Flights Origins and Departures with d3.js</title>
+				<description>&lt;p&gt;This was built for a class project in my &lt;code&gt;Information Visualization&lt;/code&gt; class.&lt;/p&gt;
+
+&lt;p&gt;My goals were pretty straightforward. I wanted to try a multidimensional dataset - with a lot of different connections.I wanted a nice way of exploring it that was relatively simple - clicking to filter, allowing for visual exploration. I would optimally would have liked to include a visualization like this one but I couldn&amp;#39;t figure out how to do that without just copying and pasting the code. It took me a really long time to figure out the whole join thing, especially with a key function but I got it eventually as you can see in the &lt;code&gt;renderText&lt;/code&gt; function.&lt;/p&gt;
+
+&lt;p&gt;I tried my best to write all my code by hand, I did virtually no copying and pasting except for the fade function that is in the &lt;code&gt;Chord Tutorial&lt;/code&gt; reference below - it&amp;#39;s fairly straightforward regardless.&lt;/p&gt;
+
+&lt;p&gt;This was my favorite assignment, I wish we would have had more time to use d3.&lt;/p&gt;
+
+&lt;p&gt;References:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://soundsuggest.wordpress.com/2012/12/26/d3-js-javascript-library-chord-diagram-example/&quot;&gt;Chord Tutorial&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/mbostock/d3/wiki/Chord-Layout&quot;&gt;Chord Layout Docs&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/article&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;link rel=&quot;stylesheet&quot; href=&quot;http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css&quot; /&gt;
