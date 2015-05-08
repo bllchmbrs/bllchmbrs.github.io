@@ -247,7 +247,7 @@
 		
 			<item>
 				<title>Plotting Your AWS Redshift Data with Plotly</title>
-				<description>&lt;p&gt;&lt;a href=&quot;https://plot.ly/ipython-notebooks/redshift/&quot;&gt;This was a post that I did for Plotly covering the basics of plotting Data from an AWS Reddhift cluster with plotly.&lt;/a&gt;&lt;/p&gt;
+				<description>&lt;p&gt;&lt;a href=&quot;https://plot.ly/ipython-notebooks/amazon-redshift/&quot;&gt;This was a post that I did for Plotly covering the basics of plotting Data from an AWS Reddhift cluster with plotly.&lt;/a&gt;&lt;/p&gt;
 </description>
 				<pubDate>Mon, 23 Mar 2015 00:00:00 -0700</pubDate>
 				<link>/tutorials/2015/03/23/plotting-aws-redshift-data-with-plotly.html</link>
