@@ -7,6 +7,24 @@
 		<atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
+				<title>Plotting Your AWS Redshift Data with Plotly</title>
+				<description>&lt;p&gt;&lt;a href=&quot;https://plot.ly/ipython-notebooks/amazon-redshift/&quot;&gt;This was a post that I did for Plotly covering the basics of plotting Data from an AWS Reddhift cluster with plotly.&lt;/a&gt;&lt;/p&gt;
+</description>
+				<pubDate>Fri, 08 May 2015 00:00:00 -0700</pubDate>
+				<link>/tutorials/2015/05/08/plotting-aws-redshift-data-with-plotly.html</link>
+				<guid isPermaLink="true">/tutorials/2015/05/08/plotting-aws-redshift-data-with-plotly.html</guid>
+			</item>
+		
+			<item>
+				<title>Plotting Spark DataFrames with Plotly</title>
+				<description>&lt;p&gt;&lt;a href=&quot;https://plot.ly/ipython-notebooks/apache-spark/&quot;&gt;This was a post that I did for Plotly covering the basics of plotting Spark DataFrames with plotly.&lt;/a&gt;&lt;/p&gt;
+</description>
+				<pubDate>Mon, 04 May 2015 00:00:00 -0700</pubDate>
+				<link>/tutorials/2015/05/04/Apache-Spark-and-Plotly-Graphing.html</link>
+				<guid isPermaLink="true">/tutorials/2015/05/04/Apache-Spark-and-Plotly-Graphing.html</guid>
+			</item>
+		
+			<item>
 				<title>Visualizing Flights Origins and Departures with d3.js</title>
 				<description>&lt;p&gt;This was built for a class project in my &lt;code&gt;Information Visualization&lt;/code&gt; class.&lt;/p&gt;
 
@@ -246,30 +264,12 @@
 			</item>
 		
 			<item>
-				<title>Plotting Your AWS Redshift Data with Plotly</title>
-				<description>&lt;p&gt;&lt;a href=&quot;https://plot.ly/ipython-notebooks/amazon-redshift/&quot;&gt;This was a post that I did for Plotly covering the basics of plotting Data from an AWS Reddhift cluster with plotly.&lt;/a&gt;&lt;/p&gt;
-</description>
-				<pubDate>Mon, 23 Mar 2015 00:00:00 -0700</pubDate>
-				<link>/tutorials/2015/03/23/plotting-aws-redshift-data-with-plotly.html</link>
-				<guid isPermaLink="true">/tutorials/2015/03/23/plotting-aws-redshift-data-with-plotly.html</guid>
-			</item>
-		
-			<item>
 				<title>Interactive Salesforce Graphing with Plotly</title>
 				<description>&lt;p&gt;&lt;a href=&quot;https://plot.ly/ipython-notebooks/salesforce/&quot;&gt;This was a post that I did for Plotly covering the basics of the tool with Salesforce.&lt;/a&gt;&lt;/p&gt;
 </description>
 				<pubDate>Mon, 23 Mar 2015 00:00:00 -0700</pubDate>
 				<link>/tutorials/2015/03/23/Interactive-Salesforce-Graphing.html</link>
 				<guid isPermaLink="true">/tutorials/2015/03/23/Interactive-Salesforce-Graphing.html</guid>
-			</item>
-		
-			<item>
-				<title>Plotting Spark DataFrames with Plotly</title>
-				<description>&lt;p&gt;&lt;a href=&quot;https://plot.ly/ipython-notebooks/apache-spark/&quot;&gt;This was a post that I did for Plotly covering the basics of plotting Spark DataFrames with plotly.&lt;/a&gt;&lt;/p&gt;
-</description>
-				<pubDate>Mon, 23 Mar 2015 00:00:00 -0700</pubDate>
-				<link>/tutorials/2015/03/23/Apache-Spark-and-Plotly-Graphing.html</link>
-				<guid isPermaLink="true">/tutorials/2015/03/23/Apache-Spark-and-Plotly-Graphing.html</guid>
 			</item>
 		
 			<item>
