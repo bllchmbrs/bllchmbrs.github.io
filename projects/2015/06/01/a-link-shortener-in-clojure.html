@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>A Simple Link Shortener in Clojure</title>
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" href="/css/normalize.css">
+        <link rel="stylesheet" href="/css/skeleton.css">
+
+        <!-- syntax highlighting CSS -->
+        <link rel="stylesheet" href="/css/github.css">
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="/css/main.css">
+
+    </head>
+    <body>
+
+        <div class="container">
+              <div class="row">
+   <div class="twelve columns personal-intro" style="height:10px;">
+   </div>
+</div>
+<div class="row">
+   <div class="one offset-by-three columns nav-blocks">
+      <a onmouseover="vis_on('hhm');" onmouseout="vis_off('hhm');" href="/"><i class="mdi mdi-home"></i></a>
+   </div>
+   <div class="one columns nav-blocks">
+      <a onmouseover="vis_on('hab');" onmouseout="vis_off('hab');" href="/about.html"><i class="mdi mdi-account"></i></a>
+   </div>
+   <div class="one columns nav-blocks">
+      <a onmouseover="vis_on('hes');" onmouseout="vis_off('hes');" href="/essays.html"><i class="mdi mdi-file-document"></i></a>
+   </div>
+   <div class="one columns nav-blocks">
+      <a onmouseover="vis_on('hpr');" onmouseout="vis_off('hpr');" href="/projects.html"><i class="mdi mdi-beaker"></i></a>
+   </div>
+   <div class="one columns nav-blocks">
+      <a onmouseover="vis_on('htu');" onmouseout="vis_off('htu');" href="/tutorials.html"><i class="mdi mdi-cog"></i></a>
+   </div>
+   <div class="one columns nav-blocks">
+      <a onmouseover="vis_on('hem');" onmouseout="vis_off('hem');" href="mailto:wchambers@ischool.berkeley.edu"><i class="mdi mdi-email"></i></a>
+   </div>
+</div>
+<div class="row">
+   <div class="one offset-by-three columns nav-blocks">
+      <a onmouseover="vis_on('hhm');" onmouseout="vis_off('hhm');" id='hhm' class='sibling' href="/">home</a>
+   </div>
+   <div class="one columns nav-blocks">
+      <a onmouseover="vis_on('hab');" onmouseout="vis_off('hab');" id='hab' class='sibling' href="/about.html">about</a>
+   </div>
+   <div class="one columns nav-blocks">
+      <a onmouseover="vis_on('hes');" onmouseout="vis_off('hes');" id='hes' class='sibling' href="/essays.html">essays</a>
+   </div>
+   <div class="one columns nav-blocks">
+      <a onmouseover="vis_on('hpr');" onmouseout="vis_off('hpr');" id='hpr' class='sibling' href="/projects.html">projects</a>
+   </div>
+   <div class="one columns nav-blocks">
+      <a onmouseover="vis_on('htu');" onmouseout="vis_off('htu');" id='htu' class='sibling' href="/tutorials.html">tutorials</a>
+   </div>
+   <div class="one columns nav-blocks">
+      <a onmouseover="vis_on('hem');" onmouseout="vis_off('hem');" id='hem' class='sibling' href="mailto:wchambers@ischool.berkeley.edu">email</a>
+   </div>
+</div>
+
+              <div class="row">
+   <div class="ten offset-by-one columns">
+      <article class="post">
+         <div class='titles'>
+            <h4>A Simple Link Shortener in Clojure</h4>
+            <p class="meta">
+               <!-- <span class='tags'>
+                  Tags:
+                  
+                  
+                  </span> -->
+               <span class='date'>
+               01 June 2015
+               </span>
+            </p>
+         </div>
+         <p><em>Recently I took it upon myself to dive into clojure. This post describes what my reaction was after writing a link shortener service using it. For those only interested in the code, <a href="https://github.com/anabranch/JVM-Link-Shorteners/tree/master/clojure-link-shortener">check out my github</a>.</em></p>
+
+<p>I&#39;ve always wanted to learn a lisp. I played with Scheme, Common Lisp, but never really dug deeply into it. Now knowing python extremely well, I wanted to try and scope an application reasonably and write it in <a href="http://clojure.org/">Clojure</a>. For the unitiated, Clojure is a lisp written on the JVM.</p>
+
+<p>In Clojure&#39;s own words:</p>
+
+<blockquote>
+<p>Clojure is a dynamic programming language that targets the Java Virtual Machine (and the CLR, and JavaScript). It is designed to be a general-purpose language, combining the approachability and interactive development of a scripting language with an efficient and robust infrastructure for multithreaded programming. Clojure is a compiled language - it compiles directly to JVM bytecode, yet remains completely dynamic. Every feature supported by Clojure is supported at runtime. Clojure provides easy access to the Java frameworks, with optional type hints and type inference, to ensure that calls to Java can avoid reflection.</p>
+</blockquote>
+
+<p>I had recently learned Java and figured that this would be a good way to branch out on the JVM. The application I decided to write was a link shortener - it&#39;s a well scoped problem and touches a lot of interesting things that you&#39;ll encounter working full time in the language. I forced a couple of requirements, I wanted to <code>jar</code> it and be able to deploy it, I wanted it to connect to <a href="http://redis.io/">Redis</a> in order to store shortened links, and I wanted to make sure that I could deploy it with<a href="https://www.docker.com/">Docker</a>. Lastly I wanted to make sure that I wrote tests as well.</p>
+
+<p>What I love about the link shortener application is that you&#39;re going to run into plenty of little challenges writing the application.</p>
+
+<p>You&#39;ll touch on:</p>
+
+<ul>
+<li>The documentation for the language itself</li>
+<li>The build tools</li>
+<li>Web app frameworks in the language</li>
+<li>Simple regular expressions in the language (url validation)</li>
+<li>HTML templating</li>
+<li>Testing</li>
+</ul>
+
+<p>Now this isn&#39;t something that will take very long assuming you have basic programming skill and if you&#39;re looking for more of a challenge there are tons of ways to add onto this application. One of the requirements is that code and tutorials are not to be followed - I made myself write it from scratch.</p>
+
+<p>Now there aren&#39;t a lot of resources on the web that teach you how to write Clojure. However there were a couple of websites that really came in handy. <a href="http://www.braveclojure.com/">Brave Clojure was great</a> as is <a href="https://aphyr.com/posts/302-clojure-from-the-ground-up-basic-types">Aphyr&#39;s post on Clojure</a>. And of course the Clojure docs. I leveraged their <a href="http://clojure-doc.org/articles/tutorials/basic_web_development.html">how to write a webapp in clojure</a> as a rough guide but wasn&#39;t doing any copying and pasting.</p>
+
+<p>There were a couple of things that blew me away about Clojure. Firstly it felt extremely natural, all functions are nice and short and I love polish notation. The regex wasn&#39;t too bad (although I had to jump into some javadocs to understand limitations/capabilities) either. </p>
+
+<p>What took me a bit of getting used to psycologically was immutable data structures, which I&#39;m now enamored with. Initially I couldn&#39;t figure out the use case, but as I thought about it more, it makes a lot of sense. You make better design decisions and it makes things so much more predictable.</p>
+
+<p><a href="https://github.com/technomancy/leiningen">Leiningen</a> was also awesome. It&#39;s a great build too and made things super easy to work with.</p>
+
+<p><a href="https://github.com/weavejester/hiccup">Hiccup</a> is honestly one of the most awesome libraries I&#39;ve used. It was unbelievably easy to write composable functions that generated HTML so simply. It made writing functions easy and really Clojure really stands out in readability. Once you get past the parens everywhere, it really lends itself to quick understanding. </p>
+
+<p>For example:</p>
+<div class="highlight"><pre><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">defn </span><span class="nv">shorten</span>
+  <span class="p">[</span><span class="nv">params</span><span class="p">]</span>
+  <span class="p">(</span><span class="nf">let</span>
+    <span class="p">[</span><span class="nv">link</span> <span class="p">(</span><span class="nf">params</span> <span class="ss">:link</span><span class="p">)</span> <span class="nv">possible-link</span> <span class="p">(</span><span class="nf">controllers/set-link</span> <span class="nv">link</span><span class="p">)]</span>
+    <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">false? </span><span class="nv">possible-link</span><span class="p">)</span>
+      <span class="p">(</span><span class="nf">gen-shorten-failure</span> <span class="nv">link</span><span class="p">)</span>
+      <span class="p">(</span><span class="nf">gen-shorten-success</span> <span class="nv">link</span> <span class="nv">possible-link</span><span class="p">))))</span>
+</code></pre></div>
+<p>We have to shorten our params, we&#39;ll let the link = the link from the input parameters and the possible link be what we get back from our controller. If we get null/false value generate our failure, if not generate success.</p>
+
+<p>I really loved that I got to avoid html almost completely and didn&#39;t have to use some templating engine. All I really want is an HTML generator anyways.</p>
+
+<p>If you&#39;re interested in deploying, you can <a href="https://github.com/anabranch/JVM-Link-Shorteners">download the repository</a> and build and run it yourself. The only requirement is a Redis container which you can get from <a href="https://registry.hub.docker.com/_/redis/">Docker Registry</a>.</p>
+
+<p>Then you just have to run.</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">docker run --name new-red redis
+docker run --name clj --link new-red:new-red -p 5000:5000 -d my-cloj
+</code></pre></div>
+<p>Navigate to your Docker url on port 5000 and you should be good!</p>
+
+<p>Check out my other post on doing the same thing in Scala.</p>
+
+      </article>
+   </div>
+</div>
+
+              <div class="footer">
+   <!-- <h1>The Portfolio & Writings of Bill Chambers</h1> -->
+   <!-- <h3>Internal Navigation</h3> -->
+   <div class="row">
+      <div class="one offset-by-two columns nav-blocks">
+         <a onmouseover="vis_on('fhm');" onmouseout="vis_off('fhm');" href="/"><i class="mdi mdi-home"></i></a>
+      </div>
+      <div class="one columns nav-blocks">
+         <a onmouseover="vis_on('fab');" onmouseout="vis_off('fab');" href="/about.html"><i class="mdi mdi-account"></i></a>
+      </div>
+      <div class="one columns nav-blocks">
+         <a onmouseover="vis_on('fes');" onmouseout="vis_off('fes');" href="/essays.html"><i class="mdi mdi-file-document"></i></a>
+      </div>
+      <div class="one columns nav-blocks">
+         <a onmouseover="vis_on('fpr');" onmouseout="vis_off('fpr');" href="/projects.html"><i class="mdi mdi-beaker"></i></a>
+      </div>
+      <div class="one columns nav-blocks">
+         <a onmouseover="vis_on('ftu');" onmouseout="vis_off('ftu');" href="/tutorials.html"><i class="mdi mdi-cog"></i></a>
+      </div>
+      <div class="one columns nav-blocks">
+         <a onmouseover="vis_on('fli');" onmouseout="vis_off('fli');" href="https://www.linkedin.com/in/wachambers"><i class="mdi mdi-linkedin"></i></a>
+      </div>
+      <div class="one columns nav-blocks">
+         <a onmouseover="vis_on('fgh');" onmouseout="vis_off('fgh');" href="http://github.com/anabranch/"><i class="mdi mdi-github-box"></i></a>
+      </div>
+      <div class="one columns nav-blocks">
+         <a onmouseover="vis_on('ftw');" onmouseout="vis_off('ftw');" href="http://twitter.com/b_a_chambers/"><i class="mdi mdi-twitter-box"></i></a>
+      </div>
+   </div>
+   <div class="row">
+      <div class="one offset-by-two columns nav-blocks">
+         <a onmouseover="vis_on('fhm');" onmouseout="vis_off('fhm');" id='fhm' class='sibling' href="/">home</a>
+      </div>
+      <div class="one columns nav-blocks">
+         <a onmouseover="vis_on('fab');" onmouseout="vis_off('fab');" id='fab' class='sibling' href="/about.html">about</a>
+      </div>
+      <div class="one columns nav-blocks">
+         <a onmouseover="vis_on('fes');" onmouseout="vis_off('fes');" id='fes' class='sibling' href="/essays.html">essays</a>
+      </div>
+      <div class="one columns nav-blocks">
+         <a onmouseover="vis_on('fpr');" onmouseout="vis_off('fpr');" id='fpr' class='sibling' href="/projects.html">projects</a>
+      </div>
+      <div class="one columns nav-blocks">
+         <a onmouseover="vis_on('ftu');" onmouseout="vis_off('ftu');" id='ftu' class='sibling' href="/tutorials.html">tutorials</a>
+      </div>
+      <div class="one columns nav-blocks">
+         <a onmouseover="vis_on('fli');" onmouseout="vis_off('fli');" id='fli' class='sibling' href="https://www.linkedin.com/in/wachambers">linkedin</a>
+      </div>
+      <div class="one columns nav-blocks">
+         <a onmouseover="vis_on('fgh');" onmouseout="vis_off('fgh');" id='fgh' class='sibling' href="http://github.com/anabranch/">github</a>
+      </div>
+      <div class="one columns nav-blocks">
+         <a onmouseover="vis_on('ftw');" onmouseout="vis_off('ftw');" id='ftw' class='sibling' href="http://twitter.com/b_a_chambers/">twitter</a>
+      </div>
+   </div>
+</div>
+
+        </div> <!-- /container -->
+    </body>
+    
+<script charset="utf-8">
+var hovered_el;
+function vis_on(id) {
+    var e = document.getElementById(id);
+        e.style.display = 'block';
+    var siblings = document.getElementsByClassName("sibling");
+    hovered_el = e;
+    for (var i = 0; i < siblings.length; i++) {
+        if (siblings[i].id !== id) {
+            siblings[i].style.display = 'none';
+        }
+    }
+}
+
+function vis_off(id) {
+    hovered_el = undefined;
+    setTimeout(function(){
+        if (hovered_el == undefined) {
+            var e = document.getElementById(id);
+                e.style.display = 'none';
+        }
+    }, 400);
+}
+
+setTimeout(function(){
+["hhm","hab","hes","hpr","htu","hem", 'fhm', 'fab', 'fes', 'fpr', 'ftu', 'fli', 'fgh', 'ftw'].map(vis_off)
+}, 1000);
+
+</script>
+
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>A Simple Link Shortener in Scala</title>
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" href="/css/normalize.css">
+        <link rel="stylesheet" href="/css/skeleton.css">
+
+        <!-- syntax highlighting CSS -->
+        <link rel="stylesheet" href="/css/github.css">
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="/css/main.css">
+
+    </head>
+    <body>
+
+        <div class="container">
+              <div class="row">
+   <div class="twelve columns personal-intro" style="height:10px;">
+   </div>
+</div>
+<div class="row">
+   <div class="one offset-by-three columns nav-blocks">
+      <a onmouseover="vis_on('hhm');" onmouseout="vis_off('hhm');" href="/"><i class="mdi mdi-home"></i></a>
+   </div>
+   <div class="one columns nav-blocks">
+      <a onmouseover="vis_on('hab');" onmouseout="vis_off('hab');" href="/about.html"><i class="mdi mdi-account"></i></a>
+   </div>
+   <div class="one columns nav-blocks">
+      <a onmouseover="vis_on('hes');" onmouseout="vis_off('hes');" href="/essays.html"><i class="mdi mdi-file-document"></i></a>
+   </div>
+   <div class="one columns nav-blocks">
+      <a onmouseover="vis_on('hpr');" onmouseout="vis_off('hpr');" href="/projects.html"><i class="mdi mdi-beaker"></i></a>
+   </div>
+   <div class="one columns nav-blocks">
+      <a onmouseover="vis_on('htu');" onmouseout="vis_off('htu');" href="/tutorials.html"><i class="mdi mdi-cog"></i></a>
+   </div>
+   <div class="one columns nav-blocks">
+      <a onmouseover="vis_on('hem');" onmouseout="vis_off('hem');" href="mailto:wchambers@ischool.berkeley.edu"><i class="mdi mdi-email"></i></a>
+   </div>
+</div>
+<div class="row">
+   <div class="one offset-by-three columns nav-blocks">
+      <a onmouseover="vis_on('hhm');" onmouseout="vis_off('hhm');" id='hhm' class='sibling' href="/">home</a>
+   </div>
+   <div class="one columns nav-blocks">
+      <a onmouseover="vis_on('hab');" onmouseout="vis_off('hab');" id='hab' class='sibling' href="/about.html">about</a>
+   </div>
+   <div class="one columns nav-blocks">
+      <a onmouseover="vis_on('hes');" onmouseout="vis_off('hes');" id='hes' class='sibling' href="/essays.html">essays</a>
+   </div>
+   <div class="one columns nav-blocks">
+      <a onmouseover="vis_on('hpr');" onmouseout="vis_off('hpr');" id='hpr' class='sibling' href="/projects.html">projects</a>
+   </div>
+   <div class="one columns nav-blocks">
+      <a onmouseover="vis_on('htu');" onmouseout="vis_off('htu');" id='htu' class='sibling' href="/tutorials.html">tutorials</a>
+   </div>
+   <div class="one columns nav-blocks">
+      <a onmouseover="vis_on('hem');" onmouseout="vis_off('hem');" id='hem' class='sibling' href="mailto:wchambers@ischool.berkeley.edu">email</a>
+   </div>
+</div>
+
+              <div class="row">
+   <div class="ten offset-by-one columns">
+      <article class="post">
+         <div class='titles'>
+            <h4>A Simple Link Shortener in Scala</h4>
+            <p class="meta">
+               <!-- <span class='tags'>
+                  Tags:
+                  
+                  
+                  </span> -->
+               <span class='date'>
+               01 June 2015
+               </span>
+            </p>
+         </div>
+         <p><em>Recently I took it upon myself to dive into Scala. This post describes what my reaction was after writing a link shortener service using it. For those only interested in the code, <a href="https://github.com/anabranch/JVM-Link-Shorteners/tree/master/scala-link-shortener">check out my github</a>.</em></p>
+
+<p>After learning the basics of <a href="http://clojure.org/">Clojure</a> by writing a simple link shortener, I realized that it was a great way to get to know a language. So I decided to do the same in <a href="http://www.scala-lang.org/">Scala</a>. Scala is probably the most professional language I&#39;ve used. It gives you a ton of options and you can really do things the way that you want to. This is a blessing and a curse, it&#39;s complicated but gives you a lot of tools.</p>
+
+<p>In Scala&#39;s own words:</p>
+
+<blockquote>
+<p>Object-Oriented Meets Functional</p>
+
+<p>Have the best of both worlds. Construct elegant class hierarchies for maximum code reuse and extensibility, implement their behavior using higher-order functions. Or anything in-between.</p>
+</blockquote>
+
+<p>I, again, forced a couple of requirements, I wanted to <code>jar</code> it and be able to deploy it, I wanted it to connect to <a href="http://redis.io/">Redis</a> in order to store shortened links, and I wanted to make sure that I could deploy it with<a href="https://www.docker.com/">Docker</a>. Lastly I wanted to make sure that I wrote tests as well.</p>
+
+<p>What I love about the link shortener application is that you&#39;re going to run into plenty of little challenges writing the application.</p>
+
+<p>You&#39;ll touch on:</p>
+
+<ul>
+<li>The documentation for the language itself</li>
+<li>The build tools</li>
+<li>Web app frameworks in the language</li>
+<li>Simple regular expressions in the language (url validation)</li>
+<li>HTML templating</li>
+<li>Testing</li>
+</ul>
+
+<p>Now this isn&#39;t something that will take very long assuming you have basic programming skill and if you&#39;re looking for more of a challenge there are tons of ways to add onto this application. One of the requirements is that code and tutorials are not to be followed - I made myself write it from scratch.</p>
+
+<p>After writing it I realized things are certainly a bit different in Scala. I decided to use <a href="http://scalatra.org/">Scalatra</a>. It seems relatively straightforward but dealing with the actor paradigm is certainly a departure from what I&#39;m used to. The first concept I really had to wrestle with was that of a Servlet and Servlet Context. A servlet is simply a way of running a webserver and responding to requests, which are in this case HTTP requests. It&#39;s a bit like middleware between the actual receiving of a request and what actually happens with it. The context is like the global context in which that servlet exists.</p>
+
+<p>Once I got a hold of that I obviously needed to be sure that I understood a lot of the actual Scala nuances, like traits. <a href="https://twitter.github.io/scala_school/">Twitter&#39;s Scala School</a> was pretty helpful for teaching the basics of the language. One thing about Scala is that there seems to be a lot of different ways of doing things. I could create a class that handle my url validation (basically creating a url class), or I could create a singleton object that would essentially be a function to do that for me.</p>
+
+<p>Here&#39;s the classed based way, with pattern matching. I really like pattern matching.</p>
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">class</span> <span class="nc">Url</span> <span class="o">(</span><span class="n">inputUrl</span><span class="k">:</span><span class="kt">String</span><span class="o">)</span> <span class="o">{</span>
+  <span class="k">val</span> <span class="n">validUrl</span> <span class="o">=</span><span class="s">&quot;^(https?|ftp|file)://[-a-zA-Z0-9+&amp;@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&amp;@#/%=~_|]&quot;</span><span class="o">.</span><span class="n">r</span><span class="o">;</span>
+  <span class="k">val</span> <span class="n">url</span> <span class="k">=</span> <span class="n">inputUrl</span> <span class="k">match</span> <span class="o">{</span>
+    <span class="k">case</span> <span class="n">validUrl</span><span class="o">(</span><span class="k">_</span><span class="o">*)</span> <span class="k">=&gt;</span> <span class="n">inputUrl</span>
+    <span class="k">case</span> <span class="k">_</span> <span class="k">=&gt;</span> <span class="s">&quot;&quot;</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="c1">// use with new Url(&quot;http://www.google.com&quot;)</span>
+</code></pre></div>
+<p>This was the singleton object based way with pattern matching as well.</p>
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">object</span> <span class="nc">ValidateUrl</span> <span class="o">{</span>
+  <span class="k">val</span> <span class="n">validUrl</span> <span class="o">=</span><span class="s">&quot;^(https?|ftp|file)://[-a-zA-Z0-9+&amp;@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&amp;@#/%=~_|]&quot;</span><span class="o">.</span><span class="n">r</span><span class="o">;</span>
+  <span class="k">def</span> <span class="n">apply</span><span class="o">(</span><span class="n">inputUrl</span><span class="k">:</span><span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="o">{</span>
+    <span class="n">inputUrl</span> <span class="k">match</span> <span class="o">{</span>
+      <span class="k">case</span> <span class="n">validUrl</span><span class="o">(</span><span class="k">_</span><span class="o">*)</span> <span class="k">=&gt;</span> <span class="kc">true</span>
+      <span class="k">case</span> <span class="k">_</span> <span class="k">=&gt;</span> <span class="kc">false</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+<span class="c1">// use with ValidateUrl(&quot;http://www.google.com&quot;)</span>
+</code></pre></div>
+<p>Knowing these trade-offs still isn&#39;t quite clear to me, but I do love the more function approach of an object (the <code>new</code> keyword isn&#39;t something I really enjoy using). One of the things that I&#39;ve really learned to love is companion objects, they make classes so much more functional.</p>
+
+<p>The <a href="http://www.scala-sbt.org/">Scala-sbt</a> was actually really nice to use, it made packaging and versioning easy and dependency management was pretty straightforward as well.</p>
+
+<p>Now I wanted to really take the time to learn Scala because I&#39;m using <a href="http://spark.apache.org/">Spark</a> pretty heavily at work and in my research. I had used pySpark previously but was ready to step up to something a bit more professional grade. I&#39;m using it now on a regular basis and writing production, tested, code that runs on a several node cluster.</p>
+
+<p>Now obviously there&#39;s a lot more to learn, but this was another great little project that helped me learn a new language.</p>
+
+<p>Check out my other post on doing the same thing in Clojure.</p>
+
+      </article>
+   </div>
+</div>
+
+              <div class="footer">
+   <!-- <h1>The Portfolio & Writings of Bill Chambers</h1> -->
+   <!-- <h3>Internal Navigation</h3> -->
+   <div class="row">
+      <div class="one offset-by-two columns nav-blocks">
+         <a onmouseover="vis_on('fhm');" onmouseout="vis_off('fhm');" href="/"><i class="mdi mdi-home"></i></a>
+      </div>
+      <div class="one columns nav-blocks">
+         <a onmouseover="vis_on('fab');" onmouseout="vis_off('fab');" href="/about.html"><i class="mdi mdi-account"></i></a>
+      </div>
+      <div class="one columns nav-blocks">
+         <a onmouseover="vis_on('fes');" onmouseout="vis_off('fes');" href="/essays.html"><i class="mdi mdi-file-document"></i></a>
+      </div>
+      <div class="one columns nav-blocks">
+         <a onmouseover="vis_on('fpr');" onmouseout="vis_off('fpr');" href="/projects.html"><i class="mdi mdi-beaker"></i></a>
+      </div>
+      <div class="one columns nav-blocks">
+         <a onmouseover="vis_on('ftu');" onmouseout="vis_off('ftu');" href="/tutorials.html"><i class="mdi mdi-cog"></i></a>
+      </div>
+      <div class="one columns nav-blocks">
+         <a onmouseover="vis_on('fli');" onmouseout="vis_off('fli');" href="https://www.linkedin.com/in/wachambers"><i class="mdi mdi-linkedin"></i></a>
+      </div>
+      <div class="one columns nav-blocks">
+         <a onmouseover="vis_on('fgh');" onmouseout="vis_off('fgh');" href="http://github.com/anabranch/"><i class="mdi mdi-github-box"></i></a>
+      </div>
+      <div class="one columns nav-blocks">
+         <a onmouseover="vis_on('ftw');" onmouseout="vis_off('ftw');" href="http://twitter.com/b_a_chambers/"><i class="mdi mdi-twitter-box"></i></a>
+      </div>
+   </div>
+   <div class="row">
+      <div class="one offset-by-two columns nav-blocks">
+         <a onmouseover="vis_on('fhm');" onmouseout="vis_off('fhm');" id='fhm' class='sibling' href="/">home</a>
+      </div>
+      <div class="one columns nav-blocks">
+         <a onmouseover="vis_on('fab');" onmouseout="vis_off('fab');" id='fab' class='sibling' href="/about.html">about</a>
+      </div>
+      <div class="one columns nav-blocks">
+         <a onmouseover="vis_on('fes');" onmouseout="vis_off('fes');" id='fes' class='sibling' href="/essays.html">essays</a>
+      </div>
+      <div class="one columns nav-blocks">
+         <a onmouseover="vis_on('fpr');" onmouseout="vis_off('fpr');" id='fpr' class='sibling' href="/projects.html">projects</a>
+      </div>
+      <div class="one columns nav-blocks">
+         <a onmouseover="vis_on('ftu');" onmouseout="vis_off('ftu');" id='ftu' class='sibling' href="/tutorials.html">tutorials</a>
+      </div>
+      <div class="one columns nav-blocks">
+         <a onmouseover="vis_on('fli');" onmouseout="vis_off('fli');" id='fli' class='sibling' href="https://www.linkedin.com/in/wachambers">linkedin</a>
+      </div>
+      <div class="one columns nav-blocks">
+         <a onmouseover="vis_on('fgh');" onmouseout="vis_off('fgh');" id='fgh' class='sibling' href="http://github.com/anabranch/">github</a>
+      </div>
+      <div class="one columns nav-blocks">
+         <a onmouseover="vis_on('ftw');" onmouseout="vis_off('ftw');" id='ftw' class='sibling' href="http://twitter.com/b_a_chambers/">twitter</a>
+      </div>
+   </div>
+</div>
+
+        </div> <!-- /container -->
+    </body>
+    
+<script charset="utf-8">
+var hovered_el;
+function vis_on(id) {
+    var e = document.getElementById(id);
+        e.style.display = 'block';
+    var siblings = document.getElementsByClassName("sibling");
+    hovered_el = e;
+    for (var i = 0; i < siblings.length; i++) {
+        if (siblings[i].id !== id) {
+            siblings[i].style.display = 'none';
+        }
+    }
+}
+
+function vis_off(id) {
+    hovered_el = undefined;
+    setTimeout(function(){
+        if (hovered_el == undefined) {
+            var e = document.getElementById(id);
+                e.style.display = 'none';
+        }
+    }, 400);
+}
+
+setTimeout(function(){
+["hhm","hab","hes","hpr","htu","hem", 'fhm', 'fab', 'fes', 'fpr', 'ftu', 'fli', 'fgh', 'ftw'].map(vis_off)
+}, 1000);
+
+</script>
+
+</html>
