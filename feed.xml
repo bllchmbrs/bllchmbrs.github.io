@@ -139,7 +139,7 @@ docker run --name clj --link new-red:new-red -p 5000:5000 -d my-cloj
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Navigate to your Docker url on port 5000 and you should be good!&lt;/p&gt;
 
-&lt;p&gt;Check out my other post on doing the same thing in Scala.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://billchambers.me/projects/2015/06/10/a-link-shortener-in-scala.html&quot;&gt;Check out my other post on writing a link shortener in Scala.&lt;/a&gt;&lt;/p&gt;
 </description>
 				<pubDate>Mon, 01 Jun 2015 00:00:00 -0700</pubDate>
 				<link>/projects/2015/06/01/a-link-shortener-in-clojure.html</link>
