@@ -7,6 +7,15 @@
 		<atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
+				<title>Introducing SparkTutorials.net</title>
+				<description>&lt;p&gt;I&amp;#39;ve recently launched a website called &lt;a href=&quot;http://www.sparktutorials.net&quot;&gt;SparkTutorials.net&lt;/a&gt;. Spark Tutorials aims to educate the general public about the utility of Spark as a tool for data science. I would encourage you to read more on the website and learn something new!&lt;/p&gt;
+</description>
+				<pubDate>Thu, 10 Sep 2015 00:00:00 -0700</pubDate>
+				<link>/projects/2015/09/10/introducing-spark-tutorials.html</link>
+				<guid isPermaLink="true">/projects/2015/09/10/introducing-spark-tutorials.html</guid>
+			</item>
+		
+			<item>
 				<title>A Simple Link Shortener in Scala</title>
 				<description>&lt;p&gt;&lt;em&gt;Recently I took it upon myself to dive into Scala. This post describes what my reaction was after writing a link shortener service using it. For those only interested in the code, &lt;a href=&quot;https://github.com/anabranch/JVM-Link-Shorteners/tree/master/scala-link-shortener&quot;&gt;check out my github&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
 
@@ -520,29 +529,6 @@ cat col_format.csv SFPD_2014_theft.csv &amp;gt; SFPD_2014_theft_col.csv
 				<pubDate>Mon, 16 Mar 2015 00:00:00 -0700</pubDate>
 				<link>/projects/2015/03/16/exploring-sf-crime-tableau.html</link>
 				<guid isPermaLink="true">/projects/2015/03/16/exploring-sf-crime-tableau.html</guid>
-			</item>
-		
-			<item>
-				<title>Infographic - Why Hasn’t Russia’s Economic Collapse Affected its Leadership?</title>
-				<description>&lt;p&gt;&lt;img src=&quot;/assets/russia-media-infographic-putin.png&quot; alt=&quot;Russian Media Infographic&quot;&gt;&lt;/p&gt;
-
-&lt;p&gt;This was an infographic I created to answer the question: “Why Hasn’t Russia’s Economic Collapse Affected its Leadership?”&lt;/p&gt;
-
-&lt;p&gt;Over the past year, Russia has gone from a fairly stable growth rate to a significant economic contraction. The value of its currency has been chopped in half in 6 months and they’ve had to defend the currency and the economy. I wanted to tell the story about how much this economic situation has changed nothing in Russia in terms of leadership or potential leadership changes. In fact, Putin’s support is through the roof - nearly double that of Obama’s in the US. What’s really going on?&lt;/p&gt;
-
-&lt;p&gt;I’m also interested in a lot of the laws that are being passed in Russia. Foreign media companies have to sell off their stakes in the Russian market, technology companies are being forced to store all customer data on Russian soil. The laws and policies are ever changing, how is the above economic collapse connected to that?&lt;/p&gt;
-
-&lt;p&gt;Through these different perspectives, I wanted to make the point that Russia is trying to control all information from the top down. By limiting free speech and killing/silencing opposition - they’re setting up mechanism for control of the people - and it’s working. Television, the most popular way to consume media in Russia, is completely state-owned either through the state itself or through subsidiaries. Polls in support of Putin are through the roof because of the annexation of Crimea and talks of fighting Nazism is Ukraine.&lt;/p&gt;
-
-&lt;p&gt;Sources:
-Russiavotes.org - survey data
-Global-rates.com - Inflation Rates
-exchange-rates.org - Ruble to Dollar
-wikipedia.org - Media Ownership and Laws&lt;/p&gt;
-</description>
-				<pubDate>Sun, 01 Mar 2015 00:00:00 -0800</pubDate>
-				<link>/projects/2015/03/01/infographic-russia-leadership.html</link>
-				<guid isPermaLink="true">/projects/2015/03/01/infographic-russia-leadership.html</guid>
 			</item>
 		
 	</channel>
