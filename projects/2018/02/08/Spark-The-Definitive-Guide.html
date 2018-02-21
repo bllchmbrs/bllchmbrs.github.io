@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>The Personal Website of Bill Chambers</title>
+        <title>Spark: The Definitive Guide published by O'Reilly!</title>
         <meta name="viewport" content="width=device-width">
         <link rel="stylesheet" href="/css/normalize.css">
         <link rel="stylesheet" href="/css/skeleton.css">
@@ -19,8 +19,7 @@
 
         <div class="container">
               <div class="row">
-   <div class="twelve columns personal-intro">
-      <h2>The Portfolio & Writings of Bill Chambers</h2>
+   <div class="twelve columns personal-intro" style="height:10px;">
    </div>
 </div>
 <div class="row">
@@ -64,93 +63,73 @@
    </div>
 </div>
 
-              <div id="home">
-    <div class='titles'><i class="mdi mdi-beaker"></i><h1>Projects</h1></div>
-    <ul class="posts">
-        
-        
-        
-        
-        <li><a href="/projects/2018/02/08/Spark-The-Definitive-Guide.html">Spark: The Definitive Guide published by O'Reilly!</a><span>08 Feb 2018</span></li>
-        
-        
-        
-        <li><a href="/projects/2015/09/10/introducing-spark-tutorials.html">Introducing SparkTutorials.net</a><span>10 Sep 2015</span></li>
-        
-        
-        
-        <li><a href="/projects/2015/06/10/a-link-shortener-in-scala.html">A Simple Link Shortener in Scala</a><span>10 Jun 2015</span></li>
-        
-        
-        
-        <li><a href="/projects/2015/06/01/a-link-shortener-in-clojure.html">A Simple Link Shortener in Clojure</a><span>01 Jun 2015</span></li>
-        
-        
-        
-        <li><a href="/projects/2015/05/20/san-francisco-crime-data-visualization.html">Visualizing Crime in San Francisco during the 2014 World Series</a><span>20 May 2015</span></li>
-        
-        
-        
-        
-        
-        
-        
-        <li><a href="/projects/2015/04/05/d3-visualization-of-different-flights.html">Visualizing Flights Origins and Departures with d3.js</a><span>05 Apr 2015</span></li>
-        
-        
-        
-        <li><a href="/projects/2015/03/31/kmeans-clustering-sf-crime-data.html">K-Means Clustering - Liquor & Assaults in San Francisco</a><span>31 Mar 2015</span></li>
-        
-        
-        
-        
-        
-        <li><a href="/projects/2015/03/16/exploring-sf-crime-tableau.html">Exploratory Data Analysis of Crime in San Francisco</a><span>16 Mar 2015</span></li>
-        
-        
-        
-        <li><a href="/projects/2015/03/01/infographic-russia-leadership.html">Infographic - Why Hasn’t Russia’s Economic Collapse Affected its Leadership?</a><span>01 Mar 2015</span></li>
-        
-        
-        
-        <li><a href="/projects/2015/01/18/python-datascience-and-docker.html">Hackday - Data Science and Docker Working Together</a><span>18 Jan 2015</span></li>
-        
-        
-        
-        
-        
-        <li><a href="/projects/2015/01/08/rebalancing-bike-terminals-in-sf.html">Data Challenge - Rebalancing Bike Terminals in SF</a><span>08 Jan 2015</span></li>
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <li><a href="/projects/2014/11/25/civic-data-postgresql-support.html">Deploying PostgreSQL for the California Civic Data Coalition's Django Project</a><span>25 Nov 2014</span></li>
-        
-        
-        
-        
-        
-        
-        
-        <li><a href="/projects/2014/09/10/evernote-hackathon-experience.html">EverDone - A Project for An Evernote Hackathon</a><span>10 Sep 2014</span></li>
-        
-        
-        
-        
-        
-        <li><a href="/projects/2014/08/20/surprisehaiku.html">SurpriseHaiku - Discovering Unusual Haikus On Twitter</a><span>20 Aug 2014</span></li>
-        
-        
-    </ul>
-</div>
+              <div class="row">
+   <div class="ten offset-by-one columns">
+      <article class="post">
+         <div class='titles'>
+            <h4>Spark: The Definitive Guide published by O'Reilly!</h4>
+            <p class="meta">
+               <!-- <span class='tags'>
+                  Tags:
+                  
+                  
+                  </span> -->
+               <span class='date'>
+               08 February 2018
+               </span>
+            </p>
+         </div>
+         <p>As of February 6th, 2018, <a href="http://shop.oreilly.com/product/0636920034957.do">Spark: The Definitive Guide</a> has gone to print. This was the most intensive project and process that I&#39;ve ever undertaken in my life. It was filled with frustrations and anticipations, excitements and fears. I must extend thanks to those that encouraged me to lead the writing of the book, namely Ion Stoica, Patrick Wendell, Ali Ghodsi, and (somewhat obviously) Matei Zaharia. These folks were the ones that recommended that I take the lead on the book and I am forever grateful for them to grant me such an opportunity.</p>
 
+<p>In particular, I would like to thank my co-author, <a href="https://cs.stanford.edu/%7Ematei/">Matei Zaharia</a>, for his help and graciousness throughout the writing process.</p>
+
+<h3>How it got done</h3>
+
+<p>Writing the book was simple. <a href="https://www.infoq.com/presentations/Simple-Made-Easy">Simple is not easy.</a>. You have to churn out a lot of words and then refine them for the audience. It&#39;s really that simple.</p>
+
+<p>Matei and I had a core thesis from the beginning. ~80% of value should be in the first ~20% of the book or in other terms, 80% of the readers will only read the first 80 pages of the book. The reason is straightforward, the vast majority of the audience will read through the beginning and then cherry pick relevant sections after that. Importantly, <em>we were 100% ok with that!</em> </p>
+
+<p>For this reason, the first part of the book(approximately 80 pages) is narrative explaining Spark&#39;s background and the fundamental concepts. We focused on the simplest explanations, eschewing technical jargon in order to make it approachable to the largest audience.</p>
+
+<p>The first two months of the &quot;writing&quot; process were focused on organizational concepts - how can we ensure that we&#39;re going to cover all the topics that we need to in a coherent manner? It became readily apparent that length was going to be an issue. Spark is an immensely capable system taking the &quot;standard library&quot; approach towards big data. For this reason, it has an <em>massive</em> set of capabilities. Capabilities that we improve upon at Databricks with the Databricks Runtime.</p>
+
+<p>After laying out the general organizational structure of introduction, Spark SQL, streaming, machine learning, and then the ecosystem we were ready to get started.</p>
+
+<h4>Part 1: The First Draft</h4>
+
+<p>Instead of trying to get every chapter perfect (as some of the early readers may have noticed), we took the approach of a more turbulent process. From November 2016 to mid 2017, I wrote the first draft of a given chapter in each week for the book. A chapter a week, good or bad, was my commitment. Naturally, some chapters ended up quite bad at the onset.</p>
+
+<p>One powerful note, is that we wrote the entire book inside of Databricks notebooks because it made it easy to write with various languages and test the code that I&#39;m writing - all in one narrative notebook.</p>
+
+<p>After writing several chapters, Matei and I would read through the chapters and write up our edits in order to make sure that we&#39;re aligned on tone, content, and direction. This process was excellent. The raw first drafts helped sketch some lines out and make sure that we were on the same page about what we wanted to achieve. This was the &quot;dry-run&quot; of reviewing before we were ready to send them all the reviewers.</p>
+
+<p>The ideal would have been to write a draft of the book and work from there, however, batching was necessary for our excellent reviewers to make progress reading and editing the book themselves.</p>
+
+<h4>Part 2: Reviewing</h4>
+
+<p>After getting feedback from our reviewers, it came time to integrate that feedback. This was a labor-intensive process requiring me to diff the various comments from our reviewers. Making one change meant that other proposed changes might be affected as well making it hard to keep track of what was and was not fixed. This part took longer than I hoped as the feedback was good and some rather obvious issues had to be resolved.</p>
+
+<p>Upon completion of review edits as well as our own changes, we realized that the book length issues had gotten worse. We were at 650+ pages (on what was expected to be a 450 page book).</p>
+
+<h4>Part 3: Editing &amp; Quality Control</h4>
+
+<p>By the time quality control comes around, we had been working on the book for over a year. By this time my &quot;light PM workload&quot; had fully vaporized and I was in the throws of working on <a href="https://databricks.com/blog/2017/10/25/databricks-delta-a-unified-management-system-for-real-time-big-data.html">Databricks Delta</a> and another two teams full time. Matei had returned to teaching as well as the Stanford year picked up and so we were both short time. </p>
+
+<p>This part of the book was probably the most difficult. It was extremely arguous and painful while still being inspiring and rewarding. It felt like a battle of inches. Where the finest of details have to be ironed out in a coherent and consistent way. Our production editor, <a href="https://www.linkedin.com/in/justin-billing-4948467b/">Justin Billing</a> did an incredible job helping us along this path. With time, we hacked the length down, removing detail where we could, and focused on keeping the book extremely high quality and in depth. This was terribly challenging as there is just so much to cover - especially for a definitive guide.</p>
+
+<p>After a much time, we finally landed at 600 pages and after two quality control periods - we completed the entire book on February 6th, 2018.</p>
+
+<h3>What it means that it got done?</h3>
+
+<p>This book was an unbelievable effort not just because writing a book is hard but because Spark is an <em>amazing</em> tool. It&#39;s used everywhere but so many companies out there. If you&#39;re doing big data, you&#39;re probably doing Spark. Those are facts. What we are most proud of is that this will greatly enable the community to grow and for new people to learn about and use the toolkit to solve the problems that they would like to solve.</p>
+
+<p>The fact that thousands of eyeballs will read those words is incredibly rewarding in and of itself. The fact that people will use that to do their jobs day in and day out makes it even more so.</p>
+
+<p>Matei and I sincerely hope that you enjoy the book and thanks so much for reading!</p>
+
+      </article>
+   </div>
+</div>
 
               <div class="footer">
    <!-- <h1>The Portfolio & Writings of Bill Chambers</h1> -->

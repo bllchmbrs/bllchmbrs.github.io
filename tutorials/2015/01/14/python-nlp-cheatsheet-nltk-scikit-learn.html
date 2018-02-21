@@ -92,18 +92,18 @@
 <p>Sometimes you want to split sentence by sentence and other times you just want to split words.</p>
 
 <p><strong>Sentence Tokenizers</strong></p>
-<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="n">sent_tokenizer</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s">&#39;tokenizers/punkt/english.pickle&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="n">sent_tokenizer</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s">'tokenizers/punkt/english.pickle'</span><span class="p">)</span>
 </code></pre></div>
 <p>Here&#39;s a popular word regular expression tokenizer from the NLTK book that works quite well.</p>
 
 <p><strong>Word Tokenizers</strong></p>
-<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="n">tokenization_pattern</span> <span class="o">=</span> <span class="s">r&#39;&#39;&#39;(?x)    # set flag to allow verbose regexps</span>
-<span class="s">([A-Z]\.)+        # abbreviations, e.g. U.S.A.</span>
-<span class="s">| \w+(-\w+)*        # words with optional internal hyphens</span>
-<span class="s">| \$?\d+(\.\d+)?%?  # currency and percentages, e.g. $12.40, 82%</span>
-<span class="s">| \w+[\x90-\xff]  # these are escaped emojis</span>
-<span class="s">| [][.,;&quot;&#39;?():-_`]  # these are separate tokens</span>
-<span class="s">&#39;&#39;&#39;</span>
+<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="n">tokenization_pattern</span> <span class="o">=</span> <span class="s">r'''(?x)    # set flag to allow verbose regexps
+([A-Z]\.)+        # abbreviations, e.g. U.S.A.
+| \w+(-\w+)*        # words with optional internal hyphens
+| \$?\d+(\.\d+)?</span><span class="si">%</span><span class="s">?  # currency and percentages, e.g. $12.40, 82</span><span class="si">%</span><span class="s">
+| \w+[\x90-\xff]  # these are escaped emojis
+| [][.,;"'?():-_`]  # these are separate tokens
+'''</span>
 <span class="n">word_tokenizer</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">tokenize</span><span class="o">.</span><span class="n">regexp</span><span class="o">.</span><span class="n">RegexpTokenizer</span><span class="p">(</span><span class="n">tokenization_pattern</span><span class="p">)</span>
 </code></pre></div>
 <h4>Part of Speech Tagging</h4>
@@ -135,21 +135,21 @@
 <p><strong>Unigram, Bigram, and Backoff Tagging</strong></p>
 
 <p>These are backoff taggers, basically it&#39;s just a dictionary look up to tag parts of speech. You train it on a tagged corpus(or corpora) and then use it to tag sentences in the future.</p>
-<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="n">default_tagger</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">DefaultTagger</span><span class="p">(</span><span class="s">&#39;NN&#39;</span><span class="p">)</span>
-<span class="n">raw</span> <span class="o">=</span> <span class="s">r&#39;&#39;&#39;what will this silly tagger do?&#39;&#39;&#39;</span>
+<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="n">default_tagger</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">DefaultTagger</span><span class="p">(</span><span class="s">'NN'</span><span class="p">)</span>
+<span class="n">raw</span> <span class="o">=</span> <span class="s">r'''what will this silly tagger do?'''</span>
 <span class="n">tokens</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">word_tokenize</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
 <span class="k">print</span> <span class="n">default_tagger</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span>
-<span class="c"># [(&#39;what&#39;, &#39;NN&#39;), (&#39;will&#39;, &#39;NN&#39;), (&#39;this&#39;, &#39;NN&#39;), (&#39;silly&#39;, &#39;NN&#39;), (&#39;tagger&#39;, &#39;NN&#39;), (&#39;do&#39;, &#39;NN&#39;), (&#39;?&#39;, &#39;NN&#39;)]</span>
+<span class="c"># [('what', 'NN'), ('will', 'NN'), ('this', 'NN'), ('silly', 'NN'), ('tagger', 'NN'), ('do', 'NN'), ('?', 'NN')]</span>
 </code></pre></div>
 <p>Here&#39;s how you train the tagger on brown, this is a unigram tagger, so it&#39;s not going to perform really well because it will tag everything as a NN (noun) or whatever part of speech we give it.</p>
 <div class="highlight"><pre><code class="language-py" data-lang="py"><span class="kn">from</span> <span class="nn">nltk.corpus</span> <span class="kn">import</span> <span class="n">brown</span>
 <span class="n">brown_tagged_sents</span> <span class="o">=</span> <span class="n">brown</span><span class="o">.</span><span class="n">tagged_sents</span><span class="p">()</span>
 <span class="n">unigram_tagger</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">UnigramTagger</span><span class="p">(</span><span class="n">brown_tagged_sents</span><span class="p">)</span>
-<span class="k">print</span> <span class="s">&quot;</span><span class="si">%0.3f</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">unigram_tagger</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">test_sents</span><span class="p">)</span> <span class="c"># eval the tagger</span>
+<span class="k">print</span> <span class="s">"</span><span class="si">%0.3</span><span class="s">f"</span> <span class="o">%</span> <span class="n">unigram_tagger</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">test_sents</span><span class="p">)</span> <span class="c"># eval the tagger</span>
 </code></pre></div>
 <p>This is a true backoff tagger that defaults to a certain part of speech. So it will look for trigram occurrences and see if it finds any with a certain word formation, if it does not then it will <em>backoff</em> to the bigram tagger, etc.</p>
 <div class="highlight"><pre><code class="language-py" data-lang="py"><span class="k">def</span> <span class="nf">build_backoff_tagger</span><span class="p">(</span><span class="n">train_sents</span><span class="p">):</span>
-    <span class="n">t0</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">DefaultTagger</span><span class="p">(</span><span class="s">&#39;NN&#39;</span><span class="p">)</span>
+    <span class="n">t0</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">DefaultTagger</span><span class="p">(</span><span class="s">'NN'</span><span class="p">)</span>
     <span class="n">t1</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">UnigramTagger</span><span class="p">(</span><span class="n">train_sents</span><span class="p">,</span> <span class="n">backoff</span><span class="o">=</span><span class="n">t0</span><span class="p">)</span>
     <span class="n">t2</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">BigramTagger</span><span class="p">(</span><span class="n">train_sents</span><span class="p">,</span> <span class="n">backoff</span><span class="o">=</span><span class="n">t1</span><span class="p">)</span>
     <span class="n">t3</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">TrigramTagger</span><span class="p">(</span><span class="n">train_sents</span><span class="p">,</span> <span class="n">backoff</span><span class="o">=</span><span class="n">t2</span><span class="p">)</span>
@@ -158,9 +158,9 @@
 </code></pre></div>
 <p>What&#39;s nice is to speed things up, you can actually just pickle the backoff tagger so that it&#39;s easier to deploy a tagger if need be.</p>
 <div class="highlight"><pre><code class="language-py" data-lang="py"><span class="kn">import</span> <span class="nn">pickle</span> <span class="c"># or cPickle</span>
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;pickled_file.pickle&#39;</span><span class="p">,</span> <span class="s">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">'pickled_file.pickle'</span><span class="p">,</span> <span class="s">'wb'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
     <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">ngram_tagger</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
-</code></pre></div><div class="highlight"><pre><code class="language-py" data-lang="py"><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;pickled_file.pickle&#39;</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</code></pre></div><div class="highlight"><pre><code class="language-py" data-lang="py"><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">'pickled_file.pickle'</span><span class="p">,</span> <span class="s">'r'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
     <span class="n">tagger</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
 </code></pre></div>
 <h4>Removing Punctuation</h4>
@@ -168,18 +168,18 @@
 <p>At times you&#39;ll need to remove certain punctuation marks - this is an easy way to do so.</p>
 <div class="highlight"><pre><code class="language-py" data-lang="py"><span class="kn">import</span> <span class="nn">string</span>
 <span class="n">nopunct</span> <span class="o">=</span> <span class="p">[</span><span class="n">w</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">text</span> <span class="k">if</span> <span class="n">w</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">string</span><span class="o">.</span><span class="n">punctuation</span><span class="p">]</span>
-<span class="s">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">nopunct</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">100</span><span class="p">])</span>
+<span class="s">' '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">nopunct</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">100</span><span class="p">])</span>
 </code></pre></div>
 <h4>Stopwords</h4>
 
 <p>Here&#39;s an easy way to remove stop words.</p>
 <div class="highlight"><pre><code class="language-py" data-lang="py"><span class="kn">from</span> <span class="nn">nltk.corpus</span> <span class="kn">import</span> <span class="n">stopwords</span>
-<span class="n">normalized</span> <span class="o">=</span> <span class="p">[</span><span class="n">w</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">text6</span> <span class="k">if</span> <span class="n">w</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">stopwords</span><span class="o">.</span><span class="n">words</span><span class="p">(</span><span class="s">&#39;english&#39;</span><span class="p">)]</span>
+<span class="n">normalized</span> <span class="o">=</span> <span class="p">[</span><span class="n">w</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">text6</span> <span class="k">if</span> <span class="n">w</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">stopwords</span><span class="o">.</span><span class="n">words</span><span class="p">(</span><span class="s">'english'</span><span class="p">)]</span>
 </code></pre></div>
 <p>Extend it with:</p>
 <div class="highlight"><pre><code class="language-py" data-lang="py"><span class="kn">from</span> <span class="nn">nltk.corpus</span> <span class="kn">import</span> <span class="n">stopwords</span>
 <span class="n">my_stops</span> <span class="o">=</span> <span class="n">stopwords</span>
-<span class="n">my_stops</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&quot;shoebox&quot;</span><span class="p">)</span>
+<span class="n">my_stops</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">"shoebox"</span><span class="p">)</span>
 </code></pre></div>
 <h4>Stemming</h4>
 
@@ -211,16 +211,16 @@
 <p>Chunking basically just grabs chunks of text that might be more meaningful to your research or program. You create a list of parts of speech and run that over your corpus. It will extract the phrasing that you need.</p>
 
 <p>Remember you&#39;ve got to customize it to the part of speech tagger that you&#39;re using, like Brown or the Stanford Tagger.</p>
-<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="n">technical_term</span> <span class="o">=</span> <span class="s">r&quot;T: {&lt;(JJ|NN|NNS|NNP|NNPS)&gt;+&lt;(NN|NNS|NNP|NNPS|CD)&gt;|&lt;(NN|NNS|NNP|NNPS)&gt;}&quot;</span>
+<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="n">technical_term</span> <span class="o">=</span> <span class="s">r"T: {&lt;(JJ|NN|NNS|NNP|NNPS)&gt;+&lt;(NN|NNS|NNP|NNPS|CD)&gt;|&lt;(NN|NNS|NNP|NNPS)&gt;}"</span>
 <span class="n">cp</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">RegexpParser</span><span class="p">(</span><span class="n">technical_term</span><span class="p">)</span>
 
 <span class="k">for</span> <span class="n">count</span><span class="p">,</span> <span class="n">sent</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">brown</span><span class="o">.</span><span class="n">sents</span><span class="p">()[</span><span class="mi">100</span><span class="p">:</span><span class="mi">104</span><span class="p">]):</span>
-    <span class="k">print</span> <span class="s">&quot;Sentence #&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">count</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;:&quot;</span>
+    <span class="k">print</span> <span class="s">"Sentence #"</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">count</span><span class="p">)</span> <span class="o">+</span> <span class="s">":"</span>
     <span class="n">parsed</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">nltk</span><span class="o">.</span><span class="n">pos_tag</span><span class="p">(</span><span class="n">sent</span><span class="p">))</span>
     <span class="k">print</span> <span class="n">parsed</span>
-    <span class="k">print</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">Technical Terms:</span><span class="se">\n</span><span class="s">&quot;</span>
+    <span class="k">print</span> <span class="s">"</span><span class="se">\n</span><span class="s">Technical Terms:</span><span class="se">\n</span><span class="s">"</span>
     <span class="k">for</span> <span class="n">tree</span> <span class="ow">in</span> <span class="n">parsed</span><span class="o">.</span><span class="n">subtrees</span><span class="p">():</span>
-        <span class="k">if</span> <span class="n">tree</span><span class="o">.</span><span class="n">label</span><span class="p">()</span> <span class="o">==</span> <span class="s">&quot;T&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">tree</span><span class="o">.</span><span class="n">label</span><span class="p">()</span> <span class="o">==</span> <span class="s">"T"</span><span class="p">:</span>
             <span class="k">print</span> <span class="n">tree</span>
 </code></pre></div>
 <h4>Splitting Training Sets + Test Sets</h4>
@@ -268,7 +268,7 @@
 <div class="highlight"><pre><code class="language-py" data-lang="py"><span class="kn">from</span> <span class="nn">sklearn.naive_bayes</span> <span class="kn">import</span> <span class="n">MultinomialNB</span>
 
 <span class="n">cl</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">NaiveBayesClassifier</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">train_set</span><span class="p">)</span>
-<span class="k">print</span> <span class="s">&quot;</span><span class="si">%.3f</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">nltk</span><span class="o">.</span><span class="n">classify</span><span class="o">.</span><span class="n">accuracy</span><span class="p">(</span><span class="n">cl</span><span class="p">,</span> <span class="n">test_set</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">"</span><span class="si">%.3</span><span class="s">f"</span> <span class="o">%</span> <span class="n">nltk</span><span class="o">.</span><span class="n">classify</span><span class="o">.</span><span class="n">accuracy</span><span class="p">(</span><span class="n">cl</span><span class="p">,</span> <span class="n">test_set</span><span class="p">)</span>
 <span class="n">cl</span><span class="o">.</span><span class="n">show_most_informative_features</span><span class="p">(</span><span class="mi">40</span><span class="p">)</span>
 <span class="n">cl</span><span class="o">.</span><span class="n">prob_classify</span><span class="p">(</span><span class="n">featurize</span><span class="p">(</span><span class="n">name</span><span class="p">))</span> <span class="c"># get a confidence for the prediction</span>
 </code></pre></div>
@@ -292,10 +292,10 @@
 
 <span class="kn">from</span> <span class="nn">nltk.classify</span> <span class="kn">import</span> <span class="n">maxent</span>
 <span class="n">nltk</span><span class="o">.</span><span class="n">classify</span><span class="o">.</span><span class="n">MaxentClassifier</span><span class="o">.</span><span class="n">ALGORITHMS</span>
-<span class="c"># [&#39;GIS&#39;,&#39;IIS&#39;,&#39;CG&#39;,&#39;BFGS&#39;,&#39;Powell&#39;,&#39;LBFGSB&#39;,&#39;Nelder-Mead&#39;,&#39;MEGAM&#39;,&#39;TADM&#39;]</span>
+<span class="c"># ['GIS','IIS','CG','BFGS','Powell','LBFGSB','Nelder-Mead','MEGAM','TADM']</span>
 
-<span class="c"># MEGAM or TADM are not rec&#39;d for text classification</span>
-<span class="n">mec</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">classify</span><span class="o">.</span><span class="n">MaxentClassifier</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">train_features</span><span class="p">,</span> <span class="s">&#39;GIS&#39;</span><span class="p">,</span> <span class="n">trace</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="c"># MEGAM or TADM are not rec'd for text classification</span>
+<span class="n">mec</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">classify</span><span class="o">.</span><span class="n">MaxentClassifier</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">train_features</span><span class="p">,</span> <span class="s">'GIS'</span><span class="p">,</span> <span class="n">trace</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
 </code></pre></div>
 <h4>Cross Validating Classifiers</h4>
 
@@ -305,7 +305,7 @@
 
 <span class="k">for</span> <span class="n">traincv</span><span class="p">,</span> <span class="n">evalcv</span> <span class="ow">in</span> <span class="n">cv</span><span class="p">:</span>
     <span class="n">classifier</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">NaiveBayesClassifier</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">train_features</span><span class="p">[</span><span class="n">traincv</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span><span class="n">traincv</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">traincv</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
-    <span class="k">print</span> <span class="s">&#39;accuracy: </span><span class="si">%.3f</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">nltk</span><span class="o">.</span><span class="n">classify</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">accuracy</span><span class="p">(</span><span class="n">classifier</span><span class="p">,</span> <span class="n">train_features</span><span class="p">[</span><span class="n">evalcv</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span><span class="n">evalcv</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">evalcv</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
+    <span class="k">print</span> <span class="s">'accuracy: </span><span class="si">%.3</span><span class="s">f'</span> <span class="o">%</span> <span class="n">nltk</span><span class="o">.</span><span class="n">classify</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">accuracy</span><span class="p">(</span><span class="n">classifier</span><span class="p">,</span> <span class="n">train_features</span><span class="p">[</span><span class="n">evalcv</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span><span class="n">evalcv</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">evalcv</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
 </code></pre></div>
 <h4>Creating Pipelines for Classifiers</h4>
 
@@ -317,9 +317,9 @@
 <span class="kn">from</span> <span class="nn">sklearn.feature_selection</span> <span class="kn">import</span> <span class="n">SelectKBest</span><span class="p">,</span> <span class="n">chi2</span>
 <span class="kn">from</span> <span class="nn">sklearn.naive_bayes</span> <span class="kn">import</span> <span class="n">MultinomialNB</span>
 <span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">Pipeline</span>
-<span class="n">pipeline</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([(</span><span class="s">&#39;tfidf&#39;</span><span class="p">,</span> <span class="n">TfidfTransformer</span><span class="p">()),</span>
-                     <span class="p">(</span><span class="s">&#39;chi2&#39;</span><span class="p">,</span> <span class="n">SelectKBest</span><span class="p">(</span><span class="n">chi2</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">2000</span><span class="p">)),</span>
-                     <span class="p">(</span><span class="s">&#39;nb&#39;</span><span class="p">,</span> <span class="n">MultinomialNB</span><span class="p">())])</span>
+<span class="n">pipeline</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([(</span><span class="s">'tfidf'</span><span class="p">,</span> <span class="n">TfidfTransformer</span><span class="p">()),</span>
+                     <span class="p">(</span><span class="s">'chi2'</span><span class="p">,</span> <span class="n">SelectKBest</span><span class="p">(</span><span class="n">chi2</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">2000</span><span class="p">)),</span>
+                     <span class="p">(</span><span class="s">'nb'</span><span class="p">,</span> <span class="n">MultinomialNB</span><span class="p">())])</span>
 <span class="n">pipecl</span> <span class="o">=</span> <span class="n">SklearnClassifier</span><span class="p">(</span><span class="n">pipeline</span><span class="p">)</span>
 <span class="n">pipecl</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">train_features</span><span class="p">)</span>
 </code></pre></div>

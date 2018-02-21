@@ -117,14 +117,14 @@
 <p><a href="https://github.com/weavejester/hiccup">Hiccup</a> is honestly one of the most awesome libraries I&#39;ve used. It was unbelievably easy to write composable functions that generated HTML so simply. It made writing functions easy and really Clojure really stands out in readability. Once you get past the parens everywhere, it really lends itself to quick understanding. </p>
 
 <p>For example:</p>
-<div class="highlight"><pre><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">defn </span><span class="nv">shorten</span>
-  <span class="p">[</span><span class="nv">params</span><span class="p">]</span>
-  <span class="p">(</span><span class="nf">let</span>
-    <span class="p">[</span><span class="nv">link</span> <span class="p">(</span><span class="nf">params</span> <span class="ss">:link</span><span class="p">)</span> <span class="nv">possible-link</span> <span class="p">(</span><span class="nf">controllers/set-link</span> <span class="nv">link</span><span class="p">)]</span>
-    <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">false? </span><span class="nv">possible-link</span><span class="p">)</span>
-      <span class="p">(</span><span class="nf">gen-shorten-failure</span> <span class="nv">link</span><span class="p">)</span>
-      <span class="p">(</span><span class="nf">gen-shorten-success</span> <span class="nv">link</span> <span class="nv">possible-link</span><span class="p">))))</span>
-</code></pre></div>
+<div class="highlight"><pre><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="k">defn</span><span class="w"> </span><span class="n">shorten</span><span class="w">
+  </span><span class="p">[</span><span class="n">params</span><span class="p">]</span><span class="w">
+  </span><span class="p">(</span><span class="k">let</span><span class="w">
+    </span><span class="p">[</span><span class="n">link</span><span class="w"> </span><span class="p">(</span><span class="nf">params</span><span class="w"> </span><span class="no">:link</span><span class="p">)</span><span class="w"> </span><span class="n">possible-link</span><span class="w"> </span><span class="p">(</span><span class="nf">controllers/set-link</span><span class="w"> </span><span class="n">link</span><span class="p">)]</span><span class="w">
+    </span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nb">false?</span><span class="w"> </span><span class="n">possible-link</span><span class="p">)</span><span class="w">
+      </span><span class="p">(</span><span class="nf">gen-shorten-failure</span><span class="w"> </span><span class="n">link</span><span class="p">)</span><span class="w">
+      </span><span class="p">(</span><span class="nf">gen-shorten-success</span><span class="w"> </span><span class="n">link</span><span class="w"> </span><span class="n">possible-link</span><span class="p">))))</span><span class="w">
+</span></code></pre></div>
 <p>We have to shorten our params, we&#39;ll let the link = the link from the input parameters and the possible link be what we get back from our controller. If we get null/false value generate our failure, if not generate success.</p>
 
 <p>I really loved that I got to avoid html almost completely and didn&#39;t have to use some templating engine. All I really want is an HTML generator anyways.</p>
@@ -132,8 +132,8 @@
 <p>If you&#39;re interested in deploying, you can <a href="https://github.com/anabranch/JVM-Link-Shorteners">download the repository</a> and build and run it yourself. The only requirement is a Redis container which you can get from <a href="https://registry.hub.docker.com/_/redis/">Docker Registry</a>.</p>
 
 <p>Then you just have to run.</p>
-<div class="highlight"><pre><code class="language-sh" data-lang="sh">docker run --name new-red redis
-docker run --name clj --link new-red:new-red -p 5000:5000 -d my-cloj
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">docker run <span class="nt">--name</span> new-red redis
+docker run <span class="nt">--name</span> clj <span class="nt">--link</span> new-red:new-red <span class="nt">-p</span> 5000:5000 <span class="nt">-d</span> my-cloj
 </code></pre></div>
 <p>Navigate to your Docker url on port 5000 and you should be good!</p>
 

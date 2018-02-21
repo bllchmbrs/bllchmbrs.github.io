@@ -90,16 +90,16 @@
 <span class="kn">import</span> <span class="nn">string</span>
 <span class="kn">import</span> <span class="nn">math</span>
 
-<span class="n">tokenize</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">doc</span><span class="p">:</span> <span class="n">doc</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">)</span>
+<span class="n">tokenize</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">doc</span><span class="p">:</span> <span class="n">doc</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">" "</span><span class="p">)</span>
 </code></pre></div>
 <p>Now of course we&#39;ll need some documents.</p>
-<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="n">document_0</span> <span class="o">=</span> <span class="s">&quot;China has a strong economy that is growing at a rapid pace. However politically it differs greatly from the US Economy.&quot;</span>
-<span class="n">document_1</span> <span class="o">=</span> <span class="s">&quot;At last, China seems serious about confronting an endemic problem: domestic violence and corruption.&quot;</span>
-<span class="n">document_2</span> <span class="o">=</span> <span class="s">&quot;Japan&#39;s prime minister, Shinzo Abe, is working towards healing the economic turmoil in his own country for his view on the future of his people.&quot;</span>
-<span class="n">document_3</span> <span class="o">=</span> <span class="s">&quot;Vladimir Putin is working hard to fix the economy in Russia as the Ruble has tumbled.&quot;</span>
-<span class="n">document_4</span> <span class="o">=</span> <span class="s">&quot;What&#39;s the future of Abenomics? We asked Shinzo Abe for his views&quot;</span>
-<span class="n">document_5</span> <span class="o">=</span> <span class="s">&quot;Obama has eased sanctions on Cuba while accelerating those against the Russian Economy, even as the Ruble&#39;s value falls almost daily.&quot;</span>
-<span class="n">document_6</span> <span class="o">=</span> <span class="s">&quot;Vladimir Putin was found to be riding a horse, again, without a shirt on while hunting deer. Vladimir Putin always seems so serious about things - even riding horses.&quot;</span>
+<div class="highlight"><pre><code class="language-py" data-lang="py"><span class="n">document_0</span> <span class="o">=</span> <span class="s">"China has a strong economy that is growing at a rapid pace. However politically it differs greatly from the US Economy."</span>
+<span class="n">document_1</span> <span class="o">=</span> <span class="s">"At last, China seems serious about confronting an endemic problem: domestic violence and corruption."</span>
+<span class="n">document_2</span> <span class="o">=</span> <span class="s">"Japan's prime minister, Shinzo Abe, is working towards healing the economic turmoil in his own country for his view on the future of his people."</span>
+<span class="n">document_3</span> <span class="o">=</span> <span class="s">"Vladimir Putin is working hard to fix the economy in Russia as the Ruble has tumbled."</span>
+<span class="n">document_4</span> <span class="o">=</span> <span class="s">"What's the future of Abenomics? We asked Shinzo Abe for his views"</span>
+<span class="n">document_5</span> <span class="o">=</span> <span class="s">"Obama has eased sanctions on Cuba while accelerating those against the Russian Economy, even as the Ruble's value falls almost daily."</span>
+<span class="n">document_6</span> <span class="o">=</span> <span class="s">"Vladimir Putin was found to be riding a horse, again, without a shirt on while hunting deer. Vladimir Putin always seems so serious about things - even riding horses."</span>
 
 <span class="n">all_documents</span> <span class="o">=</span> <span class="p">[</span><span class="n">document_0</span><span class="p">,</span> <span class="n">document_1</span><span class="p">,</span> <span class="n">document_2</span><span class="p">,</span> <span class="n">document_3</span><span class="p">,</span> <span class="n">document_4</span><span class="p">,</span> <span class="n">document_5</span><span class="p">,</span> <span class="n">document_6</span><span class="p">]</span>
 
@@ -133,13 +133,13 @@
 </code></pre></div>
 <p>We can see that these documents are a better match, but still far from perfect. There are a couple of things throwing us off. Document length has a big effect and common words carry the same weight as non common words. Let&#39;s take a look at the intersection to understand what I&#39;m talking about.</p>
 <div class="highlight"><pre><code class="language-py" data-lang="py"><span class="nb">set</span><span class="p">(</span><span class="n">tokenized_documents</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">tokenized_documents</span><span class="p">[</span><span class="mi">4</span><span class="p">]))</span>
-<span class="c"># {&#39;abe&#39;, &#39;his&#39;, &#39;shinzo&#39;, &#39;the&#39;}</span>
+<span class="c"># {'abe', 'his', 'shinzo', 'the'}</span>
 </code></pre></div>
 <p>As we can see, &quot;his&quot; and &quot;the&quot; have the same weight as &quot;abe&quot; and &quot;shinzo&quot;. Let&#39;s take a more extreme example.</p>
 <div class="highlight"><pre><code class="language-py" data-lang="py"><span class="n">jaccard_similarity</span><span class="p">(</span><span class="n">tokenized_documents</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">tokenized_documents</span><span class="p">[</span><span class="mi">6</span><span class="p">])</span>
 <span class="c"># 0.08571428571428572</span>
 <span class="nb">set</span><span class="p">(</span><span class="n">tokenized_documents</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">tokenized_documents</span><span class="p">[</span><span class="mi">6</span><span class="p">]))</span>
-<span class="c"># {&#39;about&#39;, &#39;seems&#39;, &#39;serious&#39;}</span>
+<span class="c"># {'about', 'seems', 'serious'}</span>
 </code></pre></div>
 <p>These documents have nothing in common. However they are rated as 8% relevant. This examples identifies the fundamental issues with Jaccard Similarity:</p>
 
@@ -193,9 +193,9 @@
 </code></pre></div>
 <p>Now we&#39;ve got a weight for every token in every document. This helps determine the important words from the unimportant ones.</p>
 <div class="highlight"><pre><code class="language-py" data-lang="py"><span class="n">idf_values</span> <span class="o">=</span> <span class="n">inverse_document_frequencies</span><span class="p">(</span><span class="n">tokenized_documents</span><span class="p">)</span>
-<span class="k">print</span> <span class="n">idf_values</span><span class="p">[</span><span class="s">&#39;abenomics&#39;</span><span class="p">]</span>
+<span class="k">print</span> <span class="n">idf_values</span><span class="p">[</span><span class="s">'abenomics'</span><span class="p">]</span>
 <span class="c"># 2.94591014906</span>
-<span class="k">print</span> <span class="n">idf_values</span><span class="p">[</span><span class="s">&#39;the&#39;</span><span class="p">]</span>
+<span class="k">print</span> <span class="n">idf_values</span><span class="p">[</span><span class="s">'the'</span><span class="p">]</span>
 <span class="c"># 1.33647223662</span>
 </code></pre></div>
 <p>Now we see the power of TF-IDF. We&#39;ve taken the inverse of a token&#39;s document frequency. This means that words that appear a lot like &quot;the&quot; are weighted much less than words like &quot;abenomics&quot;. However TF-IDF allows us to do so much more. We can create vector representations of sentences or more simply, we can transform documents into numbers and lists of documents into matrices.</p>
@@ -223,7 +223,7 @@
 <p>Let&#39;s take a look at how we might code this in Scikit-Learn.</p>
 <div class="highlight"><pre><code class="language-py" data-lang="py"><span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">TfidfVectorizer</span>
 
-<span class="n">sklearn_tfidf</span> <span class="o">=</span> <span class="n">TfidfVectorizer</span><span class="p">(</span><span class="n">norm</span><span class="o">=</span><span class="s">&#39;l2&#39;</span><span class="p">,</span><span class="n">min_df</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">use_idf</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">smooth_idf</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">sublinear_tf</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">tokenizer</span><span class="o">=</span><span class="n">tokenize</span><span class="p">)</span>
+<span class="n">sklearn_tfidf</span> <span class="o">=</span> <span class="n">TfidfVectorizer</span><span class="p">(</span><span class="n">norm</span><span class="o">=</span><span class="s">'l2'</span><span class="p">,</span><span class="n">min_df</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">use_idf</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">smooth_idf</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">sublinear_tf</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">tokenizer</span><span class="o">=</span><span class="n">tokenize</span><span class="p">)</span>
 
 <span class="n">sklearn_representation</span> <span class="o">=</span> <span class="n">sklearn_tfidf</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">all_documents</span><span class="p">)</span>
 <span class="k">print</span> <span class="n">tfidf_representation</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -233,7 +233,66 @@
 <p>While you will notice that the values in each matrix are not the same because Scikit-learn presents the IDF ordering in a different way (in that fitted model). However we can see in the next part of this tutorial that the exact numbers are irrelevant, it is the vectors that are important. <a href="/tutorials/2014/12/22/cosine-similarity-explained-in-python.html">The next post focuses on cosine similarity or the Euclidean dot product formula in python.</a></p>
 
 <p>Here&#39;s all of our code so far:
-<script src="https://gist.github.com/anabranch/02217b94ef02ea13c7ee.js"> </script></p>
+<noscript><pre>from <strong>future</strong> import division
+import string
+import math</p>
+
+<p>tokenize = lambda doc: doc.lower().split(&quot; &quot;)</p>
+
+<p>document<em>0 = &quot;China has a strong economy that is growing at a rapid pace. However politically it differs greatly from the US Economy.&quot;
+document</em>1 = &quot;At last, China seems serious about confronting an endemic problem: domestic violence and corruption.&quot;
+document<em>2 = &quot;Japan&#39;s prime minister, Shinzo Abe, is working towards healing the economic turmoil in his own country for his view on the future of his people.&quot;
+document</em>3 = &quot;Vladimir Putin is working hard to fix the economy in Russia as the Ruble has tumbled.&quot;
+document<em>4 = &quot;What&#39;s the future of Abenomics? We asked Shinzo Abe for his views&quot;
+document</em>5 = &quot;Obama has eased sanctions on Cuba while accelerating those against the Russian Economy, even as the Ruble&#39;s value falls almost daily.&quot;
+document_6 = &quot;Vladimir Putin is riding a horse while hunting deer. Vladimir Putin always seems so serious about things - even riding horses. Is he crazy?&quot;</p>
+
+<p>all<em>documents = [document</em>0, document<em>1, document</em>2, document<em>3, document</em>4, document<em>5, document</em>6]</p>
+
+<p>def jaccard_similarity(query, document):
+    intersection = set(query).intersection(set(document))
+    union = set(query).union(set(document))
+    return len(intersection)/len(union)</p>
+
+<p>def term<em>frequency(term, tokenized</em>document):
+    return tokenized_document.count(term)</p>
+
+<p>def sublinear<em>term</em>frequency(term, tokenized<em>document):
+    count = tokenized</em>document.count(term)
+    if count == 0:
+        return 0
+    return 1 + math.log(count)</p>
+
+<p>def augmented<em>term</em>frequency(term, tokenized<em>document):
+    max</em>count = max([term<em>frequency(t, tokenized</em>document) for t in tokenized<em>document])
+    return (0.5 + ((0.5 * term</em>frequency(term, tokenized<em>document))/max</em>count))</p>
+
+<p>def inverse<em>document</em>frequencies(tokenized<em>documents):
+    idf</em>values = {}
+    all<em>tokens</em>set = set([item for sublist in tokenized<em>documents for item in sublist])
+    for tkn in all</em>tokens<em>set:
+        contains</em>token = map(lambda doc: tkn in doc, tokenized<em>documents)
+        idf</em>values[tkn] = 1 + math.log(len(tokenized<em>documents)/(sum(contains</em>token)))
+    return idf_values</p>
+
+<p>def tfidf(documents):
+    tokenized<em>documents = [tokenize(d) for d in documents]
+    idf = inverse</em>document<em>frequencies(tokenized</em>documents)
+    tfidf<em>documents = []
+    for document in tokenized</em>documents:
+        doc<em>tfidf = []
+        for term in idf.keys():
+            tf = sublinear</em>term<em>frequency(term, document)
+            doc</em>tfidf.append(tf * idf[term])
+        tfidf<em>documents.append(doc</em>tfidf)
+    return tfidf_documents</p>
+
+<h1>in Scikit-Learn</h1>
+
+<p>from sklearn.feature_extraction.text import TfidfVectorizer</p>
+
+<p>sklearn<em>tfidf = TfidfVectorizer(norm=&#39;l2&#39;,min</em>df=0, use<em>idf=True, smooth</em>idf=False, sublinear<em>tf=True, tokenizer=tokenize)
+sklearn</em>representation = sklearn<em>tfidf.fit</em>transform(all_documents)</pre></noscript><script src="https://gist.github.com/anabranch/02217b94ef02ea13c7ee.js"> </script></p>
 
 <p>Further References:</p>
 

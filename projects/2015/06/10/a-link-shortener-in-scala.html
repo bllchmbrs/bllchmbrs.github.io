@@ -114,18 +114,18 @@
 
 <p>Here&#39;s the classed based way, with pattern matching. I really like pattern matching.</p>
 <div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">class</span> <span class="nc">Url</span> <span class="o">(</span><span class="n">inputUrl</span><span class="k">:</span><span class="kt">String</span><span class="o">)</span> <span class="o">{</span>
-  <span class="k">val</span> <span class="n">validUrl</span> <span class="o">=</span><span class="s">&quot;^(https?|ftp|file)://[-a-zA-Z0-9+&amp;@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&amp;@#/%=~_|]&quot;</span><span class="o">.</span><span class="n">r</span><span class="o">;</span>
+  <span class="k">val</span> <span class="n">validUrl</span> <span class="o">=</span><span class="s">"^(https?|ftp|file)://[-a-zA-Z0-9+&amp;@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&amp;@#/%=~_|]"</span><span class="o">.</span><span class="n">r</span><span class="o">;</span>
   <span class="k">val</span> <span class="n">url</span> <span class="k">=</span> <span class="n">inputUrl</span> <span class="k">match</span> <span class="o">{</span>
     <span class="k">case</span> <span class="n">validUrl</span><span class="o">(</span><span class="k">_</span><span class="o">*)</span> <span class="k">=&gt;</span> <span class="n">inputUrl</span>
-    <span class="k">case</span> <span class="k">_</span> <span class="k">=&gt;</span> <span class="s">&quot;&quot;</span>
+    <span class="k">case</span> <span class="k">_</span> <span class="k">=&gt;</span> <span class="s">""</span>
   <span class="o">}</span>
 <span class="o">}</span>
 
-<span class="c1">// use with new Url(&quot;http://www.google.com&quot;)</span>
-</code></pre></div>
+<span class="c1">// use with new Url("http://www.google.com")
+</span></code></pre></div>
 <p>This was the singleton object based way with pattern matching as well.</p>
 <div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">object</span> <span class="nc">ValidateUrl</span> <span class="o">{</span>
-  <span class="k">val</span> <span class="n">validUrl</span> <span class="o">=</span><span class="s">&quot;^(https?|ftp|file)://[-a-zA-Z0-9+&amp;@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&amp;@#/%=~_|]&quot;</span><span class="o">.</span><span class="n">r</span><span class="o">;</span>
+  <span class="k">val</span> <span class="n">validUrl</span> <span class="o">=</span><span class="s">"^(https?|ftp|file)://[-a-zA-Z0-9+&amp;@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&amp;@#/%=~_|]"</span><span class="o">.</span><span class="n">r</span><span class="o">;</span>
   <span class="k">def</span> <span class="n">apply</span><span class="o">(</span><span class="n">inputUrl</span><span class="k">:</span><span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="o">{</span>
     <span class="n">inputUrl</span> <span class="k">match</span> <span class="o">{</span>
       <span class="k">case</span> <span class="n">validUrl</span><span class="o">(</span><span class="k">_</span><span class="o">*)</span> <span class="k">=&gt;</span> <span class="kc">true</span>
@@ -133,8 +133,8 @@
     <span class="o">}</span>
   <span class="o">}</span>
 <span class="o">}</span>
-<span class="c1">// use with ValidateUrl(&quot;http://www.google.com&quot;)</span>
-</code></pre></div>
+<span class="c1">// use with ValidateUrl("http://www.google.com")
+</span></code></pre></div>
 <p>Knowing these trade-offs still isn&#39;t quite clear to me, but I do love the more function approach of an object (the <code>new</code> keyword isn&#39;t something I really enjoy using). One of the things that I&#39;ve really learned to love is companion objects, they make classes so much more functional.</p>
 
 <p>The <a href="http://www.scala-sbt.org/">Scala-sbt</a> was actually really nice to use, it made packaging and versioning easy and dependency management was pretty straightforward as well.</p>

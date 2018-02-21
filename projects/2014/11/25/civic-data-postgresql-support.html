@@ -129,9 +129,9 @@
 <p>We load our data using some fairly sophisticated Django management commands. Using MySQL&#39;s <a href="http://dev.mysql.com/doc/refman/5.1/en/load-data.html"><code>INFILE</code></a> support we bulk insert each file (while rearranging, cleaning, and renaming columns on the fly). Now PostgreSQL doesn&#39;t support <code>INFILE</code> loading but they&#39;ve got a derivative: <a href="http://www.postgresql.org/docs/9.2/static/sql-copy.html"><code>COPY</code></a>.</p>
 
 <p>Here&#39;s an example of a MySQL LOAD DATA INFO command.</p>
-<div class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="k">LOAD</span> <span class="k">DATA</span> <span class="k">LOCAL</span> <span class="n">INFILE</span> <span class="s1">&#39;&lt;file name&gt;&#39;</span> <span class="k">INTO</span> <span class="k">TABLE</span> <span class="o">&lt;</span><span class="k">table</span><span class="o">&gt;</span>
+<div class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="k">LOAD</span> <span class="k">DATA</span> <span class="k">LOCAL</span> <span class="n">INFILE</span> <span class="s1">'&lt;file name&gt;'</span> <span class="k">INTO</span> <span class="k">TABLE</span> <span class="o">&lt;</span><span class="k">table</span><span class="o">&gt;</span>
 <span class="p">(</span><span class="o">@</span><span class="n">var1</span><span class="p">)</span>
-<span class="k">SET</span> <span class="nb">Date</span><span class="o">=</span><span class="n">str_to_date</span><span class="p">(</span><span class="n">SUBSTR</span><span class="p">(</span><span class="o">@</span><span class="n">var1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span><span class="s1">&#39;%m/%d/%Y&#39;</span><span class="p">),</span> 
+<span class="k">SET</span> <span class="n">Date</span><span class="o">=</span><span class="n">str_to_date</span><span class="p">(</span><span class="n">SUBSTR</span><span class="p">(</span><span class="o">@</span><span class="n">var1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span><span class="s1">'%m/%d/%Y'</span><span class="p">),</span> 
 <span class="n">Time</span><span class="o">=</span><span class="n">SUBSTR</span><span class="p">(</span><span class="o">@</span><span class="n">var1</span><span class="p">,</span><span class="mi">14</span><span class="p">,</span><span class="mi">8</span><span class="p">),</span> 
 <span class="n">WindVelocity</span><span class="o">=</span><span class="n">SUBSTR</span><span class="p">(</span><span class="o">@</span><span class="n">var1</span><span class="p">,</span><span class="mi">26</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span>
 <span class="n">WindDirection</span><span class="o">=</span><span class="n">SUBSTR</span><span class="p">(</span><span class="o">@</span><span class="n">var1</span><span class="p">,</span><span class="mi">33</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span>
@@ -143,7 +143,7 @@
 <p>It&#39;s important to note all the <code>@var</code> fanciness. That&#39;s what makes this so easy(ish).</p>
 
 <p>The problem is that <code>COPY</code> in Postgres, from my interpretation, is meant for unloading to a text file then loading it back in without really performing any modifications. It doesn&#39;t have any of the dexterity shown above. Here&#39;s an example of a <a href="http://www.postgresql.org/docs/9.2/static/sql-copy.html"><code>COPY</code></a> command.</p>
-<div class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="k">COPY</span> <span class="n">country</span> <span class="k">FROM</span> <span class="s1">&#39;/usr1/proj/bray/sql/country_data&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="k">COPY</span> <span class="n">country</span> <span class="k">FROM</span> <span class="s1">'/usr1/proj/bray/sql/country_data'</span><span class="p">;</span>
 </code></pre></div>
 <p>Obviously, we&#39;re not just unloading data and loading it back in. We are transforming dates and substrings, not to mention we are moving data from a completely different system into Postgres. That&#39;s where things get tricky. I can&#39;t format data on the fly and renaming columns isn&#39;t going to work with the support <code>COPY</code> has. I don&#39;t have nearly as many tools as MySQL does.</p>
 
@@ -171,7 +171,7 @@
 
 <p>The second catch was a bit more nuanced. Basically for certain tables, we add certain fields (in Django). I&#39;m not quite sure <em>why</em> these fields have been added but they have. Unfortunately we can&#39;t just ignore them because Null is not set the True in the model.</p>
 <div class="highlight"><pre><code class="language-py" data-lang="py">    <span class="n">intr_adr1</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
-        <span class="n">max_length</span><span class="o">=</span><span class="il">55L</span><span class="p">,</span> <span class="n">db_column</span><span class="o">=</span><span class="s">&#39;INTR_ADR1&#39;</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="bp">True</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="il">55L</span><span class="p">,</span> <span class="n">db_column</span><span class="o">=</span><span class="s">'INTR_ADR1'</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="bp">True</span>
     <span class="p">)</span>
 </code></pre></div>
 <p>So we have to manage that explicit case as well.</p>
@@ -180,45 +180,45 @@
 
 <p>Snooping around in my models showed me this code.</p>
 <div class="highlight"><pre><code class="language-py" data-lang="py">    <span class="n">accept_limit_yn</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span>
-        <span class="n">db_column</span><span class="o">=</span><span class="s">&#39;ACCEPT_LIMIT_YN&#39;</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="bp">True</span>
+        <span class="n">db_column</span><span class="o">=</span><span class="s">'ACCEPT_LIMIT_YN'</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="bp">True</span>
     <span class="p">)</span>
 </code></pre></div>
 <p>That&#39;s clearly meant to be a yes/no(read:boolean) field. So I had to modify my case statements to handle that. This is an example of accidental complexity - using the correct field type in our model could have allowed for a more graceful management of this information but instead we&#39;re adding another case statement to this in the database.</p>
 <div class="highlight"><pre><code class="language-sql" data-lang="sql">        <span class="p">,</span><span class="k">CASE</span>
-            <span class="k">WHEN</span> <span class="ss">&quot;ACCEPT_LIMIT_YN&quot;</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+            <span class="k">WHEN</span> <span class="nv">"ACCEPT_LIMIT_YN"</span> <span class="o">=</span> <span class="s1">''</span>
                 <span class="k">THEN</span> <span class="k">NULL</span>
-            <span class="k">WHEN</span> <span class="ss">&quot;ACCEPT_LIMIT_YN&quot;</span> <span class="o">=</span> <span class="s1">&#39;Y&#39;</span>
+            <span class="k">WHEN</span> <span class="nv">"ACCEPT_LIMIT_YN"</span> <span class="o">=</span> <span class="s1">'Y'</span>
                 <span class="k">THEN</span> <span class="mi">1</span>
-            <span class="k">WHEN</span> <span class="ss">&quot;ACCEPT_LIMIT_YN&quot;</span> <span class="o">=</span> <span class="s1">&#39;N&#39;</span>
+            <span class="k">WHEN</span> <span class="nv">"ACCEPT_LIMIT_YN"</span> <span class="o">=</span> <span class="s1">'N'</span>
                 <span class="k">THEN</span> <span class="mi">0</span>
-            <span class="k">WHEN</span> <span class="ss">&quot;ACCEPT_LIMIT_YN&quot;</span> <span class="k">IS</span> <span class="k">NOT</span> <span class="k">NULL</span>
-                <span class="k">THEN</span> <span class="ss">&quot;ACCEPT_LIMIT_YN&quot;</span><span class="p">::</span><span class="nb">int</span>
-        <span class="k">END</span> <span class="k">AS</span> <span class="ss">&quot;ACCEPT_LIMIT_YN&quot;</span>
+            <span class="k">WHEN</span> <span class="nv">"ACCEPT_LIMIT_YN"</span> <span class="k">IS</span> <span class="k">NOT</span> <span class="k">NULL</span>
+                <span class="k">THEN</span> <span class="nv">"ACCEPT_LIMIT_YN"</span><span class="p">::</span><span class="n">int</span>
+        <span class="k">END</span> <span class="k">AS</span> <span class="nv">"ACCEPT_LIMIT_YN"</span>
 </code></pre></div>
 <p>The fourth issue was an interesting one, here&#39;s the select code we were using to transfer into the true table.</p>
-<div class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="k">SELECT</span> <span class="ss">&quot;&quot;</span>
+<div class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="k">SELECT</span> <span class="nv">""</span>
 
         <span class="p">,</span><span class="k">CASE</span>
-            <span class="k">WHEN</span> <span class="ss">&quot;FILING_ID&quot;</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+            <span class="k">WHEN</span> <span class="nv">"FILING_ID"</span> <span class="o">=</span> <span class="s1">''</span>
                 <span class="k">THEN</span> <span class="k">NULL</span>
-            <span class="k">WHEN</span> <span class="ss">&quot;FILING_ID&quot;</span> <span class="o">=</span> <span class="s1">&#39;Y&#39;</span>
+            <span class="k">WHEN</span> <span class="nv">"FILING_ID"</span> <span class="o">=</span> <span class="s1">'Y'</span>
                 <span class="k">THEN</span> <span class="mi">1</span>
-            <span class="k">WHEN</span> <span class="ss">&quot;FILING_ID&quot;</span> <span class="o">=</span> <span class="s1">&#39;N&#39;</span>
+            <span class="k">WHEN</span> <span class="nv">"FILING_ID"</span> <span class="o">=</span> <span class="s1">'N'</span>
                 <span class="k">THEN</span> <span class="mi">0</span>
-            <span class="k">WHEN</span> <span class="ss">&quot;FILING_ID&quot;</span> <span class="k">IS</span> <span class="k">NOT</span> <span class="k">NULL</span>
-                <span class="k">THEN</span> <span class="ss">&quot;FILING_ID&quot;</span><span class="p">::</span><span class="nb">int</span>
-        <span class="k">END</span> <span class="k">AS</span> <span class="ss">&quot;FILING_ID&quot;</span>
+            <span class="k">WHEN</span> <span class="nv">"FILING_ID"</span> <span class="k">IS</span> <span class="k">NOT</span> <span class="k">NULL</span>
+                <span class="k">THEN</span> <span class="nv">"FILING_ID"</span><span class="p">::</span><span class="n">int</span>
+        <span class="k">END</span> <span class="k">AS</span> <span class="nv">"FILING_ID"</span>
 
         <span class="p">,</span><span class="k">CASE</span>
-            <span class="k">WHEN</span> <span class="ss">&quot;FILING_TYPE&quot;</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+            <span class="k">WHEN</span> <span class="nv">"FILING_TYPE"</span> <span class="o">=</span> <span class="s1">''</span>
                 <span class="k">THEN</span> <span class="k">NULL</span>
-            <span class="k">WHEN</span> <span class="ss">&quot;FILING_TYPE&quot;</span> <span class="o">=</span> <span class="s1">&#39;Y&#39;</span>
+            <span class="k">WHEN</span> <span class="nv">"FILING_TYPE"</span> <span class="o">=</span> <span class="s1">'Y'</span>
                 <span class="k">THEN</span> <span class="mi">1</span>
-            <span class="k">WHEN</span> <span class="ss">&quot;FILING_TYPE&quot;</span> <span class="o">=</span> <span class="s1">&#39;N&#39;</span>
+            <span class="k">WHEN</span> <span class="nv">"FILING_TYPE"</span> <span class="o">=</span> <span class="s1">'N'</span>
                 <span class="k">THEN</span> <span class="mi">0</span>
-            <span class="k">WHEN</span> <span class="ss">&quot;FILING_TYPE&quot;</span> <span class="k">IS</span> <span class="k">NOT</span> <span class="k">NULL</span>
-                <span class="k">THEN</span> <span class="ss">&quot;FILING_TYPE&quot;</span><span class="p">::</span><span class="nb">int</span>
-        <span class="k">END</span> <span class="k">AS</span> <span class="ss">&quot;FILING_TYPE&quot;</span>
+            <span class="k">WHEN</span> <span class="nv">"FILING_TYPE"</span> <span class="k">IS</span> <span class="k">NOT</span> <span class="k">NULL</span>
+                <span class="k">THEN</span> <span class="nv">"FILING_TYPE"</span><span class="p">::</span><span class="n">int</span>
+        <span class="k">END</span> <span class="k">AS</span> <span class="nv">"FILING_TYPE"</span>
 <span class="k">FROM</span> <span class="n">temporary_table</span><span class="p">;</span>
 </code></pre></div>
 <p>Now <code>SELECT &quot;&quot;</code> obviously isn&#39;t going to work. What was happening is that the columns in that model were getting modified with the case statements. We have to add a dummy column to the temporary table and the new table, then remove it after the successful or unsuccessful insert.</p>
@@ -229,26 +229,26 @@
 
 <p>The python code:</p>
 <div class="highlight"><pre><code class="language-py" data-lang="py"><span class="k">class</span> <span class="nc">FilernameCd</span><span class="p">(</span><span class="n">CalAccessBaseModel</span><span class="p">):</span>
-    <span class="n">DATE_FIELDS</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;EFFECT_DT&#39;</span><span class="p">,)</span>
+    <span class="n">DATE_FIELDS</span> <span class="o">=</span> <span class="p">(</span><span class="s">'EFFECT_DT'</span><span class="p">,)</span>
     <span class="n">xref_filer_id</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
         <span class="n">max_length</span><span class="o">=</span><span class="il">7L</span><span class="p">,</span>
-        <span class="n">db_column</span><span class="o">=</span><span class="s">&#39;XREF_FILER_ID&#39;</span><span class="p">,</span>
+        <span class="n">db_column</span><span class="o">=</span><span class="s">'XREF_FILER_ID'</span><span class="p">,</span>
         <span class="n">db_index</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-        <span class="n">help_text</span><span class="o">=</span><span class="s">&quot;The external filer id saved in the forms tables&quot;</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="s">"The external filer id saved in the forms tables"</span>
     <span class="p">)</span>
 </code></pre></div>
 <p>The relevant file:</p>
-<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nv">$ </span>head -1 filername_cd.csv
-<span class="s2">&quot;XREF_FILER_ID&quot;</span>,<span class="s2">&quot;FILER_ID&quot;</span>,<span class="s2">&quot;FILER_TYPE&quot;</span>,<span class="s2">&quot;STATUS&quot;</span>,<span class="s2">&quot;EFFECT_DT&quot;</span>,<span class="s2">&quot;NAML&quot;</span>,<span class="s2">&quot;NAMF&quot;</span>,<span class="s2">&quot;NAMT&quot;</span>,<span class="s2">&quot;NAMS&quot;</span>,<span class="s2">&quot;ADR1&quot;</span>,<span class="s2">&quot;ADR2&quot;</span>,<span class="s2">&quot;CITY&quot;</span>,<span class="s2">&quot;ST&quot;</span>,<span class="s2">&quot;ZIP4&quot;</span>,<span class="s2">&quot;PHON&quot;</span>,<span class="s2">&quot;FAX&quot;</span>,<span class="s2">&quot;EMAIL&quot;</span>
-<span class="nv">$ </span>grep -E <span class="s2">&quot;R98\*-\d+&quot;</span> filername_cd.csv <span class="p">|</span> wc -l
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nv">$ </span><span class="nb">head</span> <span class="nt">-1</span> filername_cd.csv
+<span class="s2">"XREF_FILER_ID"</span>,<span class="s2">"FILER_ID"</span>,<span class="s2">"FILER_TYPE"</span>,<span class="s2">"STATUS"</span>,<span class="s2">"EFFECT_DT"</span>,<span class="s2">"NAML"</span>,<span class="s2">"NAMF"</span>,<span class="s2">"NAMT"</span>,<span class="s2">"NAMS"</span>,<span class="s2">"ADR1"</span>,<span class="s2">"ADR2"</span>,<span class="s2">"CITY"</span>,<span class="s2">"ST"</span>,<span class="s2">"ZIP4"</span>,<span class="s2">"PHON"</span>,<span class="s2">"FAX"</span>,<span class="s2">"EMAIL"</span>
+<span class="nv">$ </span><span class="nb">grep</span> <span class="nt">-E</span> <span class="s2">"R98</span><span class="se">\*</span><span class="s2">-</span><span class="se">\d</span><span class="s2">+"</span> filername_cd.csv | <span class="nb">wc</span> <span class="nt">-l</span>
      609
 </code></pre></div>
 <p>The grep data:</p>
-<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="s2">&quot;XREF_FILER_ID&quot;</span>,....
-<span class="s2">&quot;R98*-185420615&quot;</span>,....
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="s2">"XREF_FILER_ID"</span>,....
+<span class="s2">"R98*-185420615"</span>,....
 </code></pre></div>
 <p>Finally the same data in the MySQL database:</p>
-<div class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">SELECT</span> <span class="n">XREF_FILER_ID</span> <span class="k">FROM</span> <span class="n">FILERNAME_CD</span> <span class="k">where</span> <span class="n">XREF_FILER_ID</span> <span class="k">like</span> <span class="s1">&#39;R98*-18%&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">SELECT</span> <span class="n">XREF_FILER_ID</span> <span class="k">FROM</span> <span class="n">FILERNAME_CD</span> <span class="k">where</span> <span class="n">XREF_FILER_ID</span> <span class="k">like</span> <span class="s1">'R98*-18%'</span><span class="p">;</span>
 <span class="o">+</span><span class="c1">---------------+</span>
 <span class="o">|</span> <span class="n">XREF_FILER_ID</span> <span class="o">|</span>
 <span class="o">+</span><span class="c1">---------------+</span>
@@ -265,17 +265,17 @@
 
 <p>Here&#39;s where the issue was occurring:</p>
 <div class="highlight"><pre><code class="language-sh" data-lang="sh"> Loading CvrRegistrationCd
-dataerror error,  invalid input syntax <span class="k">for</span> integer: <span class="s2">&quot;01/0&quot;</span>
+dataerror error,  invalid input syntax <span class="k">for </span>integer: <span class="s2">"01/0"</span>
 </code></pre></div><div class="highlight"><pre><code class="language-py" data-lang="py"><span class="k">class</span> <span class="nc">CvrRegistrationCd</span><span class="p">(</span><span class="n">CalAccessBaseModel</span><span class="p">):</span>
 <span class="o">...</span>
     <span class="n">ls_beg_yr</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span>
-        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">db_column</span><span class="o">=</span><span class="s">&#39;LS_BEG_YR&#39;</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="bp">True</span>
+        <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">db_column</span><span class="o">=</span><span class="s">'LS_BEG_YR'</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="bp">True</span>
     <span class="p">)</span>
-    <span class="n">ls_end_yr</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="n">db_column</span><span class="o">=</span><span class="s">&#39;LS_END_YR&#39;</span><span class="p">)</span>
-</code></pre></div><div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nv">$ </span>head -1 cvr_registration_cd.csv
-<span class="s2">&quot;FILING_ID&quot;</span>...<span class="s2">&quot;RPT_DATE&quot;</span>,<span class="s2">&quot;LS_BEG_YR&quot;</span>,<span class="s2">&quot;LS_END_YR&quot;</span>....
-<span class="nv">$ </span>grep <span class="s2">&quot;01/0&quot;</span> cvr_registration_cd.csv
-<span class="s2">&quot;938431&quot;</span>...<span class="s2">&quot;6/7/2003 12:00:00 AM&quot;</span>,<span class="s2">&quot;01/0&quot;</span>,<span class="s2">&quot;12/3&quot;</span>...
+    <span class="n">ls_end_yr</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="n">db_column</span><span class="o">=</span><span class="s">'LS_END_YR'</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nv">$ </span><span class="nb">head</span> <span class="nt">-1</span> cvr_registration_cd.csv
+<span class="s2">"FILING_ID"</span>...<span class="s2">"RPT_DATE"</span>,<span class="s2">"LS_BEG_YR"</span>,<span class="s2">"LS_END_YR"</span>....
+<span class="nv">$ </span><span class="nb">grep</span> <span class="s2">"01/0"</span> cvr_registration_cd.csv
+<span class="s2">"938431"</span>...<span class="s2">"6/7/2003 12:00:00 AM"</span>,<span class="s2">"01/0"</span>,<span class="s2">"12/3"</span>...
 </code></pre></div>
 <p>It&#39;s one line in the file where the files should be integers but are instead <strong>&quot;01/0&quot;,&quot;12/3&quot;</strong>. That had to be handled explicitly too.</p>
 
