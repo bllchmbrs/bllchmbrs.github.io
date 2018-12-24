@@ -238,9 +238,9 @@
     <span class="p">)</span>
 </code></pre></div>
 <p>The relevant file:</p>
-<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nv">$ </span><span class="nb">head</span> <span class="nt">-1</span> filername_cd.csv
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="gp">$ </span>head -1 filername_cd.csv
 <span class="s2">"XREF_FILER_ID"</span>,<span class="s2">"FILER_ID"</span>,<span class="s2">"FILER_TYPE"</span>,<span class="s2">"STATUS"</span>,<span class="s2">"EFFECT_DT"</span>,<span class="s2">"NAML"</span>,<span class="s2">"NAMF"</span>,<span class="s2">"NAMT"</span>,<span class="s2">"NAMS"</span>,<span class="s2">"ADR1"</span>,<span class="s2">"ADR2"</span>,<span class="s2">"CITY"</span>,<span class="s2">"ST"</span>,<span class="s2">"ZIP4"</span>,<span class="s2">"PHON"</span>,<span class="s2">"FAX"</span>,<span class="s2">"EMAIL"</span>
-<span class="nv">$ </span><span class="nb">grep</span> <span class="nt">-E</span> <span class="s2">"R98</span><span class="se">\*</span><span class="s2">-</span><span class="se">\d</span><span class="s2">+"</span> filername_cd.csv | <span class="nb">wc</span> <span class="nt">-l</span>
+<span class="gp">$ </span>grep -E <span class="s2">"R98</span><span class="se">\*</span><span class="s2">-</span><span class="se">\d</span><span class="s2">+"</span> filername_cd.csv | wc -l
      609
 </code></pre></div>
 <p>The grep data:</p>
@@ -272,9 +272,9 @@ dataerror error,  invalid input syntax <span class="k">for </span>integer: <span
         <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">db_column</span><span class="o">=</span><span class="s">'LS_BEG_YR'</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="bp">True</span>
     <span class="p">)</span>
     <span class="n">ls_end_yr</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="n">db_column</span><span class="o">=</span><span class="s">'LS_END_YR'</span><span class="p">)</span>
-</code></pre></div><div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nv">$ </span><span class="nb">head</span> <span class="nt">-1</span> cvr_registration_cd.csv
+</code></pre></div><div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="gp">$ </span>head -1 cvr_registration_cd.csv
 <span class="s2">"FILING_ID"</span>...<span class="s2">"RPT_DATE"</span>,<span class="s2">"LS_BEG_YR"</span>,<span class="s2">"LS_END_YR"</span>....
-<span class="nv">$ </span><span class="nb">grep</span> <span class="s2">"01/0"</span> cvr_registration_cd.csv
+<span class="gp">$ </span>grep <span class="s2">"01/0"</span> cvr_registration_cd.csv
 <span class="s2">"938431"</span>...<span class="s2">"6/7/2003 12:00:00 AM"</span>,<span class="s2">"01/0"</span>,<span class="s2">"12/3"</span>...
 </code></pre></div>
 <p>It&#39;s one line in the file where the files should be integers but are instead <strong>&quot;01/0&quot;,&quot;12/3&quot;</strong>. That had to be handled explicitly too.</p>
@@ -317,7 +317,7 @@ dataerror error,  invalid input syntax <span class="k">for </span>integer: <span
          <a onmouseover="vis_on('fgh');" onmouseout="vis_off('fgh');" href="http://github.com/anabranch/"><i class="mdi mdi-github-box"></i></a>
       </div>
       <div class="one columns nav-blocks">
-         <a onmouseover="vis_on('ftw');" onmouseout="vis_off('ftw');" href="http://twitter.com/anabranch_/"><i class="mdi mdi-twitter-box"></i></a>
+         <a onmouseover="vis_on('ftw');" onmouseout="vis_off('ftw');" href="http://twitter.com/bllchmbrs/"><i class="mdi mdi-twitter-box"></i></a>
       </div>
    </div>
    <div class="row">
@@ -343,7 +343,7 @@ dataerror error,  invalid input syntax <span class="k">for </span>integer: <span
          <a onmouseover="vis_on('fgh');" onmouseout="vis_off('fgh');" id='fgh' class='sibling' href="http://github.com/anabranch/">github</a>
       </div>
       <div class="one columns nav-blocks">
-         <a onmouseover="vis_on('ftw');" onmouseout="vis_off('ftw');" id='ftw' class='sibling' href="http://twitter.com/anabranch_/">twitter</a>
+         <a onmouseover="vis_on('ftw');" onmouseout="vis_off('ftw');" id='ftw' class='sibling' href="http://twitter.com/bllchmbrs/">twitter</a>
       </div>
    </div>
 </div>
