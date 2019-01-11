@@ -7,6 +7,57 @@
 		<atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
+				<title>Applying SaaS Company Metrics to Product Adoption</title>
+				<description>&lt;h1&gt;Overview&lt;/h1&gt;
+
+&lt;p&gt;Recently, there&amp;#39;s been a renewed focus on monitoring and understanding company (or product) growth, especially when it comes to SaaS products. Werner Vogels recently mentioned something quite similar in &lt;a href=&quot;https://www.allthingsdistributed.com/2018/11/amazon-redshift-performance-optimization.html&quot;&gt;a blog post&lt;/a&gt;, &amp;quot;People often ask me if developing for the cloud is any different from developing on-premises software. It really is.&amp;quot; I couldn&amp;#39;t agree more, it&amp;#39;s awesome for understanding products, how users are using them, and what you can do to improve them.&lt;/p&gt;
+
+&lt;p&gt;I have a technique that I like to use to understand how the products that I am working on are doing. The technique is simple, take some of the fundamental SaaS Company metrics and then apply them to a particular product or even feature. This is a great tool for product managers to understand how their features are adoptioned, what typical customer behavior is like with a given feature, and helps product leadershipset standards for what a product should be achieving.&lt;/p&gt;
+
+&lt;h2&gt;Typical SaaS Metrics&lt;/h2&gt;
+
+&lt;p&gt;These techniques came about because of a simple project. [SaaS] Companies track a number of metrics like ARR, LTV, ACV, CAC, ARPA, Net Revenue Retention and so on. You can read more about these in a variety of cheatsheets that cover the typical SaaS Metrics (&lt;a href=&quot;https://chartmogul.com/resources/saas-metrics-cheat-sheet/&quot;&gt;ChartMogul&lt;/a&gt; has one as does &lt;a href=&quot;http://chaotic-flow.com/media/saas-metrics-guide-to-saas-financial-performance.pdf&quot;&gt;Chaotic Flow&lt;/a&gt;). While these metrics are great and should absolutely be tracked, they do have a number of shortcomings.&lt;/p&gt;
+
+&lt;p&gt;These typical metrics are (a) lagging indicators and (b) aren&amp;#39;t (always) actionable for individual contributors. An individual PM or data scientist working on a feature isn&amp;#39;t going to be able to move the CAC number directly - even if it needs moving. Moreover, an individual PM may also not have a P&amp;amp;L that they&amp;#39;re tracking and may not have detailed financial information to review.&lt;/p&gt;
+
+&lt;h2&gt;Typical Growth Metrics&lt;/h2&gt;
+
+&lt;p&gt;That&amp;#39;s typically where growth metrics come in. You pick and measure PMs or growth initiatives based on high level MAU, DAU, downloads and so on. These typical metrics are often short-sighted. MAU or raw action counts &lt;em&gt;can&lt;/em&gt; be informative, but the problem is simple. These metrics demonstrate growth, but they&amp;#39;re not good drivers of growth - they&amp;#39;re vanity metrics. &lt;/p&gt;
+
+&lt;p&gt;First Round Review had a great post on this topic titled &lt;a href=&quot;https://firstround.com/review/im-sorry-but-those-are-vanity-metrics/&quot;&gt;I&amp;#39;m Sorry, But Those are Vanity Metrics&lt;/a&gt;. The article points out the short-comings of various metrics and motivates more deeply understanding customers, customer behavior, and usage outliers (hint: call them and ask!).&lt;/p&gt;
+
+&lt;h1&gt;SaaS Metrics for PMs and Growth Leads&lt;/h1&gt;
+
+&lt;p&gt;At this point, if you&amp;#39;re a PM or someone in charge of growth, you&amp;#39;re seeing what brought me here. SaaS metrics are too high level and may not apply to an individual improvement and growth metrics don&amp;#39;t go to sufficient depth. That&amp;#39;s when I realized one could manipulate some typical SaaS metrics to apply &lt;em&gt;generally&lt;/em&gt; to any feature I might want to understand and understand whether or not they&amp;#39;re effectively growing.&lt;/p&gt;
+
+&lt;h2&gt;Feature Drop off (Churn)&lt;/h2&gt;
+
+&lt;p&gt;This metric is great, because it shows in no uncertain terms how many of your customers or users are trying to use a given feature and then stopping to use it.&lt;/p&gt;
+
+&lt;p&gt;In short, you&amp;#39;ll be asking,&lt;/p&gt;
+
+&lt;p&gt;at time &lt;em&gt;t&lt;/em&gt; you&amp;#39;ll have a group of users that start using a given feature, after &lt;em&gt;n&lt;/em&gt; days, how many of those users are still using that feature?&lt;/p&gt;
+
+&lt;p&gt;I&amp;#39;ll typically do it on a cohort basis such as &amp;quot;given all the customers that started using a given feature in August, how many of them are still using that feature in December?&amp;quot;&lt;/p&gt;
+
+&lt;p&gt;Here&amp;#39;s why this is such a great metric. By cohorting, you can see if changes you make in the onboarding of customers, marketing, and so on are improving your adoption. You&amp;#39;re also going to see whether or not this corresponds to people stopping using the feature as well. Once you&amp;#39;re looking at this information regularly and across a number of products, you can start setting adoption benchmarks. &lt;/p&gt;
+
+&lt;p&gt;What I like about this metric ist hat it allows you to compare arbitrary features that have nothing to do with one another to each other and make sense of it. You can also weight these by the customer type that you&amp;#39;re hoping to target, the revenue generated from these customers or these use cases, and so on.&lt;/p&gt;
+
+&lt;h3&gt;Risks&lt;/h3&gt;
+
+&lt;p&gt;The fundamental risk with this is that, if used in isolation, you might end up de-prioritizing features that are actually important to customers. In short, that this metric gets weaponized to make the case for not working on a particular feature or not continuing to build out a given feature. While I haven&amp;#39;t seen this be the case, one could imagine it being so.&lt;/p&gt;
+
+&lt;h1&gt;Conclusion&lt;/h1&gt;
+
+&lt;p&gt;There are a number of other metrics that I will write about over the coming weeks. Getting key KPIs or metrics to track is essential for monitoring the progress of anything, not just software. I hope that you find the feature Drop Off metric useful and are able to apply to the products that you work on.&lt;/p&gt;
+</description>
+				<pubDate>Fri, 11 Jan 2019 00:00:00 -0800</pubDate>
+				<link>/projects/2019/01/11/applying-saas-company-metrics-to-product-adoption.html</link>
+				<guid isPermaLink="true">/projects/2019/01/11/applying-saas-company-metrics-to-product-adoption.html</guid>
+			</item>
+		
+			<item>
 				<title>Thoughts on Shutting Down Projects and Looking to 2019</title>
 				<description>&lt;h1&gt;Thoughts on a Project Shutdown: Spark Tutorials&lt;/h1&gt;
 
@@ -347,58 +398,6 @@ docker run --name clj --link new-red:new-red -p 5000:5000 -d my-cloj
 				<pubDate>Mon, 04 May 2015 00:00:00 -0700</pubDate>
 				<link>/tutorials/2015/05/04/Apache-Spark-and-Plotly-Graphing.html</link>
 				<guid isPermaLink="true">/tutorials/2015/05/04/Apache-Spark-and-Plotly-Graphing.html</guid>
-			</item>
-		
-			<item>
-				<title>Visualizing Flights Origins and Departures with d3.js</title>
-				<description>&lt;p&gt;This was built for a class project in my &lt;code&gt;Information Visualization&lt;/code&gt; class.&lt;/p&gt;
-
-&lt;p&gt;My goals were pretty straightforward. I wanted to try a multidimensional dataset - with a lot of different connections.I wanted a nice way of exploring it that was relatively simple - clicking to filter, allowing for visual exploration. I would optimally would have liked to include a visualization like this one but I couldn&amp;#39;t figure out how to do that without just copying and pasting the code. It took me a really long time to figure out the whole join thing, especially with a key function but I got it eventually as you can see in the &lt;code&gt;renderText&lt;/code&gt; function.&lt;/p&gt;
-
-&lt;p&gt;I tried my best to write all my code by hand, I did virtually no copying and pasting except for the fade function that is in the &lt;code&gt;Chord Tutorial&lt;/code&gt; reference below - it&amp;#39;s fairly straightforward regardless.&lt;/p&gt;
-
-&lt;p&gt;This was my favorite assignment, I wish we would have had more time to use d3.&lt;/p&gt;
-
-&lt;p&gt;The visualization contains data about the flights that happened in June 1994. Clicking on one of the edge nodes (the groups) will change the visualization to only include that airport and any flights that go in and out of that airport. Hovering over it will show you what you might expect.&lt;/p&gt;
-
-&lt;p&gt;Scroll through this list to select airports that you want to explore! Hovering over one of the edges of the diagram will highlight which airport you are hovering over. Clicking it with focus in on just that airport. Airports are listed in order clockwise from 12:00.&lt;/p&gt;
-
-&lt;p&gt;References:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;https://soundsuggest.wordpress.com/2012/12/26/d3-js-javascript-library-chord-diagram-example/&quot;&gt;Chord Tutorial&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://github.com/mbostock/d3/wiki/Chord-Layout&quot;&gt;Chord Layout Docs&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/article&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class='row'&gt;
-&lt;div class='twelve columns'&gt;
- &lt;h3&gt;June 1994 Flight Data&lt;/h3&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class='row'&gt;
- &lt;div id='info' class='twelve columns'&gt;&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class='row'&gt;
-&lt;div class='two columns' style='height:10px;'&gt;
-&lt;/div&gt;
-&lt;div class='eight columns'&gt;
- &lt;div id='chart'&gt;&lt;/div&gt;
-&lt;/div&gt;
- &lt;/div&gt;
- &lt;script src='https://code.jquery.com/jquery-2.1.3.min.js'&gt;&lt;/script&gt;
-  &lt;script src='https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.2/underscore-min.js'&gt;&lt;/script&gt;
-  &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js&quot;&gt;&lt;/script&gt;
-&lt;script src='/js/flight-viz.js'&gt;&lt;/script&gt;
-&lt;div class='row'&gt;
-    &lt;div class='ten offset-by-one columns'&gt;
-&lt;article class='post'&gt;&lt;/p&gt;
-</description>
-				<pubDate>Sun, 05 Apr 2015 00:00:00 -0700</pubDate>
-				<link>/projects/2015/04/05/d3-visualization-of-different-flights.html</link>
-				<guid isPermaLink="true">/projects/2015/04/05/d3-visualization-of-different-flights.html</guid>
 			</item>
 		
 	</channel>

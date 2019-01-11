@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>The Personal Website of Bill Chambers</title>
+        <title>Applying SaaS Company Metrics to Product Adoption</title>
         <meta name="viewport" content="width=device-width">
         <link rel="stylesheet" href="/css/normalize.css">
         <link rel="stylesheet" href="/css/skeleton.css">
@@ -19,8 +19,7 @@
 
         <div class="container">
               <div class="row">
-   <div class="twelve columns personal-intro">
-      <h2>The Portfolio & Writings of Bill Chambers</h2>
+   <div class="twelve columns personal-intro" style="height:10px;">
    </div>
 </div>
 <div class="row">
@@ -64,85 +63,69 @@
    </div>
 </div>
 
-              <div id="home">
-    <div class='titles'><i class="mdi mdi-cog"></i><h1>Tutorials and Guides</h1></div>
-    <ul class="posts">
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <li><a href="/tutorials/2015/05/08/plotting-aws-redshift-data-with-plotly.html">Plotting Your AWS Redshift Data with Plotly</a><span>08 May 2015</span></li>
-        
-        
-        
-        <li><a href="/tutorials/2015/05/04/Apache-Spark-and-Plotly-Graphing.html">Plotting Spark DataFrames with Plotly</a><span>04 May 2015</span></li>
-        
-        
-        
-        
-        
-        
-        
-        <li><a href="/tutorials/2015/03/23/Interactive-Salesforce-Graphing.html">Interactive Salesforce Graphing with Plotly</a><span>23 Mar 2015</span></li>
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <li><a href="/tutorials/2015/01/14/python-nlp-cheatsheet-nltk-scikit-learn.html">Python NLP - NLTK and scikit-learn</a><span>14 Jan 2015</span></li>
-        
-        
-        
-        
-        
-        <li><a href="/tutorials/2014/12/22/cosine-similarity-explained-in-python.html">Basic Statistical NLP Part 2 - TF-IDF And Cosine Similarity</a><span>22 Dec 2014</span></li>
-        
-        
-        
-        <li><a href="/tutorials/2014/12/21/tf-idf-explained-in-python.html">Basic Statistical NLP Part 1 - Jaccard Similarity and TF-IDF</a><span>21 Dec 2014</span></li>
-        
-        
-        
-        <li><a href="/tutorials/2014/12/06/getting-started-with-apache-spark.html">Getting Started with Apache Spark</a><span>06 Dec 2014</span></li>
-        
-        
-        
-        
-        
-        
-        
-        <li><a href="/tutorials/2014/11/11/introduction-to-static-site-generators.html">A Gentle Introduction to Static Site Generators</a><span>11 Nov 2014</span></li>
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-    </ul>
-</div>
+              <div class="row">
+   <div class="ten offset-by-one columns">
+      <article class="post">
+         <div class='titles'>
+            <h4>Applying SaaS Company Metrics to Product Adoption</h4>
+            <p class="meta">
+               <!-- <span class='tags'>
+                  Tags:
+                  
+                  
+                  </span> -->
+               <span class='date'>
+               11 January 2019
+               </span>
+            </p>
+         </div>
+         <h1>Overview</h1>
 
+<p>Recently, there&#39;s been a renewed focus on monitoring and understanding company (or product) growth, especially when it comes to SaaS products. Werner Vogels recently mentioned something quite similar in <a href="https://www.allthingsdistributed.com/2018/11/amazon-redshift-performance-optimization.html">a blog post</a>, &quot;People often ask me if developing for the cloud is any different from developing on-premises software. It really is.&quot; I couldn&#39;t agree more, it&#39;s awesome for understanding products, how users are using them, and what you can do to improve them.</p>
+
+<p>I have a technique that I like to use to understand how the products that I am working on are doing. The technique is simple, take some of the fundamental SaaS Company metrics and then apply them to a particular product or even feature. This is a great tool for product managers to understand how their features are adoptioned, what typical customer behavior is like with a given feature, and helps product leadershipset standards for what a product should be achieving.</p>
+
+<h2>Typical SaaS Metrics</h2>
+
+<p>These techniques came about because of a simple project. [SaaS] Companies track a number of metrics like ARR, LTV, ACV, CAC, ARPA, Net Revenue Retention and so on. You can read more about these in a variety of cheatsheets that cover the typical SaaS Metrics (<a href="https://chartmogul.com/resources/saas-metrics-cheat-sheet/">ChartMogul</a> has one as does <a href="http://chaotic-flow.com/media/saas-metrics-guide-to-saas-financial-performance.pdf">Chaotic Flow</a>). While these metrics are great and should absolutely be tracked, they do have a number of shortcomings.</p>
+
+<p>These typical metrics are (a) lagging indicators and (b) aren&#39;t (always) actionable for individual contributors. An individual PM or data scientist working on a feature isn&#39;t going to be able to move the CAC number directly - even if it needs moving. Moreover, an individual PM may also not have a P&amp;L that they&#39;re tracking and may not have detailed financial information to review.</p>
+
+<h2>Typical Growth Metrics</h2>
+
+<p>That&#39;s typically where growth metrics come in. You pick and measure PMs or growth initiatives based on high level MAU, DAU, downloads and so on. These typical metrics are often short-sighted. MAU or raw action counts <em>can</em> be informative, but the problem is simple. These metrics demonstrate growth, but they&#39;re not good drivers of growth - they&#39;re vanity metrics. </p>
+
+<p>First Round Review had a great post on this topic titled <a href="https://firstround.com/review/im-sorry-but-those-are-vanity-metrics/">I&#39;m Sorry, But Those are Vanity Metrics</a>. The article points out the short-comings of various metrics and motivates more deeply understanding customers, customer behavior, and usage outliers (hint: call them and ask!).</p>
+
+<h1>SaaS Metrics for PMs and Growth Leads</h1>
+
+<p>At this point, if you&#39;re a PM or someone in charge of growth, you&#39;re seeing what brought me here. SaaS metrics are too high level and may not apply to an individual improvement and growth metrics don&#39;t go to sufficient depth. That&#39;s when I realized one could manipulate some typical SaaS metrics to apply <em>generally</em> to any feature I might want to understand and understand whether or not they&#39;re effectively growing.</p>
+
+<h2>Feature Drop off (Churn)</h2>
+
+<p>This metric is great, because it shows in no uncertain terms how many of your customers or users are trying to use a given feature and then stopping to use it.</p>
+
+<p>In short, you&#39;ll be asking,</p>
+
+<p>at time <em>t</em> you&#39;ll have a group of users that start using a given feature, after <em>n</em> days, how many of those users are still using that feature?</p>
+
+<p>I&#39;ll typically do it on a cohort basis such as &quot;given all the customers that started using a given feature in August, how many of them are still using that feature in December?&quot;</p>
+
+<p>Here&#39;s why this is such a great metric. By cohorting, you can see if changes you make in the onboarding of customers, marketing, and so on are improving your adoption. You&#39;re also going to see whether or not this corresponds to people stopping using the feature as well. Once you&#39;re looking at this information regularly and across a number of products, you can start setting adoption benchmarks. </p>
+
+<p>What I like about this metric ist hat it allows you to compare arbitrary features that have nothing to do with one another to each other and make sense of it. You can also weight these by the customer type that you&#39;re hoping to target, the revenue generated from these customers or these use cases, and so on.</p>
+
+<h3>Risks</h3>
+
+<p>The fundamental risk with this is that, if used in isolation, you might end up de-prioritizing features that are actually important to customers. In short, that this metric gets weaponized to make the case for not working on a particular feature or not continuing to build out a given feature. While I haven&#39;t seen this be the case, one could imagine it being so.</p>
+
+<h1>Conclusion</h1>
+
+<p>There are a number of other metrics that I will write about over the coming weeks. Getting key KPIs or metrics to track is essential for monitoring the progress of anything, not just software. I hope that you find the feature Drop Off metric useful and are able to apply to the products that you work on.</p>
+
+      </article>
+   </div>
+</div>
 
               <div class="footer">
    <!-- <h1>The Portfolio & Writings of Bill Chambers</h1> -->
