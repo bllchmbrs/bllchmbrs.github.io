@@ -7,6 +7,67 @@
 		<atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
+				<title>Car Rental Companies and Branding - What sharing desks teaches us about product management</title>
+				<description>&lt;p&gt;You decide that you&amp;#39;re going to make a trip, a business trip. You&amp;#39;re going to visit some customers and you hop onto whatever search engine and reserve a car, maybe through National. You get to the destination airport, stroll off the aircraft, grab your bag and walk to the car rental counters only to realize that the Enterprise and National all share the same desk.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://prnewswire2-a.akamaihd.net/p/1893751/sp/189375100/thumbnail/entry_id/0_fjriwqrl/def_height/400/def_width/400/version/100012/type/1&quot; alt=&quot;three brands in one&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;On a recent trip, I let my curiosity finally get the best of me. As a product manager, I find myself constantly evaluating products for the experiences they provide. It struck me as strange that what you might think are competitors are sharing a desk and quite often staff at that desk to rent out cars to travelers everywhere. Why do they do this? What makes this the right choice?&lt;/p&gt;
+
+&lt;p&gt;My first instinct was from a partnership perspective, these companies wanted to increase their addressable market. By simply sharing a desk with a competitor, there was nothing to lose because they&amp;#39;d increase their coverage and just compete on price behind the scenes. I also thought that they could belong to the same parent company, but in that case why not just shut down some of the brands?&lt;/p&gt;
+
+&lt;p&gt;This post will go into the details of why these companies make these decisions and how one company in particular, Enterprise Holdings approached this problem. By doing this research, I discovered quite a lot about the car rental industry, how the market has consolidated, and what other implications there might be for other markets that have similar buyer behavior or market dynamics.&lt;/p&gt;
+
+&lt;h1&gt;The Market&lt;/h1&gt;
+
+&lt;p&gt;The Car Rental Market (in particular in the United States) is highly consolidated into three companies: Enterprise Holdings, The Hertz Corporation, and The Avis Budget Group. This largely answers what I was wondering about, that these companies aren&amp;#39;t competing at all, they&amp;#39;re the same company. However, it brings up new questions - why not just sunset these companies and become a single entity, just Hertz or Enterprise? For instance, &lt;a href=&quot;https://money.cnn.com/2017/03/22/news/companies/virgin-america-alaska-airlines-brand/index.html&quot;&gt;Alaska Airlines shutdown the Virgin America brand after acquisition&lt;/a&gt;. It doesn&amp;#39;t take much to argue that the Virgin America brand was quite strong, so shutting it down is an obvious option, but not necessarily the best choice. I wondered, why didn&amp;#39;t the car rental companies do the same thing? Why not just move all customers over to one brand and consolidate?&lt;/p&gt;
+
+&lt;p&gt;Some research led me to the answer, at least for Enterprise. &lt;a href=&quot;https://www.enterpriseholdings.com/content/dam/ehicom/docs/Andy%20Taylor%20bio.pdf&quot;&gt;Andrew Taylor&lt;/a&gt;, the CEO of Enterprise, actually made some interesting comments about the &amp;quot;takeover&amp;quot; of Alamo and National (Vangaurd) in an &lt;a href=&quot;https://hbr.org/2013/09/enterprises-leader-on-how-integrating-an-acquisition-transformed-his-business&quot;&gt;excellent HBR article from 2003&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2&gt;Focusing on your core market&lt;/h2&gt;
+
+&lt;p&gt;The article elaborates on some key details that apply to product managers and how they should approach managing their products and evaluating partnerships and acquisitions. It also elaborates and the importance of knowing what you&amp;#39;re good at and the power of focus.&lt;/p&gt;
+
+&lt;p&gt;Andrew discusses this when talking about how they evaluated the potential acquisitions:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;However, while our major rivals had always focused on renting cars at airport locations, Enterprise had concentrated on “home city” rentals, with much of our business coming from people who needed a car while their own was being repaired.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;However, he also acknowledges the role of the growing business and that for enterprise to keep growing, it would have to expand the served use cases by the company. This is where things get more interesting because they decided to take on the acquisition but not in the same way that Alaska did.&lt;/p&gt;
+
+&lt;h1&gt;Understanding use cases, users, and brand perception&lt;/h1&gt;
+
+&lt;p&gt;Andrew comments about the power of the brands and how much true differentiation there is in the market of something as simple as &amp;quot;car rentals&amp;quot;, just like in Christensen&amp;#39;s &lt;a href=&quot;https://hbswk.hbs.edu/item/clay-christensens-milkshake-marketing&quot;&gt;Milkshake Marketing&lt;/a&gt;. He mentioned this brand differentiation in the article as well:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Although Enterprise was known for its “everyday low price,” Alamo’s discounts appealed to price-sensitive shoppers, and National competed for premium business travelers.... as we studied Vanguard’s marketing and operations, we came to see that each of the brands was distinctly positioned to serve a well-defined segment.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;This is powerful from a product manager perspective because it shows the detail and thought taken by the company when it comes to approaching their market. It&amp;#39;s a great example of the jobs-to-be-done framework, the &amp;quot;job&amp;quot; is not to just rent a car, the job is to substitute your vehicle while it&amp;#39;s in the shop from a home-city and neighborhood rentals. The user story and the narrative are different for every company and for a company to succeed they had to draw these operating lines to be able to capture customers.&lt;/p&gt;
+
+&lt;p&gt;Taylor goes on to elaborate in more detail:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;National appealed to business travelers; we referred to them as “rental experts” because they wanted to get in and out of their vehicles as fast as possible, without stopping to fill out forms or deal with customer representatives. And they were willing to pay a premium for those benefits. National’s loyalty program, the Emerald Club, was a major driver of reservations and repeat business. Alamo, on the other hand, was a destination brand for vacationers, often from outside the United States, who were headed to places like Las Vegas and Disney World. Its customers generally looked for bargains on the internet. Meanwhile, Enterprise’s strong track record of affordable pricing in home-city markets attracted customers to its airport locations as well. Each brand had significant value and offered its customers what was most important to them. So we worked to reinforce the distinct character of each.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;This is what product management is all about. They&amp;#39;ve got the personas &amp;quot;rental experts&amp;quot; and &amp;quot;destination brand for vacationers&amp;quot;. These are quite specific personas that clearly have delineated shopping and buying behavior. The naive approach is that all these products are the same - &amp;quot;I need a car to move me from A to B&amp;quot;. But once you actually take the time to learn about customers, understand them from a buying perspective, and understand what they&amp;#39;re actually trying to do with the rental, you&amp;#39;re discovering that there are a lot more use cases that you need to consider. &lt;/p&gt;
+
+&lt;p&gt;As a PM, this jumped out to me given the mention of &amp;quot;brand vacations&amp;quot; for customers of Alamo and that this is an entirely different experience than that of renting a car because your car is in the shop for a week. You share desks for operational efficiency (mostly obvious) but you keep the brands because they speak to different users (non-obvious).&lt;/p&gt;
+
+&lt;p&gt;The implications for PMs are simple, understand your users and get to know them in great detail - those that you think share high level behavior likely have &lt;em&gt;vastly&lt;/em&gt; different motivations for doing so and have different objectives. Supporting those are what a good company and product manager does.&lt;/p&gt;
+
+&lt;h1&gt;Conclusion&lt;/h1&gt;
+
+&lt;p&gt;Whenever I see a car rental company, I&amp;#39;ve gained an appreciation for the subtle ownership and branding that has been done to understand customers and needs. The Enterprise example demonstrates an excellent example of understanding your customers and not thinking of the company first, but thinking about the end-user and what they&amp;#39;re looking for in a product. Andrew Taylor led the way through a successful acquisition and sets the tone for how the company seeks to understand their users. This is something every PM should note.&lt;/p&gt;
+</description>
+				<pubDate>Tue, 23 Jul 2019 00:00:00 -0700</pubDate>
+				<link>/essays/2019/07/23/why-do-car-rental-companies-share-desks.html</link>
+				<guid isPermaLink="true">/essays/2019/07/23/why-do-car-rental-companies-share-desks.html</guid>
+			</item>
+		
+			<item>
 				<title>Applying SaaS Company Metrics to Product Adoption</title>
 				<description>&lt;h1&gt;Overview&lt;/h1&gt;
 
@@ -152,7 +213,7 @@
 
 &lt;h3&gt;Conclusion and my key take aways&lt;/h3&gt;
 
-&lt;p&gt;This is one of my favorite books or ideas. While the style of writing does not match my own exactly, I do appreciate it. One thing that seems to repeat itself is that people I respect often focus on the importance of decision making. What makes me &lt;em&gt;admire&lt;/em&gt; someone is their own ability to admittedly discuss the faults in their own decision making. Taleb firmly falls in the latter category.&lt;/p&gt;
+&lt;p&gt;While the style of writing does not match my own exactly, I do appreciate it. One thing that seems to repeat itself is that people I respect often focus on the importance of decision making. What makes me &lt;em&gt;admire&lt;/em&gt; someone is their own ability to admittedly discuss the faults in their own decision making. Taleb seems to fall into the latter category, but his twitter feed sometimes suggests that that is not the case.&lt;/p&gt;
 
 &lt;p&gt;Let me return to my takeaways. I think the most concrete is that being practical is better than theoretical. Prove something out with repeatable data and go from there. Success consists of avoiding losses, not necessarily trying to derive profit. Therefore it behooves an individual to invest in preparedness, not in prediction and to rank beliefs not by our certainty in them but by the harm that they may cause if our assumptions are wrong.&lt;/p&gt;
 
@@ -389,15 +450,6 @@ docker run --name clj --link new-red:new-red -p 5000:5000 -d my-cloj
 				<pubDate>Fri, 08 May 2015 00:00:00 -0700</pubDate>
 				<link>/tutorials/2015/05/08/plotting-aws-redshift-data-with-plotly.html</link>
 				<guid isPermaLink="true">/tutorials/2015/05/08/plotting-aws-redshift-data-with-plotly.html</guid>
-			</item>
-		
-			<item>
-				<title>Plotting Spark DataFrames with Plotly</title>
-				<description>&lt;p&gt;&lt;a href=&quot;https://plot.ly/ipython-notebooks/apache-spark/&quot;&gt;This was a post that I did for Plotly covering the basics of plotting Spark DataFrames with plotly.&lt;/a&gt;&lt;/p&gt;
-</description>
-				<pubDate>Mon, 04 May 2015 00:00:00 -0700</pubDate>
-				<link>/tutorials/2015/05/04/Apache-Spark-and-Plotly-Graphing.html</link>
-				<guid isPermaLink="true">/tutorials/2015/05/04/Apache-Spark-and-Plotly-Graphing.html</guid>
 			</item>
 		
 	</channel>
