@@ -1,0 +1,84 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>projects - Category - My Writings - Bill Chambers</title>
+        <link>https://billchambers.me/categories/projects/</link>
+        <description>projects - Category - My Writings - Bill Chambers</description>
+        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Thu, 08 Feb 2018 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://billchambers.me/categories/projects/" rel="self" type="application/rss+xml" /><item>
+    <title>Spark: The Definitive Guide published by O&#39;Reilly!</title>
+    <link>https://billchambers.me/posts/spark-the-definitive-guide/</link>
+    <pubDate>Thu, 08 Feb 2018 00:00:00 &#43;0000</pubDate>
+    <author>Bill Chambers</author>
+    <guid>https://billchambers.me/posts/spark-the-definitive-guide/</guid>
+    <description><![CDATA[As of February 6th, 2018, Spark: The Definitive Guide has gone to print. This was the most intensive project and process that I&rsquo;ve ever undertaken in my life. It was filled with frustrations and anticipations, excitements and fears. I must extend thanks to those that encouraged me to lead the writing of the book, namely Ion Stoica, Patrick Wendell, Ali Ghodsi, and (somewhat obviously) Matei Zaharia. These folks were the ones that recommended that I take the lead on the book and I am forever grateful for them to grant me such an opportunity.]]></description>
+</item>
+<item>
+    <title>Introducing SparkTutorials.net</title>
+    <link>https://billchambers.me/posts/introducing-spark-tutorials/</link>
+    <pubDate>Thu, 10 Sep 2015 00:00:00 &#43;0000</pubDate>
+    <author>Bill Chambers</author>
+    <guid>https://billchambers.me/posts/introducing-spark-tutorials/</guid>
+    <description><![CDATA[I&rsquo;ve recently launched a website called SparkTutorials.net. Spark Tutorials aims to educate the general public about the utility of Spark as a tool for data science. I would encourage you to read more on the website and learn something new!]]></description>
+</item>
+<item>
+    <title>Plotting Your AWS Redshift Data with Plotly</title>
+    <link>https://billchambers.me/posts/plotting-aws-redshift-data-with-plotly/</link>
+    <pubDate>Fri, 08 May 2015 00:00:00 &#43;0000</pubDate>
+    <author>Bill Chambers</author>
+    <guid>https://billchambers.me/posts/plotting-aws-redshift-data-with-plotly/</guid>
+    <description><![CDATA[08 May 2015
+This was a post that I did for Plotly covering the basics of plotting Data from an AWS Redshift cluster with plotly.]]></description>
+</item>
+<item>
+    <title>Plotting Spark DataFrames with Plotly</title>
+    <link>https://billchambers.me/posts/apache-spark-and-plotly-graphing/</link>
+    <pubDate>Mon, 04 May 2015 00:00:00 &#43;0000</pubDate>
+    <author>Bill Chambers</author>
+    <guid>https://billchambers.me/posts/apache-spark-and-plotly-graphing/</guid>
+    <description><![CDATA[This was a post that I did for Plotly covering the basics of plotting Spark DataFrames with plotly.]]></description>
+</item>
+<item>
+    <title>Infographic - Why Hasn’t Russia’s Economic Collapse Affected its Leadership?</title>
+    <link>https://billchambers.me/posts/infographic-russia-leadership/</link>
+    <pubDate>Sun, 01 Mar 2015 00:00:00 &#43;0000</pubDate>
+    <author>Bill Chambers</author>
+    <guid>https://billchambers.me/posts/infographic-russia-leadership/</guid>
+    <description><![CDATA[This was an infographic I created to answer the question: “Why Hasn’t Russia’s Economic Collapse Affected its Leadership?”
+Over the past year, Russia has gone from a fairly stable growth rate to a significant economic contraction. The value of its currency has been chopped in half in 6 months and they’ve had to defend the currency and the economy. I wanted to tell the story about how much this economic situation has changed nothing in Russia in terms of leadership or potential leadership changes.]]></description>
+</item>
+<item>
+    <title>Hackday - Data Science and Docker Working Together</title>
+    <link>https://billchambers.me/posts/python-datascience-and-docker/</link>
+    <pubDate>Sun, 18 Jan 2015 00:00:00 &#43;0000</pubDate>
+    <author>Bill Chambers</author>
+    <guid>https://billchambers.me/posts/python-datascience-and-docker/</guid>
+    <description><![CDATA[This past weekend was at the wise.io data science hack day and had a great time. The team is clearly intelligent and I really enjoy working and learning in that kind of environment.
+We went over Docker and its utility in the data science field. While I understood the docker abstraction (and basic motivation) previously I still didn&rsquo;t feel like I &ldquo;got it&rdquo;. This hands on experience with Docker really opened my eyes to how the tool is used and the benefit companies are getting form it.]]></description>
+</item>
+<item>
+    <title>Python NLP - NLTK and scikit-learn</title>
+    <link>https://billchambers.me/posts/python-nlp-cheatsheet-nltk-scikit-learn/</link>
+    <pubDate>Wed, 14 Jan 2015 00:00:00 &#43;0000</pubDate>
+    <author>Bill Chambers</author>
+    <guid>https://billchambers.me/posts/python-nlp-cheatsheet-nltk-scikit-learn/</guid>
+    <description><![CDATA[This post is meant as a summary of many of the concepts that I learned in Marti Hearst&rsquo;s Natural Language Processing class at the UC Berkeley School of Information. I wanted to record the concepts and approaches that I had learned with quick overviews of the code you need to get it working. I figured that it could help some other people get a handle on the goals and code to get things done.]]></description>
+</item>
+<item>
+    <title>Deploying PostgreSQL for the California Civic Data Coalition&#39;s Django Project</title>
+    <link>https://billchambers.me/posts/civic-data-postgresql-support/</link>
+    <pubDate>Tue, 25 Nov 2014 00:00:00 &#43;0000</pubDate>
+    <author>Bill Chambers</author>
+    <guid>https://billchambers.me/posts/civic-data-postgresql-support/</guid>
+    <description><![CDATA[First, I&rsquo;d like to introduce the California Civic Data Coalition. They are self described as a loosely coupled team from the Los Angeles Times Data Desk, The Center for Investigative Reporting and Stanford&rsquo;s Computational Journalism Lab.
+I am not a part of the Los Angeles Times nor Stanford&rsquo;s computation Journalism Lab. However I am passionate about open data and leveraging my skills to help others. So I decided to start contributing.]]></description>
+</item>
+<item>
+    <title>SurpriseHaiku - Discovering Unusual Haikus On Twitter</title>
+    <link>https://billchambers.me/posts/surprisehaiku/</link>
+    <pubDate>Wed, 20 Aug 2014 00:00:00 &#43;0000</pubDate>
+    <author>Bill Chambers</author>
+    <guid>https://billchambers.me/posts/surprisehaiku/</guid>
+    <description><![CDATA[SurpriseHaiku was an experiment that parsed random twitter tweets to see if they followed the Haiku cadence of 5 / 7 / 5 (syllables). I ran this experiment during the 2014 Olympics to try and focus around Olympics related tweets. This was an application that I built to learn more about the twitter API and dip my toes in the world of Natural Language Parsing or NLP.
+While the application is not running at this point, you can check out the historical tweets on the twitter profile.]]></description>
+</item>
+</channel>
+</rss>

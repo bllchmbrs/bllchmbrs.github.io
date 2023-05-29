@@ -1,0 +1,55 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Categories - Category - My Writings - Bill Chambers</title>
+        <link>https://billchambers.me/categories/</link>
+        <description>Categories - Category - My Writings - Bill Chambers</description>
+        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Tue, 23 Jul 2019 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://billchambers.me/categories/" rel="self" type="application/rss+xml" /><item>
+    <title>product</title>
+    <link>https://billchambers.me/categories/product/</link>
+    <pubDate>Tue, 23 Jul 2019 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>https://billchambers.me/categories/product/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>essays</title>
+    <link>https://billchambers.me/categories/essays/</link>
+    <pubDate>Mon, 24 Dec 2018 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>https://billchambers.me/categories/essays/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>projects</title>
+    <link>https://billchambers.me/categories/projects/</link>
+    <pubDate>Thu, 08 Feb 2018 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>https://billchambers.me/categories/projects/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>tutorials</title>
+    <link>https://billchambers.me/categories/tutorials/</link>
+    <pubDate>Sun, 06 Dec 2015 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>https://billchambers.me/categories/tutorials/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>misc</title>
+    <link>https://billchambers.me/categories/misc/</link>
+    <pubDate>Wed, 08 Oct 2014 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>https://billchambers.me/categories/misc/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>Documentation</title>
+    <link>https://billchambers.me/categories/documentation/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>https://billchambers.me/categories/documentation/</guid>
+    <description><![CDATA[]]></description>
+</item>
+</channel>
+</rss>

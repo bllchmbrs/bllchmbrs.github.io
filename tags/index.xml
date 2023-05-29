@@ -1,0 +1,39 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Tags - Tag - My Writings - Bill Chambers</title>
+        <link>https://billchambers.me/tags/</link>
+        <description>Tags - Tag - My Writings - Bill Chambers</description>
+        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 05 Apr 2015 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://billchambers.me/tags/" rel="self" type="application/rss+xml" /><item>
+    <title>privacy</title>
+    <link>https://billchambers.me/tags/privacy/</link>
+    <pubDate>Sun, 05 Apr 2015 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>https://billchambers.me/tags/privacy/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>内容</title>
+    <link>https://billchambers.me/tags/content/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>https://billchambers.me/tags/content/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>安装</title>
+    <link>https://billchambers.me/tags/installation/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>https://billchambers.me/tags/installation/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>配置</title>
+    <link>https://billchambers.me/tags/configuration/</link>
+    <pubDate>Mon, 01 Jan 0001 00:00:00 &#43;0000</pubDate>
+    <author>Author</author>
+    <guid>https://billchambers.me/tags/configuration/</guid>
+    <description><![CDATA[]]></description>
+</item>
+</channel>
+</rss>

@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Basic Statistical NLP Part 2 - TF-IDF And Cosine Similarity - My Writings - Bill Chambers</title><meta name="Description" content="something"><meta property="og:title" content="Basic Statistical NLP Part 2 - TF-IDF And Cosine Similarity" />
+<meta property="og:description" content="This is a two part post, you can see part 1 here. Please read that post (if you haven&rsquo;t already) before continuing or just check out the code in this gist.
+from **future** import division import string import math tokenize = lambda doc: doc.lower().split(&quot; &ldquo;)
+document0 = &ldquo;China has a strong economy that is growing at a rapid pace. However politically it differs greatly from the US Economy.&rdquo; document1 = &ldquo;At last, China seems serious about confronting an endemic problem: domestic violence and corruption." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://billchambers.me/posts/cosine-similarity-explained-in-python/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2014-12-22T00:00:00+00:00" />
+<meta property="article:modified_time" content="2014-12-22T00:00:00+00:00" /><meta property="og:site_name" content="Writings and Musings of Bill Chambers" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Basic Statistical NLP Part 2 - TF-IDF And Cosine Similarity"/>
+<meta name="twitter:description" content="This is a two part post, you can see part 1 here. Please read that post (if you haven&rsquo;t already) before continuing or just check out the code in this gist.
+from **future** import division import string import math tokenize = lambda doc: doc.lower().split(&quot; &ldquo;)
+document0 = &ldquo;China has a strong economy that is growing at a rapid pace. However politically it differs greatly from the US Economy.&rdquo; document1 = &ldquo;At last, China seems serious about confronting an endemic problem: domestic violence and corruption."/>
+<meta name="application-name" content="My cooldsfasdfsad site">
+<meta name="apple-mobile-web-app-title" content="My cooldsfasdfsad site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://billchambers.me/posts/cosine-similarity-explained-in-python/" /><link rel="prev" href="https://billchambers.me/posts/tf-idf-explained-in-python/" /><link rel="next" href="https://billchambers.me/posts/rebalancing-bike-terminals-in-sf/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Basic Statistical NLP Part 2 - TF-IDF And Cosine Similarity",
+        "inLanguage": "en-us",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/billchambers.me\/posts\/cosine-similarity-explained-in-python\/"
+        },"genre": "posts","wordcount":  1310 ,
+        "url": "https:\/\/billchambers.me\/posts\/cosine-similarity-explained-in-python\/","datePublished": "2014-12-22T00:00:00+00:00","dateModified": "2014-12-22T00:00:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Bill Chambers"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="My Writings - Bill Chambers">Writings and Musings of Bill Chambers</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/" title="My Writings - Bill Chambers"> Home </a><a class="menu-item" href="/about/"> About </a><a class="menu-item active" href="/posts/" title="Posts"> Posts </a><a class="menu-item" href="/categories/" title="Categories"> Categories </a><a class="menu-item" href="/quotes/"> Quotes </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="My Writings - Bill Chambers">Writings and Musings of Bill Chambers</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/" title="My Writings - Bill Chambers">Home</a><a class="menu-item" href="/about/" title="">About</a><a class="menu-item" href="/posts/" title="Posts">Posts</a><a class="menu-item" href="/categories/" title="Categories">Categories</a><a class="menu-item" href="/quotes/" title="">Quotes</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Basic Statistical NLP Part 2 - TF-IDF And Cosine Similarity</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Bill Chambers</a></span>&nbsp;<span class="post-category">included in <a href="/categories/tutorials/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>tutorials</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2014-12-22">2014-12-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1310 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;7 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#cosine-similarity">Cosine Similarity</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p><em><a href="/tutorials/2014/12/21/tf-idf-explained-in-python.html" rel="">This is a two part post, you can see part 1 here.</a> Please read that post (if you haven&rsquo;t already) before continuing or just check out the code in this gist.</em></p>
+<pre tabindex="0"><code>from **future** import division
+import string
+import math
+</code></pre><p>tokenize = lambda doc: doc.lower().split(&quot; &ldquo;)</p>
+<p>document<em>0 = &ldquo;China has a strong economy that is growing at a rapid pace. However politically it differs greatly from the US Economy.&rdquo;
+document</em>1 = &ldquo;At last, China seems serious about confronting an endemic problem: domestic violence and corruption.&rdquo;
+document<em>2 = &ldquo;Japan&rsquo;s prime minister, Shinzo Abe, is working towards healing the economic turmoil in his own country for his view on the future of his people.&rdquo;
+document</em>3 = &ldquo;Vladimir Putin is working hard to fix the economy in Russia as the Ruble has tumbled.&rdquo;
+document<em>4 = &ldquo;What&rsquo;s the future of Abenomics? We asked Shinzo Abe for his views&rdquo;
+document</em>5 = &ldquo;Obama has eased sanctions on Cuba while accelerating those against the Russian Economy, even as the Ruble&rsquo;s value falls almost daily.&rdquo;
+document_6 = &ldquo;Vladimir Putin is riding a horse while hunting deer. Vladimir Putin always seems so serious about things - even riding horses. Is he crazy?&rdquo;</p>
+<p>all<em>documents = [document</em>0, document<em>1, document</em>2, document<em>3, document</em>4, document<em>5, document</em>6]</p>
+<p>def jaccard_similarity(query, document):
+intersection = set(query).intersection(set(document))
+union = set(query).union(set(document))
+return len(intersection)/len(union)</p>
+<p>def term<em>frequency(term, tokenized</em>document):
+return tokenized_document.count(term)</p>
+<p>def sublinear<em>term</em>frequency(term, tokenized<em>document):
+count = tokenized</em>document.count(term)
+if count == 0:
+return 0
+return 1 + math.log(count)</p>
+<p>def augmented<em>term</em>frequency(term, tokenized<em>document):
+max</em>count = max([term<em>frequency(t, tokenized</em>document) for t in tokenized<em>document])
+return (0.5 + ((0.5 * term</em>frequency(term, tokenized<em>document))/max</em>count))</p>
+<p>def inverse<em>document</em>frequencies(tokenized<em>documents):
+idf</em>values = {}
+all<em>tokens</em>set = set([item for sublist in tokenized<em>documents for item in sublist])
+for tkn in all</em>tokens<em>set:
+contains</em>token = map(lambda doc: tkn in doc, tokenized<em>documents)
+idf</em>values[tkn] = 1 + math.log(len(tokenized<em>documents)/(sum(contains</em>token)))
+return idf_values</p>
+<p>def tfidf(documents):
+tokenized<em>documents = [tokenize(d) for d in documents]
+idf = inverse</em>document<em>frequencies(tokenized</em>documents)
+tfidf<em>documents = []
+for document in tokenized</em>documents:
+doc<em>tfidf = []
+for term in idf.keys():
+tf = sublinear</em>term<em>frequency(term, document)
+doc</em>tfidf.append(tf * idf[term])
+tfidf<em>documents.append(doc</em>tfidf)
+return tfidf_documents</p>
+<h1 id="in-scikit-learn">in Scikit-Learn</h1>
+<p>from sklearn.feature_extraction.text import TfidfVectorizer</p>
+<p>sklearn<em>tfidf = TfidfVectorizer(norm=&lsquo;l2&rsquo;,min</em>df=0, use<em>idf=True, smooth</em>idf=False, sublinear<em>tf=True, tokenizer=tokenize)
+sklearn</em>representation = sklearn<em>tfidf.fit</em>transform(all_documents)</p>
+<h3 id="cosine-similarity">Cosine Similarity</h3>
+<hr>
+<p>Now that we&rsquo;ve covered TF-IDF and how to do with our own code as well as Scikit-Learn. Let&rsquo;s take a look at how we can actually compare different documents with cosine similarity or the Euclidean dot product formula.</p>
+<p>At this point our documents are represented as vectors.</p>
+<pre tabindex="0"><code>print tfidf\_representation[0]
+print sklearn\_representation.toarray()[0].tolist()
+</code></pre><p>This will show you what they actually are.</p>
+<p>With cosine similarity we can measure the similarity between two document vectors. I&rsquo;m not going to delve into the mathematical details about how this works but basically we turn each document into a line going from point X to point Y. We then compare that directionality with the second document into a line going from point V to point W. We measure how large the cosine angle is in between those representations.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://upload.wikimedia.org/math/f/5/b/f5bc23b26d095a4040d25dd340554f5d.png"
+        data-srcset="http://upload.wikimedia.org/math/f/5/b/f5bc23b26d095a4040d25dd340554f5d.png, http://upload.wikimedia.org/math/f/5/b/f5bc23b26d095a4040d25dd340554f5d.png 1.5x, http://upload.wikimedia.org/math/f/5/b/f5bc23b26d095a4040d25dd340554f5d.png 2x"
+        data-sizes="auto"
+        alt="http://upload.wikimedia.org/math/f/5/b/f5bc23b26d095a4040d25dd340554f5d.png"
+        title="Euclidean dot product" /></p>
+<p>We can rearrange the above formula to a more implementable representation like that below.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://upload.wikimedia.org/math/f/3/6/f369863aa2814d6e283f859986a1574d.png"
+        data-srcset="http://upload.wikimedia.org/math/f/3/6/f369863aa2814d6e283f859986a1574d.png, http://upload.wikimedia.org/math/f/3/6/f369863aa2814d6e283f859986a1574d.png 1.5x, http://upload.wikimedia.org/math/f/3/6/f369863aa2814d6e283f859986a1574d.png 2x"
+        data-sizes="auto"
+        alt="http://upload.wikimedia.org/math/f/3/6/f369863aa2814d6e283f859986a1574d.png"
+        title="Cosine Similarity" /></p>
+<p>Now in our case, if the cosine similarity is 1, they are the same document. If it is 0, the documents share nothing. This is because term frequency cannot be negative so the angle between the two vectors cannot be greater than 90°.</p>
+<p>Here&rsquo;s our python representation of cosine similarity of two vectors in python.</p>
+<pre tabindex="0"><code>def cosine\_similarity(vector1, vector2):
+    dot\_product = sum(p\*q for p,q in zip(vector1, vector2))
+    magnitude = math.sqrt(sum([val\*\*2 for val in vector1])) \* math.sqrt(sum([val\*\*2 for val in vector2]))
+    if not magnitude:
+        return 0
+    return dot\_product/magnitude
+</code></pre><p>Now that we have a vector representation and a way to compare different vectors we can put it to good use. But before we do, we should add that the final benefit of cosine similarity is now all our documents are off the same length, this removes any bias we had towards longer documents (like with Jaccard Similarity).</p>
+<pre tabindex="0"><code>tfidf\_representation = tfidf(all\_documents)
+our\_tfidf\_comparisons = []
+for count\_0, doc\_0 in enumerate(tfidf\_representation):
+    for count\_1, doc\_1 in enumerate(tfidf\_representation):
+        our\_tfidf\_comparisons.append((cosine\_similarity(doc\_0, doc\_1), count\_0, count\_1))
+
+skl\_tfidf\_comparisons = []
+for count\_0, doc\_0 in enumerate(sklearn\_representation.toarray()):
+    for count\_1, doc\_1 in enumerate(sklearn\_representation.toarray()):
+        skl\_tfidf\_comparisons.append((cosine\_similarity(doc\_0, doc\_1), count\_0, count\_1))
+
+for x in zip(sorted(our\_tfidf\_comparisons, reverse = True), sorted(skl\_tfidf\_comparisons, reverse = True)):
+    print x
+
+# ((1.0000000000000002, 4, 4), (1.0000000000000002, 6, 6))
+# ((1.0000000000000002, 3, 3), (1.0000000000000002, 5, 5))
+# ...
+# ((0.2931092569884059, 4, 2), (0.29310925698840595, 4, 2))
+# ((0.2931092569884059, 2, 4), (0.29310925698840595, 2, 4))
+# ((0.16506306906464613, 6, 3), (0.16506306906464616, 6, 3))
+# ...
+# ((0.0, 1, 4), (0.0, 1, 4))
+# ((0.0, 1, 3), (0.0, 1, 3))
+# ((0.0, 1, 2), (0.0, 1, 2))
+# ignore the .00000...2, it&#39;s just float representations in python being off of what they should be
+</code></pre><p>What is interesting here is that we&rsquo;re getting the exact same similarities from our representation as well as Scikit-Learn&rsquo;s. This is because we&rsquo;re doing apples to apples comparisons (they are creating the vectors through the same way). We say that even though the TFIDF matrices generated by our different algorithms were different. It doesn&rsquo;t change anything down the road because vectors are just numerical representations of our sentences.</p>
+<p>Now you&rsquo;ve learned a lot so far. We&rsquo;ve created some vectors to better understand document vector representations, we&rsquo;ve compared them and seen how we can leverage that representation to take a look at similarity. With a little tweaking you could even create a simple search engine that would search documents for certain terms.</p>
+<p>Now there are plenty of places for improvement, better tokenization and <a href="https://pypi.python.org/pypi/PyStemmer/" target="_blank" rel="noopener noreffer ">stemming</a> could really help to improve our algorithms but that&rsquo;s for another post.</p>
+<p>Here is all the code I used for this post series.</p>
+<pre tabindex="0"><code>from **future** import division
+import string
+import math
+</code></pre><p>tokenize = lambda doc: doc.lower().split(&rdquo; &ldquo;)</p>
+<p>document<em>0 = &ldquo;China has a strong economy that is growing at a rapid pace. However politically it differs greatly from the US Economy.&rdquo;
+document</em>1 = &ldquo;At last, China seems serious about confronting an endemic problem: domestic violence and corruption.&rdquo;
+document<em>2 = &ldquo;Japan&rsquo;s prime minister, Shinzo Abe, is working towards healing the economic turmoil in his own country for his view on the future of his people.&rdquo;
+document</em>3 = &ldquo;Vladimir Putin is working hard to fix the economy in Russia as the Ruble has tumbled.&rdquo;
+document<em>4 = &ldquo;What&rsquo;s the future of Abenomics? We asked Shinzo Abe for his views&rdquo;
+document</em>5 = &ldquo;Obama has eased sanctions on Cuba while accelerating those against the Russian Economy, even as the Ruble&rsquo;s value falls almost daily.&rdquo;
+document_6 = &ldquo;Vladimir Putin is riding a horse while hunting deer. Vladimir Putin always seems so serious about things - even riding horses. Is he crazy?&rdquo;</p>
+<p>all<em>documents = [document</em>0, document<em>1, document</em>2, document<em>3, document</em>4, document<em>5, document</em>6]</p>
+<p>def jaccard_similarity(query, document):
+intersection = set(query).intersection(set(document))
+union = set(query).union(set(document))
+return len(intersection)/len(union)</p>
+<p>def term<em>frequency(term, tokenized</em>document):
+return tokenized_document.count(term)</p>
+<p>def sublinear<em>term</em>frequency(term, tokenized<em>document):
+count = tokenized</em>document.count(term)
+if count == 0:
+return 0
+return 1 + math.log(count)</p>
+<p>def augmented<em>term</em>frequency(term, tokenized<em>document):
+max</em>count = max([term<em>frequency(t, tokenized</em>document) for t in tokenized<em>document])
+return (0.5 + ((0.5 * term</em>frequency(term, tokenized<em>document))/max</em>count))</p>
+<p>def inverse<em>document</em>frequencies(tokenized<em>documents):
+idf</em>values = {}
+all<em>tokens</em>set = set([item for sublist in tokenized<em>documents for item in sublist])
+for tkn in all</em>tokens<em>set:
+contains</em>token = map(lambda doc: tkn in doc, tokenized<em>documents)
+idf</em>values[tkn] = 1 + math.log(len(tokenized<em>documents)/(sum(contains</em>token)))
+return idf_values</p>
+<p>def tfidf(documents):
+tokenized<em>documents = [tokenize(d) for d in documents]
+idf = inverse</em>document<em>frequencies(tokenized</em>documents)
+tfidf<em>documents = []
+for document in tokenized</em>documents:
+doc<em>tfidf = []
+for term in idf.keys():
+tf = sublinear</em>term<em>frequency(term, document)
+doc</em>tfidf.append(tf * idf[term])
+tfidf<em>documents.append(doc</em>tfidf)
+return tfidf_documents</p>
+<h1 id="in-scikit-learn-1">in Scikit-Learn</h1>
+<p>from sklearn.feature_extraction.text import TfidfVectorizer</p>
+<p>sklearn<em>tfidf = TfidfVectorizer(norm=&lsquo;l2&rsquo;,min</em>df=0, use<em>idf=True, smooth</em>idf=False, sublinear<em>tf=True, tokenizer=tokenize)
+sklearn</em>representation = sklearn<em>tfidf.fit</em>transform(all_documents)</p>
+<h6 id="-end-blog-post-1">##### END BLOG POST 1</h6>
+<p>def cosine<em>similarity(vector1, vector2):
+dot</em>product = sum(p<em>q for p,q in zip(vector1, vector2))
+magnitude = math.sqrt(sum([val**2 for val in vector1])) * math.sqrt(sum([val</em>*2 for val in vector2]))
+if not magnitude:
+return 0
+return dot_product/magnitude</p>
+<p>tfidf<em>representation = tfidf(all</em>documents)
+our<em>tfidf</em>comparisons = []
+for count<em>0, doc</em>0 in enumerate(tfidf<em>representation):
+for count</em>1, doc<em>1 in enumerate(tfidf</em>representation):
+our<em>tfidf</em>comparisons.append((cosine<em>similarity(doc</em>0, doc<em>1), count</em>0, count_1))</p>
+<p>skl<em>tfidf</em>comparisons = []
+for count<em>0, doc</em>0 in enumerate(sklearn<em>representation.toarray()):
+for count</em>1, doc<em>1 in enumerate(sklearn</em>representation.toarray()):
+skl<em>tfidf</em>comparisons.append((cosine<em>similarity(doc</em>0, doc<em>1), count</em>0, count_1))</p>
+<p>for x in zip(sorted(our<em>tfidf</em>comparisons, reverse = True), sorted(skl<em>tfidf</em>comparisons, reverse = True)):
+print x</p>
+<p>For further reference:</p>
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Cosine_similarity" target="_blank" rel="noopener noreffer ">Cosine Similarity</a></li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2014-12-22</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://billchambers.me/posts/cosine-similarity-explained-in-python/" data-title="Basic Statistical NLP Part 2 - TF-IDF And Cosine Similarity" data-via="bllchmbrs"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://billchambers.me/posts/cosine-similarity-explained-in-python/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://billchambers.me/posts/cosine-similarity-explained-in-python/" data-title="Basic Statistical NLP Part 2 - TF-IDF And Cosine Similarity"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://billchambers.me/posts/cosine-similarity-explained-in-python/" data-title="Basic Statistical NLP Part 2 - TF-IDF And Cosine Similarity"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://billchambers.me/posts/cosine-similarity-explained-in-python/" data-title="Basic Statistical NLP Part 2 - TF-IDF And Cosine Similarity"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/tf-idf-explained-in-python/" class="prev" rel="prev" title="Basic Statistical NLP Part 1 - Jaccard Similarity and TF-IDF"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Basic Statistical NLP Part 1 - Jaccard Similarity and TF-IDF</a>
+            <a href="/posts/rebalancing-bike-terminals-in-sf/" class="next" rel="next" title="Data Challenge - Rebalancing Bike Terminals in SF">Data Challenge - Rebalancing Bike Terminals in SF<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+    <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><i> Bill Chambers </i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a
+                    href="/" target="_blank"></a></span></div>
+    </div>
+</footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

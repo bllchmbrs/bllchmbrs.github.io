@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Spark: The Definitive Guide published by O&#39;Reilly! - My Writings - Bill Chambers</title><meta name="Description" content="something"><meta property="og:title" content="Spark: The Definitive Guide published by O&#39;Reilly!" />
+<meta property="og:description" content="As of February 6th, 2018, Spark: The Definitive Guide has gone to print. This was the most intensive project and process that I&rsquo;ve ever undertaken in my life. It was filled with frustrations and anticipations, excitements and fears. I must extend thanks to those that encouraged me to lead the writing of the book, namely Ion Stoica, Patrick Wendell, Ali Ghodsi, and (somewhat obviously) Matei Zaharia. These folks were the ones that recommended that I take the lead on the book and I am forever grateful for them to grant me such an opportunity." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://billchambers.me/posts/spark-the-definitive-guide/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2018-02-08T00:00:00+00:00" />
+<meta property="article:modified_time" content="2018-02-08T00:00:00+00:00" /><meta property="og:site_name" content="Writings and Musings of Bill Chambers" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Spark: The Definitive Guide published by O&#39;Reilly!"/>
+<meta name="twitter:description" content="As of February 6th, 2018, Spark: The Definitive Guide has gone to print. This was the most intensive project and process that I&rsquo;ve ever undertaken in my life. It was filled with frustrations and anticipations, excitements and fears. I must extend thanks to those that encouraged me to lead the writing of the book, namely Ion Stoica, Patrick Wendell, Ali Ghodsi, and (somewhat obviously) Matei Zaharia. These folks were the ones that recommended that I take the lead on the book and I am forever grateful for them to grant me such an opportunity."/>
+<meta name="application-name" content="My cooldsfasdfsad site">
+<meta name="apple-mobile-web-app-title" content="My cooldsfasdfsad site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://billchambers.me/posts/spark-the-definitive-guide/" /><link rel="prev" href="https://billchambers.me/posts/getting-started-with-apache-spark/" /><link rel="next" href="https://billchambers.me/posts/thoughts-on-the-black-swan-by-nassim-taleb/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Spark: The Definitive Guide published by O'Reilly!",
+        "inLanguage": "en-us",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/billchambers.me\/posts\/spark-the-definitive-guide\/"
+        },"genre": "posts","wordcount":  1030 ,
+        "url": "https:\/\/billchambers.me\/posts\/spark-the-definitive-guide\/","datePublished": "2018-02-08T00:00:00+00:00","dateModified": "2018-02-08T00:00:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Bill Chambers"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="My Writings - Bill Chambers">Writings and Musings of Bill Chambers</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/" title="My Writings - Bill Chambers"> Home </a><a class="menu-item" href="/about/"> About </a><a class="menu-item active" href="/posts/" title="Posts"> Posts </a><a class="menu-item" href="/categories/" title="Categories"> Categories </a><a class="menu-item" href="/quotes/"> Quotes </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="My Writings - Bill Chambers">Writings and Musings of Bill Chambers</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/" title="My Writings - Bill Chambers">Home</a><a class="menu-item" href="/about/" title="">About</a><a class="menu-item" href="/posts/" title="Posts">Posts</a><a class="menu-item" href="/categories/" title="Categories">Categories</a><a class="menu-item" href="/quotes/" title="">Quotes</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Spark: The Definitive Guide published by O'Reilly!</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Bill Chambers</a></span>&nbsp;<span class="post-category">included in <a href="/categories/projects/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>projects</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2018-02-08">2018-02-08</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1030 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;5 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#how-it-got-done">How it got done</a></li>
+        <li><a href="#what-it-means-that-it-got-done">What it means that it got done?</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>As of February 6th, 2018, <a href="http://shop.oreilly.com/product/0636920034957.do" target="_blank" rel="noopener noreffer ">Spark: The Definitive Guide</a> has gone to print. This was the most intensive project and process that I&rsquo;ve ever undertaken in my life. It was filled with frustrations and anticipations, excitements and fears. I must extend thanks to those that encouraged me to lead the writing of the book, namely Ion Stoica, Patrick Wendell, Ali Ghodsi, and (somewhat obviously) Matei Zaharia. These folks were the ones that recommended that I take the lead on the book and I am forever grateful for them to grant me such an opportunity.</p>
+<p>In particular, I would like to thank my co-author, <a href="https://cs.stanford.edu/%7Ematei/" target="_blank" rel="noopener noreffer ">Matei Zaharia</a>, for his help and graciousness throughout the writing process.</p>
+<h3 id="how-it-got-done">How it got done</h3>
+<p>Writing the book was simple. <a href="https://www.infoq.com/presentations/Simple-Made-Easy" target="_blank" rel="noopener noreffer ">Simple is not easy.</a>. You have to churn out a lot of words and then refine them for the audience. It&rsquo;s really that simple.</p>
+<p>Matei and I had a core thesis from the beginning. ~80% of value should be in the first ~20% of the book or in other terms, 80% of the readers will only read the first 80 pages of the book. The reason is straightforward, the vast majority of the audience will read through the beginning and then cherry pick relevant sections after that. Importantly, <em>we were 100% ok with that!</em></p>
+<p>For this reason, the first part of the book(approximately 80 pages) is narrative explaining Spark&rsquo;s background and the fundamental concepts. We focused on the simplest explanations, eschewing technical jargon in order to make it approachable to the largest audience.</p>
+<p>The first two months of the &ldquo;writing&rdquo; process were focused on organizational concepts - how can we ensure that we&rsquo;re going to cover all the topics that we need to in a coherent manner? It became readily apparent that length was going to be an issue. Spark is an immensely capable system taking the &ldquo;standard library&rdquo; approach towards big data. For this reason, it has an <em>massive</em> set of capabilities. Capabilities that we improve upon at Databricks with the Databricks Runtime.</p>
+<p>After laying out the general organizational structure of introduction, Spark SQL, streaming, machine learning, and then the ecosystem we were ready to get started.</p>
+<h4 id="part-1-the-first-draft">Part 1: The First Draft</h4>
+<p>Instead of trying to get every chapter perfect (as some of the early readers may have noticed), we took the approach of a more turbulent process. From November 2016 to mid 2017, I wrote the first draft of a given chapter in each week for the book. A chapter a week, good or bad, was my commitment. Naturally, some chapters ended up quite bad at the onset.</p>
+<p>One powerful note, is that we wrote the entire book inside of Databricks notebooks because it made it easy to write with various languages and test the code that I&rsquo;m writing - all in one narrative notebook.</p>
+<p>After writing several chapters, Matei and I would read through the chapters and write up our edits in order to make sure that we&rsquo;re aligned on tone, content, and direction. This process was excellent. The raw first drafts helped sketch some lines out and make sure that we were on the same page about what we wanted to achieve. This was the &ldquo;dry-run&rdquo; of reviewing before we were ready to send them all the reviewers.</p>
+<p>The ideal would have been to write a draft of the book and work from there, however, batching was necessary for our excellent reviewers to make progress reading and editing the book themselves.</p>
+<h4 id="part-2-reviewing">Part 2: Reviewing</h4>
+<p>After getting feedback from our reviewers, it came time to integrate that feedback. This was a labor-intensive process requiring me to diff the various comments from our reviewers. Making one change meant that other proposed changes might be affected as well making it hard to keep track of what was and was not fixed. This part took longer than I hoped as the feedback was good and some rather obvious issues had to be resolved.</p>
+<p>Upon completion of review edits as well as our own changes, we realized that the book length issues had gotten worse. We were at 650+ pages (on what was expected to be a 450 page book).</p>
+<h4 id="part-3-editing--quality-control">Part 3: Editing &amp; Quality Control</h4>
+<p>By the time quality control comes around, we had been working on the book for over a year. By this time my &ldquo;light PM workload&rdquo; had fully vaporized and I was in the throws of working on <a href="https://databricks.com/blog/2017/10/25/databricks-delta-a-unified-management-system-for-real-time-big-data.html" target="_blank" rel="noopener noreffer ">Databricks Delta</a> and another two teams full time. Matei had returned to teaching as well as the Stanford year picked up and so we were both short time.</p>
+<p>This part of the book was probably the most difficult. It was extremely arguous and painful while still being inspiring and rewarding. It felt like a battle of inches. Where the finest of details have to be ironed out in a coherent and consistent way. Our production editor, <a href="https://www.linkedin.com/in/justin-billing-4948467b/" target="_blank" rel="noopener noreffer ">Justin Billing</a> did an incredible job helping us along this path. With time, we hacked the length down, removing detail where we could, and focused on keeping the book extremely high quality and in depth. This was terribly challenging as there is just so much to cover - especially for a definitive guide.</p>
+<p>After a much time, we finally landed at 600 pages and after two quality control periods - we completed the entire book on February 6th, 2018.</p>
+<h3 id="what-it-means-that-it-got-done">What it means that it got done?</h3>
+<p>This book was an unbelievable effort not just because writing a book is hard but because Spark is an <em>amazing</em> tool. It&rsquo;s used everywhere but so many companies out there. If you&rsquo;re doing big data, you&rsquo;re probably doing Spark. Those are facts. What we are most proud of is that this will greatly enable the community to grow and for new people to learn about and use the toolkit to solve the problems that they would like to solve.</p>
+<p>The fact that thousands of eyeballs will read those words is incredibly rewarding in and of itself. The fact that people will use that to do their jobs day in and day out makes it even more so.</p>
+<p>Matei and I sincerely hope that you enjoy the book and thanks so much for reading!</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2018-02-08</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://billchambers.me/posts/spark-the-definitive-guide/" data-title="Spark: The Definitive Guide published by O&#39;Reilly!" data-via="bllchmbrs"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://billchambers.me/posts/spark-the-definitive-guide/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://billchambers.me/posts/spark-the-definitive-guide/" data-title="Spark: The Definitive Guide published by O&#39;Reilly!"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://billchambers.me/posts/spark-the-definitive-guide/" data-title="Spark: The Definitive Guide published by O&#39;Reilly!"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://billchambers.me/posts/spark-the-definitive-guide/" data-title="Spark: The Definitive Guide published by O&#39;Reilly!"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/getting-started-with-apache-spark/" class="prev" rel="prev" title="Getting Started with Apache Spark"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Getting Started with Apache Spark</a>
+            <a href="/posts/thoughts-on-the-black-swan-by-nassim-taleb/" class="next" rel="next" title="Thoughts on &#39;The Black Swan&#39; by Nassim Taleb">Thoughts on 'The Black Swan' by Nassim Taleb<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+    <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><i> Bill Chambers </i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a
+                    href="/" target="_blank"></a></span></div>
+    </div>
+</footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Data Challenge - Rebalancing Bike Terminals in SF - My Writings - Bill Chambers</title><meta name="Description" content="something"><meta property="og:title" content="Data Challenge - Rebalancing Bike Terminals in SF" />
+<meta property="og:description" content="Leada has recently set out to email out new datasets every week with a couple of interesting questions. I thought that this week&rsquo;s challenge posed some interesting questions that provide great examples of ways to use Python&rsquo;s pandas library.
+Here&rsquo;s their email.
+You just made your 2015 New Year&#39;s resolution to improve your data analysis skills and become data literate! Every two weeks, we will e-mail you a dataset and some problems to work on." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://billchambers.me/posts/rebalancing-bike-terminals-in-sf/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2015-01-08T00:00:00+00:00" />
+<meta property="article:modified_time" content="2015-01-08T00:00:00+00:00" /><meta property="og:site_name" content="Writings and Musings of Bill Chambers" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Data Challenge - Rebalancing Bike Terminals in SF"/>
+<meta name="twitter:description" content="Leada has recently set out to email out new datasets every week with a couple of interesting questions. I thought that this week&rsquo;s challenge posed some interesting questions that provide great examples of ways to use Python&rsquo;s pandas library.
+Here&rsquo;s their email.
+You just made your 2015 New Year&#39;s resolution to improve your data analysis skills and become data literate! Every two weeks, we will e-mail you a dataset and some problems to work on."/>
+<meta name="application-name" content="My cooldsfasdfsad site">
+<meta name="apple-mobile-web-app-title" content="My cooldsfasdfsad site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://billchambers.me/posts/rebalancing-bike-terminals-in-sf/" /><link rel="prev" href="https://billchambers.me/posts/cosine-similarity-explained-in-python/" /><link rel="next" href="https://billchambers.me/posts/python-nlp-cheatsheet-nltk-scikit-learn/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Data Challenge - Rebalancing Bike Terminals in SF",
+        "inLanguage": "en-us",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/billchambers.me\/posts\/rebalancing-bike-terminals-in-sf\/"
+        },"genre": "posts","wordcount":  1252 ,
+        "url": "https:\/\/billchambers.me\/posts\/rebalancing-bike-terminals-in-sf\/","datePublished": "2015-01-08T00:00:00+00:00","dateModified": "2015-01-08T00:00:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Bill Chambers"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="My Writings - Bill Chambers">Writings and Musings of Bill Chambers</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/" title="My Writings - Bill Chambers"> Home </a><a class="menu-item" href="/about/"> About </a><a class="menu-item active" href="/posts/" title="Posts"> Posts </a><a class="menu-item" href="/categories/" title="Categories"> Categories </a><a class="menu-item" href="/quotes/"> Quotes </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="My Writings - Bill Chambers">Writings and Musings of Bill Chambers</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/" title="My Writings - Bill Chambers">Home</a><a class="menu-item" href="/about/" title="">About</a><a class="menu-item" href="/posts/" title="Posts">Posts</a><a class="menu-item" href="/categories/" title="Categories">Categories</a><a class="menu-item" href="/quotes/" title="">Quotes</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Data Challenge - Rebalancing Bike Terminals in SF</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Bill Chambers</a></span>&nbsp;<span class="post-category">included in <a href="/categories/tutorials/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>tutorials</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2015-01-08">2015-01-08</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1252 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;6 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents"></nav></div>
+            </div><div class="content" id="content"><p><a href="https://www.teamleada.com/" target="_blank" rel="noopener noreffer ">Leada</a> has recently set out to email out new datasets every week with a couple of interesting questions. I thought that this week&rsquo;s challenge posed some interesting questions that provide great examples of ways to use Python&rsquo;s pandas library.</p>
+<p>Here&rsquo;s their email.</p>
+<pre tabindex="0"><code>You just made your 2015 New Year&#39;s resolution to improve your data analysis
+skills and become data literate!
+
+Every two weeks, we will e-mail you a dataset and some problems to work on. You
+can use any tool you&#39;d like, although we suggest using R or Python. R is easy to
+install and if you are new to programming, the Introduction to R lesson is free
+in our courses!
+
+Here&#39;s the first dataset and problem! Answers will be released at a later date.
+Tweet your solution @LeadaHQ!
+
+====================
+
+Dataset Description: A CSV of bicycle rental transactions for a rental company
+in California.
+
+Dataset Download
+
+Problem 1: What was the average total time (in minutes) used by a bicycle in the
+data?
+
+Problem 2: What was the most popular day by trip frequency in this dataset?
+
+Problem 3 (harder): Assuming there are 30 bikes per station, find what date and
+time the bikes FIRST need to be rebalanced. As in, there are 0 bikes at a
+terminal for a customer to rent.
+
+Problem 3 (easier): Assuming there are 30 bikes per station, find what date the
+bikes FIRST need to be rebalanced. As in, there are 0 bikes at a terminal for a
+customer to rent. Do this ignoring &#34;Start.Date&#34; and &#34;End.Date&#34; columns.
+
+====================
+</code></pre><p>So let&rsquo;s get started on answering those questions. Here are the first couple of lines of code, standard imports and getting a sense of our columns.</p>
+<pre tabindex="0"><code>%matplotlib inline
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+pd.read\_csv(&#39;data/bike\_trip\_data.csv&#39;).head()
+</code></pre><table>
+<thead>
+<tr>
+<th></th>
+<th>Trip ID</th>
+<th>Duration</th>
+<th>Start Date</th>
+<th>Start Station</th>
+<th>Start Terminal</th>
+<th>End Date</th>
+<th>End Station</th>
+<th>End Terminal</th>
+<th>Bike #</th>
+<th>Subscription Type</th>
+<th>Zip Code</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>4576</td>
+<td>63</td>
+<td>8/29/13 14:13</td>
+<td>South Van Ness at Market</td>
+<td>66</td>
+<td>8/29/13 14:14</td>
+<td>South Van Ness at Market</td>
+<td>66</td>
+<td>520</td>
+<td>Subscriber</td>
+<td>94127</td>
+</tr>
+<tr>
+<td>1</td>
+<td>4607</td>
+<td>70</td>
+<td>8/29/13 14:42</td>
+<td>San Jose City Hall</td>
+<td>10</td>
+<td>8/29/13 14:43</td>
+<td>San Jose City Hall</td>
+<td>10</td>
+<td>661</td>
+<td>Subscriber</td>
+<td>95138</td>
+</tr>
+<tr>
+<td>2</td>
+<td>4130</td>
+<td>71</td>
+<td>8/29/13 10:16</td>
+<td>Mountain View City Hall</td>
+<td>27</td>
+<td>8/29/13 10:17</td>
+<td>Mountain View City Hall</td>
+<td>27</td>
+<td>48</td>
+<td>Subscriber</td>
+<td>97214</td>
+</tr>
+<tr>
+<td>3</td>
+<td>4251</td>
+<td>77</td>
+<td>8/29/13 11:29</td>
+<td>San Jose City Hall</td>
+<td>10</td>
+<td>8/29/13 11:30</td>
+<td>San Jose City Hall</td>
+<td>10</td>
+<td>26</td>
+<td>Subscriber</td>
+<td>95060</td>
+</tr>
+<tr>
+<td>4</td>
+<td>4299</td>
+<td>83</td>
+<td>8/29/13 12:02</td>
+<td>South Van Ness at Market</td>
+<td>66</td>
+<td>8/29/13 12:04</td>
+<td>Market at 10th</td>
+<td>67</td>
+<td>319</td>
+<td>Subscriber</td>
+<td>94103</td>
+</tr>
+</tbody>
+</table>
+<p>Now that we know what columns are dates we can perform our import. Pretty straightforward stuff - we use <code>parse_dates</code> in order to turn our dates in date times. Then we can get our data types to make sure that everything is correct.</p>
+<pre tabindex="0"><code>df = pd.read\_csv(&#39;data/bike\_trip\_data.csv&#39;,parse\_dates=[&#39;Start Date&#39;, &#39;End Date&#39;])
+
+print df.dtypes
+</code></pre><pre tabindex="0"><code>Trip ID                       int64
+Duration                      int64
+Start Date           datetime64[ns]
+Start Station                object
+Start Terminal                int64
+End Date             datetime64[ns]
+End Station                  object
+End Terminal                  int64
+Bike #                        int64
+Subscription Type            object
+Zip Code                     object
+dtype: object
+</code></pre><p><strong>Problem 1: What was the average total time (in minutes) used by a bicycle in the data?</strong></p>
+<p>Well we&rsquo;ve got to get the sum of all the times used by bicycles (each one individually), then get the mean of that and divide it by 60 to get minutes.</p>
+<pre tabindex="0"><code>df.groupby(&#39;Bike #&#39;).Duration.sum().mean()/60
+</code></pre><pre tabindex="0"><code>4288.08717948718
+</code></pre><p>So on average they are used about 70 hours. This was a strange question though and I&rsquo;m not sure what we&rsquo;are trying to get out of it.</p>
+<p><strong>Problem 2: What was the most popular day by trip frequency in this dataset?</strong></p>
+<p>This question was a bit more interesting. While we could just try and get the value counts of the start dates, those include times as well. So we&rsquo;ve got to map them to lambda values. Using <code>np.vectorize</code> would make this more efficient however the execution time was not slow enough to warrant further optimization.</p>
+<pre tabindex="0"><code>df[&#39;Start Date&#39;].map(lambda x: &#34;%d-%d-%d&#34; % (x.year, x.month, x.day)).value\_counts()[:5]
+</code></pre><pre tabindex="0"><code>2013-9-25     1264
+2013-10-17    1227
+2013-11-7     1197
+2013-10-15    1173
+2013-11-8     1172
+dtype: int64
+</code></pre><pre tabindex="0"><code>df[&#39;End Date&#39;].map(lambda x: &#34;%d-%d-%d&#34; % (x.year, x.month, x.day)).value\_counts()[:5]
+</code></pre><pre tabindex="0"><code>2013-9-25     1266
+2013-10-17    1225
+2013-11-7     1196
+2013-11-8     1173
+2013-10-15    1172
+dtype: int64
+</code></pre><p>So we see that 9-25 was the most popular day followed by the 17th of October then a couple of days in December.</p>
+<p><strong>Problem 3 (harder): Assuming there are 30 bikes per station, find what date and time the bikes FIRST need to be rebalanced. As in, there are 0 bikes at a
+terminal for a customer to rent.</strong></p>
+<p>I found this question to be a lot of fun because you really have to think about what you&rsquo;re trying to do. Basically we&rsquo;re trying to understand how bikes are flowing out of stations and how they&rsquo;re flowing into stations. Additionally different stations are made available at different times so you&rsquo;ve got to find a scalable way to separate the stations and get the flows for each.</p>
+<pre tabindex="0"><code>start\_stations = df.groupby(&#39;Start Station&#39;)
+end\_stations = df.groupby(&#39;End Station&#39;)
+</code></pre><p>First we perform a quick <code>groupby</code> to line up the stations and make it so that we can find the flows for each station. Trips leaving and trips arriving. Once we have in and out flows for each station, we can merge them and get the answer - which station needs to be balanced first.</p>
+<pre tabindex="0"><code>
+def get\_flow\_data(df\_start, df\_end):
+    df\_start.sort(inplace=True)
+    df\_end.sort(inplace=True)
+    start\_counts = pd.Series(np.arange(30, 30 + (-1 \* len(df\_start.index)),-1), index=df\_start.index,name=&#39;start&#39;, dtype=np.int64)
+    end\_counts = pd.Series(np.arange(len(df\_end.index))+1, index=df\_end.index, name=&#39;end&#39;, dtype=np.int64)
+    merged = start\_counts.to\_frame().join(end\_counts.to\_frame(), how=&#39;outer&#39;)
+    merged[&#39;start&#39;] = merged.start.fillna(method=&#39;ffill&#39;).fillna(method=&#39;bfill&#39;).astype(np.int64)
+    merged[&#39;end&#39;] = merged.end.fillna(method=&#39;ffill&#39;).fillna(value=0).astype(np.int64)
+    merged[&#39;combo&#39;] = merged.start + merged.end
+    return merged
+</code></pre><p>Let&rsquo;s walk through this line by line.</p>
+<pre tabindex="0"><code>df\_start.sort(inplace=True)
+df\_end.sort(inplace=True)
+</code></pre><p>First we need to sort the dates to make sure that our index (of dates) is lined up correctly.</p>
+<pre tabindex="0"><code>start\_counts = pd.Series(np.arange(29, 29 + (-1 \* len(df\_start.index)),-1), index=df\_start.index,name=&#39;start&#39;, dtype=np.int64)
+end\_counts = pd.Series(np.arange(len(df\_end.index))+1, index=df\_end.index, name=&#39;end&#39;, dtype=np.int64)
+</code></pre><p>Then I created a new pandas <code>Series</code> for start and end dates.</p>
+<p>The start_counts series starts at 29 and goes down by one until it reaches the length of the entire index. This is basically how many bike trips originate at that station.</p>
+<p>The end_counts series goes the entire length of the count of bike trips ending at that station.</p>
+<p>We then merge them into one data frame.</p>
+<pre tabindex="0"><code>merged = start\_counts.to\_frame().join(end\_counts.to\_frame(), how=&#39;outer&#39;)
+</code></pre><p>We then fill in some values by using interpolation to back fill and forward fill the bike counts so that basically we get the flow of bikes coming into the station and those leaving the station.</p>
+<pre tabindex="0"><code>merged[&#39;start&#39;] = merged.start.fillna(method=&#39;ffill&#39;).fillna(method=&#39;bfill&#39;).astype(np.int64)
+merged[&#39;end&#39;] = merged.end.fillna(method=&#39;ffill&#39;).fillna(value=0).astype(np.int64)
+merged[&#39;combo&#39;] = merged.start + merged.end
+</code></pre><p>Finally we merge those together and we have the number of bikes at the station. When that crosses the zero mark is when the bike station needs to be rebalanced.</p>
+<pre tabindex="0"><code>data = []
+for name, group in start\_stations:
+    print name
+    m = get\_flow\_data(group.set\_index(&#39;Start Date&#39;), end\_stations.get\_group(name).set\_index(&#39;End Date&#39;))
+    if m.combo[m.combo &lt;= 0].any():
+        d = m.combo[m.combo &lt;= 0].index[0]
+        data.append((d, name))
+</code></pre><p>However some stations did not have to be rebalanced so we had to test whether or not it did.</p>
+<pre tabindex="0"><code>print sorted(data)[:5]
+</code></pre><p>Here are the first 5 stations that have to be rebalanced as well as at which point they have to be.</p>
+<pre tabindex="0"><code>[(Timestamp(&#39;2013-09-02 15:03:00&#39;), &#39;Embarcadero at Bryant&#39;),
+ (Timestamp(&#39;2013-09-04 07:56:00&#39;), &#39;Market at Sansome&#39;),
+ (Timestamp(&#39;2013-09-05 07:56:00&#39;), &#39;2nd at Folsom&#39;),
+ (Timestamp(&#39;2013-09-05 18:56:00&#39;),
+  &#39;Temporary Transbay Terminal (Howard at Beale)&#39;),
+ (Timestamp(&#39;2013-09-10 12:36:00&#39;), &#39;San Francisco City Hall&#39;)]
+</code></pre><p><a href="http://nbviewer.ipython.org/github/anabranch/LeadA-World-of-Data/blob/master/Week%201.ipynb" target="_blank" rel="noopener noreffer ">Here&rsquo;s the final code for anyone that is interested.</a> I hope that I get to continue tackling these problems - they&rsquo;re enough to sink your teeth into but certainly aren&rsquo;t too difficult to not be able to do in a short amount of time.</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2015-01-08</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://billchambers.me/posts/rebalancing-bike-terminals-in-sf/" data-title="Data Challenge - Rebalancing Bike Terminals in SF" data-via="bllchmbrs"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://billchambers.me/posts/rebalancing-bike-terminals-in-sf/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://billchambers.me/posts/rebalancing-bike-terminals-in-sf/" data-title="Data Challenge - Rebalancing Bike Terminals in SF"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://billchambers.me/posts/rebalancing-bike-terminals-in-sf/" data-title="Data Challenge - Rebalancing Bike Terminals in SF"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://billchambers.me/posts/rebalancing-bike-terminals-in-sf/" data-title="Data Challenge - Rebalancing Bike Terminals in SF"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/cosine-similarity-explained-in-python/" class="prev" rel="prev" title="Basic Statistical NLP Part 2 - TF-IDF And Cosine Similarity"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Basic Statistical NLP Part 2 - TF-IDF And Cosine Similarity</a>
+            <a href="/posts/python-nlp-cheatsheet-nltk-scikit-learn/" class="next" rel="next" title="Python NLP - NLTK and scikit-learn">Python NLP - NLTK and scikit-learn<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+    <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><i> Bill Chambers </i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a
+                    href="/" target="_blank"></a></span></div>
+    </div>
+</footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

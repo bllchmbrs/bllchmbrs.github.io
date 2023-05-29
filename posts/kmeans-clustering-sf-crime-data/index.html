@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>K-Means Clustering - Liquor &amp; Assaults in San Francisco - My Writings - Bill Chambers</title><meta name="Description" content="something"><meta property="og:title" content="K-Means Clustering - Liquor &amp; Assaults in San Francisco" />
+<meta property="og:description" content="This notebook walks through an example of KMeans clustering crime data with alcohol license locations. This clustering is performed solely based on the Lat/Long locations of stores and crimes. The tools I use are
+Pandas Numpy Scikit-learn Matplotlib The most basic question being answered is:
+Given Lat/Long - can we draw some association between a liquor store&rsquo;s centroid and crime/a type of crime&rsquo;s centroid? Or another way, will groups of crime overlap with groups of liquor stores." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://billchambers.me/posts/kmeans-clustering-sf-crime-data/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2015-03-31T00:00:00+00:00" />
+<meta property="article:modified_time" content="2015-03-31T00:00:00+00:00" /><meta property="og:site_name" content="Writings and Musings of Bill Chambers" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="K-Means Clustering - Liquor &amp; Assaults in San Francisco"/>
+<meta name="twitter:description" content="This notebook walks through an example of KMeans clustering crime data with alcohol license locations. This clustering is performed solely based on the Lat/Long locations of stores and crimes. The tools I use are
+Pandas Numpy Scikit-learn Matplotlib The most basic question being answered is:
+Given Lat/Long - can we draw some association between a liquor store&rsquo;s centroid and crime/a type of crime&rsquo;s centroid? Or another way, will groups of crime overlap with groups of liquor stores."/>
+<meta name="application-name" content="My cooldsfasdfsad site">
+<meta name="apple-mobile-web-app-title" content="My cooldsfasdfsad site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://billchambers.me/posts/kmeans-clustering-sf-crime-data/" /><link rel="prev" href="https://billchambers.me/posts/interactive-salesforce-graphing/" /><link rel="next" href="https://billchambers.me/posts/d3-visualization-of-different-flights/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "K-Means Clustering - Liquor \u0026 Assaults in San Francisco",
+        "inLanguage": "en-us",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/billchambers.me\/posts\/kmeans-clustering-sf-crime-data\/"
+        },"genre": "posts","wordcount":  699 ,
+        "url": "https:\/\/billchambers.me\/posts\/kmeans-clustering-sf-crime-data\/","datePublished": "2015-03-31T00:00:00+00:00","dateModified": "2015-03-31T00:00:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Bill Chambers"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="My Writings - Bill Chambers">Writings and Musings of Bill Chambers</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/" title="My Writings - Bill Chambers"> Home </a><a class="menu-item" href="/about/"> About </a><a class="menu-item active" href="/posts/" title="Posts"> Posts </a><a class="menu-item" href="/categories/" title="Categories"> Categories </a><a class="menu-item" href="/quotes/"> Quotes </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="My Writings - Bill Chambers">Writings and Musings of Bill Chambers</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/" title="My Writings - Bill Chambers">Home</a><a class="menu-item" href="/about/" title="">About</a><a class="menu-item" href="/posts/" title="Posts">Posts</a><a class="menu-item" href="/categories/" title="Categories">Categories</a><a class="menu-item" href="/quotes/" title="">Quotes</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">K-Means Clustering - Liquor & Assaults in San Francisco</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Bill Chambers</a></span>&nbsp;<span class="post-category">included in <a href="/categories/tutorials/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>tutorials</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2015-03-31">2015-03-31</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;699 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;4 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#k-means">K Means</a>
+      <ul>
+        <li><a href="#clustering-liquor-stores">Clustering Liquor Stores</a></li>
+        <li><a href="#clustering-crime-categories">Clustering Crime Categories</a></li>
+        <li><a href="#leaflet">Leaflet</a></li>
+        <li><a href="#conclusion">Conclusion</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>This notebook walks through an example of KMeans clustering crime data with alcohol license locations. This clustering is performed solely based on the Lat/Long locations of stores and crimes. The tools I use are</p>
+<ul>
+<li><a href="http://pandas.pydata.org/" target="_blank" rel="noopener noreffer ">Pandas</a></li>
+<li><a href="http://www.numpy.org/" target="_blank" rel="noopener noreffer ">Numpy</a></li>
+<li><a href="http://scikit-learn.org/stable/" target="_blank" rel="noopener noreffer ">Scikit-learn</a></li>
+<li>Matplotlib</li>
+</ul>
+<p>The most basic question being answered is:</p>
+<p>Given Lat/Long - can we draw some association between a liquor store&rsquo;s centroid and crime/a type of crime&rsquo;s centroid? Or another way, will groups of crime overlap with groups of liquor stores.</p>
+<p>The data we&rsquo;re using is from <a href="http://datasf.org/" target="_blank" rel="noopener noreffer ">SFGOV</a> as well as the <a href="http://www.abc.ca.gov/" target="_blank" rel="noopener noreffer ">Alcoholic Beverage Control</a>.</p>
+<pre tabindex="0"><code>%matplotlib inline
+import pandas as pd
+import numpy as np
+from pandas.tools.plotting import scatter\_matrix
+from sklearn.cross\_validation import train\_test\_split
+import matplotlib.pyplot as plt
+import random
+pd.options.display.mpl\_style = &#39;default&#39;
+
+alc = pd.read\_csv(&#34;data/alcohol\_licenses\_locations.csv&#34;)
+crime = pd.read\_csv(&#34;data/Map\_\_Crime\_Incidents\_-\_from\_1\_Jan\_2003\_REDUCED.csv&#34;)
+</code></pre><pre tabindex="0"><code>alc.columns
+Index([u&#39;Unnamed: 0&#39;, u&#39;Join\_Count&#39;, u&#39;Status&#39;, u&#39;Score&#39;, u&#39;Match\_type&#39;, u&#39;Side&#39;, u&#39;X&#39;, u&#39;Y&#39;, u&#39;Match\_addr&#39;, u&#39;ARC\_Street&#39;, u&#39;Entry\_no&#39;, u&#39;Owner\_name&#39;, u&#39;street&#39;, u&#39;city&#39;, u&#39;state&#39;, u&#39;zip&#39;, u&#39;Entry\_no\_1&#39;, u&#39;License\_Nu&#39;, u&#39;Status\_1&#39;, u&#39;License\_Ty&#39;, u&#39;Orig\_Iss\_D&#39;, u&#39;Expir\_Date&#39;, u&#39;Census\_tra&#39;, u&#39;Business\_N&#39;, u&#39;Mailing\_Ad&#39;, u&#39;Geo\_Code&#39;, u&#39;Tract2010&#39;, u&#39;coords.x1&#39;, u&#39;coords.x2&#39;], dtype=&#39;object&#39;)
+</code></pre><pre tabindex="0"><code>crime.columns
+Index([u&#39;IncidntNum&#39;, u&#39;Category&#39;, u&#39;Descript&#39;, u&#39;DayOfWeek&#39;, u&#39;Date&#39;, u&#39;Time&#39;, u&#39;PdDistrict&#39;, u&#39;Resolution&#39;, u&#39;Address&#39;, u&#39;X&#39;, u&#39;Y&#39;, u&#39;Location&#39;], dtype=&#39;object&#39;)
+</code></pre><p>This is an <code>outer</code> join combining the reduced crime set and the alcohol licenses location data. It performs a join on the X &amp; Y Columns (lat &amp; Lon).</p>
+<pre tabindex="0"><code>combo = pd.merge(alc, crime, on=[&#39;X&#39;,&#39;Y&#39;], how=&#39;outer&#39;)
+</code></pre><p>At this point I am reducing the license types to just 20 and 21 - which are offsite types.</p>
+<p>Reference dictionary here: <a href="http://www.abc.ca.gov/datport/SubAnnStatRep.pdf" target="_blank" rel="noopener noreffer ">http://www.abc.ca.gov/datport/SubAnnStatRep.pdf</a></p>
+<pre tabindex="0"><code>features = [&#39;X&#39;,&#39;Y&#39;]
+</code></pre><h2 id="k-means">K Means</h2>
+<p><a href="http://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html" target="_blank" rel="noopener noreffer ">http://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html</a></p>
+<pre tabindex="0"><code>from sklearn.cluster import KMeans
+</code></pre><h3 id="clustering-liquor-stores">Clustering Liquor Stores</h3>
+<p>I&rsquo;m just look at just 20, 21 license types because these are for off-site sales.</p>
+<pre tabindex="0"><code>print len(alc)
+alc = alc[(alc[&#39;License\_Ty&#39;] == 20) | (alc[&#39;License\_Ty&#39;] == 21)]
+print len(alc)
+
+3635
+809
+</code></pre><pre tabindex="0"><code>alc\_X = alc[features]
+
+
+for num\_clusters in range(10,75,5):
+    km = KMeans(num\_clusters)
+    km\_fit = km.fit(alc\_X)
+    ax = alc\_X.plot(kind=&#39;scatter&#39;,x=&#39;X&#39;,y=&#39;Y&#39;, legend=str(num\_clusters), figsize=(8, 6))
+    pd.DataFrame(km\_fit.cluster\_centers\_).plot(kind=&#39;scatter&#39;,x=0,y=1,color=&#39;k&#39;,ax=ax)
+    ax.set\_title(str(num\_clusters) + &#34; License 20 &amp; 21 Clusters&#34;)
+</code></pre><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/KMeans%20Clustering%20Crime%20%26%20Alcohol%20Off-Site%20Sales%20Locations_14_0.png"
+        data-srcset="/KMeans%20Clustering%20Crime%20%26%20Alcohol%20Off-Site%20Sales%20Locations_14_0.png, /KMeans%20Clustering%20Crime%20%26%20Alcohol%20Off-Site%20Sales%20Locations_14_0.png 1.5x, /KMeans%20Clustering%20Crime%20%26%20Alcohol%20Off-Site%20Sales%20Locations_14_0.png 2x"
+        data-sizes="auto"
+        alt="/KMeans%20Clustering%20Crime%20%26%20Alcohol%20Off-Site%20Sales%20Locations_14_0.png"
+        title="png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/KMeans%20Clustering%20Crime%20%26%20Alcohol%20Off-Site%20Sales%20Locations_14_3.png"
+        data-srcset="/KMeans%20Clustering%20Crime%20%26%20Alcohol%20Off-Site%20Sales%20Locations_14_3.png, /KMeans%20Clustering%20Crime%20%26%20Alcohol%20Off-Site%20Sales%20Locations_14_3.png 1.5x, /KMeans%20Clustering%20Crime%20%26%20Alcohol%20Off-Site%20Sales%20Locations_14_3.png 2x"
+        data-sizes="auto"
+        alt="/KMeans%20Clustering%20Crime%20%26%20Alcohol%20Off-Site%20Sales%20Locations_14_3.png"
+        title="png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/KMeans%20Clustering%20Crime%20%26%20Alcohol%20Off-Site%20Sales%20Locations_14_9.png"
+        data-srcset="/KMeans%20Clustering%20Crime%20%26%20Alcohol%20Off-Site%20Sales%20Locations_14_9.png, /KMeans%20Clustering%20Crime%20%26%20Alcohol%20Off-Site%20Sales%20Locations_14_9.png 1.5x, /KMeans%20Clustering%20Crime%20%26%20Alcohol%20Off-Site%20Sales%20Locations_14_9.png 2x"
+        data-sizes="auto"
+        alt="/KMeans%20Clustering%20Crime%20%26%20Alcohol%20Off-Site%20Sales%20Locations_14_9.png"
+        title="png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/KMeans%20Clustering%20Crime%20%26%20Alcohol%20Off-Site%20Sales%20Locations_14_12.png"
+        data-srcset="/KMeans%20Clustering%20Crime%20%26%20Alcohol%20Off-Site%20Sales%20Locations_14_12.png, /KMeans%20Clustering%20Crime%20%26%20Alcohol%20Off-Site%20Sales%20Locations_14_12.png 1.5x, /KMeans%20Clustering%20Crime%20%26%20Alcohol%20Off-Site%20Sales%20Locations_14_12.png 2x"
+        data-sizes="auto"
+        alt="/KMeans%20Clustering%20Crime%20%26%20Alcohol%20Off-Site%20Sales%20Locations_14_12.png"
+        title="png" /></p>
+<p>A thoroughly unscientific analysis had 55 clusters for the alcohol stores jump out at me as a approximately correct measure - it seems to be a decent balance of different spots on the map.</p>
+<p><em>Proceeding with 55 clusters, feel free to change as you see fit</em></p>
+<pre tabindex="0"><code>num\_clusters = 55
+liq\_km = KMeans(num\_clusters)
+liq\_km\_fit = liq\_km.fit(alc\_X)
+liq\_ax = alc\_X.plot(kind=&#39;scatter&#39;,x=&#39;X&#39;,y=&#39;Y&#39;, legend=str(num\_clusters), figsize=(8, 6))
+pd.DataFrame(liq\_km\_fit.cluster\_centers\_).plot(kind=&#39;scatter&#39;,x=0,y=1,color=&#39;k&#39;,ax=liq\_ax)
+liq\_ax.set\_title(str(num\_clusters) + &#34; License 20 &amp; 21 Clusters&#34;)
+</code></pre><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/KMeans%20Clustering%20Crime%20%26%20Alcohol%20Off-Site%20Sales%20Locations_16_1.png"
+        data-srcset="/KMeans%20Clustering%20Crime%20%26%20Alcohol%20Off-Site%20Sales%20Locations_16_1.png, /KMeans%20Clustering%20Crime%20%26%20Alcohol%20Off-Site%20Sales%20Locations_16_1.png 1.5x, /KMeans%20Clustering%20Crime%20%26%20Alcohol%20Off-Site%20Sales%20Locations_16_1.png 2x"
+        data-sizes="auto"
+        alt="/KMeans%20Clustering%20Crime%20%26%20Alcohol%20Off-Site%20Sales%20Locations_16_1.png"
+        title="png" /></p>
+<p>Now we&rsquo;re going to repeat the process for crime locations. The goal here is to see if there are any location overlaps in the above stores + crime. Eventually we&rsquo;ll move into categories of crimes.</p>
+<h3 id="clustering-crime-categories">Clustering Crime Categories</h3>
+<pre tabindex="0"><code>print crime.Category.unique()
+crime.Date = crime.Date.apply(pd.to\_datetime)
+
+[&#39;ASSAULT&#39; &#39;OTHER OFFENSES&#39; &#39;NON-CRIMINAL&#39; &#39;SEX OFFENSES, FORCIBLE&#39;
+ &#39;SUSPICIOUS OCC&#39; &#39;DRUG/NARCOTIC&#39; &#39;WEAPON LAWS&#39; &#39;VANDALISM&#39; &#39;TRESPASS&#39;
+ &#39;SECONDARY CODES&#39; &#39;DRIVING UNDER THE INFLUENCE&#39; &#39;FAMILY OFFENSES&#39;
+ &#39;DRUNKENNESS&#39; &#39;LOITERING&#39; &#39;PROSTITUTION&#39; &#39;LIQUOR LAWS&#39;
+ &#39;DISORDERLY CONDUCT&#39; &#39;SUICIDE&#39; &#39;SEX OFFENSES, NON FORCIBLE&#39;
+ &#39;PORNOGRAPHY/OBSCENE MAT&#39;]
+
+sub\_crime = crime[(crime[&#39;Category&#39;] == &#34;ASSAULT&#34;)] #look at just Assaults
+</code></pre><p>I looked at just assaults in order to dive a bit deeper into the data itself.</p>
+<pre tabindex="0"><code>print len(crime)
+sub\_crime = crime[(crime[&#39;Category&#39;] == &#34;ASSAULT&#34;)]
+print len(sub\_crime)
+sub\_crime = sub\_crime[sub\_crime.Date &gt; &#39;2013-1-1&#39;][sub\_crime.Date &lt; &#39;2014-1-1&#39;].reset\_index()
+crime\_X = sub\_crime[features]
+print len(crime\_X)
+
+404080
+64033
+12588
+
+
+/Library/Python/2.7/site-packages/pandas/core/frame.py:1771: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  &#34;DataFrame index.&#34;, UserWarning)
+
+
+
+for num\_clusters in range(10,75,5):
+    km = KMeans(num\_clusters)
+    km\_fit = km.fit(crime\_X)
+    ax = crime\_X.plot(kind=&#39;scatter&#39;,x=&#39;X&#39;,y=&#39;Y&#39;, legend=str(num\_clusters), figsize=(8, 6))
+    pd.DataFrame(km\_fit.cluster\_centers\_).plot(kind=&#39;scatter&#39;,x=0,y=1,color=&#39;k&#39;,ax=ax)
+    ax.set\_title(str(num\_clusters) + &#34; Assault Clusters&#34;)
+</code></pre><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/KMeans%20Clustering%20Crime%20%26%20Alcohol%20Off-Site%20Sales%20Locations_21_0.png"
+        data-srcset="/KMeans%20Clustering%20Crime%20%26%20Alcohol%20Off-Site%20Sales%20Locations_21_0.png, /KMeans%20Clustering%20Crime%20%26%20Alcohol%20Off-Site%20Sales%20Locations_21_0.png 1.5x, /KMeans%20Clustering%20Crime%20%26%20Alcohol%20Off-Site%20Sales%20Locations_21_0.png 2x"
+        data-sizes="auto"
+        alt="/KMeans%20Clustering%20Crime%20%26%20Alcohol%20Off-Site%20Sales%20Locations_21_0.png"
+        title="png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/KMeans%20Clustering%20Crime%20%26%20Alcohol%20Off-Site%20Sales%20Locations_21_4.png"
+        data-srcset="/KMeans%20Clustering%20Crime%20%26%20Alcohol%20Off-Site%20Sales%20Locations_21_4.png, /KMeans%20Clustering%20Crime%20%26%20Alcohol%20Off-Site%20Sales%20Locations_21_4.png 1.5x, /KMeans%20Clustering%20Crime%20%26%20Alcohol%20Off-Site%20Sales%20Locations_21_4.png 2x"
+        data-sizes="auto"
+        alt="/KMeans%20Clustering%20Crime%20%26%20Alcohol%20Off-Site%20Sales%20Locations_21_4.png"
+        title="png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/KMeans%20Clustering%20Crime%20%26%20Alcohol%20Off-Site%20Sales%20Locations_21_9.png"
+        data-srcset="/KMeans%20Clustering%20Crime%20%26%20Alcohol%20Off-Site%20Sales%20Locations_21_9.png, /KMeans%20Clustering%20Crime%20%26%20Alcohol%20Off-Site%20Sales%20Locations_21_9.png 1.5x, /KMeans%20Clustering%20Crime%20%26%20Alcohol%20Off-Site%20Sales%20Locations_21_9.png 2x"
+        data-sizes="auto"
+        alt="/KMeans%20Clustering%20Crime%20%26%20Alcohol%20Off-Site%20Sales%20Locations_21_9.png"
+        title="png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/KMeans%20Clustering%20Crime%20%26%20Alcohol%20Off-Site%20Sales%20Locations_21_12.png"
+        data-srcset="/KMeans%20Clustering%20Crime%20%26%20Alcohol%20Off-Site%20Sales%20Locations_21_12.png, /KMeans%20Clustering%20Crime%20%26%20Alcohol%20Off-Site%20Sales%20Locations_21_12.png 1.5x, /KMeans%20Clustering%20Crime%20%26%20Alcohol%20Off-Site%20Sales%20Locations_21_12.png 2x"
+        data-sizes="auto"
+        alt="/KMeans%20Clustering%20Crime%20%26%20Alcohol%20Off-Site%20Sales%20Locations_21_12.png"
+        title="png" /></p>
+<pre tabindex="0"><code>num\_clusters = 55
+crime\_km = KMeans(num\_clusters)
+crime\_km\_fit = crime\_km.fit(crime\_X)
+crime\_ax = crime\_X.plot(kind=&#39;scatter&#39;,x=&#39;X&#39;,y=&#39;Y&#39;, legend=str(num\_clusters), figsize=(8, 6))
+pd.DataFrame(crime\_km\_fit.cluster\_centers\_).plot(kind=&#39;scatter&#39;,x=0,y=1,color=&#39;k&#39;,ax=crime\_ax)
+crime\_ax.set\_title(str(num\_clusters) + &#34; Assault Clusters&#34;)
+</code></pre><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/KMeans%20Clustering%20Crime%20%26%20Alcohol%20Off-Site%20Sales%20Locations_22_1.png"
+        data-srcset="/KMeans%20Clustering%20Crime%20%26%20Alcohol%20Off-Site%20Sales%20Locations_22_1.png, /KMeans%20Clustering%20Crime%20%26%20Alcohol%20Off-Site%20Sales%20Locations_22_1.png 1.5x, /KMeans%20Clustering%20Crime%20%26%20Alcohol%20Off-Site%20Sales%20Locations_22_1.png 2x"
+        data-sizes="auto"
+        alt="/KMeans%20Clustering%20Crime%20%26%20Alcohol%20Off-Site%20Sales%20Locations_22_1.png"
+        title="png" /></p>
+<p>Blue are the underlying liquor Stores</p>
+<p>Red are Assault Centroids</p>
+<p>Black are Liquor Store Centroids</p>
+<pre tabindex="0"><code>alc\_base = alc\_X.plot(kind=&#39;scatter&#39;,x=&#39;X&#39;,y=&#39;Y&#39;, legend=str(num\_clusters), figsize=(10, 8))
+pd.DataFrame(crime\_km\_fit.cluster\_centers\_).plot(kind=&#39;scatter&#39;,x=0,y=1,color=&#39;r&#39;, ax=alc\_base)
+pd.DataFrame(liq\_km\_fit.cluster\_centers\_).plot(kind=&#39;scatter&#39;,x=0,y=1,color=&#39;k&#39;,ax=alc\_base)
+alc\_base.set\_title(&#34;Clustering of Assaults and Liquor Store&#34;)
+</code></pre><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/KMeans%20Clustering%20Crime%20%26%20Alcohol%20Off-Site%20Sales%20Locations_24_1.png"
+        data-srcset="/KMeans%20Clustering%20Crime%20%26%20Alcohol%20Off-Site%20Sales%20Locations_24_1.png, /KMeans%20Clustering%20Crime%20%26%20Alcohol%20Off-Site%20Sales%20Locations_24_1.png 1.5x, /KMeans%20Clustering%20Crime%20%26%20Alcohol%20Off-Site%20Sales%20Locations_24_1.png 2x"
+        data-sizes="auto"
+        alt="/KMeans%20Clustering%20Crime%20%26%20Alcohol%20Off-Site%20Sales%20Locations_24_1.png"
+        title="png" /></p>
+<h3 id="leaflet">Leaflet</h3>
+<p>I also decided to plot this data in <a href="http://leafletjs.com/" target="_blank" rel="noopener noreffer ">Leaflet</a> to exercise my JavaScript skills a bit. <a href="http://leafletjs.com/" target="_blank" rel="noopener noreffer ">Leaflet is a javascript plotting library.</a></p>
+<ul>
+<li>Red: Assault (Centroids being larger)</li>
+<li>Black: Liquor Stores (Centroids being larger)</li>
+</ul>
+<h3 id="conclusion">Conclusion</h3>
+<p>It appears that there is at least some basic correlation between crimes and liquor stores. Obviously this will vary with the type of crime but it is worth exploring further. This was not intended to be a scientific analysis - much more of an exploration. Due to any number of biases, this information is not something that, at face value, you can derive explicit relationships. I wanted to play around with a visual display of k-means and sci-kit learn.</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2015-03-31</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://billchambers.me/posts/kmeans-clustering-sf-crime-data/" data-title="K-Means Clustering - Liquor &amp; Assaults in San Francisco" data-via="bllchmbrs"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://billchambers.me/posts/kmeans-clustering-sf-crime-data/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://billchambers.me/posts/kmeans-clustering-sf-crime-data/" data-title="K-Means Clustering - Liquor &amp; Assaults in San Francisco"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://billchambers.me/posts/kmeans-clustering-sf-crime-data/" data-title="K-Means Clustering - Liquor &amp; Assaults in San Francisco"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://billchambers.me/posts/kmeans-clustering-sf-crime-data/" data-title="K-Means Clustering - Liquor &amp; Assaults in San Francisco"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/interactive-salesforce-graphing/" class="prev" rel="prev" title="Interactive Salesforce Graphing with Plotly"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Interactive Salesforce Graphing with Plotly</a>
+            <a href="/posts/d3-visualization-of-different-flights/" class="next" rel="next" title="Visualizing Flights Origins and Departures with d3.js">Visualizing Flights Origins and Departures with d3.js<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+    <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><i> Bill Chambers </i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a
+                    href="/" target="_blank"></a></span></div>
+    </div>
+</footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

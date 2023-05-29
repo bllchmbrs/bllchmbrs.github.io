@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Python NLP - NLTK and scikit-learn - My Writings - Bill Chambers</title><meta name="Description" content="something"><meta property="og:title" content="Python NLP - NLTK and scikit-learn" />
+<meta property="og:description" content="This post is meant as a summary of many of the concepts that I learned in Marti Hearst&rsquo;s Natural Language Processing class at the UC Berkeley School of Information. I wanted to record the concepts and approaches that I had learned with quick overviews of the code you need to get it working. I figured that it could help some other people get a handle on the goals and code to get things done." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://billchambers.me/posts/python-nlp-cheatsheet-nltk-scikit-learn/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2015-01-14T00:00:00+00:00" />
+<meta property="article:modified_time" content="2015-01-14T00:00:00+00:00" /><meta property="og:site_name" content="Writings and Musings of Bill Chambers" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Python NLP - NLTK and scikit-learn"/>
+<meta name="twitter:description" content="This post is meant as a summary of many of the concepts that I learned in Marti Hearst&rsquo;s Natural Language Processing class at the UC Berkeley School of Information. I wanted to record the concepts and approaches that I had learned with quick overviews of the code you need to get it working. I figured that it could help some other people get a handle on the goals and code to get things done."/>
+<meta name="application-name" content="My cooldsfasdfsad site">
+<meta name="apple-mobile-web-app-title" content="My cooldsfasdfsad site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://billchambers.me/posts/python-nlp-cheatsheet-nltk-scikit-learn/" /><link rel="prev" href="https://billchambers.me/posts/rebalancing-bike-terminals-in-sf/" /><link rel="next" href="https://billchambers.me/posts/python-datascience-and-docker/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Python NLP - NLTK and scikit-learn",
+        "inLanguage": "en-us",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/billchambers.me\/posts\/python-nlp-cheatsheet-nltk-scikit-learn\/"
+        },"genre": "posts","wordcount":  1422 ,
+        "url": "https:\/\/billchambers.me\/posts\/python-nlp-cheatsheet-nltk-scikit-learn\/","datePublished": "2015-01-14T00:00:00+00:00","dateModified": "2015-01-14T00:00:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Bill Chambers"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="My Writings - Bill Chambers">Writings and Musings of Bill Chambers</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/" title="My Writings - Bill Chambers"> Home </a><a class="menu-item" href="/about/"> About </a><a class="menu-item active" href="/posts/" title="Posts"> Posts </a><a class="menu-item" href="/categories/" title="Categories"> Categories </a><a class="menu-item" href="/quotes/"> Quotes </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="My Writings - Bill Chambers">Writings and Musings of Bill Chambers</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/" title="My Writings - Bill Chambers">Home</a><a class="menu-item" href="/about/" title="">About</a><a class="menu-item" href="/posts/" title="Posts">Posts</a><a class="menu-item" href="/categories/" title="Categories">Categories</a><a class="menu-item" href="/quotes/" title="">Quotes</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Python NLP - NLTK and scikit-learn</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Bill Chambers</a></span>&nbsp;<span class="post-category">included in <a href="/categories/projects/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>projects</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2015-01-14">2015-01-14</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1422 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;7 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>This post is meant as a summary of many of the concepts that I learned in <a href="http://people.ischool.berkeley.edu/%7Ehearst/" target="_blank" rel="noopener noreffer ">Marti Hearst&rsquo;s</a> <a href="http://www.ischool.berkeley.edu/courses/i256" target="_blank" rel="noopener noreffer ">Natural Language Processing</a> class at the <a href="http://www.ischool.berkeley.edu/" target="_blank" rel="noopener noreffer ">UC Berkeley School of Information</a>. I wanted to record the concepts and approaches that I had learned with quick overviews of the code you need to get it working. I figured that it could help some other people get a handle on the goals and code to get things done.</p>
+<p><a href="http://www.nltk.org/book_1ed/" target="_blank" rel="noopener noreffer "><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/nlp_processing.gif"
+        data-srcset="/nlp_processing.gif, /nlp_processing.gif 1.5x, /nlp_processing.gif 2x"
+        data-sizes="auto"
+        alt="/nlp_processing.gif"
+        title="Natural Language Processing with Python" width="180" height="236" /></a></p>
+<p>I would encourage anyone else to take a look at the <a href="http://www.nltk.org/book_1ed/" target="_blank" rel="noopener noreffer ">Natural Language Processing with Python</a> and read more about scikit-learn.</p>
+<h4 id="tokenization">Tokenization</h4>
+<p>The goal of tokenization is to break up a sentence or paragraph into specific tokens or words. We basically want to convert human language into a more abstract representation that computers can work with.</p>
+<p>Sometimes you want to split sentence by sentence and other times you just want to split words.</p>
+<p><strong>Sentence Tokenizers</strong></p>
+<pre tabindex="0"><code>sent\_tokenizer = nltk.data.load(&#39;tokenizers/punkt/english.pickle&#39;)
+</code></pre><p>Here&rsquo;s a popular word regular expression tokenizer from the NLTK book that works quite well.</p>
+<p><strong>Word Tokenizers</strong></p>
+<pre tabindex="0"><code>tokenization\_pattern = r&#39;&#39;&#39;(?x) # set flag to allow verbose regexps
+([A-Z]\.)+ # abbreviations, e.g. U.S.A.
+| \w+(-\w+)\* # words with optional internal hyphens
+| \$?\d+(\.\d+)?%? # currency and percentages, e.g. $12.40, 82%
+| \w+[\x90-\xff] # these are escaped emojis
+| [][.,;&#34;&#39;?():-\_`] # these are separate tokens
+&#39;&#39;&#39;
+word\_tokenizer = nltk.tokenize.regexp.RegexpTokenizer(tokenization\_pattern)
+</code></pre><h4 id="part-of-speech-tagging">Part of Speech Tagging</h4>
+<p>Once you&rsquo;ve tokenized the sentences you need to tag them. Tagging is not necessary for all purposes but it does help the computer better understand the objects and references in your sentences. Remember our goal is to encode semantics, not words, and tagging can help us do that.</p>
+<p>Unfortunately, this is an imperfect science, it&rsquo;s just never going to work out perfectly because in so many sentences there are so many different representations of text. Let me show you what I mean, I&rsquo;ll be using a comical example of a <a href="http://en.wikipedia.org/wiki/Garden_path_sentence" target="_blank" rel="noopener noreffer ">garden path sentence.</a></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/discovery-crash-blossom-headline-death-happens-more-slowly-than-thought.jpg"
+        data-srcset="/discovery-crash-blossom-headline-death-happens-more-slowly-than-thought.jpg, /discovery-crash-blossom-headline-death-happens-more-slowly-than-thought.jpg 1.5x, /discovery-crash-blossom-headline-death-happens-more-slowly-than-thought.jpg 2x"
+        data-sizes="auto"
+        alt="/discovery-crash-blossom-headline-death-happens-more-slowly-than-thought.jpg"
+        title="garden path sentence" /></p>
+<p>This sentence is comical because death can either happen more slowly than thought (as in we had an expectation of death happening at a certain rate of speed).</p>
+<p>But semantically, the speed of death can compared to the speed of thought which is obviously strange. Once you learn about these kinds of comical sentence structures, you start to seem them more often.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/stan-carey-crash-blossoms-mcdonalds-fries-the-holy-grail-for-potato-farmers1.jpg"
+        data-srcset="/stan-carey-crash-blossoms-mcdonalds-fries-the-holy-grail-for-potato-farmers1.jpg, /stan-carey-crash-blossoms-mcdonalds-fries-the-holy-grail-for-potato-farmers1.jpg 1.5x, /stan-carey-crash-blossoms-mcdonalds-fries-the-holy-grail-for-potato-farmers1.jpg 2x"
+        data-sizes="auto"
+        alt="/stan-carey-crash-blossoms-mcdonalds-fries-the-holy-grail-for-potato-farmers1.jpg"
+        title="garden path sentence" /></p>
+<p>This one is also comical. In this sentence we&rsquo;ve got two meanings as well. McDonald&rsquo;s fries are the holy grail for potato farmers or more comically McDonald&rsquo;s <em>fries</em> the actual holy grail for potato farmers. A comical mental image.</p>
+<p><em>images from <a href="https://stancarey.wordpress.com/" target="_blank" rel="noopener noreffer ">Sentence first</a></em></p>
+<p>Thus part of speech tagging is never perfect, because there are so many interpretations.</p>
+<p><strong>Built in tagger</strong></p>
+<p>This is the built in tagger, the one that NLTK recommends. It&rsquo;s pretty slow when working on sort of large corpus.</p>
+<pre tabindex="0"><code>nltk.pos\_tag(sentence) # tokenized sentence
+nltk.batch\_pos\_tag(sentences) # for lots of tokenized sentences
+</code></pre><p><strong>Unigram, Bigram, and Backoff Tagging</strong></p>
+<p>These are backoff taggers, basically it&rsquo;s just a dictionary look up to tag parts of speech. You train it on a tagged corpus(or corpora) and then use it to tag sentences in the future.</p>
+<pre tabindex="0"><code>default\_tagger = nltk.DefaultTagger(&#39;NN&#39;)
+raw = r&#39;&#39;&#39;what will this silly tagger do?&#39;&#39;&#39;
+tokens = nltk.word\_tokenize(raw)
+print default\_tagger.tag(tokens)
+# [(&#39;what&#39;, &#39;NN&#39;), (&#39;will&#39;, &#39;NN&#39;), (&#39;this&#39;, &#39;NN&#39;), (&#39;silly&#39;, &#39;NN&#39;), (&#39;tagger&#39;, &#39;NN&#39;), (&#39;do&#39;, &#39;NN&#39;), (&#39;?&#39;, &#39;NN&#39;)]
+</code></pre><p>Here&rsquo;s how you train the tagger on brown, this is a unigram tagger, so it&rsquo;s not going to perform really well because it will tag everything as a NN (noun) or whatever part of speech we give it.</p>
+<pre tabindex="0"><code>from nltk.corpus import brown
+brown\_tagged\_sents = brown.tagged\_sents()
+unigram\_tagger = nltk.UnigramTagger(brown\_tagged\_sents)
+print &#34;%0.3f&#34; % unigram\_tagger.evaluate(test\_sents) # eval the tagger
+</code></pre><p>This is a true backoff tagger that defaults to a certain part of speech. So it will look for trigram occurrences and see if it finds any with a certain word formation, if it does not then it will <em>backoff</em> to the bigram tagger, etc.</p>
+<pre tabindex="0"><code>def build\_backoff\_tagger(train\_sents):
+    t0 = nltk.DefaultTagger(&#39;NN&#39;)
+    t1 = nltk.UnigramTagger(train\_sents, backoff=t0)
+    t2 = nltk.BigramTagger(train\_sents, backoff=t1)
+    t3 = nltk.TrigramTagger(train\_sents, backoff=t2)
+    return t3
+ngram\_tagger = build\_backoff\_tagger(train\_sents)
+</code></pre><p>What&rsquo;s nice is to speed things up, you can actually just pickle the backoff tagger so that it&rsquo;s easier to deploy a tagger if need be.</p>
+<pre tabindex="0"><code>import pickle # or cPickle
+with open(&#39;pickled\_file.pickle&#39;, &#39;wb&#39;) as f:
+    pickle.dump(ngram\_tagger, f)
+</code></pre><pre tabindex="0"><code>with open(&#39;pickled\_file.pickle&#39;, &#39;r&#39;) as f:
+    tagger = pickle.load(f)
+</code></pre><h4 id="removing-punctuation">Removing Punctuation</h4>
+<p>At times you&rsquo;ll need to remove certain punctuation marks - this is an easy way to do so.</p>
+<pre tabindex="0"><code>import string
+nopunct = [w for w in text if w not in string.punctuation]
+&#39; &#39;.join(nopunct[0:100])
+</code></pre><h4 id="stopwords">Stopwords</h4>
+<p>Here&rsquo;s an easy way to remove stop words.</p>
+<pre tabindex="0"><code>from nltk.corpus import stopwords
+normalized = [w for w in text6 if w.lower() not in stopwords.words(&#39;english&#39;)]
+</code></pre><p>Extend it with:</p>
+<pre tabindex="0"><code>from nltk.corpus import stopwords
+my\_stops = stopwords
+my\_stops.append(&#34;shoebox&#34;)
+</code></pre><h4 id="stemming">Stemming</h4>
+<p>Stemming the process by which endings are removed from words in order to remove things like tense or plurality. It&rsquo;s not appropriate for all cases but can make it easier to connect together tenses to see if you&rsquo;re covering the same subject matter.</p>
+<p><a href="http://youtu.be/9Zag7uhjdYo?t=30m00s" target="_blank" rel="noopener noreffer ">Ben Hamner mentions in his Machine Learning Best practices that Kaggle has learned from their competitions that the Porter stemmer is consistently used in winning NLP algorithms for their competitions.</a></p>
+<pre tabindex="0"><code>pstemmer = nltk.PorterStemmer()
+lstemmer = nltk.LancasterStemmer()
+wnlemmatizer = nltk.WordNetLemmatizer()
+</code></pre><h4 id="frequency-distributions">Frequency Distributions</h4>
+<p>A common go to to see what&rsquo;s going on with certain text data sets, frequency distributions allow you to see the frequency at which certain words occur and plot it if need be.</p>
+<pre tabindex="0"><code>fd = nltk.FreqDist(data)
+fd.plot()
+fd.plot(50, cumulative=True)
+fd.most\_common(12)
+</code></pre><h4 id="collocations-bigrams-trigrams">Collocations, Bigrams, Trigrams</h4>
+<p>Bigrams and trigrams are just words that are commonly found together and measures their relevance by a certain measurement.</p>
+<pre tabindex="0"><code>bigram\_measures = nltk.collocations.BigramAssocMeasures()
+trigram\_measures = nltk.collocations.TrigramAssocMeasures()
+finder = nltk.collocations.BigramCollocationFinder.from\_words(text)
+finder.nbest(bigram\_measures.pmi, 10)
+</code></pre><h4 id="chunking">Chunking</h4>
+<p>Chunking basically just grabs chunks of text that might be more meaningful to your research or program. You create a list of parts of speech and run that over your corpus. It will extract the phrasing that you need.</p>
+<p>Remember you&rsquo;ve got to customize it to the part of speech tagger that you&rsquo;re using, like Brown or the Stanford Tagger.</p>
+<pre tabindex="0"><code>technical\_term = r&#34;T: {&lt;(JJ|NN|NNS|NNP|NNPS)&gt;+&lt;(NN|NNS|NNP|NNPS|CD)&gt;|&lt;(NN|NNS|NNP|NNPS)&gt;}&#34;
+cp = nltk.RegexpParser(technical\_term)
+
+for count, sent in enumerate(brown.sents()[100:104]):
+    print &#34;Sentence #&#34; + str(count) + &#34;:&#34;
+    parsed = cp.parse(nltk.pos\_tag(sent))
+    print parsed
+    print &#34;\nTechnical Terms:\n&#34;
+    for tree in parsed.subtrees():
+        if tree.label() == &#34;T&#34;:
+            print tree
+</code></pre><h4 id="splitting-training-sets--test-sets">Splitting Training Sets + Test Sets</h4>
+<p>This is a simple way that Marti showed us that allows for simple splitting of test sets.</p>
+<p>This splits it into thirds.</p>
+<p><strong>Train, Dev, Test Sets</strong></p>
+<pre tabindex="0"><code>def create\_training\_sets\_trips(feature\_function, items):
+    featuresets = [(feature\_function(key), value) for (key, value) in items]
+    third = int(float(len(featuresets)) / 3.0)
+    return items[0:third], items[third:third\*2], items[third\*2:], featuresets[0:third], featuresets[third:third\*2], featuresets[third\*2:]
+
+train\_items, dev\_items, test\_items, train\_features, dev\_features, test\_features = create\_training\_sets\_trips(f\_func, data)
+</code></pre><p>This splits it into halves.</p>
+<p><strong>Simpler Test Sets</strong></p>
+<pre tabindex="0"><code>def create\_training\_sets(feature\_function, items):
+    featuresets = [(feature\_function(key), value) for (key, value) in items]
+    halfsize = int(float(len(featuresets)) / 2.0)
+    train\_set, test\_set = featuresets[halfsize:], featuresets[:halfsize]
+    return train\_set, test\_set
+train, test = create\_training\_sets(f\_func, data)
+</code></pre><h4 id="classifiers--scikit-learn">Classifiers &amp; Scikit-learn</h4>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/scikit-learn-logo-small.png"
+        data-srcset="/scikit-learn-logo-small.png, /scikit-learn-logo-small.png 1.5x, /scikit-learn-logo-small.png 2x"
+        data-sizes="auto"
+        alt="/scikit-learn-logo-small.png"
+        title="scikit-learn" /></p>
+<p>Now there are plenty of different ways of classifying text, this isn&rsquo;t an exhaustive list but it&rsquo;s a pretty good starting point.</p>
+<p><strong>TF-IDF</strong></p>
+<p>See my other two posts on TF-IDF here:</p>
+<ul>
+<li><a href="/tutorials/2014/12/21/tf-idf-explained-in-python.html" rel="">TF-IDF explained.</a></li>
+<li><a href="/tutorials/2014/12/22/cosine-similarity-explained-in-python.html" rel="">TF-IDF and Cosine Similarity explained.</a></li>
+</ul>
+<p><strong>Naive Bayes Classifiers</strong></p>
+<p>This is a simple Naive Bayes classifier.</p>
+<pre tabindex="0"><code>from sklearn.naive\_bayes import MultinomialNB
+
+cl = nltk.NaiveBayesClassifier.train(train\_set)
+print &#34;%.3f&#34; % nltk.classify.accuracy(cl, test\_set)
+cl.show\_most\_informative\_features(40)
+cl.prob\_classify(featurize(name)) # get a confidence for the prediction
+</code></pre><p><strong>SVC Classifier</strong></p>
+<p>SVMs need numerican inputs, it can take text-based features so you have to convert these features into numbers before passing them to this classifier.</p>
+<pre tabindex="0"><code>from nltk.classify import SklearnClassifier
+from sklearn.svm import SVC
+svmc = SklearnClassifier(SVC(), sparse=False).train(train\_features)
+</code></pre><p><strong>Decision Tree Classification</strong></p>
+<p>This is a simple decision tree classifier.</p>
+<pre tabindex="0"><code>dtc = nltk.classify.DecisionTreeClassifier.train(train\_features, entropy\_cutoff=0, support\_cutoff=0)  
+</code></pre><p><strong>Maximum Entropy Classifier</strong></p>
+<p>A maximum entropy classifier and <a href="http://www.monlp.com/2011/10/10/support-for-scipy-in-nltks-maximum-entropy-methods/" target="_blank" rel="noopener noreffer ">some helpful explainers here</a>.</p>
+<pre tabindex="0"><code>import numpy
+import scipy
+
+from nltk.classify import maxent
+nltk.classify.MaxentClassifier.ALGORITHMS
+# [&#39;GIS&#39;,&#39;IIS&#39;,&#39;CG&#39;,&#39;BFGS&#39;,&#39;Powell&#39;,&#39;LBFGSB&#39;,&#39;Nelder-Mead&#39;,&#39;MEGAM&#39;,&#39;TADM&#39;]
+
+# MEGAM or TADM are not rec&#39;d for text classification
+mec = nltk.classify.MaxentClassifier.train(train\_features, &#39;GIS&#39;, trace=0, max\_iter=1000)
+</code></pre><h4 id="cross-validating-classifiers">Cross Validating Classifiers</h4>
+<p>One thing you&rsquo;ll need to avoid over-fitting is you&rsquo;ll want to cross validate with k-folds. This can help you see where you might be over-fitting in your corpus.</p>
+<pre tabindex="0"><code>from sklearn import cross\_validation
+cv = cross\_validation.KFold(len(train\_features), n\_folds=10, indices=True, shuffle=False, random\_state=None)
+
+for traincv, evalcv in cv:
+    classifier = nltk.NaiveBayesClassifier.train(train\_features[traincv[0]:traincv[len(traincv)-1]])
+    print &#39;accuracy: %.3f&#39; % nltk.classify.util.accuracy(classifier, train\_features[evalcv[0]:evalcv[len(evalcv)-1]])
+</code></pre><h4 id="creating-pipelines-for-classifiers">Creating Pipelines for Classifiers</h4>
+<p>Finally creating pipelines can help speed things up immensely, especially when you&rsquo;re moving to more production level code.</p>
+<pre tabindex="0"><code>import sklearn
+from sklearn.svm import LinearSVC
+from nltk.classify.scikitlearn import SklearnClassifier
+from sklearn.feature\_extraction.text import TfidfTransformer
+from sklearn.feature\_selection import SelectKBest, chi2
+from sklearn.naive\_bayes import MultinomialNB
+from sklearn.pipeline import Pipeline
+pipeline = Pipeline([(&#39;tfidf&#39;, TfidfTransformer()),
+                     (&#39;chi2&#39;, SelectKBest(chi2, k=2000)),
+                     (&#39;nb&#39;, MultinomialNB())])
+pipecl = SklearnClassifier(pipeline)
+pipecl.train(train\_features)
+</code></pre></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2015-01-14</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://billchambers.me/posts/python-nlp-cheatsheet-nltk-scikit-learn/" data-title="Python NLP - NLTK and scikit-learn" data-via="bllchmbrs"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://billchambers.me/posts/python-nlp-cheatsheet-nltk-scikit-learn/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://billchambers.me/posts/python-nlp-cheatsheet-nltk-scikit-learn/" data-title="Python NLP - NLTK and scikit-learn"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://billchambers.me/posts/python-nlp-cheatsheet-nltk-scikit-learn/" data-title="Python NLP - NLTK and scikit-learn"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://billchambers.me/posts/python-nlp-cheatsheet-nltk-scikit-learn/" data-title="Python NLP - NLTK and scikit-learn"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/rebalancing-bike-terminals-in-sf/" class="prev" rel="prev" title="Data Challenge - Rebalancing Bike Terminals in SF"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Data Challenge - Rebalancing Bike Terminals in SF</a>
+            <a href="/posts/python-datascience-and-docker/" class="next" rel="next" title="Hackday - Data Science and Docker Working Together">Hackday - Data Science and Docker Working Together<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+    <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><i> Bill Chambers </i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a
+                    href="/" target="_blank"></a></span></div>
+    </div>
+</footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

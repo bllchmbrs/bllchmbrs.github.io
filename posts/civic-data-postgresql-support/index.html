@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Deploying PostgreSQL for the California Civic Data Coalition&#39;s Django Project - My Writings - Bill Chambers</title><meta name="Description" content="something"><meta property="og:title" content="Deploying PostgreSQL for the California Civic Data Coalition&#39;s Django Project" />
+<meta property="og:description" content="First, I&rsquo;d like to introduce the California Civic Data Coalition. They are self described as a loosely coupled team from the Los Angeles Times Data Desk, The Center for Investigative Reporting and Stanford&rsquo;s Computational Journalism Lab.
+I am not a part of the Los Angeles Times nor Stanford&rsquo;s computation Journalism Lab. However I am passionate about open data and leveraging my skills to help others. So I decided to start contributing." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://billchambers.me/posts/civic-data-postgresql-support/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2014-11-25T00:00:00+00:00" />
+<meta property="article:modified_time" content="2014-11-25T00:00:00+00:00" /><meta property="og:site_name" content="Writings and Musings of Bill Chambers" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Deploying PostgreSQL for the California Civic Data Coalition&#39;s Django Project"/>
+<meta name="twitter:description" content="First, I&rsquo;d like to introduce the California Civic Data Coalition. They are self described as a loosely coupled team from the Los Angeles Times Data Desk, The Center for Investigative Reporting and Stanford&rsquo;s Computational Journalism Lab.
+I am not a part of the Los Angeles Times nor Stanford&rsquo;s computation Journalism Lab. However I am passionate about open data and leveraging my skills to help others. So I decided to start contributing."/>
+<meta name="application-name" content="My cooldsfasdfsad site">
+<meta name="apple-mobile-web-app-title" content="My cooldsfasdfsad site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://billchambers.me/posts/civic-data-postgresql-support/" /><link rel="prev" href="https://billchambers.me/posts/introduction-to-static-site-generators/" /><link rel="next" href="https://billchambers.me/posts/the-future-of-privacy/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Deploying PostgreSQL for the California Civic Data Coalition's Django Project",
+        "inLanguage": "en-us",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/billchambers.me\/posts\/civic-data-postgresql-support\/"
+        },"genre": "posts","wordcount":  1348 ,
+        "url": "https:\/\/billchambers.me\/posts\/civic-data-postgresql-support\/","datePublished": "2014-11-25T00:00:00+00:00","dateModified": "2014-11-25T00:00:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Bill Chambers"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="My Writings - Bill Chambers">Writings and Musings of Bill Chambers</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/" title="My Writings - Bill Chambers"> Home </a><a class="menu-item" href="/about/"> About </a><a class="menu-item active" href="/posts/" title="Posts"> Posts </a><a class="menu-item" href="/categories/" title="Categories"> Categories </a><a class="menu-item" href="/quotes/"> Quotes </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="My Writings - Bill Chambers">Writings and Musings of Bill Chambers</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/" title="My Writings - Bill Chambers">Home</a><a class="menu-item" href="/about/" title="">About</a><a class="menu-item" href="/posts/" title="Posts">Posts</a><a class="menu-item" href="/categories/" title="Categories">Categories</a><a class="menu-item" href="/quotes/" title="">Quotes</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Deploying PostgreSQL for the California Civic Data Coalition's Django Project</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Bill Chambers</a></span>&nbsp;<span class="post-category">included in <a href="/categories/projects/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>projects</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2014-11-25">2014-11-25</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1348 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;7 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#first-attempt-clean-before-insert">First Attempt: Clean before Insert</a></li>
+        <li><a href="#second-attempt-a-temporary-table">Second Attempt: A Temporary Table</a></li>
+        <li><a href="#conclusions">Conclusions</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>First, I&rsquo;d like to introduce the <a href="http://www.californiacivicdata.org/" target="_blank" rel="noopener noreffer ">California Civic Data Coalition</a>. They are self described as a loosely coupled team from the Los Angeles Times Data Desk, The Center for Investigative Reporting and Stanford&rsquo;s Computational Journalism Lab.</p>
+<p>I am not a part of the Los Angeles Times nor Stanford&rsquo;s computation Journalism Lab. However <strong>I am passionate about open data and leveraging my skills to help others.</strong> So I decided to start contributing. I started off with a rather small change then decided to sink my teeth into PostgreSQL support.</p>
+<p>As a final thought I would encourage anyone and everyone to contribute to open data projects. I learned a lot setting up this feature and there is a lot of room for further contributions.</p>
+<p>The aim of this document is to be a reference for others that may be challenged by similar feature development. I&rsquo;ll be covering some of the minute differences between MySQL and PostgreSQL and how I managed those differences. The project is written in Python and Django and started with only MySQL support.</p>
+<p>Typically <a href="https://www.djangoproject.com/" target="_blank" rel="noopener noreffer ">Django</a> has a pretty strong background for supporting multiple databases so I figured that supporting one or another would be trivial, especially coming from MySQL. I was wrong.</p>
+<p>What you&rsquo;ll find below is a fairly detailed log of the changes that I made and why I wrote the code that I wrote. <a href="https://github.com/california-civic-data-coalition/django-calaccess-raw-data/blob/master/calaccess_raw/management/commands/loadcalaccessrawfile.py" target="_blank" rel="noopener noreffer ">Feel free to take a look at the code.</a></p>
+<hr>
+<p>We load our data using some fairly sophisticated Django management commands. Using MySQL&rsquo;s <a href="http://dev.mysql.com/doc/refman/5.1/en/load-data.html" target="_blank" rel="noopener noreffer "><code>INFILE</code></a> support we bulk insert each file (while rearranging, cleaning, and renaming columns on the fly). Now PostgreSQL doesn&rsquo;t support <code>INFILE</code> loading but they&rsquo;ve got a derivative: <a href="http://www.postgresql.org/docs/9.2/static/sql-copy.html" target="_blank" rel="noopener noreffer "><code>COPY</code></a>.</p>
+<p>Here&rsquo;s an example of a MySQL LOAD DATA INFO command.</p>
+<pre tabindex="0"><code>LOAD DATA LOCAL INFILE &#39;&lt;file name&gt;&#39; INTO TABLE &lt;table&gt;
+(@var1)
+SET Date=str\_to\_date(SUBSTR(@var1,3,10),&#39;%m/%d/%Y&#39;), 
+Time=SUBSTR(@var1,14,8), 
+WindVelocity=SUBSTR(@var1,26,5),
+WindDirection=SUBSTR(@var1,33,3),
+WindCompass=SUBSTR(@var1,38,3),
+WindNorth=SUBSTR(@var1,43,6),
+WindEast=SUBSTR(@var1,51,6),
+WindSamples=SUBSTR(@var1,61,4);
+</code></pre><p>It&rsquo;s important to note all the <code>@var</code> fanciness. That&rsquo;s what makes this so easy(ish).</p>
+<p>The problem is that <code>COPY</code> in Postgres, from my interpretation, is meant for unloading to a text file then loading it back in without really performing any modifications. It doesn&rsquo;t have any of the dexterity shown above. Here&rsquo;s an example of a <a href="http://www.postgresql.org/docs/9.2/static/sql-copy.html" target="_blank" rel="noopener noreffer "><code>COPY</code></a> command.</p>
+<pre tabindex="0"><code>COPY country FROM &#39;/usr1/proj/bray/sql/country\_data&#39;;
+</code></pre><p>Obviously, we&rsquo;re not just unloading data and loading it back in. We are transforming dates and substrings, not to mention we are moving data from a completely different system into Postgres. That&rsquo;s where things get tricky. I can&rsquo;t format data on the fly and renaming columns isn&rsquo;t going to work with the support <code>COPY</code> has. I don&rsquo;t have nearly as many tools as MySQL does.</p>
+<h3 id="first-attempt-clean-before-insert">First Attempt: Clean before Insert</h3>
+<hr>
+<p>So I figured I could write some little <a href="https://www.python.org/" target="_blank" rel="noopener noreffer ">python</a> script to clean the the data before inputting it. The problem is some of the files are huge (&gt; 1gb) so I could not do it with anything resembling speed. This attempt failed miserably, it was just too slow.</p>
+<h3 id="second-attempt-a-temporary-table">Second Attempt: A Temporary Table</h3>
+<hr>
+<p>Here&rsquo;s the process from a 10,000 foot view.</p>
+<p>I create an empty table and insert all CSV data into that table. I then, through <code>INSERT INTO</code> and <code>SELECT</code> statements move that data from the temporary table into its true table. In this process I end up having to deal with a lot of unique cases not limited to integer fields being &ldquo;Y/N&rdquo;, dates formatted in strange and inconsistent ways, and null constraints that are violated by the insert. These are all detailed in the methods like the one below.</p>
+<pre tabindex="0"><code>def \_make\_XXXXXXX\_case(self, \_col):
+    ....
+</code></pre><p>I construct the insert and select statements on the fly as there are issues with column ordering, then attempt to insert - returning the errors with detailed reasoning.</p>
+<p>Here&rsquo;s how I got there.</p>
+<p>I had to use some special case statements in postgres to be able to coerce these types when taking them from the temporary table to our new table.</p>
+<p>The second catch was a bit more nuanced. Basically for certain tables, we add certain fields (in Django). I&rsquo;m not quite sure <em>why</em> these fields have been added but they have. Unfortunately we can&rsquo;t just ignore them because Null is not set the True in the model.</p>
+<pre tabindex="0"><code>    intr\_adr1 = models.CharField(
+        max\_length=55L, db\_column=&#39;INTR\_ADR1&#39;, blank=True
+    )
+</code></pre><p>So we have to manage that explicit case as well.</p>
+<p>The third catch was boolean fields. In the remote database, these fields are stored as &ldquo;Y&rdquo;/&ldquo;N&rdquo;. Now this shouldn&rsquo;t cause a problem however we insert them as integers in our database. This isn&rsquo;t really covered in the documentation so I was just getting errors where my inserts would fail.</p>
+<p>Snooping around in my models showed me this code.</p>
+<pre tabindex="0"><code>    accept\_limit\_yn = models.IntegerField(
+        db\_column=&#39;ACCEPT\_LIMIT\_YN&#39;, blank=True, null=True
+    )
+</code></pre><p>That&rsquo;s clearly meant to be a yes/no(read:boolean) field. So I had to modify my case statements to handle that. This is an example of accidental complexity - using the correct field type in our model could have allowed for a more graceful management of this information but instead we&rsquo;re adding another case statement to this in the database.</p>
+<pre tabindex="0"><code>        ,CASE
+            WHEN &#34;ACCEPT\_LIMIT\_YN&#34; = &#39;&#39;
+                THEN NULL
+            WHEN &#34;ACCEPT\_LIMIT\_YN&#34; = &#39;Y&#39;
+                THEN 1
+            WHEN &#34;ACCEPT\_LIMIT\_YN&#34; = &#39;N&#39;
+                THEN 0
+            WHEN &#34;ACCEPT\_LIMIT\_YN&#34; IS NOT NULL
+                THEN &#34;ACCEPT\_LIMIT\_YN&#34;::int
+        END AS &#34;ACCEPT\_LIMIT\_YN&#34;
+</code></pre><p>The fourth issue was an interesting one, here&rsquo;s the select code we were using to transfer into the true table.</p>
+<pre tabindex="0"><code>SELECT &#34;&#34;
+
+        ,CASE
+            WHEN &#34;FILING\_ID&#34; = &#39;&#39;
+                THEN NULL
+            WHEN &#34;FILING\_ID&#34; = &#39;Y&#39;
+                THEN 1
+            WHEN &#34;FILING\_ID&#34; = &#39;N&#39;
+                THEN 0
+            WHEN &#34;FILING\_ID&#34; IS NOT NULL
+                THEN &#34;FILING\_ID&#34;::int
+        END AS &#34;FILING\_ID&#34;
+
+        ,CASE
+            WHEN &#34;FILING\_TYPE&#34; = &#39;&#39;
+                THEN NULL
+            WHEN &#34;FILING\_TYPE&#34; = &#39;Y&#39;
+                THEN 1
+            WHEN &#34;FILING\_TYPE&#34; = &#39;N&#39;
+                THEN 0
+            WHEN &#34;FILING\_TYPE&#34; IS NOT NULL
+                THEN &#34;FILING\_TYPE&#34;::int
+        END AS &#34;FILING\_TYPE&#34;
+FROM temporary\_table;
+</code></pre><p>Now <code>SELECT &quot;&quot;</code> obviously isn&rsquo;t going to work. What was happening is that the columns in that model were getting modified with the case statements. We have to add a dummy column to the temporary table and the new table, then remove it after the successful or unsuccessful insert.</p>
+<p>When I got to this stage, I started getting some strange errors. MySQL using <code>LOAD DATA</code> seems to automatically truncate fields if they are too long. This made things complicated for me because PostgreSQL does no such thing with <code>COPY</code>. I had to find which fields were causing the issues and resolve them.</p>
+<p>When I would <code>grep</code> certain files I&rsquo;d see that there were plenty of fields causing issues. This is a great example (more can be seen in the <a href="https://github.com/california-civic-data-coalition/django-calaccess-raw-data/issues/68" target="_blank" rel="noopener noreffer ">Github issue</a>.</p>
+<p>The python code:</p>
+<pre tabindex="0"><code>class FilernameCd(CalAccessBaseModel):
+    DATE\_FIELDS = (&#39;EFFECT\_DT&#39;,)
+    xref\_filer\_id = models.CharField(
+        max\_length=7L,
+        db\_column=&#39;XREF\_FILER\_ID&#39;,
+        db\_index=True,
+        help\_text=&#34;The external filer id saved in the forms tables&#34;
+    )
+</code></pre><p>The relevant file:</p>
+<pre tabindex="0"><code>$ head -1 filername_cd.csv
+&#34;XREF\_FILER\_ID&#34;,&#34;FILER\_ID&#34;,&#34;FILER\_TYPE&#34;,&#34;STATUS&#34;,&#34;EFFECT\_DT&#34;,&#34;NAML&#34;,&#34;NAMF&#34;,&#34;NAMT&#34;,&#34;NAMS&#34;,&#34;ADR1&#34;,&#34;ADR2&#34;,&#34;CITY&#34;,&#34;ST&#34;,&#34;ZIP4&#34;,&#34;PHON&#34;,&#34;FAX&#34;,&#34;EMAIL&#34;
+$ grep -E &#34;R98\\*-\d+&#34; filername_cd.csv | wc -l
+     609
+</code></pre><p>The grep data:</p>
+<pre tabindex="0"><code>&#34;XREF\_FILER\_ID&#34;,....
+&#34;R98\*-185420615&#34;,....
+</code></pre><p>Finally the same data in the MySQL database:</p>
+<pre tabindex="0"><code>mysql&gt; SELECT XREF\_FILER\_ID FROM FILERNAME\_CD where XREF\_FILER\_ID like &#39;R98\*-18%&#39;;
++---------------+
+| XREF\_FILER\_ID |
++---------------+
+| R98\*-18       |
+| R98\*-18       |
+| R98\*-18       |
+....
++---------------+
+29 rows in set (0.00 sec)
+</code></pre><p>We can see there the data is getting truncated. It&rsquo;s unfortunate there was no warning that it was but I think that&rsquo;s still a response to how PostgreSQL and MySQL respond to data inserts.</p>
+<p>So I&rsquo;m running some of my final tests, end-to-end and I stumble upon another issue: incorrect data (or data definitions).</p>
+<p>Here&rsquo;s where the issue was occurring:</p>
+<pre tabindex="0"><code> Loading CvrRegistrationCd
+dataerror error,  invalid input syntax for integer: &#34;01/0&#34;
+</code></pre><pre tabindex="0"><code>class CvrRegistrationCd(CalAccessBaseModel):
+...
+    ls\_beg\_yr = models.IntegerField(
+        null=True, db\_column=&#39;LS\_BEG\_YR&#39;, blank=True
+    )
+    ls\_end\_yr = models.IntegerField(db\_column=&#39;LS\_END\_YR&#39;)
+</code></pre><pre tabindex="0"><code>$ head -1 cvr_registration_cd.csv
+&#34;FILING\_ID&#34;...&#34;RPT\_DATE&#34;,&#34;LS\_BEG\_YR&#34;,&#34;LS\_END\_YR&#34;....
+$ grep &#34;01/0&#34; cvr_registration_cd.csv
+&#34;938431&#34;...&#34;6/7/2003 12:00:00 AM&#34;,&#34;01/0&#34;,&#34;12/3&#34;...
+</code></pre><p>It&rsquo;s one line in the file where the files should be integers but are instead <strong>&ldquo;01/0&rdquo;,&ldquo;12/3&rdquo;</strong>. That had to be handled explicitly too.</p>
+<h3 id="conclusions">Conclusions</h3>
+<hr>
+<p>All this logic took a serious amount of time to be able to complete in an appropriate way. Handling these edge cases is an important thing to do and when you&rsquo;re doing it in a system that will be used by a lot of others you have to be confident in what you&rsquo;re doing.</p>
+<p>I hope others come and contribute to this project, it&rsquo;s been really rewarding to work on.</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2014-11-25</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://billchambers.me/posts/civic-data-postgresql-support/" data-title="Deploying PostgreSQL for the California Civic Data Coalition&#39;s Django Project" data-via="bllchmbrs"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://billchambers.me/posts/civic-data-postgresql-support/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://billchambers.me/posts/civic-data-postgresql-support/" data-title="Deploying PostgreSQL for the California Civic Data Coalition&#39;s Django Project"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://billchambers.me/posts/civic-data-postgresql-support/" data-title="Deploying PostgreSQL for the California Civic Data Coalition&#39;s Django Project"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://billchambers.me/posts/civic-data-postgresql-support/" data-title="Deploying PostgreSQL for the California Civic Data Coalition&#39;s Django Project"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/introduction-to-static-site-generators/" class="prev" rel="prev" title="A Gentle Introduction to Static Site Generators"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>A Gentle Introduction to Static Site Generators</a>
+            <a href="/posts/the-future-of-privacy/" class="next" rel="next" title="The Future of Privacy">The Future of Privacy<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+    <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><i> Bill Chambers </i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a
+                    href="/" target="_blank"></a></span></div>
+    </div>
+</footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>SurpriseHaiku - Discovering Unusual Haikus On Twitter - My Writings - Bill Chambers</title><meta name="Description" content="something"><meta property="og:title" content="SurpriseHaiku - Discovering Unusual Haikus On Twitter" />
+<meta property="og:description" content="SurpriseHaiku was an experiment that parsed random twitter tweets to see if they followed the Haiku cadence of 5 / 7 / 5 (syllables). I ran this experiment during the 2014 Olympics to try and focus around Olympics related tweets. This was an application that I built to learn more about the twitter API and dip my toes in the world of Natural Language Parsing or NLP.
+While the application is not running at this point, you can check out the historical tweets on the twitter profile." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://billchambers.me/posts/surprisehaiku/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2014-08-20T00:00:00+00:00" />
+<meta property="article:modified_time" content="2014-08-20T00:00:00+00:00" /><meta property="og:site_name" content="Writings and Musings of Bill Chambers" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="SurpriseHaiku - Discovering Unusual Haikus On Twitter"/>
+<meta name="twitter:description" content="SurpriseHaiku was an experiment that parsed random twitter tweets to see if they followed the Haiku cadence of 5 / 7 / 5 (syllables). I ran this experiment during the 2014 Olympics to try and focus around Olympics related tweets. This was an application that I built to learn more about the twitter API and dip my toes in the world of Natural Language Parsing or NLP.
+While the application is not running at this point, you can check out the historical tweets on the twitter profile."/>
+<meta name="application-name" content="My cooldsfasdfsad site">
+<meta name="apple-mobile-web-app-title" content="My cooldsfasdfsad site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://billchambers.me/posts/surprisehaiku/" /><link rel="next" href="https://billchambers.me/posts/timeful-user-experience-review/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "SurpriseHaiku - Discovering Unusual Haikus On Twitter",
+        "inLanguage": "en-us",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/billchambers.me\/posts\/surprisehaiku\/"
+        },"genre": "posts","wordcount":  561 ,
+        "url": "https:\/\/billchambers.me\/posts\/surprisehaiku\/","datePublished": "2014-08-20T00:00:00+00:00","dateModified": "2014-08-20T00:00:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Bill Chambers"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="My Writings - Bill Chambers">Writings and Musings of Bill Chambers</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/" title="My Writings - Bill Chambers"> Home </a><a class="menu-item" href="/about/"> About </a><a class="menu-item active" href="/posts/" title="Posts"> Posts </a><a class="menu-item" href="/categories/" title="Categories"> Categories </a><a class="menu-item" href="/quotes/"> Quotes </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="My Writings - Bill Chambers">Writings and Musings of Bill Chambers</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/" title="My Writings - Bill Chambers">Home</a><a class="menu-item" href="/about/" title="">About</a><a class="menu-item" href="/posts/" title="Posts">Posts</a><a class="menu-item" href="/categories/" title="Categories">Categories</a><a class="menu-item" href="/quotes/" title="">Quotes</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">SurpriseHaiku - Discovering Unusual Haikus On Twitter</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Bill Chambers</a></span>&nbsp;<span class="post-category">included in <a href="/categories/projects/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>projects</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2014-08-20">2014-08-20</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;561 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;3 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#methodology">Methodology</a></li>
+        <li><a href="#tools">Tools</a></li>
+        <li><a href="#notable-examples">Notable Examples</a></li>
+        <li><a href="#challenges">Challenges</a></li>
+        <li><a href="#improvements-and-conclusions">Improvements and Conclusions</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>SurpriseHaiku was an experiment that parsed random twitter tweets to see if they followed the Haiku cadence of 5 / 7 / 5 (syllables). I ran this experiment during the 2014 Olympics to try and focus around Olympics related tweets. This was an application that I built to learn more about the twitter API and dip my toes in the world of Natural Language Parsing or NLP.</p>
+<p>While the application is not running at this point, you can check out the historical tweets on <a href="https://twitter.com/surprisehaiku" target="_blank" rel="noopener noreffer ">the twitter profile.</a></p>
+<h3 id="methodology">Methodology</h3>
+<hr>
+<p>The simplest explanation is:</p>
+<ul>
+<li>Normalize and tokenize the tweet text</li>
+<li>Split it by syllable/ each word by syllable</li>
+<li>see if we get a 5/7/5 combination</li>
+</ul>
+<p>Identifying the syllables in the English language is tough. We&rsquo;ve got a lot of different ways of pronouncing things not to mention crazy spellings and the presence of other languages. I use two methods to split up syllables:</p>
+<ul>
+<li>Use a dictionary of hyphenated words</li>
+<li>Use a hyphenator</li>
+</ul>
+<p>I then compared the return values. If we had a dictionary entry I would use it, if not I would use what the hyphenator spat out.</p>
+<h3 id="tools">Tools</h3>
+<hr>
+<p>The tools I used in this project are:</p>
+<ul>
+<li>Python</li>
+<li><a href="https://pypi.python.org/pypi/PyHyphen/2.0.5" target="_blank" rel="noopener noreffer ">PyHyphen</a> which is the hyphenation library of LibreOffice and FireFox</li>
+<li>Tweepy for my Twitter API Integration</li>
+<li>Project Gutenberg Etext of Movy Hyphenator by Grady Ward (basically a dictionary of hyphenated words)</li>
+</ul>
+<h3 id="notable-examples">Notable Examples</h3>
+<hr>
+<p>Although not every tweet was successful, there were definitely some notable examples.</p>
+<p>This one really seems to flow although the sentence composition doesn&rsquo;t line up perfectly, the syllables do.</p>
+<blockquote>
+<p>A <a href="https://twitter.com/hashtag/haiku?src=hash" target="_blank" rel="noopener noreffer ">#haiku</a>: <a href="https://t.co/Nn55PyBqab" target="_blank" rel="noopener noreffer ">https://t.co/Nn55PyBqab</a></p>
+<p>Lets Show Why Baseball
+Is The Best Sport RT if
+you want Baseball back</p>
+<p>— SurpriseHaiku (@surprisehaiku) <a href="https://twitter.com/surprisehaiku/status/432752455831392258" target="_blank" rel="noopener noreffer ">February 10, 2014</a></p>
+</blockquote>
+<p>I also ran this experiment during the Olympics, this one gave me a chuckle.</p>
+<blockquote>
+<p>A <a href="https://twitter.com/hashtag/haiku?src=hash" target="_blank" rel="noopener noreffer ">#haiku</a>: <a href="https://t.co/zei5yF4E2D" target="_blank" rel="noopener noreffer ">https://t.co/zei5yF4E2D</a></p>
+<p>every time they show
+putin i get really
+uncomfortable</p>
+<p>— SurpriseHaiku (@surprisehaiku) <a href="https://twitter.com/surprisehaiku/status/432752315594842112" target="_blank" rel="noopener noreffer ">February 10, 2014</a></p>
+</blockquote>
+<p>As did this one.</p>
+<blockquote>
+<p>A <a href="https://twitter.com/hashtag/haiku?src=hash" target="_blank" rel="noopener noreffer ">#haiku</a>: <a href="https://t.co/2PpXgTSshU" target="_blank" rel="noopener noreffer ">https://t.co/2PpXgTSshU</a></p>
+<p>Russia Putin Poses
+as Defender of Christian
+Civilization</p>
+<p>— SurpriseHaiku (@surprisehaiku) <a href="https://twitter.com/surprisehaiku/status/432750753199820800" target="_blank" rel="noopener noreffer ">February 10, 2014</a></p>
+</blockquote>
+<h3 id="challenges">Challenges</h3>
+<hr>
+<p>As many know about natural language processing, it&rsquo;s really difficult to get right. <a href="http://people.ischool.berkeley.edu/%7Ehearst/" target="_blank" rel="noopener noreffer ">Marti Hearst</a>, my NLP professor at UC Berkeley, has stressed that you can never get it all right. The more I&rsquo;ve experimented, the more I&rsquo;ve come to realize she is right.</p>
+<p>The challenges with this project is in NLP. Think of it this way, how do we know that RT means retweet without explicitly telling the computer that? Fundamentally how are we crossing the semantic gap - how do we communicate semantics to a machine?</p>
+<h3 id="improvements-and-conclusions">Improvements and Conclusions</h3>
+<hr>
+<p>I think there are a number of improvements that could be made to this project - but this was a short experiment, not a complete study.</p>
+<p>Firstly I think I could use some semantic analysis to prevent tweets like this:</p>
+<blockquote>
+<p>A <a href="https://twitter.com/hashtag/haiku?src=hash" target="_blank" rel="noopener noreffer ">#haiku</a>: <a href="https://t.co/dnq4ji8nSw" target="_blank" rel="noopener noreffer ">https://t.co/dnq4ji8nSw</a></p>
+<p>I just dont see how
+school is gonna be a part
+of my life with the</p>
+<p>— SurpriseHaiku (@surprisehaiku) <a href="https://twitter.com/surprisehaiku/status/432738235840614400" target="_blank" rel="noopener noreffer ">February 10, 2014</a></p>
+</blockquote>
+<p>The problem with this haiku is that it ends in &ldquo;the&rdquo;. There&rsquo;s no continuity and it doesn&rsquo;t end logically. We could improve this with part-of-speech tagging and preventing certain word endings.</p>
+<p>Other improvements include, automating deployment, ignoring tweets with a lot of gibberish or words that are likely to be wrong, automating the addition of new words to the dictionary, and adding plurals to the dictionary could all be helpful.</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2014-08-20</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://billchambers.me/posts/surprisehaiku/" data-title="SurpriseHaiku - Discovering Unusual Haikus On Twitter" data-via="bllchmbrs"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://billchambers.me/posts/surprisehaiku/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://billchambers.me/posts/surprisehaiku/" data-title="SurpriseHaiku - Discovering Unusual Haikus On Twitter"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://billchambers.me/posts/surprisehaiku/" data-title="SurpriseHaiku - Discovering Unusual Haikus On Twitter"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://billchambers.me/posts/surprisehaiku/" data-title="SurpriseHaiku - Discovering Unusual Haikus On Twitter"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+            <a href="/posts/timeful-user-experience-review/" class="next" rel="next" title="User Experience Critique - Habits in Timeful">User Experience Critique - Habits in Timeful<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+    <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><i> Bill Chambers </i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a
+                    href="/" target="_blank"></a></span></div>
+    </div>
+</footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

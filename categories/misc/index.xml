@@ -1,0 +1,35 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>misc - Category - My Writings - Bill Chambers</title>
+        <link>https://billchambers.me/categories/misc/</link>
+        <description>misc - Category - My Writings - Bill Chambers</description>
+        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Wed, 08 Oct 2014 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://billchambers.me/categories/misc/" rel="self" type="application/rss+xml" /><item>
+    <title>DataKindSF - Data Analysis for the Greater Good</title>
+    <link>https://billchambers.me/posts/datakind-sf-first-meetup/</link>
+    <pubDate>Wed, 08 Oct 2014 00:00:00 &#43;0000</pubDate>
+    <author>Bill Chambers</author>
+    <guid>https://billchambers.me/posts/datakind-sf-first-meetup/</guid>
+    <description><![CDATA[DataKindSF just got their start and the reception was incredible. There was a huge turn out of people wanting to contribute by using high impact skills for greater good. I found out about the program through their meetup.
+What I found particularly interesting about the whole thing was the vast possibilities for improving the ways that non-profits do business. At Procore, I helped guide the direction of our data quality and was a led the large scale reset of our data architecture and this kind of critical thinking could really make a difference for a lot of organizations.]]></description>
+</item>
+<item>
+    <title>EverDone - A Project for An Evernote Hackathon</title>
+    <link>https://billchambers.me/posts/evernote-hackathon-experience/</link>
+    <pubDate>Wed, 10 Sep 2014 00:00:00 &#43;0000</pubDate>
+    <author>Bill Chambers</author>
+    <guid>https://billchambers.me/posts/evernote-hackathon-experience/</guid>
+    <description><![CDATA[Wow, Hackathons are an experience. Firstly I was amazed by the turn out, realistically probably 40 teams all competed in a 12 hour hackathon for Evernote at the Computer Science Department at Berkeley. I found the atmosphere to be supportive and fiercely competitive at the same time. Hackathon&rsquo;s are a strange creation and I&rsquo;ve struggled to come up with a parallel in history. But that&rsquo;s for another post.
+The Application - EverDone The project we worked on was Everdone.]]></description>
+</item>
+<item>
+    <title>User Experience Critique - Habits in Timeful</title>
+    <link>https://billchambers.me/posts/timeful-user-experience-review/</link>
+    <pubDate>Sun, 31 Aug 2014 00:00:00 &#43;0000</pubDate>
+    <author>Bill Chambers</author>
+    <guid>https://billchambers.me/posts/timeful-user-experience-review/</guid>
+    <description><![CDATA[Several weeks ago I sent a review of a feature in an app I use called Timeful. This is my letter to that company where I tried to get a better understanding of their motivations for the user experience of part of their application.
+Timeful team,
+Great application. I use it everyday, several times a day! I’m a beast at a to do list, I’m just not so good at scheduling things or getting them on a calendar.]]></description>
+</item>
+</channel>
+</rss>

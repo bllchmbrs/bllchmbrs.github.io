@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Applying SaaS Company Metrics to Product Adoption - My Writings - Bill Chambers</title><meta name="Description" content="something"><meta property="og:title" content="Applying SaaS Company Metrics to Product Adoption" />
+<meta property="og:description" content="Overview Recently, there&rsquo;s been a renewed focus on monitoring and understanding company (or product) growth, especially when it comes to SaaS products. Werner Vogels recently mentioned something quite similar in a blog post, &ldquo;People often ask me if developing for the cloud is any different from developing on-premises software. It really is.&rdquo; I couldn&rsquo;t agree more, it&rsquo;s awesome for understanding products, how users are using them, and what you can do to improve them." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://billchambers.me/posts/applying-saas-company-metrics-to-product-adoption/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2019-01-11T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-01-11T00:00:00+00:00" /><meta property="og:site_name" content="Writings and Musings of Bill Chambers" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Applying SaaS Company Metrics to Product Adoption"/>
+<meta name="twitter:description" content="Overview Recently, there&rsquo;s been a renewed focus on monitoring and understanding company (or product) growth, especially when it comes to SaaS products. Werner Vogels recently mentioned something quite similar in a blog post, &ldquo;People often ask me if developing for the cloud is any different from developing on-premises software. It really is.&rdquo; I couldn&rsquo;t agree more, it&rsquo;s awesome for understanding products, how users are using them, and what you can do to improve them."/>
+<meta name="application-name" content="My cooldsfasdfsad site">
+<meta name="apple-mobile-web-app-title" content="My cooldsfasdfsad site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://billchambers.me/posts/applying-saas-company-metrics-to-product-adoption/" /><link rel="prev" href="https://billchambers.me/posts/thoughts-on-a-project-shutdown-spark-tutorials/" /><link rel="next" href="https://billchambers.me/posts/why-do-car-rental-companies-share-desks/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Applying SaaS Company Metrics to Product Adoption",
+        "inLanguage": "en-us",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/billchambers.me\/posts\/applying-saas-company-metrics-to-product-adoption\/"
+        },"genre": "posts","wordcount":  823 ,
+        "url": "https:\/\/billchambers.me\/posts\/applying-saas-company-metrics-to-product-adoption\/","datePublished": "2019-01-11T00:00:00+00:00","dateModified": "2019-01-11T00:00:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Bill Chambers"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="My Writings - Bill Chambers">Writings and Musings of Bill Chambers</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/" title="My Writings - Bill Chambers"> Home </a><a class="menu-item" href="/about/"> About </a><a class="menu-item active" href="/posts/" title="Posts"> Posts </a><a class="menu-item" href="/categories/" title="Categories"> Categories </a><a class="menu-item" href="/quotes/"> Quotes </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="My Writings - Bill Chambers">Writings and Musings of Bill Chambers</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/" title="My Writings - Bill Chambers">Home</a><a class="menu-item" href="/about/" title="">About</a><a class="menu-item" href="/posts/" title="Posts">Posts</a><a class="menu-item" href="/categories/" title="Categories">Categories</a><a class="menu-item" href="/quotes/" title="">Quotes</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Applying SaaS Company Metrics to Product Adoption</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Bill Chambers</a></span>&nbsp;<span class="post-category">included in <a href="/categories/product/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>product</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2019-01-11">2019-01-11</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;823 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;4 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#typical-saas-metrics">Typical SaaS Metrics</a></li>
+    <li><a href="#typical-growth-metrics">Typical Growth Metrics</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#feature-drop-off-churn">Feature Drop off (Churn)</a>
+      <ul>
+        <li><a href="#risks">Risks</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="overview">Overview</h1>
+<p>Recently, there&rsquo;s been a renewed focus on monitoring and understanding company (or product) growth, especially when it comes to SaaS products. Werner Vogels recently mentioned something quite similar in <a href="https://www.allthingsdistributed.com/2018/11/amazon-redshift-performance-optimization.html" target="_blank" rel="noopener noreffer ">a blog post</a>, &ldquo;People often ask me if developing for the cloud is any different from developing on-premises software. It really is.&rdquo; I couldn&rsquo;t agree more, it&rsquo;s awesome for understanding products, how users are using them, and what you can do to improve them.</p>
+<p>I have a technique that I like to use to understand how the products that I am working on are doing. The technique is simple, take some of the fundamental SaaS Company metrics and then apply them to a particular product or even feature. This is a great tool for product managers to understand how their features are adoptioned, what typical customer behavior is like with a given feature, and helps product leadershipset standards for what a product should be achieving.</p>
+<h2 id="typical-saas-metrics">Typical SaaS Metrics</h2>
+<p>These techniques came about because of a simple project. [SaaS] Companies track a number of metrics like ARR, LTV, ACV, CAC, ARPA, Net Revenue Retention and so on. You can read more about these in a variety of cheatsheets that cover the typical SaaS Metrics (<a href="https://chartmogul.com/resources/saas-metrics-cheat-sheet/" target="_blank" rel="noopener noreffer ">ChartMogul</a> has one as does <a href="http://chaotic-flow.com/media/saas-metrics-guide-to-saas-financial-performance.pdf" target="_blank" rel="noopener noreffer ">Chaotic Flow</a>). While these metrics are great and should absolutely be tracked, they do have a number of shortcomings.</p>
+<p>These typical metrics are (a) lagging indicators and (b) aren&rsquo;t (always) actionable for individual contributors. An individual PM or data scientist working on a feature isn&rsquo;t going to be able to move the CAC number directly - even if it needs moving. Moreover, an individual PM may also not have a P&amp;L that they&rsquo;re tracking and may not have detailed financial information to review.</p>
+<h2 id="typical-growth-metrics">Typical Growth Metrics</h2>
+<p>That&rsquo;s typically where growth metrics come in. You pick and measure PMs or growth initiatives based on high level MAU, DAU, downloads and so on. These typical metrics are often short-sighted. MAU or raw action counts <em>can</em> be informative, but the problem is simple. These metrics demonstrate growth, but they&rsquo;re not good drivers of growth - they&rsquo;re vanity metrics.</p>
+<p>First Round Review had a great post on this topic titled <a href="https://firstround.com/review/im-sorry-but-those-are-vanity-metrics/" target="_blank" rel="noopener noreffer ">I&rsquo;m Sorry, But Those are Vanity Metrics</a>. The article points out the short-comings of various metrics and motivates more deeply understanding customers, customer behavior, and usage outliers (hint: call them and ask!).</p>
+<h1 id="saas-metrics-for-pms-and-growth-leads">SaaS Metrics for PMs and Growth Leads</h1>
+<p>At this point, if you&rsquo;re a PM or someone in charge of growth, you&rsquo;re seeing what brought me here. SaaS metrics are too high level and may not apply to an individual improvement and growth metrics don&rsquo;t go to sufficient depth. That&rsquo;s when I realized one could manipulate some typical SaaS metrics to apply <em>generally</em> to any feature I might want to understand and understand whether or not they&rsquo;re effectively growing.</p>
+<h2 id="feature-drop-off-churn">Feature Drop off (Churn)</h2>
+<p>This metric is great, because it shows in no uncertain terms how many of your customers or users are trying to use a given feature and then stopping to use it.</p>
+<p>In short, you&rsquo;ll be asking,</p>
+<p>at time <em>t</em> you&rsquo;ll have a group of users that start using a given feature, after <em>n</em> days, how many of those users are still using that feature?</p>
+<p>I&rsquo;ll typically do it on a cohort basis such as &ldquo;given all the customers that started using a given feature in August, how many of them are still using that feature in December?&rdquo;</p>
+<p>Here&rsquo;s why this is such a great metric. By cohorting, you can see if changes you make in the onboarding of customers, marketing, and so on are improving your adoption. You&rsquo;re also going to see whether or not this corresponds to people stopping using the feature as well. Once you&rsquo;re looking at this information regularly and across a number of products, you can start setting adoption benchmarks.</p>
+<p>What I like about this metric ist hat it allows you to compare arbitrary features that have nothing to do with one another to each other and make sense of it. You can also weight these by the customer type that you&rsquo;re hoping to target, the revenue generated from these customers or these use cases, and so on.</p>
+<h3 id="risks">Risks</h3>
+<p>The fundamental risk with this is that, if used in isolation, you might end up de-prioritizing features that are actually important to customers. In short, that this metric gets weaponized to make the case for not working on a particular feature or not continuing to build out a given feature. While I haven&rsquo;t seen this be the case, one could imagine it being so.</p>
+<h1 id="conclusion">Conclusion</h1>
+<p>There are a number of other metrics that I will write about over the coming weeks. Getting key KPIs or metrics to track is essential for monitoring the progress of anything, not just software. I hope that you find the feature Drop Off metric useful and are able to apply to the products that you work on.</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2019-01-11</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://billchambers.me/posts/applying-saas-company-metrics-to-product-adoption/" data-title="Applying SaaS Company Metrics to Product Adoption" data-via="bllchmbrs"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://billchambers.me/posts/applying-saas-company-metrics-to-product-adoption/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://billchambers.me/posts/applying-saas-company-metrics-to-product-adoption/" data-title="Applying SaaS Company Metrics to Product Adoption"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://billchambers.me/posts/applying-saas-company-metrics-to-product-adoption/" data-title="Applying SaaS Company Metrics to Product Adoption"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://billchambers.me/posts/applying-saas-company-metrics-to-product-adoption/" data-title="Applying SaaS Company Metrics to Product Adoption"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/thoughts-on-a-project-shutdown-spark-tutorials/" class="prev" rel="prev" title="Thoughts on Shutting Down Projects and Looking to 2019"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Thoughts on Shutting Down Projects and Looking to 2019</a>
+            <a href="/posts/why-do-car-rental-companies-share-desks/" class="next" rel="next" title="Car Rental Companies and Branding - What sharing desks teaches us about product management">Car Rental Companies and Branding - What sharing desks teaches us about product management<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+    <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><i> Bill Chambers </i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a
+                    href="/" target="_blank"></a></span></div>
+    </div>
+</footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

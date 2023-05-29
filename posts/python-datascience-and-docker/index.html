@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Hackday - Data Science and Docker Working Together - My Writings - Bill Chambers</title><meta name="Description" content="something"><meta property="og:title" content="Hackday - Data Science and Docker Working Together" />
+<meta property="og:description" content="This past weekend was at the wise.io data science hack day and had a great time. The team is clearly intelligent and I really enjoy working and learning in that kind of environment.
+We went over Docker and its utility in the data science field. While I understood the docker abstraction (and basic motivation) previously I still didn&rsquo;t feel like I &ldquo;got it&rdquo;. This hands on experience with Docker really opened my eyes to how the tool is used and the benefit companies are getting form it." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://billchambers.me/posts/python-datascience-and-docker/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2015-01-18T00:00:00+00:00" />
+<meta property="article:modified_time" content="2015-01-18T00:00:00+00:00" /><meta property="og:site_name" content="Writings and Musings of Bill Chambers" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Hackday - Data Science and Docker Working Together"/>
+<meta name="twitter:description" content="This past weekend was at the wise.io data science hack day and had a great time. The team is clearly intelligent and I really enjoy working and learning in that kind of environment.
+We went over Docker and its utility in the data science field. While I understood the docker abstraction (and basic motivation) previously I still didn&rsquo;t feel like I &ldquo;got it&rdquo;. This hands on experience with Docker really opened my eyes to how the tool is used and the benefit companies are getting form it."/>
+<meta name="application-name" content="My cooldsfasdfsad site">
+<meta name="apple-mobile-web-app-title" content="My cooldsfasdfsad site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://billchambers.me/posts/python-datascience-and-docker/" /><link rel="prev" href="https://billchambers.me/posts/python-nlp-cheatsheet-nltk-scikit-learn/" /><link rel="next" href="https://billchambers.me/posts/infographic-russia-leadership/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Hackday - Data Science and Docker Working Together",
+        "inLanguage": "en-us",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/billchambers.me\/posts\/python-datascience-and-docker\/"
+        },"genre": "posts","wordcount":  827 ,
+        "url": "https:\/\/billchambers.me\/posts\/python-datascience-and-docker\/","datePublished": "2015-01-18T00:00:00+00:00","dateModified": "2015-01-18T00:00:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Bill Chambers"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="My Writings - Bill Chambers">Writings and Musings of Bill Chambers</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/" title="My Writings - Bill Chambers"> Home </a><a class="menu-item" href="/about/"> About </a><a class="menu-item active" href="/posts/" title="Posts"> Posts </a><a class="menu-item" href="/categories/" title="Categories"> Categories </a><a class="menu-item" href="/quotes/"> Quotes </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="My Writings - Bill Chambers">Writings and Musings of Bill Chambers</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/" title="My Writings - Bill Chambers">Home</a><a class="menu-item" href="/about/" title="">About</a><a class="menu-item" href="/posts/" title="Posts">Posts</a><a class="menu-item" href="/categories/" title="Categories">Categories</a><a class="menu-item" href="/quotes/" title="">Quotes</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Hackday - Data Science and Docker Working Together</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Bill Chambers</a></span>&nbsp;<span class="post-category">included in <a href="/categories/projects/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>projects</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2015-01-18">2015-01-18</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;827 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;4 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents"></nav></div>
+            </div><div class="content" id="content"><p>This past weekend was at the <a href="http://wise.io/" target="_blank" rel="noopener noreffer ">wise.io</a> data science hack day and had a great time. The team is clearly intelligent and I really enjoy working and learning in that kind of environment.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/docker-whale-home-logo.png"
+        data-srcset="/docker-whale-home-logo.png, /docker-whale-home-logo.png 1.5x, /docker-whale-home-logo.png 2x"
+        data-sizes="auto"
+        alt="/docker-whale-home-logo.png"
+        title="Docker" /></p>
+<p>We went over Docker and its utility in the data science field. While I understood the docker abstraction (and basic motivation) previously I still didn&rsquo;t feel like I &ldquo;got it&rdquo;. This hands on experience with Docker really opened my eyes to how the tool is used and the benefit companies are getting form it. It&rsquo;s always nice to hear use cases from real companies solving real problems.</p>
+<p>While docker doesn&rsquo;t have a concept of a push to a server (like something like git) the reproducibility of modeling in the data science context is powerful. That is, there is no more dealing with random machines getting results that other machines don&rsquo;t get or having to set up chef or bash scripts to install a ton of dependencies every time you start a server. Docker really abstracts all that away.</p>
+<p>You can package up a model in a docker container, go have that run on some data and return some results - quickly. If you change the model, you can know that other people will be able to replicate the results because of the containerization of the model.</p>
+<p>On top of that, running automated tests or trying different model parameters in a parallel way is powerful.</p>
+<p>I was able to get my own docker image up and running from the wiseio base and will be maintaining on <a href="https://github.com/anabranch/datascience-docker" target="_blank" rel="noopener noreffer ">my Github.</a> The primary difference is that I added lxml for simple web-scraping with pandas.</p>
+<p>Now I&rsquo;m using a mac so I have to use boot2docker which seems to work pretty well.</p>
+<p>Once I&rsquo;ve got it all installed, I ran</p>
+<pre tabindex="0"><code>boot2docker up
+</code></pre><p>You can get started with the image I creates by cloning it locally and once you&rsquo;ve <a href="https://docs.docker.com/#installation-guides" target="_blank" rel="noopener noreffer ">installed docker</a> you simply run <code>make</code> in the github directory and it will build that docker image and save it locally for you. You can see what images you have on your machine with the <code>docker images</code> command.</p>
+<p>Now whenever you want to create a repeatable data science experiment, you just navigate to that directory and run:</p>
+<pre tabindex="0"><code>export IPYTHON\_PASSWORD=DATASCI
+alias do-ds=&#39;docker run -d -p 80:8888 -v `pwd`:/workspace/ -v `pwd`/data:/workspace/data -e &#34;PASSWORD=$IPYTHON\_PASSWORD&#34; ds-base ; echo &#34;Now go to your browser: http://$(boot2docker ip). The password is $IPYTHON\_PASSWORD&#34; &#39;
+</code></pre><p>Which will set your ipython password as DATASCI and give you the do-ds alias allowing you to start it up in that directory with all the necessary parameters. I just put it into my <code>.zshrc</code> file for future use.</p>
+<p><em>Please note you&rsquo;ve got to use backticks when setting this alias is zsh, but not so in bash if I&rsquo;m not mistaken. I had to learn a little for this <a href="http://stackoverflow.com/questions/5566078/get-the-pwd-in-an-alias" target="_blank" rel="noopener noreffer ">SO post.</a></em></p>
+<p>Finally run</p>
+<pre tabindex="0"><code>do-ds
+</code></pre><p>You&rsquo;ll see a print out similar to</p>
+<pre tabindex="0"><code>423940a7f946eed6f92a15df6d59b9eee8187b8cbd45a30e31f019edfcca9d35
+Now go to your browser: http://192.168.59.103. The password is DATASCI
+</code></pre><p>Which gives you the container ID and then url and password for accessing the IPython notebook running in that container. That will also have created a &ldquo;data&rdquo; directory on your current directory where you can add files that you want to access from the docker container. Now you can write your code, perform your analysis, and it will automatically save those files for work later on on your local machine.</p>
+<p>What&rsquo;s nice is you get a good, clean build every time you want to study or model something new.</p>
+<p>Here&rsquo;s another example, say that I&rsquo;ve got a model that works on some data I have on my local directory and I want to see if it operates differently in docker. Obviously this isn&rsquo;t a real instance of such an example but you can start seeing the power of the docker abstraction.</p>
+<pre tabindex="0"><code>cat model.py # simple print statement, but this could be a whole model...
+print &#34;Testing data...&#34;
+</code></pre><pre tabindex="0"><code>docker run -t -i -v ~/Desktop/temp/model.py:/model.py ubuntu:14.04 /bin/sh -c &#34;apt-get install -y python; python model.py;&#34;
+</code></pre><p>Our instructions are basically mount the file <code>model.py</code> into the image, install python, then run <code>python model.py</code>.</p>
+<pre tabindex="0"><code>Reading package lists... Done
+Building dependency tree
+...
+After this operation, 16.0 MB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu/ trusty/main libpython2.7-minimal amd64 2.7.6-8 [307 kB]
+...
+Fetched 3734 kB in 9s (409 kB/s)
+...
+Testing data...
+</code></pre><p>The container automatically shuts down with model is run.</p>
+<p>Finally you can see all the containers you are running by running <code>docker ps</code> and then shut them down with <code>docker stop &lt;container-id&gt;</code> or just by using the name that you&rsquo;ll see at the far right.</p>
+<p>Now there&rsquo;s obviously a lot more to docker than just what&rsquo;s above. Integrations like AWS Container Service and AWS EBS seem extremely powerful to help you scale your docker applications. I will definitely continue to use Docker in my data science projects and would encourage anyone that is interested in giving it a try in their own workflow as well.</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2015-01-18</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://billchambers.me/posts/python-datascience-and-docker/" data-title="Hackday - Data Science and Docker Working Together" data-via="bllchmbrs"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://billchambers.me/posts/python-datascience-and-docker/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://billchambers.me/posts/python-datascience-and-docker/" data-title="Hackday - Data Science and Docker Working Together"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://billchambers.me/posts/python-datascience-and-docker/" data-title="Hackday - Data Science and Docker Working Together"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://billchambers.me/posts/python-datascience-and-docker/" data-title="Hackday - Data Science and Docker Working Together"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/python-nlp-cheatsheet-nltk-scikit-learn/" class="prev" rel="prev" title="Python NLP - NLTK and scikit-learn"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Python NLP - NLTK and scikit-learn</a>
+            <a href="/posts/infographic-russia-leadership/" class="next" rel="next" title="Infographic - Why Hasn’t Russia’s Economic Collapse Affected its Leadership?">Infographic - Why Hasn’t Russia’s Economic Collapse Affected its Leadership?<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+    <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><i> Bill Chambers </i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a
+                    href="/" target="_blank"></a></span></div>
+    </div>
+</footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Exploratory Data Analysis of Crime in San Francisco - My Writings - Bill Chambers</title><meta name="Description" content="something"><meta property="og:title" content="Exploratory Data Analysis of Crime in San Francisco" />
+<meta property="og:description" content="Data: The dataset I chose was a data set on crime in San Francisco.
+http://data.sfgov.org/d/tmnf-yvry?category=Public-Safety
+I have filtered the dataset which is large at 350 mb down to only theft incidents in 2014. I did this by taking that file and running commands:
+egrep &#34;2014&#34; SFPD_Incidents_-_from_1_January_2003.csv &gt; SFPD_2014.csv egrep &#34;LARCENY/THEFT&#34; SFPD_2014.csv &gt; SFPD_2014_theft.csv cat col_format.csv SFPD_2014_theft.csv &gt; SFPD_2014_theft_col.csv Dashboards follow each hypothesis.
+Hypotheses: My first hypothesis is that most thefts occur at night in residential neighborhoods." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://billchambers.me/posts/exploring-sf-crime-tableau/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2015-03-16T00:00:00+00:00" />
+<meta property="article:modified_time" content="2015-03-16T00:00:00+00:00" /><meta property="og:site_name" content="Writings and Musings of Bill Chambers" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Exploratory Data Analysis of Crime in San Francisco"/>
+<meta name="twitter:description" content="Data: The dataset I chose was a data set on crime in San Francisco.
+http://data.sfgov.org/d/tmnf-yvry?category=Public-Safety
+I have filtered the dataset which is large at 350 mb down to only theft incidents in 2014. I did this by taking that file and running commands:
+egrep &#34;2014&#34; SFPD_Incidents_-_from_1_January_2003.csv &gt; SFPD_2014.csv egrep &#34;LARCENY/THEFT&#34; SFPD_2014.csv &gt; SFPD_2014_theft.csv cat col_format.csv SFPD_2014_theft.csv &gt; SFPD_2014_theft_col.csv Dashboards follow each hypothesis.
+Hypotheses: My first hypothesis is that most thefts occur at night in residential neighborhoods."/>
+<meta name="application-name" content="My cooldsfasdfsad site">
+<meta name="apple-mobile-web-app-title" content="My cooldsfasdfsad site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://billchambers.me/posts/exploring-sf-crime-tableau/" /><link rel="prev" href="https://billchambers.me/posts/infographic-russia-leadership/" /><link rel="next" href="https://billchambers.me/posts/interactive-salesforce-graphing/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Exploratory Data Analysis of Crime in San Francisco",
+        "inLanguage": "en-us",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/billchambers.me\/posts\/exploring-sf-crime-tableau\/"
+        },"genre": "posts","wordcount":  1106 ,
+        "url": "https:\/\/billchambers.me\/posts\/exploring-sf-crime-tableau\/","datePublished": "2015-03-16T00:00:00+00:00","dateModified": "2015-03-16T00:00:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Bill Chambers"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="My Writings - Bill Chambers">Writings and Musings of Bill Chambers</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/" title="My Writings - Bill Chambers"> Home </a><a class="menu-item" href="/about/"> About </a><a class="menu-item active" href="/posts/" title="Posts"> Posts </a><a class="menu-item" href="/categories/" title="Categories"> Categories </a><a class="menu-item" href="/quotes/"> Quotes </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="My Writings - Bill Chambers">Writings and Musings of Bill Chambers</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/" title="My Writings - Bill Chambers">Home</a><a class="menu-item" href="/about/" title="">About</a><a class="menu-item" href="/posts/" title="Posts">Posts</a><a class="menu-item" href="/categories/" title="Categories">Categories</a><a class="menu-item" href="/quotes/" title="">Quotes</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Exploratory Data Analysis of Crime in San Francisco</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Bill Chambers</a></span>&nbsp;<span class="post-category">included in <a href="/categories/essays/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>essays</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2015-03-16">2015-03-16</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1106 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;6 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#data">Data:</a></li>
+        <li><a href="#hypotheses">Hypotheses:</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h3 id="data">Data:</h3>
+<p>The dataset I chose was a data set on <a href="http://data.sfgov.org/d/tmnf-yvry?category=Public-Safety" target="_blank" rel="noopener noreffer ">crime in San Francisco.</a></p>
+<p><a href="http://data.sfgov.org/d/tmnf-yvry?category=Public-Safety" target="_blank" rel="noopener noreffer ">http://data.sfgov.org/d/tmnf-yvry?category=Public-Safety</a></p>
+<p>I have filtered the dataset which is large at 350 mb down to only theft incidents in 2014. I did this by taking that file and running commands:</p>
+<pre tabindex="0"><code>egrep &#34;2014&#34; SFPD_Incidents_-_from_1_January_2003.csv &gt; SFPD_2014.csv
+egrep &#34;LARCENY/THEFT&#34; SFPD_2014.csv &gt; SFPD_2014_theft.csv
+cat col_format.csv SFPD_2014_theft.csv &gt; SFPD_2014_theft_col.csv
+</code></pre><p>Dashboards follow each hypothesis.</p>
+<h3 id="hypotheses">Hypotheses:</h3>
+<ol>
+<li>My first hypothesis is that most thefts occur at night in residential neighborhoods. Given that many people have to park their cars outside at night, I assume that most crime occurs when people are asleep.</li>
+</ol>
+<p>By looking into this data, I decided that it would likely be more interesting to try and look at it day by day (rather than just cumulatively). We can see that evening time is by far the most likely time that thefts will occur with weekdays frequently around 6PM to 8PM while the weekends see a jump in thefts around midnight as well. Sunday was by far the calmest day - something I might want to look at further along.</p>
+<p>After completing that histogram of just dates and times I need to dive deeper into the data and better understand time and certain neighborhoods.</p>
+<p>Then I created a new parameter that is &ldquo;Residential&rdquo; and &ldquo;Non-Residential&rdquo;.</p>
+<p>Non-Residential:</p>
+<ul>
+<li>Southern</li>
+<li>Central</li>
+<li>Bayview (kind of)</li>
+</ul>
+<p>Residential:</p>
+<ul>
+<li>Mission</li>
+<li>Northern</li>
+<li>Park</li>
+<li>Richmond</li>
+<li>Ingleside</li>
+<li>Taravel</li>
+<li>Tenderloin</li>
+</ul>
+<p>I then got the resulting box and whisker plot.</p>
+<p>Once I was able to do that I was able to confirm my hypothesis, it seems that more crime occurs in residential neighborhoods than non-residential neighborhoods on any given day of the week. The one important thing to keep in mind is that I used my personal knowledge of the districts (as well as maps from each police station to classify it as residential or non-residential - this is an unofficial classification). In terms of my hypothesis it is not so clear that most crime occurs at &ldquo;night&rdquo; - it seems that dusk is the time at which most crime occurs.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/Hypo1.jpg"
+        data-srcset="/Hypo1.jpg, /Hypo1.jpg 1.5x, /Hypo1.jpg 2x"
+        data-sizes="auto"
+        alt="/Hypo1.jpg"
+        title="/Hypo1.jpg" /></p>
+<ol>
+<li>Given my previous data, I was able to see that the Southern District has the most theft. My hypothesis is that it has the most unresolved crime. I also hypothesize that more crimes are resolved in the richest neighborhoods than in poor neighborhoods. Specifically, I believe that the Richmond and Northern districts have the high proportion of solved crimes per crime committed.</li>
+</ol>
+<p>I created a new variable which is the number of thefts resolved. A case is unresolved if the Resolution field is NONE.</p>
+<p>This exploration yielded some interesting results and definitely not what I expected. We can see from the percent resolved that nearly 25% of the crimes in the tenderloin are resolved. I think that this might be because it&rsquo;s such a small area, that many people are caught doing relatively petty things and don&rsquo;t end up getting very far from where they committed the crime. Interestingly, the Northern District seemed to have the smallest percentage resolved - yet also had a lot of crime numbers. This fact makes me question my Residential/Non-Residential qualifications from earlier - although they may be valid. Interestingly, the Richmond seems to have a low crime resolution rate as well - not necessarily what I would have expected.</p>
+<p>Looking at the resolution field gave me a lot of interesting ideas to explore - what makes a theft something the DA doesn&rsquo;t want to prosecute? Where is the highest number of juvenile bookings?</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/Hypo2.jpg"
+        data-srcset="/Hypo2.jpg, /Hypo2.jpg 1.5x, /Hypo2.jpg 2x"
+        data-sizes="auto"
+        alt="/Hypo2.jpg"
+        title="/Hypo2.jpg" /></p>
+<p>Unfortunately I realized that my dataset was a bit constrained when I just focused on thefts. So I loaded in all crimes in 2014 to see what else I might be able to dig up.</p>
+<pre tabindex="0"><code>cat col_format.csv SFPD_2014.csv &gt; SFPD_2014_col.csv
+</code></pre><p>Gives me all data from 2014.</p>
+<ol>
+<li>I hypothesize that the theft distribution follows a similar distribution to the general population of crime. By this I mean thefts will be a representative sample from the population - that all crimes will occur roughly in the same locations, at the same times, in the same places, at the same amounts.</li>
+</ol>
+<p>By looking at the dashboard - this seems to be roughly true. It seems that they&rsquo;re more or less the same - obviously the totals are throw off but this brought me to a new visual, what are the most common crimes? (ranked on the right side of this dashboard) It&rsquo;s not by any means a perfect representation but it was close enough (visually) that it&rsquo;s fair to say that&rsquo;s it is a relatively accurate representation of where crime occurs in the city.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/Hypo3.jpg"
+        data-srcset="/Hypo3.jpg, /Hypo3.jpg 1.5x, /Hypo3.jpg 2x"
+        data-sizes="auto"
+        alt="/Hypo3.jpg"
+        title="/Hypo3.jpg" /></p>
+<ol>
+<li>Now that I had a better idea of how the data might be made up - I thought it would be good to jump into a map perspective. I thought looking at assaults might be a good next step - they&rsquo;re the 4th most common category of crime in 2014. I hypothesize that thefts and assaults are related and occur in more or less the same locations. By that I mean that their ratios are the same. If assault occurs as X% of total crime in a given district theft will occur at 2X% of total crime.</li>
+</ol>
+<p>I visualized this through 2 mediums. Firstly through a map where I plotted only thefts and assaults at locations that were reported more than 20 times. This gave me a general idea of where thefts and assaults are likely to occur. When we filter out the incidents that occur at locations only one or two times. When we take a look at this we can immediately see that some hotspots are shared and some are different. Assaults clearly occur in the Mission much more than thefts. What&rsquo;s interesting when we use the map view is that we can see these differences much more quickly (in relation to where in the city they are likely to occur). I noticed immediately that there seems to be a fair amount of theft in a specific location in Golden Gate Park. Definitely worth thinking about and exploring further.</p>
+<p>Looking at the table tells an even more interesting story. I&rsquo;ve done some working to basically look at the percent of total crime in a given district - we can see that in the Mission - theft is not as common as assault. What does this mean? In SOMA there seems to be a lot more theft, possibly from tourists while in the Mission it seems that more fights may be breaking out leading to assaults instead of thefts.</p>
+<p>Quite simply, I could reject my hypothesis - there seems to be no relation between theft occurring at a certain percent more across the city.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/Hypo4.jpg"
+        data-srcset="/Hypo4.jpg, /Hypo4.jpg 1.5x, /Hypo4.jpg 2x"
+        data-sizes="auto"
+        alt="/Hypo4.jpg"
+        title="/Hypo4.jpg" /></p>
+<p><a href="/bill-chambers-eda.twbx" rel="">Download the workbook here.</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2015-03-16</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://billchambers.me/posts/exploring-sf-crime-tableau/" data-title="Exploratory Data Analysis of Crime in San Francisco" data-via="bllchmbrs"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://billchambers.me/posts/exploring-sf-crime-tableau/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://billchambers.me/posts/exploring-sf-crime-tableau/" data-title="Exploratory Data Analysis of Crime in San Francisco"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://billchambers.me/posts/exploring-sf-crime-tableau/" data-title="Exploratory Data Analysis of Crime in San Francisco"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://billchambers.me/posts/exploring-sf-crime-tableau/" data-title="Exploratory Data Analysis of Crime in San Francisco"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/infographic-russia-leadership/" class="prev" rel="prev" title="Infographic - Why Hasn’t Russia’s Economic Collapse Affected its Leadership?"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Infographic - Why Hasn’t Russia’s Economic Collapse Affected its Leadership?</a>
+            <a href="/posts/interactive-salesforce-graphing/" class="next" rel="next" title="Interactive Salesforce Graphing with Plotly">Interactive Salesforce Graphing with Plotly<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+    <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><i> Bill Chambers </i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a
+                    href="/" target="_blank"></a></span></div>
+    </div>
+</footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

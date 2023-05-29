@@ -1,0 +1,53 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>essays - Category - My Writings - Bill Chambers</title>
+        <link>https://billchambers.me/categories/essays/</link>
+        <description>essays - Category - My Writings - Bill Chambers</description>
+        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Mon, 24 Dec 2018 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://billchambers.me/categories/essays/" rel="self" type="application/rss+xml" /><item>
+    <title>Thoughts on Shutting Down Projects and Looking to 2019</title>
+    <link>https://billchambers.me/posts/thoughts-on-a-project-shutdown-spark-tutorials/</link>
+    <pubDate>Mon, 24 Dec 2018 00:00:00 &#43;0000</pubDate>
+    <author>Bill Chambers</author>
+    <guid>https://billchambers.me/posts/thoughts-on-a-project-shutdown-spark-tutorials/</guid>
+    <description><![CDATA[After having sparktutorials.net up for several years, it&rsquo;s time to shut it down. I haven&rsquo;t written for the site in years at this point and it&rsquo;s not doing me any good now that I have The Definitive Guide published.
+Interestingly, I (knowingly) haven&rsquo;t published on the site for nearly 3 years. Why did I keep it up? There isn&rsquo;t necessarily a straightforward answer. I likely kept it up because it represented something.]]></description>
+</item>
+<item>
+    <title>Thoughts on &#39;The Black Swan&#39; by Nassim Taleb</title>
+    <link>https://billchambers.me/posts/thoughts-on-the-black-swan-by-nassim-taleb/</link>
+    <pubDate>Fri, 16 Feb 2018 00:00:00 &#43;0000</pubDate>
+    <author>Bill Chambers</author>
+    <guid>https://billchambers.me/posts/thoughts-on-the-black-swan-by-nassim-taleb/</guid>
+    <description><![CDATA[This was my second time reading The Black Swan by Nassim Taleb although admittedly I think I was a bit young the first time to fully absorb the content. That is not to say that I didn&rsquo;t get the TL;DR of &ldquo;hey sometimes stuff happens that you can&rsquo;t predict that&rsquo;s meaningful&rdquo;, but what I missed was a lot of the nuance in the actual applcation of the principles to my life.]]></description>
+</item>
+<item>
+    <title>Visualizing Flights Origins and Departures with d3.js</title>
+    <link>https://billchambers.me/posts/d3-visualization-of-different-flights/</link>
+    <pubDate>Sun, 05 Apr 2015 00:00:00 &#43;0000</pubDate>
+    <author>Bill Chambers</author>
+    <guid>https://billchambers.me/posts/d3-visualization-of-different-flights/</guid>
+    <description><![CDATA[This was built for a class project in my Information Visualization class.
+My goals were pretty straightforward. I wanted to try a multidimensional dataset - with a lot of different connections.I wanted a nice way of exploring it that was relatively simple - clicking to filter, allowing for visual exploration. I would optimally would have liked to include a visualization like this one but I couldn&rsquo;t figure out how to do that without just copying and pasting the code.]]></description>
+</item>
+<item>
+    <title>Exploratory Data Analysis of Crime in San Francisco</title>
+    <link>https://billchambers.me/posts/exploring-sf-crime-tableau/</link>
+    <pubDate>Mon, 16 Mar 2015 00:00:00 &#43;0000</pubDate>
+    <author>Bill Chambers</author>
+    <guid>https://billchambers.me/posts/exploring-sf-crime-tableau/</guid>
+    <description><![CDATA[Data: The dataset I chose was a data set on crime in San Francisco.
+http://data.sfgov.org/d/tmnf-yvry?category=Public-Safety
+I have filtered the dataset which is large at 350 mb down to only theft incidents in 2014. I did this by taking that file and running commands:
+egrep &#34;2014&#34; SFPD_Incidents_-_from_1_January_2003.csv &gt; SFPD_2014.csv egrep &#34;LARCENY/THEFT&#34; SFPD_2014.csv &gt; SFPD_2014_theft.csv cat col_format.csv SFPD_2014_theft.csv &gt; SFPD_2014_theft_col.csv Dashboards follow each hypothesis.
+Hypotheses: My first hypothesis is that most thefts occur at night in residential neighborhoods.]]></description>
+</item>
+<item>
+    <title>The Future of Privacy</title>
+    <link>https://billchambers.me/posts/the-future-of-privacy/</link>
+    <pubDate>Fri, 05 Dec 2014 00:00:00 &#43;0000</pubDate>
+    <author>Bill Chambers</author>
+    <guid>https://billchambers.me/posts/the-future-of-privacy/</guid>
+    <description><![CDATA[Contemporary notions of privacy are complex and it is common to hear commentators calling the current state of privacy, or lack thereof, unprecedented. I would challenge the notion of an unprecedented violations of privacy on the basis of historical relativity. In absolute terms there is little question that the world we live in challenges any notions of privacy that have ever existed. However in relative terms, from a certain level of privacy to another, the rise of newspapers and the telegraph are interesting to compare to the modern era.]]></description>
+</item>
+</channel>
+</rss>

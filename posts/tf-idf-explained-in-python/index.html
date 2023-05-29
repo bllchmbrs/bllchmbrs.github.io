@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Basic Statistical NLP Part 1 - Jaccard Similarity and TF-IDF - My Writings - Bill Chambers</title><meta name="Description" content="something"><meta property="og:title" content="Basic Statistical NLP Part 1 - Jaccard Similarity and TF-IDF" />
+<meta property="og:description" content="This is a two part post, you can see part 2 here.
+In my natural language processing class we&rsquo;ve been playing around with similarity measures and I thought it would be useful to write them up here. Obviously this isn&rsquo;t an exhaustive list but I think it would be a good resource for anyone looking to learn a bit more about ways of measuring similarity between documents.
+One of the first steps in many NLP operations is tokenization." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://billchambers.me/posts/tf-idf-explained-in-python/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2014-12-21T00:00:00+00:00" />
+<meta property="article:modified_time" content="2014-12-21T00:00:00+00:00" /><meta property="og:site_name" content="Writings and Musings of Bill Chambers" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Basic Statistical NLP Part 1 - Jaccard Similarity and TF-IDF"/>
+<meta name="twitter:description" content="This is a two part post, you can see part 2 here.
+In my natural language processing class we&rsquo;ve been playing around with similarity measures and I thought it would be useful to write them up here. Obviously this isn&rsquo;t an exhaustive list but I think it would be a good resource for anyone looking to learn a bit more about ways of measuring similarity between documents.
+One of the first steps in many NLP operations is tokenization."/>
+<meta name="application-name" content="My cooldsfasdfsad site">
+<meta name="apple-mobile-web-app-title" content="My cooldsfasdfsad site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://billchambers.me/posts/tf-idf-explained-in-python/" /><link rel="prev" href="https://billchambers.me/posts/the-future-of-privacy/" /><link rel="next" href="https://billchambers.me/posts/cosine-similarity-explained-in-python/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Basic Statistical NLP Part 1 - Jaccard Similarity and TF-IDF",
+        "inLanguage": "en-us",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/billchambers.me\/posts\/tf-idf-explained-in-python\/"
+        },"genre": "posts","wordcount":  1603 ,
+        "url": "https:\/\/billchambers.me\/posts\/tf-idf-explained-in-python\/","datePublished": "2014-12-21T00:00:00+00:00","dateModified": "2014-12-21T00:00:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Bill Chambers"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="My Writings - Bill Chambers">Writings and Musings of Bill Chambers</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/" title="My Writings - Bill Chambers"> Home </a><a class="menu-item" href="/about/"> About </a><a class="menu-item active" href="/posts/" title="Posts"> Posts </a><a class="menu-item" href="/categories/" title="Categories"> Categories </a><a class="menu-item" href="/quotes/"> Quotes </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="My Writings - Bill Chambers">Writings and Musings of Bill Chambers</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/" title="My Writings - Bill Chambers">Home</a><a class="menu-item" href="/about/" title="">About</a><a class="menu-item" href="/posts/" title="Posts">Posts</a><a class="menu-item" href="/categories/" title="Categories">Categories</a><a class="menu-item" href="/quotes/" title="">Quotes</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Basic Statistical NLP Part 1 - Jaccard Similarity and TF-IDF</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Bill Chambers</a></span>&nbsp;<span class="post-category">included in <a href="/categories/tutorials/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>tutorials</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2014-12-21">2014-12-21</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1603 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;8 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#jaccard-similarity">Jaccard Similarity</a></li>
+        <li><a href="#tf-idf">TF-IDF</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p><em><a href="/tutorials/2014/12/22/cosine-similarity-explained-in-python.html" rel="">This is a two part post, you can see part 2 here.</a></em></p>
+<p>In my natural language processing class we&rsquo;ve been playing around with similarity measures and I thought it would be useful to write them up here. Obviously this isn&rsquo;t an exhaustive list but I think it would be a good resource for anyone looking to learn a bit more about ways of measuring similarity between documents.</p>
+<p>One of the first steps in many NLP operations is tokenization. Tokenization is the process by which we split a string into a list of &ldquo;tokens&rdquo; or words. While the below formula isn&rsquo;t exhaustive, it works well for simple things.</p>
+<p>Here&rsquo;s the code in python:</p>
+<pre tabindex="0"><code>from \_\_future\_\_ import division
+import string
+import math
+
+tokenize = lambda doc: doc.lower().split(&#34; &#34;)
+</code></pre><p>Now of course we&rsquo;ll need some documents.</p>
+<pre tabindex="0"><code>document\_0 = &#34;China has a strong economy that is growing at a rapid pace. However politically it differs greatly from the US Economy.&#34;
+document\_1 = &#34;At last, China seems serious about confronting an endemic problem: domestic violence and corruption.&#34;
+document\_2 = &#34;Japan&#39;s prime minister, Shinzo Abe, is working towards healing the economic turmoil in his own country for his view on the future of his people.&#34;
+document\_3 = &#34;Vladimir Putin is working hard to fix the economy in Russia as the Ruble has tumbled.&#34;
+document\_4 = &#34;What&#39;s the future of Abenomics? We asked Shinzo Abe for his views&#34;
+document\_5 = &#34;Obama has eased sanctions on Cuba while accelerating those against the Russian Economy, even as the Ruble&#39;s value falls almost daily.&#34;
+document\_6 = &#34;Vladimir Putin was found to be riding a horse, again, without a shirt on while hunting deer. Vladimir Putin always seems so serious about things - even riding horses.&#34;
+
+all\_documents = [document\_0, document\_1, document\_2, document\_3, document\_4, document\_5, document\_6]
+
+tokenized\_documents = [tokenize(d) for d in all\_documents] # tokenized docs
+all\_tokens\_set = set([item for sublist in tokenized\_documents for item in sublist])
+</code></pre><p>These are just a random set of documents that I&rsquo;ve written. Some are derived from some tweets that I read, others are just made up entirely. However we can see that there are some that are more similar to one another than others.</p>
+<h3 id="jaccard-similarity">Jaccard Similarity</h3>
+<hr>
+<p>Jaccard Similarity is the simplest of the similarities and is nothing more than a combination of binary operations of set algebra. To calculate the Jaccard Distance or similarity is treat our document as a set of tokens. Mathematically the formula is as follows:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://upload.wikimedia.org/math/1/8/6/186c7f4e83da32e889d606140fae25a0.png"
+        data-srcset="https://upload.wikimedia.org/math/1/8/6/186c7f4e83da32e889d606140fae25a0.png, https://upload.wikimedia.org/math/1/8/6/186c7f4e83da32e889d606140fae25a0.png 1.5x, https://upload.wikimedia.org/math/1/8/6/186c7f4e83da32e889d606140fae25a0.png 2x"
+        data-sizes="auto"
+        alt="https://upload.wikimedia.org/math/1/8/6/186c7f4e83da32e889d606140fae25a0.png"
+        title="Jaccard Similarity" /></p>
+<p>source: Wikipedia</p>
+<p>It&rsquo;s simply the length of the intersection of the sets of tokens divided by the length of the union of the two sets.</p>
+<p>In Python we can write the Jaccard Similarity as follows:</p>
+<pre tabindex="0"><code>def jaccard\_similarity(query, document):
+    intersection = set(query).intersection(set(document))
+    union = set(query).union(set(document))
+    return len(intersection)/len(union)
+</code></pre><p>Here we are running it on a couple of the documents:</p>
+<pre tabindex="0"><code># comparing document\_2 and document\_4
+jaccard\_similarity(tokenized\_documents[2],tokenized\_documents[4])
+# 0.16666666666666666
+</code></pre><p>We can see that these documents are a better match, but still far from perfect. There are a couple of things throwing us off. Document length has a big effect and common words carry the same weight as non common words. Let&rsquo;s take a look at the intersection to understand what I&rsquo;m talking about.</p>
+<pre tabindex="0"><code>set(tokenized\_documents[2]).intersection(set(tokenized\_documents[4]))
+# {&#39;abe&#39;, &#39;his&#39;, &#39;shinzo&#39;, &#39;the&#39;}
+</code></pre><p>As we can see, &ldquo;his&rdquo; and &ldquo;the&rdquo; have the same weight as &ldquo;abe&rdquo; and &ldquo;shinzo&rdquo;. Let&rsquo;s take a more extreme example.</p>
+<pre tabindex="0"><code>jaccard\_similarity(tokenized\_documents[1],tokenized\_documents[6])
+# 0.08571428571428572
+set(tokenized\_documents[1]).intersection(set(tokenized\_documents[6]))
+# {&#39;about&#39;, &#39;seems&#39;, &#39;serious&#39;}
+</code></pre><p>These documents have nothing in common. However they are rated as 8% relevant. This examples identifies the fundamental issues with Jaccard Similarity:</p>
+<ol>
+<li>Length is irrelevant. (bias towards longer documents).</li>
+<li>Words that appear in a lot of documents are weighted the same as those that appear in few. (bias towards longer documents as well as non-descriptive words)</li>
+</ol>
+<p>We need a way to weigh certain words differently than others. Words that appear in all the documents are not going to be good at identifying documents because of the fact that, well&hellip;they appear in all the documents. Let&rsquo;s move onto another similarity measure that takes this into account TF-IDF and Cosine Similarity.</p>
+<p>References:</p>
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Jaccard_index" target="_blank" rel="noopener noreffer ">Jaccard Similarity on Wikipedia</a></li>
+</ul>
+<h3 id="tf-idf">TF-IDF</h3>
+<hr>
+<p>TF, or Term Frequency, measures one thing: the count of words in a document. It&rsquo;s the first step for TF-IDF or Term Frequency Inverse Document Frequency.</p>
+<p>First comes the easy part.</p>
+<pre tabindex="0"><code>def term\_frequency(term, tokenized\_document):
+    return tokenized\_document.count(term)
+</code></pre><p>Above we&rsquo;ve created a simple way of counting the number of occurrences of a token in a document. There are plenty of ways to do this, through collections or for loops but they all end with the same result, how many times does a token appear in a document.</p>
+<p>However this does not resolve the issue we&rsquo;ve mentioned above - this is still biased towards longer documents. To remedy this we should weight terms according to document length or normalize them on another scale. This process is called normalization. While there are several ways to do this, I&rsquo;ll only show two, sub-linear term frequency and augmented frequency measurement. Here&rsquo;s the formula:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://upload.wikimedia.org/math/5/c/c/5cc18acd4dbd9be636047fc2a7a10105.png"
+        data-srcset="https://upload.wikimedia.org/math/5/c/c/5cc18acd4dbd9be636047fc2a7a10105.png, https://upload.wikimedia.org/math/5/c/c/5cc18acd4dbd9be636047fc2a7a10105.png 1.5x, https://upload.wikimedia.org/math/5/c/c/5cc18acd4dbd9be636047fc2a7a10105.png 2x"
+        data-sizes="auto"
+        alt="https://upload.wikimedia.org/math/5/c/c/5cc18acd4dbd9be636047fc2a7a10105.png"
+        title="augmented frequency" /></p>
+<pre tabindex="0"><code>def sublinear\_term\_frequency(term, tokenized\_document):
+    return 1 + math.log(tokenized\_document.count(term))
+
+def augmented\_term\_frequency(term, tokenized\_document):
+    max\_count = max([term\_frequency(t, tokenized\_document) for t in tokenized\_document])
+    return (0.5 + ((0.5 \* term\_frequency(term, tokenized\_document))/max\_count))
+</code></pre><p>These two different normalization techniques obviously approach our goal differently. I&rsquo;ll be focusing on the sub-linear term frequency as it will tie into exploring Tfidf with <a href="http://scikit-learn.org/stable/" target="_blank" rel="noopener noreffer ">Scikit-Learn</a>.</p>
+<p>The next part of TF-IDF is the <code>IDF</code> or inverse document frequency. Basically we want to target the words that are unique to certain documents instead of those that appear in all the documents because by definition, those are not good identifiers for any given document. Here&rsquo;s our equation for IDF.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://upload.wikimedia.org/math/b/a/e/bae842b33a4cafc0f22519cf960b052a.png"
+        data-srcset="http://upload.wikimedia.org/math/b/a/e/bae842b33a4cafc0f22519cf960b052a.png, http://upload.wikimedia.org/math/b/a/e/bae842b33a4cafc0f22519cf960b052a.png 1.5x, http://upload.wikimedia.org/math/b/a/e/bae842b33a4cafc0f22519cf960b052a.png 2x"
+        data-sizes="auto"
+        alt="http://upload.wikimedia.org/math/b/a/e/bae842b33a4cafc0f22519cf960b052a.png"
+        title="IDF" /></p>
+<pre tabindex="0"><code>def inverse\_document\_frequencies(tokenized\_documents):
+    idf\_values = {}
+    all\_tokens\_set = set([item for sublist in tokenized\_documents for item in sublist])
+    for tkn in all\_tokens\_set:
+        contains\_token = map(lambda doc: tkn in doc, tokenized\_documents)
+        idf\_values[tkn] = 1 + math.log(len(tokenized\_documents)/(sum(contains\_token)))
+    return idf\_values
+</code></pre><p>Now we&rsquo;ve got a weight for every token in every document. This helps determine the important words from the unimportant ones.</p>
+<pre tabindex="0"><code>idf\_values = inverse\_document\_frequencies(tokenized\_documents)
+print idf\_values[&#39;abenomics&#39;]
+# 2.94591014906
+print idf\_values[&#39;the&#39;]
+# 1.33647223662
+</code></pre><p>Now we see the power of TF-IDF. We&rsquo;ve taken the inverse of a token&rsquo;s document frequency. This means that words that appear a lot like &ldquo;the&rdquo; are weighted much less than words like &ldquo;abenomics&rdquo;. However TF-IDF allows us to do so much more. We can create vector representations of sentences or more simply, we can transform documents into numbers and lists of documents into matrices.</p>
+<p>While this seems relatively unimportant, it actually allows us to do a lot of exception things. We have a mathematical representation of a sentence and we can now use that representation in mathematical ways.</p>
+<pre tabindex="0"><code>def tfidf(documents):
+    tokenized\_documents = [tokenize(d) for d in documents]
+    idf = inverse\_document\_frequencies(tokenized\_documents)
+    tfidf\_documents = []
+    for document in tokenized\_documents:
+        doc\_tfidf = []
+        for term in idf.keys():
+            tf = sublinear\_term\_frequency(term, document)
+            doc\_tfidf.append(tf \* idf[term])
+        tfidf\_documents.append(doc\_tfidf)
+    return tfidf\_documents
+</code></pre><p>Now that we&rsquo;ve got a way of performing tfidf, let&rsquo;s run it!</p>
+<pre tabindex="0"><code>tfidf\_representation = tfidf(all\_documents)
+print tfidf\_representation[0], document\_0
+# doc vector and document
+</code></pre><p>These two representations are functionally equivalent at this point. Now up until this point we&rsquo;ve done all this by hand, while it&rsquo;s been a good exercise there are packages that implement this much more quickly - like Scikit-Learn.</p>
+<p>Let&rsquo;s take a look at how we might code this in Scikit-Learn.</p>
+<pre tabindex="0"><code>from sklearn.feature\_extraction.text import TfidfVectorizer
+
+sklearn\_tfidf = TfidfVectorizer(norm=&#39;l2&#39;,min\_df=0, use\_idf=True, smooth\_idf=False, sublinear\_tf=True, tokenizer=tokenize)
+
+sklearn\_representation = sklearn\_tfidf.fit\_transform(all\_documents)
+print tfidf\_representation[0]
+print sklearn\_representation.toarray()[0].tolist()
+print document\_0
+</code></pre><p>While you will notice that the values in each matrix are not the same because Scikit-learn presents the IDF ordering in a different way (in that fitted model). However we can see in the next part of this tutorial that the exact numbers are irrelevant, it is the vectors that are important. <a href="/tutorials/2014/12/22/cosine-similarity-explained-in-python.html" rel="">The next post focuses on cosine similarity or the Euclidean dot product formula in python.</a></p>
+<p>Here&rsquo;s all of our code so far:</p>
+<pre tabindex="0"><code>from **future** import division
+import string
+import math
+</code></pre><p>tokenize = lambda doc: doc.lower().split(&quot; &ldquo;)</p>
+<p>document<em>0 = &ldquo;China has a strong economy that is growing at a rapid pace. However politically it differs greatly from the US Economy.&rdquo;
+document</em>1 = &ldquo;At last, China seems serious about confronting an endemic problem: domestic violence and corruption.&rdquo;
+document<em>2 = &ldquo;Japan&rsquo;s prime minister, Shinzo Abe, is working towards healing the economic turmoil in his own country for his view on the future of his people.&rdquo;
+document</em>3 = &ldquo;Vladimir Putin is working hard to fix the economy in Russia as the Ruble has tumbled.&rdquo;
+document<em>4 = &ldquo;What&rsquo;s the future of Abenomics? We asked Shinzo Abe for his views&rdquo;
+document</em>5 = &ldquo;Obama has eased sanctions on Cuba while accelerating those against the Russian Economy, even as the Ruble&rsquo;s value falls almost daily.&rdquo;
+document_6 = &ldquo;Vladimir Putin is riding a horse while hunting deer. Vladimir Putin always seems so serious about things - even riding horses. Is he crazy?&rdquo;</p>
+<p>all<em>documents = [document</em>0, document<em>1, document</em>2, document<em>3, document</em>4, document<em>5, document</em>6]</p>
+<p>def jaccard_similarity(query, document):
+intersection = set(query).intersection(set(document))
+union = set(query).union(set(document))
+return len(intersection)/len(union)</p>
+<p>def term<em>frequency(term, tokenized</em>document):
+return tokenized_document.count(term)</p>
+<p>def sublinear<em>term</em>frequency(term, tokenized<em>document):
+count = tokenized</em>document.count(term)
+if count == 0:
+return 0
+return 1 + math.log(count)</p>
+<p>def augmented<em>term</em>frequency(term, tokenized<em>document):
+max</em>count = max([term<em>frequency(t, tokenized</em>document) for t in tokenized<em>document])
+return (0.5 + ((0.5 * term</em>frequency(term, tokenized<em>document))/max</em>count))</p>
+<p>def inverse<em>document</em>frequencies(tokenized<em>documents):
+idf</em>values = {}
+all<em>tokens</em>set = set([item for sublist in tokenized<em>documents for item in sublist])
+for tkn in all</em>tokens<em>set:
+contains</em>token = map(lambda doc: tkn in doc, tokenized<em>documents)
+idf</em>values[tkn] = 1 + math.log(len(tokenized<em>documents)/(sum(contains</em>token)))
+return idf_values</p>
+<p>def tfidf(documents):
+tokenized<em>documents = [tokenize(d) for d in documents]
+idf = inverse</em>document<em>frequencies(tokenized</em>documents)
+tfidf<em>documents = []
+for document in tokenized</em>documents:
+doc<em>tfidf = []
+for term in idf.keys():
+tf = sublinear</em>term<em>frequency(term, document)
+doc</em>tfidf.append(tf * idf[term])
+tfidf<em>documents.append(doc</em>tfidf)
+return tfidf_documents</p>
+<h1 id="in-scikit-learn">in Scikit-Learn</h1>
+<p>from sklearn.feature_extraction.text import TfidfVectorizer</p>
+<p>sklearn<em>tfidf = TfidfVectorizer(norm=&lsquo;l2&rsquo;,min</em>df=0, use<em>idf=True, smooth</em>idf=False, sublinear<em>tf=True, tokenizer=tokenize)
+sklearn</em>representation = sklearn<em>tfidf.fit</em>transform(all_documents)</p>
+<p>Further References:</p>
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Tf%E2%80%93idf" target="_blank" rel="noopener noreffer ">TF-IDF</a></li>
+<li><a href="http://scikit-learn.org/stable/modules/classes.html#module-sklearn.feature_extraction.text" target="_blank" rel="noopener noreffer ">Scikit-Learn TF-IDF</a></li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2014-12-21</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://billchambers.me/posts/tf-idf-explained-in-python/" data-title="Basic Statistical NLP Part 1 - Jaccard Similarity and TF-IDF" data-via="bllchmbrs"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://billchambers.me/posts/tf-idf-explained-in-python/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://billchambers.me/posts/tf-idf-explained-in-python/" data-title="Basic Statistical NLP Part 1 - Jaccard Similarity and TF-IDF"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://billchambers.me/posts/tf-idf-explained-in-python/" data-title="Basic Statistical NLP Part 1 - Jaccard Similarity and TF-IDF"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://billchambers.me/posts/tf-idf-explained-in-python/" data-title="Basic Statistical NLP Part 1 - Jaccard Similarity and TF-IDF"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/the-future-of-privacy/" class="prev" rel="prev" title="The Future of Privacy"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>The Future of Privacy</a>
+            <a href="/posts/cosine-similarity-explained-in-python/" class="next" rel="next" title="Basic Statistical NLP Part 2 - TF-IDF And Cosine Similarity">Basic Statistical NLP Part 2 - TF-IDF And Cosine Similarity<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+    <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><i> Bill Chambers </i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a
+                    href="/" target="_blank"></a></span></div>
+    </div>
+</footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
