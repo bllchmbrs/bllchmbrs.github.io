@@ -1,90 +1,90 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>All Posts - My Writings - Bill Chambers</title>
-        <link>https://billchambers.me/posts/</link>
+        <link>http://billchambers.me/posts/</link>
         <description>All Posts | My Writings - Bill Chambers</description>
-        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Tue, 23 Jul 2019 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://billchambers.me/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Tue, 23 Jul 2019 00:00:00 &#43;0000</lastBuildDate><atom:link href="http://billchambers.me/posts/" rel="self" type="application/rss+xml" /><item>
     <title>Car Rental Companies and Branding - What sharing desks teaches us about product management</title>
-    <link>https://billchambers.me/posts/why-do-car-rental-companies-share-desks/</link>
+    <link>http://billchambers.me/posts/why-do-car-rental-companies-share-desks/</link>
     <pubDate>Tue, 23 Jul 2019 00:00:00 &#43;0000</pubDate>
     <author>Bill Chambers</author>
-    <guid>https://billchambers.me/posts/why-do-car-rental-companies-share-desks/</guid>
+    <guid>http://billchambers.me/posts/why-do-car-rental-companies-share-desks/</guid>
     <description><![CDATA[You decide that you&rsquo;re going to make a trip, a business trip. You&rsquo;re going to visit some customers and you hop onto whatever search engine and reserve a car, maybe through National. You get to the destination airport, stroll off the aircraft, grab your bag and walk to the car rental counters only to realize that the Enterprise and National all share the same desk.
 On a recent trip, I let my curiosity finally get the best of me.]]></description>
 </item>
 <item>
     <title>Applying SaaS Company Metrics to Product Adoption</title>
-    <link>https://billchambers.me/posts/applying-saas-company-metrics-to-product-adoption/</link>
+    <link>http://billchambers.me/posts/applying-saas-company-metrics-to-product-adoption/</link>
     <pubDate>Fri, 11 Jan 2019 00:00:00 &#43;0000</pubDate>
     <author>Bill Chambers</author>
-    <guid>https://billchambers.me/posts/applying-saas-company-metrics-to-product-adoption/</guid>
+    <guid>http://billchambers.me/posts/applying-saas-company-metrics-to-product-adoption/</guid>
     <description><![CDATA[Overview Recently, there&rsquo;s been a renewed focus on monitoring and understanding company (or product) growth, especially when it comes to SaaS products. Werner Vogels recently mentioned something quite similar in a blog post, &ldquo;People often ask me if developing for the cloud is any different from developing on-premises software. It really is.&rdquo; I couldn&rsquo;t agree more, it&rsquo;s awesome for understanding products, how users are using them, and what you can do to improve them.]]></description>
 </item>
 <item>
     <title>Thoughts on Shutting Down Projects and Looking to 2019</title>
-    <link>https://billchambers.me/posts/thoughts-on-a-project-shutdown-spark-tutorials/</link>
+    <link>http://billchambers.me/posts/thoughts-on-a-project-shutdown-spark-tutorials/</link>
     <pubDate>Mon, 24 Dec 2018 00:00:00 &#43;0000</pubDate>
     <author>Bill Chambers</author>
-    <guid>https://billchambers.me/posts/thoughts-on-a-project-shutdown-spark-tutorials/</guid>
+    <guid>http://billchambers.me/posts/thoughts-on-a-project-shutdown-spark-tutorials/</guid>
     <description><![CDATA[After having sparktutorials.net up for several years, it&rsquo;s time to shut it down. I haven&rsquo;t written for the site in years at this point and it&rsquo;s not doing me any good now that I have The Definitive Guide published.
 Interestingly, I (knowingly) haven&rsquo;t published on the site for nearly 3 years. Why did I keep it up? There isn&rsquo;t necessarily a straightforward answer. I likely kept it up because it represented something.]]></description>
 </item>
 <item>
     <title>Thoughts on &#39;The Black Swan&#39; by Nassim Taleb</title>
-    <link>https://billchambers.me/posts/thoughts-on-the-black-swan-by-nassim-taleb/</link>
+    <link>http://billchambers.me/posts/thoughts-on-the-black-swan-by-nassim-taleb/</link>
     <pubDate>Fri, 16 Feb 2018 00:00:00 &#43;0000</pubDate>
     <author>Bill Chambers</author>
-    <guid>https://billchambers.me/posts/thoughts-on-the-black-swan-by-nassim-taleb/</guid>
+    <guid>http://billchambers.me/posts/thoughts-on-the-black-swan-by-nassim-taleb/</guid>
     <description><![CDATA[This was my second time reading The Black Swan by Nassim Taleb although admittedly I think I was a bit young the first time to fully absorb the content. That is not to say that I didn&rsquo;t get the TL;DR of &ldquo;hey sometimes stuff happens that you can&rsquo;t predict that&rsquo;s meaningful&rdquo;, but what I missed was a lot of the nuance in the actual applcation of the principles to my life.]]></description>
 </item>
 <item>
     <title>Spark: The Definitive Guide published by O&#39;Reilly!</title>
-    <link>https://billchambers.me/posts/spark-the-definitive-guide/</link>
+    <link>http://billchambers.me/posts/spark-the-definitive-guide/</link>
     <pubDate>Thu, 08 Feb 2018 00:00:00 &#43;0000</pubDate>
     <author>Bill Chambers</author>
-    <guid>https://billchambers.me/posts/spark-the-definitive-guide/</guid>
+    <guid>http://billchambers.me/posts/spark-the-definitive-guide/</guid>
     <description><![CDATA[As of February 6th, 2018, Spark: The Definitive Guide has gone to print. This was the most intensive project and process that I&rsquo;ve ever undertaken in my life. It was filled with frustrations and anticipations, excitements and fears. I must extend thanks to those that encouraged me to lead the writing of the book, namely Ion Stoica, Patrick Wendell, Ali Ghodsi, and (somewhat obviously) Matei Zaharia. These folks were the ones that recommended that I take the lead on the book and I am forever grateful for them to grant me such an opportunity.]]></description>
 </item>
 <item>
     <title>Getting Started with Apache Spark</title>
-    <link>https://billchambers.me/posts/getting-started-with-apache-spark/</link>
+    <link>http://billchambers.me/posts/getting-started-with-apache-spark/</link>
     <pubDate>Sun, 06 Dec 2015 00:00:00 &#43;0000</pubDate>
     <author>Bill Chambers</author>
-    <guid>https://billchambers.me/posts/getting-started-with-apache-spark/</guid>
+    <guid>http://billchambers.me/posts/getting-started-with-apache-spark/</guid>
     <description><![CDATA[Lately I&rsquo;ve been playing around with Spark for data processing. It provides some really amazing features like MLLib and Spark SQL and there&rsquo;s no better way to learn something that to use it. I&rsquo;ve attended a couple of meet ups about Spark and its related tools including the famous ampcamp put on by the developers of spark and, although I&rsquo;m not an expert, I thought it would be good to consolidate my knowledge and teach others.]]></description>
 </item>
 <item>
     <title>Introducing SparkTutorials.net</title>
-    <link>https://billchambers.me/posts/introducing-spark-tutorials/</link>
+    <link>http://billchambers.me/posts/introducing-spark-tutorials/</link>
     <pubDate>Thu, 10 Sep 2015 00:00:00 &#43;0000</pubDate>
     <author>Bill Chambers</author>
-    <guid>https://billchambers.me/posts/introducing-spark-tutorials/</guid>
+    <guid>http://billchambers.me/posts/introducing-spark-tutorials/</guid>
     <description><![CDATA[I&rsquo;ve recently launched a website called SparkTutorials.net. Spark Tutorials aims to educate the general public about the utility of Spark as a tool for data science. I would encourage you to read more on the website and learn something new!]]></description>
 </item>
 <item>
     <title>A Simple Link Shortener in Scala</title>
-    <link>https://billchambers.me/posts/a-link-shortener-in-scala/</link>
+    <link>http://billchambers.me/posts/a-link-shortener-in-scala/</link>
     <pubDate>Wed, 10 Jun 2015 00:00:00 &#43;0000</pubDate>
     <author>Bill Chambers</author>
-    <guid>https://billchambers.me/posts/a-link-shortener-in-scala/</guid>
+    <guid>http://billchambers.me/posts/a-link-shortener-in-scala/</guid>
     <description><![CDATA[Recently I took it upon myself to dive into Scala. This post describes what my reaction was after writing a link shortener service using it. For those only interested in the code, check out my github.
 After learning the basics of Clojure by writing a simple link shortener, I realized that it was a great way to get to know a language. So I decided to do the same in Scala.]]></description>
 </item>
 <item>
     <title>A Simple Link Shortener in Clojure</title>
-    <link>https://billchambers.me/posts/a-link-shortener-in-clojure/</link>
+    <link>http://billchambers.me/posts/a-link-shortener-in-clojure/</link>
     <pubDate>Mon, 01 Jun 2015 00:00:00 &#43;0000</pubDate>
     <author>Bill Chambers</author>
-    <guid>https://billchambers.me/posts/a-link-shortener-in-clojure/</guid>
+    <guid>http://billchambers.me/posts/a-link-shortener-in-clojure/</guid>
     <description><![CDATA[Recently I took it upon myself to dive into clojure. This post describes what my reaction was after writing a link shortener service using it. For those only interested in the code, check out my github.
 I&rsquo;ve always wanted to learn a lisp. I played with Scheme, Common Lisp, but never really dug deeply into it. Now knowing python extremely well, I wanted to try and scope an application reasonably and write it in Clojure.]]></description>
 </item>
 <item>
     <title>Visualizing Crime in San Francisco during the 2014 World Series</title>
-    <link>https://billchambers.me/posts/san-francisco-crime-data-visualization/</link>
+    <link>http://billchambers.me/posts/san-francisco-crime-data-visualization/</link>
     <pubDate>Wed, 20 May 2015 00:00:00 &#43;0000</pubDate>
     <author>Bill Chambers</author>
-    <guid>https://billchambers.me/posts/san-francisco-crime-data-visualization/</guid>
+    <guid>http://billchambers.me/posts/san-francisco-crime-data-visualization/</guid>
     <description><![CDATA[During the World Series, especially during the Giants win, there was a mass rioting and looting. For our data visualization class, a classmate, John Semerdjian, and I made an interactive visualization of the crime in the city during each game.
 You can view in the entire visualization here on a github project site.. The write up includes descriptions of out process.
 Be sure to check out the final page as it&rsquo;s a completely interactive visualization that allows you to explore and filter the data yourself.]]></description>

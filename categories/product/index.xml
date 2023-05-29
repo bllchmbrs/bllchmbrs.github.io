@@ -1,23 +1,23 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>product - Category - My Writings - Bill Chambers</title>
-        <link>https://billchambers.me/categories/product/</link>
+        <link>http://billchambers.me/categories/product/</link>
         <description>product - Category - My Writings - Bill Chambers</description>
-        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Tue, 23 Jul 2019 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://billchambers.me/categories/product/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Tue, 23 Jul 2019 00:00:00 &#43;0000</lastBuildDate><atom:link href="http://billchambers.me/categories/product/" rel="self" type="application/rss+xml" /><item>
     <title>Car Rental Companies and Branding - What sharing desks teaches us about product management</title>
-    <link>https://billchambers.me/posts/why-do-car-rental-companies-share-desks/</link>
+    <link>http://billchambers.me/posts/why-do-car-rental-companies-share-desks/</link>
     <pubDate>Tue, 23 Jul 2019 00:00:00 &#43;0000</pubDate>
     <author>Bill Chambers</author>
-    <guid>https://billchambers.me/posts/why-do-car-rental-companies-share-desks/</guid>
+    <guid>http://billchambers.me/posts/why-do-car-rental-companies-share-desks/</guid>
     <description><![CDATA[You decide that you&rsquo;re going to make a trip, a business trip. You&rsquo;re going to visit some customers and you hop onto whatever search engine and reserve a car, maybe through National. You get to the destination airport, stroll off the aircraft, grab your bag and walk to the car rental counters only to realize that the Enterprise and National all share the same desk.
 On a recent trip, I let my curiosity finally get the best of me.]]></description>
 </item>
 <item>
     <title>Applying SaaS Company Metrics to Product Adoption</title>
-    <link>https://billchambers.me/posts/applying-saas-company-metrics-to-product-adoption/</link>
+    <link>http://billchambers.me/posts/applying-saas-company-metrics-to-product-adoption/</link>
     <pubDate>Fri, 11 Jan 2019 00:00:00 &#43;0000</pubDate>
     <author>Bill Chambers</author>
-    <guid>https://billchambers.me/posts/applying-saas-company-metrics-to-product-adoption/</guid>
+    <guid>http://billchambers.me/posts/applying-saas-company-metrics-to-product-adoption/</guid>
     <description><![CDATA[Overview Recently, there&rsquo;s been a renewed focus on monitoring and understanding company (or product) growth, especially when it comes to SaaS products. Werner Vogels recently mentioned something quite similar in a blog post, &ldquo;People often ask me if developing for the cloud is any different from developing on-premises software. It really is.&rdquo; I couldn&rsquo;t agree more, it&rsquo;s awesome for understanding products, how users are using them, and what you can do to improve them.]]></description>
 </item>
 </channel>

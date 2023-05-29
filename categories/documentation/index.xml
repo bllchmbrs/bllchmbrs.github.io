@@ -1,7 +1,7 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Documentation - Category - My Writings - Bill Chambers</title>
-        <link>https://billchambers.me/categories/documentation/</link>
+        <link>http://billchambers.me/categories/documentation/</link>
         <description>Documentation - Category - My Writings - Bill Chambers</description>
-        <generator>Hugo -- gohugo.io</generator><language>en-us</language><atom:link href="https://billchambers.me/categories/documentation/" rel="self" type="application/rss+xml" /></channel>
+        <generator>Hugo -- gohugo.io</generator><language>en-us</language><atom:link href="http://billchambers.me/categories/documentation/" rel="self" type="application/rss+xml" /></channel>
 </rss>
