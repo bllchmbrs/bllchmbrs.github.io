@@ -2,10 +2,12 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
+            <loc>http://billchambers.me/categories/</loc><lastmod>2023-06-01T09:56:17-07:00</lastmod></url><url>
+            <loc>http://billchambers.me/</loc><lastmod>2023-06-01T09:56:17-07:00</lastmod></url><url>
+            <loc>http://billchambers.me/posts/</loc><lastmod>2023-06-01T09:56:17-07:00</lastmod></url><url>
+            <loc>http://billchambers.me/posts/snorkeling-scuba-diving/</loc><lastmod>2023-06-01T09:56:17-07:00</lastmod></url><url>
+            <loc>http://billchambers.me/categories/startups/</loc><lastmod>2023-06-01T09:56:17-07:00</lastmod></url><url>
             <loc>http://billchambers.me/posts/why-do-car-rental-companies-share-desks/</loc><lastmod>2019-07-23T00:00:00&#43;00:00</lastmod></url><url>
-            <loc>http://billchambers.me/categories/</loc><lastmod>2019-07-23T00:00:00&#43;00:00</lastmod></url><url>
-            <loc>http://billchambers.me/</loc><lastmod>2019-07-23T00:00:00&#43;00:00</lastmod></url><url>
-            <loc>http://billchambers.me/posts/</loc><lastmod>2019-07-23T00:00:00&#43;00:00</lastmod></url><url>
             <loc>http://billchambers.me/categories/product/</loc><lastmod>2019-07-23T00:00:00&#43;00:00</lastmod></url><url>
             <loc>http://billchambers.me/posts/applying-saas-company-metrics-to-product-adoption/</loc><lastmod>2019-01-11T00:00:00&#43;00:00</lastmod></url><url>
             <loc>http://billchambers.me/categories/essays/</loc><lastmod>2018-12-24T00:00:00&#43;00:00</lastmod></url><url>

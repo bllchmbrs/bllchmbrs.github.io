@@ -20,23 +20,6 @@
     <description><![CDATA[I&rsquo;ve recently launched a website called SparkTutorials.net. Spark Tutorials aims to educate the general public about the utility of Spark as a tool for data science. I would encourage you to read more on the website and learn something new!]]></description>
 </item>
 <item>
-    <title>Plotting Your AWS Redshift Data with Plotly</title>
-    <link>http://billchambers.me/posts/plotting-aws-redshift-data-with-plotly/</link>
-    <pubDate>Fri, 08 May 2015 00:00:00 &#43;0000</pubDate>
-    <author>Bill Chambers</author>
-    <guid>http://billchambers.me/posts/plotting-aws-redshift-data-with-plotly/</guid>
-    <description><![CDATA[08 May 2015
-This was a post that I did for Plotly covering the basics of plotting Data from an AWS Redshift cluster with plotly.]]></description>
-</item>
-<item>
-    <title>Plotting Spark DataFrames with Plotly</title>
-    <link>http://billchambers.me/posts/apache-spark-and-plotly-graphing/</link>
-    <pubDate>Mon, 04 May 2015 00:00:00 &#43;0000</pubDate>
-    <author>Bill Chambers</author>
-    <guid>http://billchambers.me/posts/apache-spark-and-plotly-graphing/</guid>
-    <description><![CDATA[This was a post that I did for Plotly covering the basics of plotting Spark DataFrames with plotly.]]></description>
-</item>
-<item>
     <title>Infographic - Why Hasn’t Russia’s Economic Collapse Affected its Leadership?</title>
     <link>http://billchambers.me/posts/infographic-russia-leadership/</link>
     <pubDate>Sun, 01 Mar 2015 00:00:00 &#43;0000</pubDate>

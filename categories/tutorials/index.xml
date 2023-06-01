@@ -40,6 +40,23 @@ You can view in the entire visualization here on a github project site.. The wri
 Be sure to check out the final page as it&rsquo;s a completely interactive visualization that allows you to explore and filter the data yourself.]]></description>
 </item>
 <item>
+    <title>Plotting Your AWS Redshift Data with Plotly</title>
+    <link>http://billchambers.me/posts/plotting-aws-redshift-data-with-plotly/</link>
+    <pubDate>Fri, 08 May 2015 00:00:00 &#43;0000</pubDate>
+    <author>Bill Chambers</author>
+    <guid>http://billchambers.me/posts/plotting-aws-redshift-data-with-plotly/</guid>
+    <description><![CDATA[08 May 2015
+This was a post that I did for Plotly covering the basics of plotting Data from an AWS Redshift cluster with plotly.]]></description>
+</item>
+<item>
+    <title>Plotting Spark DataFrames with Plotly</title>
+    <link>http://billchambers.me/posts/apache-spark-and-plotly-graphing/</link>
+    <pubDate>Mon, 04 May 2015 00:00:00 &#43;0000</pubDate>
+    <author>Bill Chambers</author>
+    <guid>http://billchambers.me/posts/apache-spark-and-plotly-graphing/</guid>
+    <description><![CDATA[This was a post that I did for Plotly covering the basics of plotting Spark DataFrames with plotly.]]></description>
+</item>
+<item>
     <title>K-Means Clustering - Liquor &amp; Assaults in San Francisco</title>
     <link>http://billchambers.me/posts/kmeans-clustering-sf-crime-data/</link>
     <pubDate>Tue, 31 Mar 2015 00:00:00 &#43;0000</pubDate>
@@ -76,25 +93,6 @@ You just made your 2015 New Year&#39;s resolution to improve your data analysis 
     <description><![CDATA[This is a two part post, you can see part 1 here. Please read that post (if you haven&rsquo;t already) before continuing or just check out the code in this gist.
 from **future** import division import string import math tokenize = lambda doc: doc.lower().split(&quot; &ldquo;)
 document0 = &ldquo;China has a strong economy that is growing at a rapid pace. However politically it differs greatly from the US Economy.&rdquo; document1 = &ldquo;At last, China seems serious about confronting an endemic problem: domestic violence and corruption.]]></description>
-</item>
-<item>
-    <title>Basic Statistical NLP Part 1 - Jaccard Similarity and TF-IDF</title>
-    <link>http://billchambers.me/posts/tf-idf-explained-in-python/</link>
-    <pubDate>Sun, 21 Dec 2014 00:00:00 &#43;0000</pubDate>
-    <author>Bill Chambers</author>
-    <guid>http://billchambers.me/posts/tf-idf-explained-in-python/</guid>
-    <description><![CDATA[This is a two part post, you can see part 2 here.
-In my natural language processing class we&rsquo;ve been playing around with similarity measures and I thought it would be useful to write them up here. Obviously this isn&rsquo;t an exhaustive list but I think it would be a good resource for anyone looking to learn a bit more about ways of measuring similarity between documents.
-One of the first steps in many NLP operations is tokenization.]]></description>
-</item>
-<item>
-    <title>A Gentle Introduction to Static Site Generators</title>
-    <link>http://billchambers.me/posts/introduction-to-static-site-generators/</link>
-    <pubDate>Tue, 11 Nov 2014 00:00:00 &#43;0000</pubDate>
-    <author>Bill Chambers</author>
-    <guid>http://billchambers.me/posts/introduction-to-static-site-generators/</guid>
-    <description><![CDATA[This document will be a simple introduction to static site generators. We&rsquo;ll go over the basics of what they are, why you should use them, which one you should use and finally how to get started.
-The intended audiences for this tutorial are designers or novice developers with little to no programming experience but with some HTML/CSS skill, simple command line experience. This document was originally written for a presentation I did for a portfolio class at the UC Berkeley School of Information.]]></description>
 </item>
 </channel>
 </rss>

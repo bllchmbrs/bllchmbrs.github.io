@@ -3,9 +3,18 @@
         <title>My Writings - Bill Chambers</title>
         <link>http://billchambers.me/</link>
         <description>something</description>
-        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Tue, 23 Jul 2019 00:00:00 &#43;0000</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Thu, 01 Jun 2023 09:56:17 -0700</lastBuildDate>
             <atom:link href="http://billchambers.me/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Snorkeling &amp; Scuba Diving - An Analogy Relevant for Starting Up</title>
+    <link>http://billchambers.me/posts/snorkeling-scuba-diving/</link>
+    <pubDate>Thu, 01 Jun 2023 09:56:17 -0700</pubDate>
+    <author>Bill Chambers</author>
+    <guid>http://billchambers.me/posts/snorkeling-scuba-diving/</guid>
+    <description><![CDATA[I heard a great perspective from a candidate that we interviewed recently for a leadership role. Putting the candidate aside, he used an analogy that really stuck with me, even though it was said in passing. This saying and perspective changed both my perspective on interviewing as well as my perspective on the role of marketing, leadership, and startups.
+The Analogy: Snorkeling and Scuba Diving The analogy is simply a place on the &ldquo;surface level&rdquo; and &ldquo;going deep&rdquo; that is common in industry.]]></description>
+</item>
+<item>
     <title>Car Rental Companies and Branding - What sharing desks teaches us about product management</title>
     <link>http://billchambers.me/posts/why-do-car-rental-companies-share-desks/</link>
     <pubDate>Tue, 23 Jul 2019 00:00:00 &#43;0000</pubDate>
@@ -80,16 +89,6 @@ After learning the basics of Clojure by writing a simple link shortener, I reali
     <guid>http://billchambers.me/posts/a-link-shortener-in-clojure/</guid>
     <description><![CDATA[Recently I took it upon myself to dive into clojure. This post describes what my reaction was after writing a link shortener service using it. For those only interested in the code, check out my github.
 I&rsquo;ve always wanted to learn a lisp. I played with Scheme, Common Lisp, but never really dug deeply into it. Now knowing python extremely well, I wanted to try and scope an application reasonably and write it in Clojure.]]></description>
-</item>
-<item>
-    <title>Visualizing Crime in San Francisco during the 2014 World Series</title>
-    <link>http://billchambers.me/posts/san-francisco-crime-data-visualization/</link>
-    <pubDate>Wed, 20 May 2015 00:00:00 &#43;0000</pubDate>
-    <author>Bill Chambers</author>
-    <guid>http://billchambers.me/posts/san-francisco-crime-data-visualization/</guid>
-    <description><![CDATA[During the World Series, especially during the Giants win, there was a mass rioting and looting. For our data visualization class, a classmate, John Semerdjian, and I made an interactive visualization of the crime in the city during each game.
-You can view in the entire visualization here on a github project site.. The write up includes descriptions of out process.
-Be sure to check out the final page as it&rsquo;s a completely interactive visualization that allows you to explore and filter the data yourself.]]></description>
 </item>
 </channel>
 </rss>
