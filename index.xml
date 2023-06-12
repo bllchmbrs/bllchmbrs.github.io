@@ -3,9 +3,18 @@
         <title>My Writings - Bill Chambers</title>
         <link>http://billchambers.me/</link>
         <description>something</description>
-        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Thu, 01 Jun 2023 09:56:17 -0700</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Mon, 12 Jun 2023 09:34:24 -0700</lastBuildDate>
             <atom:link href="http://billchambers.me/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Angel Mistakes - the product management mindset</title>
+    <link>http://billchambers.me/posts/angel-mistakes/</link>
+    <pubDate>Mon, 12 Jun 2023 09:34:24 -0700</pubDate>
+    <author>Author</author>
+    <guid>http://billchambers.me/posts/angel-mistakes/</guid>
+    <description><![CDATA[THe Lesson in investing One lesson that I&rsquo;ve learned in angel investing is pre-supposing what I would do in a certain situation instead of listening to the founder and what they&rsquo;re planning to do. This sounds somewhat obvious, but it&rsquo;s actually a bit more insidious than that.
+As someone optimistic, it&rsquo;s easy to see the potential in a product and see how founders might try to seize that potential. That&rsquo;s not going to work.]]></description>
+</item>
+<item>
     <title>Snorkeling &amp; Scuba Diving - An Analogy Relevant for Starting Up</title>
     <link>http://billchambers.me/posts/snorkeling-scuba-diving/</link>
     <pubDate>Thu, 01 Jun 2023 09:56:17 -0700</pubDate>
@@ -80,15 +89,6 @@ Interestingly, I (knowingly) haven&rsquo;t published on the site for nearly 3 ye
     <guid>http://billchambers.me/posts/a-link-shortener-in-scala/</guid>
     <description><![CDATA[Recently I took it upon myself to dive into Scala. This post describes what my reaction was after writing a link shortener service using it. For those only interested in the code, check out my github.
 After learning the basics of Clojure by writing a simple link shortener, I realized that it was a great way to get to know a language. So I decided to do the same in Scala.]]></description>
-</item>
-<item>
-    <title>A Simple Link Shortener in Clojure</title>
-    <link>http://billchambers.me/posts/a-link-shortener-in-clojure/</link>
-    <pubDate>Mon, 01 Jun 2015 00:00:00 &#43;0000</pubDate>
-    <author>Bill Chambers</author>
-    <guid>http://billchambers.me/posts/a-link-shortener-in-clojure/</guid>
-    <description><![CDATA[Recently I took it upon myself to dive into clojure. This post describes what my reaction was after writing a link shortener service using it. For those only interested in the code, check out my github.
-I&rsquo;ve always wanted to learn a lisp. I played with Scheme, Common Lisp, but never really dug deeply into it. Now knowing python extremely well, I wanted to try and scope an application reasonably and write it in Clojure.]]></description>
 </item>
 </channel>
 </rss>
