@@ -3,9 +3,20 @@
         <title>My Writings - Bill Chambers</title>
         <link>http://billchambers.me/</link>
         <description>something</description>
-        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Mon, 12 Jun 2023 09:34:24 -0700</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Wed, 14 Jun 2023 10:46:33 -0700</lastBuildDate>
             <atom:link href="http://billchambers.me/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>The Next Step in the Journey</title>
+    <link>http://billchambers.me/posts/founding-precepts/</link>
+    <pubDate>Wed, 14 Jun 2023 10:46:33 -0700</pubDate>
+    <author>Bill Chambers</author>
+    <guid>http://billchambers.me/posts/founding-precepts/</guid>
+    <description><![CDATA[this post will be subject to change and evolution. It represents the starting point for me &lsquo;starting up&rsquo;.
+The Background Last week was my final week at Anyscale. I&rsquo;ve enjoyed my time at Anyscale and learned so much. I&rsquo;m grateful to the team for the opportunity to work with such a great collection of folks.
+What&rsquo;s next?
+The Next Step in the Journey I&rsquo;m starting up from scratch. No co-founder, no team, no funding.]]></description>
+</item>
+<item>
     <title>Angel Mistake - assuming your operational expertise is theirs</title>
     <link>http://billchambers.me/posts/angel-mistakes/</link>
     <pubDate>Mon, 12 Jun 2023 09:34:24 -0700</pubDate>
@@ -80,15 +91,6 @@ Interestingly, I (knowingly) haven&rsquo;t published on the site for nearly 3 ye
     <author>Bill Chambers</author>
     <guid>http://billchambers.me/posts/introducing-spark-tutorials/</guid>
     <description><![CDATA[I&rsquo;ve recently launched a website called SparkTutorials.net. Spark Tutorials aims to educate the general public about the utility of Spark as a tool for data science. I would encourage you to read more on the website and learn something new!]]></description>
-</item>
-<item>
-    <title>A Simple Link Shortener in Scala</title>
-    <link>http://billchambers.me/posts/a-link-shortener-in-scala/</link>
-    <pubDate>Wed, 10 Jun 2015 00:00:00 &#43;0000</pubDate>
-    <author>Bill Chambers</author>
-    <guid>http://billchambers.me/posts/a-link-shortener-in-scala/</guid>
-    <description><![CDATA[Recently I took it upon myself to dive into Scala. This post describes what my reaction was after writing a link shortener service using it. For those only interested in the code, check out my github.
-After learning the basics of Clojure by writing a simple link shortener, I realized that it was a great way to get to know a language. So I decided to do the same in Scala.]]></description>
 </item>
 </channel>
 </rss>
