@@ -3,9 +3,25 @@
         <title>My Writings - Bill Chambers</title>
         <link>http://billchambers.me/</link>
         <description>something</description>
-        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Wed, 14 Jun 2023 10:46:33 -0700</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Thu, 06 Jul 2023 00:00:00 &#43;0000</lastBuildDate>
             <atom:link href="http://billchambers.me/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Realestatecopywriter.io - AI Powered Real Estate Copywriting</title>
+    <link>http://billchambers.me/posts/realestatecopywriter/</link>
+    <pubDate>Thu, 06 Jul 2023 00:00:00 &#43;0000</pubDate>
+    <author>Bill Chambers</author>
+    <guid>http://billchambers.me/posts/realestatecopywriter/</guid>
+    <description><![CDATA[Penni AI Penni-AI is a Real Estate Copywriting Service, Powered by AI. See more on the website.]]></description>
+</item>
+<item>
+    <title>TenantFlow AI - AI Powered Leasing Agent for Residential Property Managers</title>
+    <link>http://billchambers.me/posts/tenantflow-ai/</link>
+    <pubDate>Thu, 06 Jul 2023 00:00:00 &#43;0000</pubDate>
+    <author>Bill Chambers</author>
+    <guid>http://billchambers.me/posts/tenantflow-ai/</guid>
+    <description><![CDATA[TenantFlow AI 2023-07 - Tenantflowai.com is an AI-based Leasing Agent for Residential Property Managers.]]></description>
+</item>
+<item>
     <title>The Next Step in the Journey</title>
     <link>http://billchambers.me/posts/founding-precepts/</link>
     <pubDate>Wed, 14 Jun 2023 10:46:33 -0700</pubDate>
@@ -77,22 +93,6 @@ Interestingly, I (knowingly) haven&rsquo;t published on the site for nearly 3 ye
     <author>Bill Chambers</author>
     <guid>http://billchambers.me/posts/spark-the-definitive-guide/</guid>
     <description><![CDATA[As of February 6th, 2018, Spark: The Definitive Guide has gone to print. This was the most intensive project and process that I&rsquo;ve ever undertaken in my life. It was filled with frustrations and anticipations, excitements and fears. I must extend thanks to those that encouraged me to lead the writing of the book, namely Ion Stoica, Patrick Wendell, Ali Ghodsi, and (somewhat obviously) Matei Zaharia. These folks were the ones that recommended that I take the lead on the book and I am forever grateful for them to grant me such an opportunity.]]></description>
-</item>
-<item>
-    <title>Getting Started with Apache Spark</title>
-    <link>http://billchambers.me/posts/getting-started-with-apache-spark/</link>
-    <pubDate>Sun, 06 Dec 2015 00:00:00 &#43;0000</pubDate>
-    <author>Bill Chambers</author>
-    <guid>http://billchambers.me/posts/getting-started-with-apache-spark/</guid>
-    <description><![CDATA[Lately I&rsquo;ve been playing around with Spark for data processing. It provides some really amazing features like MLLib and Spark SQL and there&rsquo;s no better way to learn something that to use it. I&rsquo;ve attended a couple of meet ups about Spark and its related tools including the famous ampcamp put on by the developers of spark and, although I&rsquo;m not an expert, I thought it would be good to consolidate my knowledge and teach others.]]></description>
-</item>
-<item>
-    <title>Introducing SparkTutorials.net</title>
-    <link>http://billchambers.me/posts/introducing-spark-tutorials/</link>
-    <pubDate>Thu, 10 Sep 2015 00:00:00 &#43;0000</pubDate>
-    <author>Bill Chambers</author>
-    <guid>http://billchambers.me/posts/introducing-spark-tutorials/</guid>
-    <description><![CDATA[I&rsquo;ve recently launched a website called SparkTutorials.net. Spark Tutorials aims to educate the general public about the utility of Spark as a tool for data science. I would encourage you to read more on the website and learn something new!]]></description>
 </item>
 </channel>
 </rss>
