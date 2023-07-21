@@ -3,9 +3,18 @@
         <title>My Writings - Bill Chambers</title>
         <link>http://billchambers.me/</link>
         <description>something</description>
-        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Tue, 18 Jul 2023 00:00:00 &#43;0000</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 21 Jul 2023 14:28:10 -0700</lastBuildDate>
             <atom:link href="http://billchambers.me/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>So You Want to Join a Startup by David Henke</title>
+    <link>http://billchambers.me/posts/so-you-want-to-join-a-startup/</link>
+    <pubDate>Fri, 21 Jul 2023 14:28:10 -0700</pubDate>
+    <author>David Henke, Bill Chambers</author>
+    <guid>http://billchambers.me/posts/so-you-want-to-join-a-startup/</guid>
+    <description><![CDATA[The following a memo that David Henke wrote in 1998. It was a formative article for me and has helped me make serious decisions about my career and where I chose to work. I asked him if I could reproduce it, since I couldn&rsquo;t find it online, and he obliged. Here&rsquo;s what he had to say about it&hellip;
+I wrote this memo in 1998 for engineers leaving Silicon Graphics to the internal newsgroup sgi.]]></description>
+</item>
+<item>
     <title>Realestatecopywriter.io - AI Powered Real Estate Copywriting</title>
     <link>http://billchambers.me/posts/realestatecopywriter/</link>
     <pubDate>Tue, 18 Jul 2023 00:00:00 &#43;0000</pubDate>
@@ -85,14 +94,6 @@ Interestingly, I (knowingly) haven&rsquo;t published on the site for nearly 3 ye
     <author>Bill Chambers</author>
     <guid>http://billchambers.me/posts/thoughts-on-the-black-swan-by-nassim-taleb/</guid>
     <description><![CDATA[This was my second time reading The Black Swan by Nassim Taleb although admittedly I think I was a bit young the first time to fully absorb the content. That is not to say that I didn&rsquo;t get the TL;DR of &ldquo;hey sometimes stuff happens that you can&rsquo;t predict that&rsquo;s meaningful&rdquo;, but what I missed was a lot of the nuance in the actual applcation of the principles to my life.]]></description>
-</item>
-<item>
-    <title>Spark: The Definitive Guide published by O&#39;Reilly!</title>
-    <link>http://billchambers.me/posts/spark-the-definitive-guide/</link>
-    <pubDate>Thu, 08 Feb 2018 00:00:00 &#43;0000</pubDate>
-    <author>Bill Chambers</author>
-    <guid>http://billchambers.me/posts/spark-the-definitive-guide/</guid>
-    <description><![CDATA[As of February 6th, 2018, Spark: The Definitive Guide has gone to print. This was the most intensive project and process that I&rsquo;ve ever undertaken in my life. It was filled with frustrations and anticipations, excitements and fears. I must extend thanks to those that encouraged me to lead the writing of the book, namely Ion Stoica, Patrick Wendell, Ali Ghodsi, and (somewhat obviously) Matei Zaharia. These folks were the ones that recommended that I take the lead on the book and I am forever grateful for them to grant me such an opportunity.]]></description>
 </item>
 </channel>
 </rss>
