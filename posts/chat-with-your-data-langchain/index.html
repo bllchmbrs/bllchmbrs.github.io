@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Chat With Your Data using Langchain - My Writings - Bill Chambers</title><meta name="Description" content="something"><meta property="og:title" content="Chat With Your Data using Langchain" />
+<meta property="og:description" content="Note: See the accompanying GitHub repo for this blogpost here.
+Note: Last updated by Bill Chambers. August, 2023.
+ChatGPT has taken the world by storm. But while it’s great for general purpose knowledge, it only knows information about what it has been trained on, which is pre-2021 generally available internet data. It doesn’t know about your private data nor does it know recent sources of data.
+Wouldn’t it be useful if it did?" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://billchambers.me/posts/chat-with-your-data-langchain/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-08-10T08:17:44-07:00" />
+<meta property="article:modified_time" content="2023-08-10T08:17:44-07:00" /><meta property="og:site_name" content="Writings and Musings of Bill Chambers" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Chat With Your Data using Langchain"/>
+<meta name="twitter:description" content="Note: See the accompanying GitHub repo for this blogpost here.
+Note: Last updated by Bill Chambers. August, 2023.
+ChatGPT has taken the world by storm. But while it’s great for general purpose knowledge, it only knows information about what it has been trained on, which is pre-2021 generally available internet data. It doesn’t know about your private data nor does it know recent sources of data.
+Wouldn’t it be useful if it did?"/>
+<meta name="application-name" content="My cooldsfasdfsad site">
+<meta name="apple-mobile-web-app-title" content="My cooldsfasdfsad site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://billchambers.me/posts/chat-with-your-data-langchain/" /><link rel="prev" href="http://billchambers.me/posts/so-you-want-to-join-a-startup-david-henke/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Chat With Your Data using Langchain",
+        "inLanguage": "en-us",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/billchambers.me\/posts\/chat-with-your-data-langchain\/"
+        },"genre": "posts","wordcount":  2865 ,
+        "url": "http:\/\/billchambers.me\/posts\/chat-with-your-data-langchain\/","datePublished": "2023-08-10T08:17:44-07:00","dateModified": "2023-08-10T08:17:44-07:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Bill Chambers"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="My Writings - Bill Chambers">Writings and Musings of Bill Chambers</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/" title="My Writings - Bill Chambers"> Home </a><a class="menu-item" href="/about/"> About </a><a class="menu-item" href="/products/" title="All Products Built by Bill"> Products </a><a class="menu-item active" href="/posts/" title="Posts"> Posts </a><a class="menu-item" href="/categories/" title="Categories"> Categories </a><a class="menu-item" href="/quotes/"> Quotes </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="My Writings - Bill Chambers">Writings and Musings of Bill Chambers</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/" title="My Writings - Bill Chambers">Home</a><a class="menu-item" href="/about/" title="">About</a><a class="menu-item" href="/products/" title="All Products Built by Bill">Products</a><a class="menu-item" href="/posts/" title="Posts">Posts</a><a class="menu-item" href="/categories/" title="Categories">Categories</a><a class="menu-item" href="/quotes/" title="">Quotes</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Chat With Your Data using Langchain</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Bill Chambers</a></span>&nbsp;<span class="post-category">included in <a href="/categories/projects/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>projects</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-08-10">2023-08-10</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2865 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;14 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#high-level-overview">High Level Overview</a>
+      <ul>
+        <li><a href="#ingestion-of-data">Ingestion of data</a></li>
+        <li><a href="#querying-of-data">Querying of Data</a></li>
+      </ul>
+    </li>
+    <li><a href="#step-by-step-details">Step by Step Details</a>
+      <ul>
+        <li><a href="#load-data">Load data</a></li>
+        <li><a href="#split-text">Split Text</a></li>
+        <li><a href="#create-embeddings-and-store-in-vectorstore">Create embeddings and store in vectorstore</a></li>
+      </ul>
+    </li>
+    <li><a href="#query-data">Query data</a>
+      <ul>
+        <li><a href="#do-you-want-to-have-conversation-history">Do you want to have conversation history?</a></li>
+        <li><a href="#do-you-want-to-customize-the-qa-prompt">Do you want to customize the QA prompt?</a></li>
+        <li><a href="#do-you-expect-long-conversations">Do you expect long conversations?</a></li>
+        <li><a href="#do-you-want-the-model-to-cite-sources">Do you want the model to cite sources?</a></li>
+        <li><a href="#language-model">Language Model</a></li>
+      </ul>
+    </li>
+    <li><a href="#putting-it-all-together">Putting it all together</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p><strong><em>Note: See the accompanying GitHub repo for this blogpost <a href="https://github.com/hwchase17/chat-your-data" target="_blank" rel="noopener noreffer ">here</a>.</em></strong></p>
+<p><strong>Note: Last updated by <a href="http://billchambers.me/" target="_blank" rel="noopener noreffer ">Bill Chambers</a>. August, 2023.</strong></p>
+<p>ChatGPT has taken the world by storm. But while it’s great for general purpose knowledge, it only knows information about what it has been trained on, which is pre-2021 generally available internet data. It doesn’t know about your private data nor does it know recent sources of data.</p>
+<p>Wouldn’t it be useful if it did?</p>
+<p>This blog post is a tutorial on how to set up your own version of ChatGPT over a specific corpus of data. There is an <a href="https://github.com/hwchase17/chat-your-data" target="_blank" rel="noopener noreffer ">accompanying GitHub repo</a> that has the relevant code referenced in this post. Specifically, this deals with text data. For how to interact with other sources of data with a natural language layer, see the below tutorials:</p>
+<ul>
+<li><a href="https://python.langchain.com/docs/modules/chains/popular/sqlite" target="_blank" rel="noopener noreffer ">SQL Database</a></li>
+<li><a href="https://python.langchain.com/docs/modules/chains/popular/api" target="_blank" rel="noopener noreffer ">APIs</a></li>
+</ul>
+<h2 id="high-level-overview">High Level Overview</h2>
+<p>At a high level, there are two components to setting up ChatGPT over your own data: (1) ingestion of the data, (2) chatbot over the data. Let&rsquo;s talk a bit about the steps involved in each of those.</p>
+<h3 id="ingestion-of-data">Ingestion of data</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://blog.langchain.dev/content/images/2023/02/ingest.png"
+        data-srcset="https://blog.langchain.dev/content/images/2023/02/ingest.png, https://blog.langchain.dev/content/images/2023/02/ingest.png 1.5x, https://blog.langchain.dev/content/images/2023/02/ingest.png 2x"
+        data-sizes="auto"
+        alt="https://blog.langchain.dev/content/images/2023/02/ingest.png"
+        title="Diagram of ingestion process" /></p>
+<p>Ingestion involves several steps. The steps are:</p>
+<ol>
+<li><strong>Load data sources to text</strong>: this involves loading your data from arbitrary sources to text in a form that it can be used downstream. This is one place where we hope the community will help out!</li>
+<li><strong>Chunk text</strong>: this involves chunking the loaded text into smaller chunks. This is necessary because language models generally have a limit to the amount of text (tokens) they can deal with. &ldquo;Chunk size&rdquo; is something to be tuned over time.</li>
+<li><strong>Embed text</strong>: this involves creating a numerical embedding for each chunk of text. This is necessary because we only want to select the most relevant chunks of text for a given question, and we will do this by finding the most similar chunks in the embedding space.</li>
+<li><strong>Load embeddings to vectorstore</strong>: this involves putting embeddings and documents into a vectorstore. Vectorstores help us find the most similar chunks in the embedding space quickly and efficiently.</li>
+</ol>
+<p>Langchain strives to be modular, so that each of these steps are straightforward to swap out with other components or approaches.</p>
+<h3 id="querying-of-data">Querying of Data</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://blog.langchain.dev/content/images/2023/02/query.png"
+        data-srcset="https://blog.langchain.dev/content/images/2023/02/query.png, https://blog.langchain.dev/content/images/2023/02/query.png 1.5x, https://blog.langchain.dev/content/images/2023/02/query.png 2x"
+        data-sizes="auto"
+        alt="https://blog.langchain.dev/content/images/2023/02/query.png"
+        title="Diagram of query process" /></p>
+<p>This can also be broken down into a few steps. The high level steps are:</p>
+<ol>
+<li><strong>Get input from the user</strong>: we&rsquo;ll use a web interface and a cli interface to receive input from the user about the documents.</li>
+<li><strong>Combine that input with chat history</strong>: we&rsquo;ll combine chat history and a new question into a single standalone question. This is often necessary because we want to allow for the ability to ask follow up questions (an important UX consideration).</li>
+<li><strong>Lookup relevant documents</strong>: using the vectorstore created during ingestion, we will look up relevant documents for the answer.</li>
+<li><strong>Generate a response</strong>: Given the standalone question and the relevant documents, we will use a language model to generate a response.</li>
+</ol>
+<p>In this post, we&rsquo;ll explore some design decisions you have with history, prompts, and the chat experience. We won&rsquo;t touch on the deployment, but for more information see <a href="https://python.langchain.com/docs/guides/deployments/" target="_blank" rel="noopener noreffer ">our deployment guide</a>.</p>
+<h2 id="step-by-step-details">Step by Step Details</h2>
+<p>This section dives into more detail on the steps necessary to ingest data.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://blog.langchain.dev/content/images/2023/02/ingest-1.png"
+        data-srcset="https://blog.langchain.dev/content/images/2023/02/ingest-1.png, https://blog.langchain.dev/content/images/2023/02/ingest-1.png 1.5x, https://blog.langchain.dev/content/images/2023/02/ingest-1.png 2x"
+        data-sizes="auto"
+        alt="https://blog.langchain.dev/content/images/2023/02/ingest-1.png"
+        title="Diagram of ingestion process" /></p>
+<h3 id="load-data">Load data</h3>
+<p>First, we need to load data into a standard format. In langchain, a <a href="https://docs.langchain.com/docs/components/schema/document" target="_blank" rel="noopener noreffer "><code>Document</code></a> consists of (1) the text itself, (2) any metadata associated with that text (where it came from, etc). This is often critical for understanding and communicating the context for testing or for the end user.</p>
+<p>The community has contributed dozens of document loaders and we look forward to seeing more and more join the community.  <a href="https://python.langchain.com/docs/integrations/document_loaders/" target="_blank" rel="noopener noreffer ">See our documention (and over 120 data loaders) for more information about document loaders</a>. Please open a pull request or file an issue if you&rsquo;d like to contribute (or request) a new document loader.</p>
+<p>The line below contains the line of code responsible for loading the relevant documents.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;Loading data...&#34;</span>)
+</span></span><span style="display:flex;"><span>loader <span style="color:#f92672">=</span> UnstructuredFileLoader(<span style="color:#e6db74">&#34;state_of_the_union.txt&#34;</span>)
+</span></span><span style="display:flex;"><span>raw_documents <span style="color:#f92672">=</span> loader<span style="color:#f92672">.</span>load()
+</span></span></code></pre></div><h3 id="split-text">Split Text</h3>
+<p>Splitting documents into smaller units of text for input into the model is critical for getting relevant information back from our chatbot. When documents are too big, you&rsquo;ll include irrelevant information to the model. Conversely, when they&rsquo;re too small, you&rsquo;ll not include enough information and the model may be confused about what is actually relevant.</p>
+<p>The chunk size isn&rsquo;t quite a science, so you&rsquo;ll have to experiment to see if you can get good results.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;Splitting text...&#34;</span>)
+</span></span><span style="display:flex;"><span>text_splitter <span style="color:#f92672">=</span> CharacterTextSplitter(
+</span></span><span style="display:flex;"><span>    separator<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">&#34;</span>,
+</span></span><span style="display:flex;"><span>    chunk_size<span style="color:#f92672">=</span><span style="color:#ae81ff">600</span>,
+</span></span><span style="display:flex;"><span>    chunk_overlap<span style="color:#f92672">=</span><span style="color:#ae81ff">100</span>,
+</span></span><span style="display:flex;"><span>    length_function<span style="color:#f92672">=</span>len,
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>documents <span style="color:#f92672">=</span> text_splitter<span style="color:#f92672">.</span>split_documents(raw_documents)
+</span></span></code></pre></div><h3 id="create-embeddings-and-store-in-vectorstore">Create embeddings and store in vectorstore</h3>
+<p>Next, now that we have small chunks of text we need to create embeddings for each piece of text and store them in a vectorstore. We create embeddings because this is an efficient way of storing this text data and subsequently querying the store for documents relevant to our query.</p>
+<p>Here we use OpenAI’s embeddings and a <a href="https://faiss.ai/index.html" target="_blank" rel="noopener noreffer ">FAISS vectorstore</a> and store that as a python pickle file for later use.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;Creating vectorstore...&#34;</span>)
+</span></span><span style="display:flex;"><span>embeddings <span style="color:#f92672">=</span> OpenAIEmbeddings()
+</span></span><span style="display:flex;"><span>vectorstore <span style="color:#f92672">=</span> FAISS<span style="color:#f92672">.</span>from_documents(documents, embeddings)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">with</span> open(<span style="color:#e6db74">&#34;vectorstore.pkl&#34;</span>, <span style="color:#e6db74">&#34;wb&#34;</span>) <span style="color:#66d9ef">as</span> f:
+</span></span><span style="display:flex;"><span>    pickle<span style="color:#f92672">.</span>dump(vectorstore, f)
+</span></span></code></pre></div><p>Run <code>python ingest_data.py</code> to create the vectorstore. This is necessary after changing how you split the text or loading new documents. If you&rsquo;re making changes, adding documents, or splitting text different, you&rsquo;ll have to re-run things.</p>
+<h2 id="query-data">Query data</h2>
+<p>So now that we’ve ingested the data, we can now use it in a chatbot interface. In order to do this, we will use the <a href="https://python.langchain.com/docs/use_cases/question_answering/how_to/chat_vector_db" target="_blank" rel="noopener noreffer ">ConversationalRetrievalChain</a>.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://blog.langchain.dev/content/images/2023/02/query-1.png"
+        data-srcset="https://blog.langchain.dev/content/images/2023/02/query-1.png, https://blog.langchain.dev/content/images/2023/02/query-1.png 1.5x, https://blog.langchain.dev/content/images/2023/02/query-1.png 2x"
+        data-sizes="auto"
+        alt="https://blog.langchain.dev/content/images/2023/02/query-1.png"
+        title="Diagram of ConversationalRetrievalChain" /></p>
+<p>There are several different options when it comes to querying the data. Do you allow follow up questions? Want to include other user context? There are lots of design decisions and below we&rsquo;ll discuss some of the most critical.</p>
+<h3 id="do-you-want-to-have-conversation-history">Do you want to have conversation history?</h3>
+<p>This is table stakes from a UX perspective because it allows for follow up questions. Adding memory is simple, you can either use a built in module.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span>llm <span style="color:#f92672">=</span> ChatOpenAI(model_name<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;gpt-4&#34;</span>, temperature<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>retriever <span style="color:#f92672">=</span> load_retriever()
+</span></span><span style="display:flex;"><span>memory <span style="color:#f92672">=</span> ConversationBufferMemory(
+</span></span><span style="display:flex;"><span>    memory_key<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;chat_history&#34;</span>, return_messages<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># model = RetrievalQA.from_llm(llm=llm, retriever=retriever)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># if you don&#39;t want memory use the above, you will have to change</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># the app.py or cli_app.py file to include `query` in the input instead of `question`</span>
+</span></span><span style="display:flex;"><span>model <span style="color:#f92672">=</span> ConversationalRetrievalChain<span style="color:#f92672">.</span>from_llm(
+</span></span><span style="display:flex;"><span>    llm<span style="color:#f92672">=</span>llm,
+</span></span><span style="display:flex;"><span>    retriever<span style="color:#f92672">=</span>retriever,
+</span></span><span style="display:flex;"><span>    memory<span style="color:#f92672">=</span>memory)
+</span></span></code></pre></div><p>Alternatively, you can specify memory and pass it into the model, tracking it on your own. Run this example from the github repo with the following, then read the code in <code>query_data.py</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>python cli_app.py
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Which QA model would you like to work with? <span style="color:#f92672">[</span>basic/with_sources/custom_prompt/condense_prompt<span style="color:#f92672">]</span> <span style="color:#f92672">(</span>basic<span style="color:#f92672">)</span>:
+</span></span><span style="display:flex;"><span>Chat with your docs!
+</span></span><span style="display:flex;"><span>---------------
+</span></span><span style="display:flex;"><span>Your Question:  <span style="color:#f92672">(</span>what did the president say about ketanji brown?<span style="color:#f92672">)</span>:
+</span></span><span style="display:flex;"><span>Answer: The President nominated Ketanji Brown Jackson to serve on the United States Supreme Court, describing her as one of the nation<span style="color:#e6db74">&#39;s top legal minds who will continue Justice Breyer&#39;</span>s legacy of excellence. He also mentioned that she
+</span></span><span style="display:flex;"><span>is a former top litigator in private practice, a former federal public defender, and comes from a family of public school educators and police officers. He referred to her as a consensus builder and noted that since her nomination, she
+</span></span><span style="display:flex;"><span>has received a broad range of support from various groups, including the Fraternal Order of Police and former judges appointed by both Democrats and Republicans.
+</span></span><span style="display:flex;"><span>---------------
+</span></span></code></pre></div><h3 id="do-you-want-to-customize-the-qa-prompt">Do you want to customize the QA prompt?</h3>
+<p>You can easily customize the QA prompt by passing in a prompt of your choice. This is similar in experience to most all chains in langchain. <a href="https://python.langchain.com/docs/use_cases/question_answering/how_to/vector_db_qa#return-source-documents" target="_blank" rel="noopener noreffer ">Learn more about custom prompts here.</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span>template <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;&#34;You are an AI assistant for answering questions about the most recent state of the union address.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">You are given the following extracted parts of a long document and a question. Provide a conversational answer.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">If you don&#39;t know the answer, just say &#34;Hmm, I&#39;m not sure.&#34; Don&#39;t try to make up an answer.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">If the question is not about the most recent state of the union, politely inform them that you are tuned to only answer questions about the most recent state of the union.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Lastly, answer the question as if you were a pirate from the south seas and are just coming back from a pirate expedition where you found a treasure chest full of gold doubloons.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Question: </span><span style="color:#e6db74">{question}</span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">=========
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span><span style="color:#e6db74">{context}</span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">=========
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Answer in Markdown:&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>QA_PROMPT <span style="color:#f92672">=</span> PromptTemplate(template<span style="color:#f92672">=</span>template, input_variables<span style="color:#f92672">=</span>[
+</span></span><span style="display:flex;"><span>                           <span style="color:#e6db74">&#34;question&#34;</span>, <span style="color:#e6db74">&#34;context&#34;</span>])
+</span></span><span style="display:flex;"><span>llm <span style="color:#f92672">=</span> ChatOpenAI(model_name<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;gpt-4&#34;</span>, temperature<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>retriever <span style="color:#f92672">=</span> load_retriever()
+</span></span><span style="display:flex;"><span>memory <span style="color:#f92672">=</span> ConversationBufferMemory(
+</span></span><span style="display:flex;"><span>    memory_key<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;chat_history&#34;</span>, return_messages<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>model <span style="color:#f92672">=</span> ConversationalRetrievalChain<span style="color:#f92672">.</span>from_llm(
+</span></span><span style="display:flex;"><span>    llm<span style="color:#f92672">=</span>llm,
+</span></span><span style="display:flex;"><span>    retriever<span style="color:#f92672">=</span>retriever,
+</span></span><span style="display:flex;"><span>    memory<span style="color:#f92672">=</span>memory,
+</span></span><span style="display:flex;"><span>    combine_docs_chain_kwargs<span style="color:#f92672">=</span>{<span style="color:#e6db74">&#34;prompt&#34;</span>: QA_PROMPT})
+</span></span></code></pre></div><p>Run this example from the github repo with the following, then read the code in <code>query_data.py</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>python cli_app.py
+</span></span><span style="display:flex;"><span>Which QA model would you like to work with? <span style="color:#f92672">[</span>basic/with_sources/custom_prompt/condense_prompt<span style="color:#f92672">]</span> <span style="color:#f92672">(</span>basic<span style="color:#f92672">)</span>: custom_prompt
+</span></span><span style="display:flex;"><span>Chat with your docs!
+</span></span><span style="display:flex;"><span>---------------
+</span></span><span style="display:flex;"><span>Your Question:  <span style="color:#f92672">(</span>what did the president say about ketanji brown?<span style="color:#f92672">)</span>:
+</span></span><span style="display:flex;"><span>Answer: Arr matey, the cap<span style="color:#e6db74">&#39;n, I mean the President, he did speak of Ketanji Brown Jackson, he did. He nominated her to the United States Supreme Court, he did, just 4 days before his address. He spoke highly of her, he did, callin&#39;</span> her
+</span></span><span style="display:flex;"><span>one of the nation<span style="color:#e6db74">&#39;s top legal minds. He believes she&#39;</span>ll <span style="color:#66d9ef">continue</span> Justice Breyer’s legacy of excellence, he does.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>She<span style="color:#e6db74">&#39;s been a top litigator in private practice, a federal public defender, and comes from a family of public school educators and police officers. She&#39;</span>s a consensus builder, she is. Since her nomination, she<span style="color:#e6db74">&#39;s received support from all
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">over, from the Fraternal Order of Police to former judges appointed by both Democrats and Republicans. So, that&#39;</span>s what the President had to say about Ketanji Brown Jackson, it is.
+</span></span><span style="display:flex;"><span>---------------
+</span></span><span style="display:flex;"><span>Your Question:  <span style="color:#f92672">(</span>what did the president say about ketanji brown?<span style="color:#f92672">)</span>: who did she succeed?
+</span></span><span style="display:flex;"><span>Answer: Arr matey, ye be askin<span style="color:#e6db74">&#39; about who Judge Ketanji Brown Jackson be succeedin&#39;</span>. From the words of the President himself, she be takin<span style="color:#e6db74">&#39; over from Justice Breyer, continuin&#39;</span> his legacy of excellence on the United States Supreme
+</span></span><span style="display:flex;"><span>Court. Now, let<span style="color:#e6db74">&#39;s get back to countin&#39;</span> me gold doubloons, aye?
+</span></span><span style="display:flex;"><span>---------------
+</span></span></code></pre></div><h3 id="do-you-expect-long-conversations">Do you expect long conversations?</h3>
+<p>If so, you&rsquo;re going to want to condense previous questions and history in order to add context into the prompt. If you embed the whole chat history along with the new question to look up relevant documents, you may pull in documents no longer relevant to the conversation (if the new question is not related at all). Therefor, this step of condensing the chat history and a new question to a standalone question is very important.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span>_template <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;&#34;Given the following conversation and a follow up question, rephrase the follow up question to be a standalone question.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">You can assume the question about the most recent state of the union address.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Chat History:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span><span style="color:#e6db74">{chat_history}</span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Follow Up Input: </span><span style="color:#e6db74">{question}</span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Standalone question:&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>CONDENSE_QUESTION_PROMPT <span style="color:#f92672">=</span> PromptTemplate<span style="color:#f92672">.</span>from_template(_template)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>llm <span style="color:#f92672">=</span> ChatOpenAI(model_name<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;gpt-4&#34;</span>, temperature<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>retriever <span style="color:#f92672">=</span> load_retriever()
+</span></span><span style="display:flex;"><span>memory <span style="color:#f92672">=</span> ConversationBufferMemory(
+</span></span><span style="display:flex;"><span>    memory_key<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;chat_history&#34;</span>, return_messages<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># see: https://github.com/langchain-ai/langchain/issues/5890</span>
+</span></span><span style="display:flex;"><span>model <span style="color:#f92672">=</span> ConversationalRetrievalChain<span style="color:#f92672">.</span>from_llm(
+</span></span><span style="display:flex;"><span>    llm<span style="color:#f92672">=</span>llm,
+</span></span><span style="display:flex;"><span>    retriever<span style="color:#f92672">=</span>retriever,
+</span></span><span style="display:flex;"><span>    memory<span style="color:#f92672">=</span>memory,
+</span></span><span style="display:flex;"><span>    condense_question_prompt<span style="color:#f92672">=</span>CONDENSE_QUESTION_PROMPT,
+</span></span><span style="display:flex;"><span>    combine_docs_chain_kwargs<span style="color:#f92672">=</span>{<span style="color:#e6db74">&#34;prompt&#34;</span>: QA_PROMPT}) <span style="color:#75715e"># includes the custom prompt as well</span>
+</span></span></code></pre></div><p>Read the code in <code>query_data.py</code> for some example code to apply to your own projects.</p>
+<h3 id="do-you-want-the-model-to-cite-sources">Do you want the model to cite sources?</h3>
+<p><a href="https://python.langchain.com/docs/use_cases/question_answering/how_to/vector_db_qa#return-source-documents" target="_blank" rel="noopener noreffer ">Langchain can cite source documents in the model.</a>. There&rsquo;s a lot you can do here, you can add your own metadata, your own sections, and other relevant information to return the most relevant metadata for your query.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span>llm <span style="color:#f92672">=</span> ChatOpenAI(model_name<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;gpt-4&#34;</span>, temperature<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>retriever <span style="color:#f92672">=</span> load_retriever()
+</span></span><span style="display:flex;"><span>history <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>model <span style="color:#f92672">=</span> ConversationalRetrievalChain<span style="color:#f92672">.</span>from_llm(
+</span></span><span style="display:flex;"><span>    llm<span style="color:#f92672">=</span>llm,
+</span></span><span style="display:flex;"><span>    retriever<span style="color:#f92672">=</span>retriever,
+</span></span><span style="display:flex;"><span>    return_source_documents<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">model_func</span>(question):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># bug: this doesn&#39;t work with the built-in memory</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># see: https://github.com/langchain-ai/langchain/issues/5630</span>
+</span></span><span style="display:flex;"><span>    new_input <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#34;question&#34;</span>: question[<span style="color:#e6db74">&#39;question&#39;</span>], <span style="color:#e6db74">&#34;chat_history&#34;</span>: history}
+</span></span><span style="display:flex;"><span>    result <span style="color:#f92672">=</span> model(new_input)
+</span></span><span style="display:flex;"><span>    history<span style="color:#f92672">.</span>append((question[<span style="color:#e6db74">&#39;question&#39;</span>], result[<span style="color:#e6db74">&#39;answer&#39;</span>]))
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> result
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>model_func({<span style="color:#e6db74">&#34;question&#34;</span>:<span style="color:#e6db74">&#34;some question you have&#34;</span>})
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># this is the same interface as all the other models.</span>
+</span></span></code></pre></div><p>Run this example from the github repo with the following, then read the code in <code>query_data.py</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>python cli_app.py
+</span></span><span style="display:flex;"><span>Which QA model would you like to work with? <span style="color:#f92672">[</span>basic/with_sources/custom_prompt/condense_prompt<span style="color:#f92672">]</span> <span style="color:#f92672">(</span>basic<span style="color:#f92672">)</span>: with_sources
+</span></span><span style="display:flex;"><span>Chat with your docs!
+</span></span><span style="display:flex;"><span>---------------
+</span></span><span style="display:flex;"><span>Your Question:  <span style="color:#f92672">(</span>what did the president say about ketanji brown?<span style="color:#f92672">)</span>:
+</span></span><span style="display:flex;"><span>Answer: The President nominated Ketanji Brown Jackson to serve on the United States Supreme Court, describing her as one of the nation<span style="color:#e6db74">&#39;s top legal minds who will continue Justice Breyer&#39;</span>s legacy of excellence. He also mentioned that she
+</span></span><span style="display:flex;"><span>is a former top litigator in private practice, a former federal public defender, and comes from a family of public school educators and police officers. Since her nomination, she has received a broad range of support, including from the
+</span></span><span style="display:flex;"><span>Fraternal Order of Police and former judges appointed by both Democrats and Republicans.
+</span></span><span style="display:flex;"><span>Sources:
+</span></span><span style="display:flex;"><span>state_of_the_union.txt
+</span></span><span style="display:flex;"><span>One of the most serious constitutional responsibilities a President has is nominating someone to serve on the United States Supreme Court.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>And I did that <span style="color:#ae81ff">4</span> days ago, when I nominated Circuit Court of Appeals Judge Ketanji Brown Jackson. One of our nation’s top legal minds, who will <span style="color:#66d9ef">continue</span> Justice Breyer’s legacy of excellence.
+</span></span><span style="display:flex;"><span>state_of_the_union.txt
+</span></span><span style="display:flex;"><span>As I said last year, especially to our younger transgender Americans, I will always have your back as your President, so you can be yourself and reach your God-given potential.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>While it often appears that we never agree, that isn’t true. I signed <span style="color:#ae81ff">80</span> bipartisan bills into law last year. From preventing government shutdowns to protecting Asian-Americans from still-too-common hate crimes to reforming military
+</span></span><span style="display:flex;"><span>justice.
+</span></span><span style="display:flex;"><span>state_of_the_union.txt
+</span></span><span style="display:flex;"><span>But in my administration, the watchdogs have been welcomed back.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>We’re going after the criminals who stole billions in relief money meant <span style="color:#66d9ef">for</span> small businesses and millions of Americans.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>And tonight, I’m announcing that the Justice Department will name a chief prosecutor <span style="color:#66d9ef">for</span> pandemic fraud.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>By the end of this year, the deficit will be down to less than half what it was before I took office.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>The only president ever to cut the deficit by more than one trillion dollars in a single year.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Lowering your costs also means demanding more competition.
+</span></span><span style="display:flex;"><span>state_of_the_union.txt
+</span></span><span style="display:flex;"><span>A former top litigator in private practice. A former federal public defender. And from a family of public school educators and police officers. A consensus builder. Since she’s been nominated, she’s received a broad range of
+</span></span><span style="display:flex;"><span>support—from the Fraternal Order of Police to former judges appointed by Democrats and Republicans.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>And <span style="color:#66d9ef">if</span> we are to advance liberty and justice, we need to secure the Border and fix the immigration system.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>We can <span style="color:#66d9ef">do</span> both. At our border, we’ve installed new technology like cutting-edge scanners to better detect drug smuggling.
+</span></span><span style="display:flex;"><span>---------------
+</span></span><span style="display:flex;"><span>Your Question:  <span style="color:#f92672">(</span>what did the president say about ketanji brown?<span style="color:#f92672">)</span>: where did she work before?
+</span></span><span style="display:flex;"><span>Answer: Before her nomination to the United States Supreme Court, Ketanji Brown Jackson worked as a Circuit Court of Appeals Judge. She was also a former top litigator in private practice and a former federal public defender.
+</span></span><span style="display:flex;"><span>Sources:
+</span></span><span style="display:flex;"><span>state_of_the_union.txt
+</span></span><span style="display:flex;"><span>One of the most serious constitutional responsibilities a President has is nominating someone to serve on the United States Supreme Court.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>And I did that <span style="color:#ae81ff">4</span> days ago, when I nominated Circuit Court of Appeals Judge Ketanji Brown Jackson. One of our nation’s top legal minds, who will <span style="color:#66d9ef">continue</span> Justice Breyer’s legacy of excellence.
+</span></span><span style="display:flex;"><span>state_of_the_union.txt
+</span></span><span style="display:flex;"><span>A former top litigator in private practice. A former federal public defender. And from a family of public school educators and police officers. A consensus builder. Since she’s been nominated, she’s received a broad range of
+</span></span><span style="display:flex;"><span>support—from the Fraternal Order of Police to former judges appointed by Democrats and Republicans.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>And <span style="color:#66d9ef">if</span> we are to advance liberty and justice, we need to secure the Border and fix the immigration system.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>We can <span style="color:#66d9ef">do</span> both. At our border, we’ve installed new technology like cutting-edge scanners to better detect drug smuggling.
+</span></span><span style="display:flex;"><span>state_of_the_union.txt
+</span></span><span style="display:flex;"><span>We cannot let this happen.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Tonight. I call on the Senate to: Pass the Freedom to Vote Act. Pass the John Lewis Voting Rights Act. And <span style="color:#66d9ef">while</span> you’re at it, pass the Disclose Act so Americans can know who is funding our elections.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Tonight, I’d like to honor someone who has dedicated his life to serve this country: Justice Stephen Breyer—an Army veteran, Constitutional scholar, and retiring Justice of the United States Supreme Court. Justice Breyer, thank you <span style="color:#66d9ef">for</span>
+</span></span><span style="display:flex;"><span>your service.
+</span></span><span style="display:flex;"><span>state_of_the_union.txt
+</span></span><span style="display:flex;"><span>Vice President Harris and I ran <span style="color:#66d9ef">for</span> office with a new economic vision <span style="color:#66d9ef">for</span> America.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Invest in America. Educate Americans. Grow the workforce. Build the economy from the bottom up and the middle out, not from the top down.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Because we know that when the middle class grows, the poor have a ladder up and the wealthy <span style="color:#66d9ef">do</span> very well.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>America used to have the best roads, bridges, and airports on Earth.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Now our infrastructure is ranked 13th in the world.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>We won’t be able to compete <span style="color:#66d9ef">for</span> the jobs of the 21st Century <span style="color:#66d9ef">if</span> we don’t fix that.
+</span></span><span style="display:flex;"><span>---------------
+</span></span></code></pre></div><h3 id="language-model">Language Model</h3>
+<p>The final lever to pull is what language model you use to power your chatbot. In our example we use the OpenAI LLM, but this can easily be substituted to other language models that LangChain supports, or you can even write your own wrapper.</p>
+<h2 id="putting-it-all-together">Putting it all together</h2>
+<p>After making all the necessary customizations, and running <code>python ingest_data.py</code>, you can now interact with the chatbot.</p>
+<p>We’ve exposed a really simple interface through which you can do. You can access this just by running <code>python cli_app.py</code> and this will open in the terminal a way to ask questions and get back answers. Try it out!</p>
+<p>We also have an example of deploying this app via Gradio! You can do so by running <code>python app.py</code>. This can also easily be deployed to Hugging Face spaces - see <a href="https://huggingface.co/spaces/hwchase17/chat-your-data-state-of-the-union" target="_blank" rel="noopener noreffer ">example space here</a>.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://blog.langchain.dev/content/images/2023/02/Screen-Shot-2023-02-07-at-9.01.42-AM.png"
+        data-srcset="https://blog.langchain.dev/content/images/2023/02/Screen-Shot-2023-02-07-at-9.01.42-AM.png, https://blog.langchain.dev/content/images/2023/02/Screen-Shot-2023-02-07-at-9.01.42-AM.png 1.5x, https://blog.langchain.dev/content/images/2023/02/Screen-Shot-2023-02-07-at-9.01.42-AM.png 2x"
+        data-sizes="auto"
+        alt="https://blog.langchain.dev/content/images/2023/02/Screen-Shot-2023-02-07-at-9.01.42-AM.png"
+        title="langchain hugging face spaces" /></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-08-10</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://billchambers.me/posts/chat-with-your-data-langchain/" data-title="Chat With Your Data using Langchain" data-via="bllchmbrs"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://billchambers.me/posts/chat-with-your-data-langchain/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://billchambers.me/posts/chat-with-your-data-langchain/" data-title="Chat With Your Data using Langchain"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://billchambers.me/posts/chat-with-your-data-langchain/" data-title="Chat With Your Data using Langchain"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://billchambers.me/posts/chat-with-your-data-langchain/" data-title="Chat With Your Data using Langchain"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/so-you-want-to-join-a-startup-david-henke/" class="prev" rel="prev" title="So You Want to Join a Startup by David Henke"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>So You Want to Join a Startup by David Henke</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+    <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><i> Bill Chambers </i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a
+                    href="/" target="_blank"></a></span></div>
+    </div>
+
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R2MMVCLTJ9"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-R2MMVCLTJ9');
+    </script>
+</footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

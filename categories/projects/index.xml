@@ -3,7 +3,18 @@
         <title>projects - Category - My Writings - Bill Chambers</title>
         <link>http://billchambers.me/categories/projects/</link>
         <description>projects - Category - My Writings - Bill Chambers</description>
-        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Thu, 08 Feb 2018 00:00:00 &#43;0000</lastBuildDate><atom:link href="http://billchambers.me/categories/projects/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Thu, 10 Aug 2023 08:17:44 -0700</lastBuildDate><atom:link href="http://billchambers.me/categories/projects/" rel="self" type="application/rss+xml" /><item>
+    <title>Chat With Your Data using Langchain</title>
+    <link>http://billchambers.me/posts/chat-with-your-data-langchain/</link>
+    <pubDate>Thu, 10 Aug 2023 08:17:44 -0700</pubDate>
+    <author>Bill Chambers</author>
+    <guid>http://billchambers.me/posts/chat-with-your-data-langchain/</guid>
+    <description><![CDATA[Note: See the accompanying GitHub repo for this blogpost here.
+Note: Last updated by Bill Chambers. August, 2023.
+ChatGPT has taken the world by storm. But while it’s great for general purpose knowledge, it only knows information about what it has been trained on, which is pre-2021 generally available internet data. It doesn’t know about your private data nor does it know recent sources of data.
+Wouldn’t it be useful if it did?]]></description>
+</item>
+<item>
     <title>Spark: The Definitive Guide published by O&#39;Reilly!</title>
     <link>http://billchambers.me/posts/spark-the-definitive-guide/</link>
     <pubDate>Thu, 08 Feb 2018 00:00:00 &#43;0000</pubDate>

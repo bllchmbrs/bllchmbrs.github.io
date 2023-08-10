@@ -3,9 +3,20 @@
         <title>My Writings - Bill Chambers</title>
         <link>http://billchambers.me/</link>
         <description>something</description>
-        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 21 Jul 2023 14:28:10 -0700</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Thu, 10 Aug 2023 08:17:44 -0700</lastBuildDate>
             <atom:link href="http://billchambers.me/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Chat With Your Data using Langchain</title>
+    <link>http://billchambers.me/posts/chat-with-your-data-langchain/</link>
+    <pubDate>Thu, 10 Aug 2023 08:17:44 -0700</pubDate>
+    <author>Bill Chambers</author>
+    <guid>http://billchambers.me/posts/chat-with-your-data-langchain/</guid>
+    <description><![CDATA[Note: See the accompanying GitHub repo for this blogpost here.
+Note: Last updated by Bill Chambers. August, 2023.
+ChatGPT has taken the world by storm. But while it’s great for general purpose knowledge, it only knows information about what it has been trained on, which is pre-2021 generally available internet data. It doesn’t know about your private data nor does it know recent sources of data.
+Wouldn’t it be useful if it did?]]></description>
+</item>
+<item>
     <title>So You Want to Join a Startup by David Henke</title>
     <link>http://billchambers.me/posts/so-you-want-to-join-a-startup-david-henke/</link>
     <pubDate>Fri, 21 Jul 2023 14:28:10 -0700</pubDate>
@@ -86,14 +97,6 @@ On a recent trip, I let my curiosity finally get the best of me.]]></description
     <guid>http://billchambers.me/posts/thoughts-on-a-project-shutdown-spark-tutorials/</guid>
     <description><![CDATA[After having sparktutorials.net up for several years, it&rsquo;s time to shut it down. I haven&rsquo;t written for the site in years at this point and it&rsquo;s not doing me any good now that I have The Definitive Guide published.
 Interestingly, I (knowingly) haven&rsquo;t published on the site for nearly 3 years. Why did I keep it up? There isn&rsquo;t necessarily a straightforward answer. I likely kept it up because it represented something.]]></description>
-</item>
-<item>
-    <title>Thoughts on &#39;The Black Swan&#39; by Nassim Taleb</title>
-    <link>http://billchambers.me/posts/thoughts-on-the-black-swan-by-nassim-taleb/</link>
-    <pubDate>Fri, 16 Feb 2018 00:00:00 &#43;0000</pubDate>
-    <author>Bill Chambers</author>
-    <guid>http://billchambers.me/posts/thoughts-on-the-black-swan-by-nassim-taleb/</guid>
-    <description><![CDATA[This was my second time reading The Black Swan by Nassim Taleb although admittedly I think I was a bit young the first time to fully absorb the content. That is not to say that I didn&rsquo;t get the TL;DR of &ldquo;hey sometimes stuff happens that you can&rsquo;t predict that&rsquo;s meaningful&rdquo;, but what I missed was a lot of the nuance in the actual applcation of the principles to my life.]]></description>
 </item>
 </channel>
 </rss>
