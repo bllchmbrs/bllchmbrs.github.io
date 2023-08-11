@@ -1,100 +1,373 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>All Posts - My Writings - Bill Chambers</title>
-        <link>http://billchambers.me/posts/</link>
-        <description>All Posts | My Writings - Bill Chambers</description>
-        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Thu, 10 Aug 2023 08:17:44 -0700</lastBuildDate><atom:link href="http://billchambers.me/posts/" rel="self" type="application/rss+xml" /><item>
-    <title>Chat With Your Data using Langchain</title>
-    <link>http://billchambers.me/posts/chat-with-your-data-langchain/</link>
-    <pubDate>Thu, 10 Aug 2023 08:17:44 -0700</pubDate>
-    <author>Bill Chambers</author>
-    <guid>http://billchambers.me/posts/chat-with-your-data-langchain/</guid>
-    <description><![CDATA[Note: See the accompanying GitHub repo for this blogpost here.
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on My Writings - Bill Chambers</title>
+    <link>http://billchambers.me/posts/</link>
+    <description>Recent content in Posts on My Writings - Bill Chambers</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 10 Aug 2023 08:17:44 -0700</lastBuildDate><atom:link href="http://billchambers.me/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Chat With Your Data using Langchain</title>
+      <link>http://billchambers.me/posts/chat-with-your-data-langchain/</link>
+      <pubDate>Thu, 10 Aug 2023 08:17:44 -0700</pubDate>
+      
+      <guid>http://billchambers.me/posts/chat-with-your-data-langchain/</guid>
+      <description>Note: See the accompanying GitHub repo for this blogpost here.
 Note: Last updated by Bill Chambers. August, 2023.
 ChatGPT has taken the world by storm. But while it’s great for general purpose knowledge, it only knows information about what it has been trained on, which is pre-2021 generally available internet data. It doesn’t know about your private data nor does it know recent sources of data.
-Wouldn’t it be useful if it did?]]></description>
-</item>
-<item>
-    <title>So You Want to Join a Startup by David Henke</title>
-    <link>http://billchambers.me/posts/so-you-want-to-join-a-startup-david-henke/</link>
-    <pubDate>Fri, 21 Jul 2023 14:28:10 -0700</pubDate>
-    <author>David Henke</author>
-    <guid>http://billchambers.me/posts/so-you-want-to-join-a-startup-david-henke/</guid>
-    <description><![CDATA[The following is a memo that David Henke wrote in 1998. It was a formative article for me and has helped me make serious decisions about my career and where I chose to work. I asked him if I could reproduce it, since I couldn&rsquo;t find it online, and he obliged. Here&rsquo;s what he had to say about it&hellip;
-I wrote this memo in 1998 for engineers leaving Silicon Graphics to the internal newsgroup sgi.]]></description>
-</item>
-<item>
-    <title>Realestatecopywriter.io - AI Powered Real Estate Copywriting</title>
-    <link>http://billchambers.me/posts/realestatecopywriter/</link>
-    <pubDate>Tue, 18 Jul 2023 00:00:00 &#43;0000</pubDate>
-    <author>Bill Chambers</author>
-    <guid>http://billchambers.me/posts/realestatecopywriter/</guid>
-    <description><![CDATA[Penni AI Penni-AI is a Real Estate Copywriting Service, Powered by AI. See more on the website.]]></description>
-</item>
-<item>
-    <title>TenantFlow AI - AI Powered Leasing Agent for Residential Property Managers</title>
-    <link>http://billchambers.me/posts/tenantflow-ai/</link>
-    <pubDate>Thu, 06 Jul 2023 00:00:00 &#43;0000</pubDate>
-    <author>Bill Chambers</author>
-    <guid>http://billchambers.me/posts/tenantflow-ai/</guid>
-    <description><![CDATA[TenantFlow AI 2023-07 - Tenantflowai.com is an AI-based Leasing Agent for Residential Property Managers.]]></description>
-</item>
-<item>
-    <title>The Next Step in the Journey</title>
-    <link>http://billchambers.me/posts/founding-precepts/</link>
-    <pubDate>Wed, 14 Jun 2023 10:46:33 -0700</pubDate>
-    <author>Bill Chambers</author>
-    <guid>http://billchambers.me/posts/founding-precepts/</guid>
-    <description><![CDATA[<div class="featured-image">
-                <img src="/next-step-journey.png" referrerpolicy="no-referrer">
-            </div>this post will be subject to change and evolution. It represents the starting point for me &lsquo;starting up&rsquo;.
-The Background Last week was my final week at Anyscale. I&rsquo;ve enjoyed my time at Anyscale and learned so much. I&rsquo;m grateful to the team for the opportunity to work with such a great collection of folks.
-What&rsquo;s next?
-The Next Step in the Journey I&rsquo;m starting up from scratch. No co-founder, no team, no funding.]]></description>
-</item>
-<item>
-    <title>Angel Mistake - assuming your operational expertise is theirs</title>
-    <link>http://billchambers.me/posts/angel-mistakes/</link>
-    <pubDate>Mon, 12 Jun 2023 09:34:24 -0700</pubDate>
-    <author>Bill Chambers</author>
-    <guid>http://billchambers.me/posts/angel-mistakes/</guid>
-    <description><![CDATA[THe Lesson in investing One lesson that I&rsquo;ve learned in angel investing is pre-supposing what I would do in a certain situation instead of listening to the founder and what they&rsquo;re planning to do. This sounds somewhat obvious, but it&rsquo;s actually a bit more insidious than that.
-As someone optimistic, it&rsquo;s easy to see the potential in a product and see how founders might try to seize that potential. That&rsquo;s not going to work.]]></description>
-</item>
-<item>
-    <title>Snorkeling &amp; Scuba Diving - An Analogy Relevant for Starting Up</title>
-    <link>http://billchambers.me/posts/snorkeling-scuba-diving/</link>
-    <pubDate>Thu, 01 Jun 2023 09:56:17 -0700</pubDate>
-    <author>Bill Chambers</author>
-    <guid>http://billchambers.me/posts/snorkeling-scuba-diving/</guid>
-    <description><![CDATA[I heard a great perspective from a candidate that we interviewed recently for a leadership role. Putting the candidate aside, he used an analogy that really stuck with me, even though it was said in passing. This saying and perspective changed both my perspective on interviewing as well as my perspective on the role of marketing, leadership, and startups.
-The Analogy: Snorkeling and Scuba Diving The analogy is simply a place on the &ldquo;surface level&rdquo; and &ldquo;going deep&rdquo; that is common in industry.]]></description>
-</item>
-<item>
-    <title>Car Rental Companies and Branding - What sharing desks teaches us about product management</title>
-    <link>http://billchambers.me/posts/why-do-car-rental-companies-share-desks/</link>
-    <pubDate>Tue, 23 Jul 2019 00:00:00 &#43;0000</pubDate>
-    <author>Bill Chambers</author>
-    <guid>http://billchambers.me/posts/why-do-car-rental-companies-share-desks/</guid>
-    <description><![CDATA[You decide that you&rsquo;re going to make a trip, a business trip. You&rsquo;re going to visit some customers and you hop onto whatever search engine and reserve a car, maybe through National. You get to the destination airport, stroll off the aircraft, grab your bag and walk to the car rental counters only to realize that the Enterprise and National all share the same desk.
-On a recent trip, I let my curiosity finally get the best of me.]]></description>
-</item>
-<item>
-    <title>Applying SaaS Company Metrics to Product Adoption</title>
-    <link>http://billchambers.me/posts/applying-saas-company-metrics-to-product-adoption/</link>
-    <pubDate>Fri, 11 Jan 2019 00:00:00 &#43;0000</pubDate>
-    <author>Bill Chambers</author>
-    <guid>http://billchambers.me/posts/applying-saas-company-metrics-to-product-adoption/</guid>
-    <description><![CDATA[Overview Recently, there&rsquo;s been a renewed focus on monitoring and understanding company (or product) growth, especially when it comes to SaaS products. Werner Vogels recently mentioned something quite similar in a blog post, &ldquo;People often ask me if developing for the cloud is any different from developing on-premises software. It really is.&rdquo; I couldn&rsquo;t agree more, it&rsquo;s awesome for understanding products, how users are using them, and what you can do to improve them.]]></description>
-</item>
-<item>
-    <title>Thoughts on Shutting Down Projects and Looking to 2019</title>
-    <link>http://billchambers.me/posts/thoughts-on-a-project-shutdown-spark-tutorials/</link>
-    <pubDate>Mon, 24 Dec 2018 00:00:00 &#43;0000</pubDate>
-    <author>Bill Chambers</author>
-    <guid>http://billchambers.me/posts/thoughts-on-a-project-shutdown-spark-tutorials/</guid>
-    <description><![CDATA[After having sparktutorials.net up for several years, it&rsquo;s time to shut it down. I haven&rsquo;t written for the site in years at this point and it&rsquo;s not doing me any good now that I have The Definitive Guide published.
-Interestingly, I (knowingly) haven&rsquo;t published on the site for nearly 3 years. Why did I keep it up? There isn&rsquo;t necessarily a straightforward answer. I likely kept it up because it represented something.]]></description>
-</item>
-</channel>
+Wouldn’t it be useful if it did?</description>
+    </item>
+    
+    <item>
+      <title>So You Want to Join a Startup by David Henke</title>
+      <link>http://billchambers.me/posts/so-you-want-to-join-a-startup-david-henke/</link>
+      <pubDate>Fri, 21 Jul 2023 14:28:10 -0700</pubDate>
+      
+      <guid>http://billchambers.me/posts/so-you-want-to-join-a-startup-david-henke/</guid>
+      <description>The following is a memo that David Henke wrote in 1998. It was a formative article for me and has helped me make serious decisions about my career and where I chose to work. I asked him if I could reproduce it, since I couldn&amp;rsquo;t find it online, and he obliged. Here&amp;rsquo;s what he had to say about it&amp;hellip;
+I wrote this memo in 1998 for engineers leaving Silicon Graphics to the internal newsgroup sgi.</description>
+    </item>
+    
+    <item>
+      <title>Realestatecopywriter.io - AI Powered Real Estate Copywriting</title>
+      <link>http://billchambers.me/posts/realestatecopywriter/</link>
+      <pubDate>Tue, 18 Jul 2023 00:00:00 +0000</pubDate>
+      
+      <guid>http://billchambers.me/posts/realestatecopywriter/</guid>
+      <description>Penni AI Penni-AI is a Real Estate Copywriting Service, Powered by AI. See more on the website.</description>
+    </item>
+    
+    <item>
+      <title>TenantFlow AI - AI Powered Leasing Agent for Residential Property Managers</title>
+      <link>http://billchambers.me/posts/tenantflow-ai/</link>
+      <pubDate>Thu, 06 Jul 2023 00:00:00 +0000</pubDate>
+      
+      <guid>http://billchambers.me/posts/tenantflow-ai/</guid>
+      <description>TenantFlow AI 2023-07 - Tenantflowai.com is an AI-based Leasing Agent for Residential Property Managers.</description>
+    </item>
+    
+    <item>
+      <title>The Next Step in the Journey</title>
+      <link>http://billchambers.me/posts/founding-precepts/</link>
+      <pubDate>Wed, 14 Jun 2023 10:46:33 -0700</pubDate>
+      
+      <guid>http://billchambers.me/posts/founding-precepts/</guid>
+      <description>this post will be subject to change and evolution. It represents the starting point for me &amp;lsquo;starting up&amp;rsquo;.
+The Background Last week was my final week at Anyscale. I&amp;rsquo;ve enjoyed my time at Anyscale and learned so much. I&amp;rsquo;m grateful to the team for the opportunity to work with such a great collection of folks.
+What&amp;rsquo;s next?
+The Next Step in the Journey I&amp;rsquo;m starting up from scratch. No co-founder, no team, no funding.</description>
+    </item>
+    
+    <item>
+      <title>Angel Mistake - assuming your operational expertise is theirs</title>
+      <link>http://billchambers.me/posts/angel-mistakes/</link>
+      <pubDate>Mon, 12 Jun 2023 09:34:24 -0700</pubDate>
+      
+      <guid>http://billchambers.me/posts/angel-mistakes/</guid>
+      <description>THe Lesson in investing One lesson that I&amp;rsquo;ve learned in angel investing is pre-supposing what I would do in a certain situation instead of listening to the founder and what they&amp;rsquo;re planning to do. This sounds somewhat obvious, but it&amp;rsquo;s actually a bit more insidious than that.
+As someone optimistic, it&amp;rsquo;s easy to see the potential in a product and see how founders might try to seize that potential. That&amp;rsquo;s not going to work.</description>
+    </item>
+    
+    <item>
+      <title>Snorkeling &amp; Scuba Diving - An Analogy Relevant for Starting Up</title>
+      <link>http://billchambers.me/posts/snorkeling-scuba-diving/</link>
+      <pubDate>Thu, 01 Jun 2023 09:56:17 -0700</pubDate>
+      
+      <guid>http://billchambers.me/posts/snorkeling-scuba-diving/</guid>
+      <description>I heard a great perspective from a candidate that we interviewed recently for a leadership role. Putting the candidate aside, he used an analogy that really stuck with me, even though it was said in passing. This saying and perspective changed both my perspective on interviewing as well as my perspective on the role of marketing, leadership, and startups.
+The Analogy: Snorkeling and Scuba Diving The analogy is simply a place on the &amp;ldquo;surface level&amp;rdquo; and &amp;ldquo;going deep&amp;rdquo; that is common in industry.</description>
+    </item>
+    
+    <item>
+      <title>Car Rental Companies and Branding - What sharing desks teaches us about product management</title>
+      <link>http://billchambers.me/posts/why-do-car-rental-companies-share-desks/</link>
+      <pubDate>Tue, 23 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://billchambers.me/posts/why-do-car-rental-companies-share-desks/</guid>
+      <description>You decide that you&amp;rsquo;re going to make a trip, a business trip. You&amp;rsquo;re going to visit some customers and you hop onto whatever search engine and reserve a car, maybe through National. You get to the destination airport, stroll off the aircraft, grab your bag and walk to the car rental counters only to realize that the Enterprise and National all share the same desk.
+On a recent trip, I let my curiosity finally get the best of me.</description>
+    </item>
+    
+    <item>
+      <title>Applying SaaS Company Metrics to Product Adoption</title>
+      <link>http://billchambers.me/posts/applying-saas-company-metrics-to-product-adoption/</link>
+      <pubDate>Fri, 11 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://billchambers.me/posts/applying-saas-company-metrics-to-product-adoption/</guid>
+      <description>Overview Recently, there&amp;rsquo;s been a renewed focus on monitoring and understanding company (or product) growth, especially when it comes to SaaS products. Werner Vogels recently mentioned something quite similar in a blog post, &amp;ldquo;People often ask me if developing for the cloud is any different from developing on-premises software. It really is.&amp;rdquo; I couldn&amp;rsquo;t agree more, it&amp;rsquo;s awesome for understanding products, how users are using them, and what you can do to improve them.</description>
+    </item>
+    
+    <item>
+      <title>Thoughts on Shutting Down Projects and Looking to 2019</title>
+      <link>http://billchambers.me/posts/thoughts-on-a-project-shutdown-spark-tutorials/</link>
+      <pubDate>Mon, 24 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://billchambers.me/posts/thoughts-on-a-project-shutdown-spark-tutorials/</guid>
+      <description>After having sparktutorials.net up for several years, it&amp;rsquo;s time to shut it down. I haven&amp;rsquo;t written for the site in years at this point and it&amp;rsquo;s not doing me any good now that I have The Definitive Guide published.
+Interestingly, I (knowingly) haven&amp;rsquo;t published on the site for nearly 3 years. Why did I keep it up? There isn&amp;rsquo;t necessarily a straightforward answer. I likely kept it up because it represented something.</description>
+    </item>
+    
+    <item>
+      <title>Thoughts on &#39;The Black Swan&#39; by Nassim Taleb</title>
+      <link>http://billchambers.me/posts/thoughts-on-the-black-swan-by-nassim-taleb/</link>
+      <pubDate>Fri, 16 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://billchambers.me/posts/thoughts-on-the-black-swan-by-nassim-taleb/</guid>
+      <description>This was my second time reading The Black Swan by Nassim Taleb although admittedly I think I was a bit young the first time to fully absorb the content. That is not to say that I didn&amp;rsquo;t get the TL;DR of &amp;ldquo;hey sometimes stuff happens that you can&amp;rsquo;t predict that&amp;rsquo;s meaningful&amp;rdquo;, but what I missed was a lot of the nuance in the actual applcation of the principles to my life.</description>
+    </item>
+    
+    <item>
+      <title>Spark: The Definitive Guide published by O&#39;Reilly!</title>
+      <link>http://billchambers.me/posts/spark-the-definitive-guide/</link>
+      <pubDate>Thu, 08 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://billchambers.me/posts/spark-the-definitive-guide/</guid>
+      <description>As of February 6th, 2018, Spark: The Definitive Guide has gone to print. This was the most intensive project and process that I&amp;rsquo;ve ever undertaken in my life. It was filled with frustrations and anticipations, excitements and fears. I must extend thanks to those that encouraged me to lead the writing of the book, namely Ion Stoica, Patrick Wendell, Ali Ghodsi, and (somewhat obviously) Matei Zaharia. These folks were the ones that recommended that I take the lead on the book and I am forever grateful for them to grant me such an opportunity.</description>
+    </item>
+    
+    <item>
+      <title>Getting Started with Apache Spark</title>
+      <link>http://billchambers.me/posts/getting-started-with-apache-spark/</link>
+      <pubDate>Sun, 06 Dec 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://billchambers.me/posts/getting-started-with-apache-spark/</guid>
+      <description>Lately I&amp;rsquo;ve been playing around with Spark for data processing. It provides some really amazing features like MLLib and Spark SQL and there&amp;rsquo;s no better way to learn something that to use it. I&amp;rsquo;ve attended a couple of meet ups about Spark and its related tools including the famous ampcamp put on by the developers of spark and, although I&amp;rsquo;m not an expert, I thought it would be good to consolidate my knowledge and teach others.</description>
+    </item>
+    
+    <item>
+      <title>Introducing SparkTutorials.net</title>
+      <link>http://billchambers.me/posts/introducing-spark-tutorials/</link>
+      <pubDate>Thu, 10 Sep 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://billchambers.me/posts/introducing-spark-tutorials/</guid>
+      <description>I&amp;rsquo;ve recently launched a website called SparkTutorials.net. Spark Tutorials aims to educate the general public about the utility of Spark as a tool for data science. I would encourage you to read more on the website and learn something new!</description>
+    </item>
+    
+    <item>
+      <title>A Simple Link Shortener in Scala</title>
+      <link>http://billchambers.me/posts/a-link-shortener-in-scala/</link>
+      <pubDate>Wed, 10 Jun 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://billchambers.me/posts/a-link-shortener-in-scala/</guid>
+      <description>Recently I took it upon myself to dive into Scala. This post describes what my reaction was after writing a link shortener service using it. For those only interested in the code, check out my github.
+After learning the basics of Clojure by writing a simple link shortener, I realized that it was a great way to get to know a language. So I decided to do the same in Scala.</description>
+    </item>
+    
+    <item>
+      <title>A Simple Link Shortener in Clojure</title>
+      <link>http://billchambers.me/posts/a-link-shortener-in-clojure/</link>
+      <pubDate>Mon, 01 Jun 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://billchambers.me/posts/a-link-shortener-in-clojure/</guid>
+      <description>Recently I took it upon myself to dive into clojure. This post describes what my reaction was after writing a link shortener service using it. For those only interested in the code, check out my github.
+I&amp;rsquo;ve always wanted to learn a lisp. I played with Scheme, Common Lisp, but never really dug deeply into it. Now knowing python extremely well, I wanted to try and scope an application reasonably and write it in Clojure.</description>
+    </item>
+    
+    <item>
+      <title>Visualizing Crime in San Francisco during the 2014 World Series</title>
+      <link>http://billchambers.me/posts/san-francisco-crime-data-visualization/</link>
+      <pubDate>Wed, 20 May 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://billchambers.me/posts/san-francisco-crime-data-visualization/</guid>
+      <description>During the World Series, especially during the Giants win, there was a mass rioting and looting. For our data visualization class, a classmate, John Semerdjian, and I made an interactive visualization of the crime in the city during each game.
+You can view in the entire visualization here on a github project site.. The write up includes descriptions of out process.
+Be sure to check out the final page as it&amp;rsquo;s a completely interactive visualization that allows you to explore and filter the data yourself.</description>
+    </item>
+    
+    <item>
+      <title>Plotting Your AWS Redshift Data with Plotly</title>
+      <link>http://billchambers.me/posts/plotting-aws-redshift-data-with-plotly/</link>
+      <pubDate>Fri, 08 May 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://billchambers.me/posts/plotting-aws-redshift-data-with-plotly/</guid>
+      <description>08 May 2015
+This was a post that I did for Plotly covering the basics of plotting Data from an AWS Redshift cluster with plotly.</description>
+    </item>
+    
+    <item>
+      <title>Plotting Spark DataFrames with Plotly</title>
+      <link>http://billchambers.me/posts/apache-spark-and-plotly-graphing/</link>
+      <pubDate>Mon, 04 May 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://billchambers.me/posts/apache-spark-and-plotly-graphing/</guid>
+      <description>This was a post that I did for Plotly covering the basics of plotting Spark DataFrames with plotly.</description>
+    </item>
+    
+    <item>
+      <title>Visualizing Flights Origins and Departures with d3.js</title>
+      <link>http://billchambers.me/posts/d3-visualization-of-different-flights/</link>
+      <pubDate>Sun, 05 Apr 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://billchambers.me/posts/d3-visualization-of-different-flights/</guid>
+      <description>This was built for a class project in my Information Visualization class.
+My goals were pretty straightforward. I wanted to try a multidimensional dataset - with a lot of different connections.I wanted a nice way of exploring it that was relatively simple - clicking to filter, allowing for visual exploration. I would optimally would have liked to include a visualization like this one but I couldn&amp;rsquo;t figure out how to do that without just copying and pasting the code.</description>
+    </item>
+    
+    <item>
+      <title>K-Means Clustering - Liquor &amp; Assaults in San Francisco</title>
+      <link>http://billchambers.me/posts/kmeans-clustering-sf-crime-data/</link>
+      <pubDate>Tue, 31 Mar 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://billchambers.me/posts/kmeans-clustering-sf-crime-data/</guid>
+      <description>This notebook walks through an example of KMeans clustering crime data with alcohol license locations. This clustering is performed solely based on the Lat/Long locations of stores and crimes. The tools I use are
+Pandas Numpy Scikit-learn Matplotlib The most basic question being answered is:
+Given Lat/Long - can we draw some association between a liquor store&amp;rsquo;s centroid and crime/a type of crime&amp;rsquo;s centroid? Or another way, will groups of crime overlap with groups of liquor stores.</description>
+    </item>
+    
+    <item>
+      <title>Interactive Salesforce Graphing with Plotly</title>
+      <link>http://billchambers.me/posts/interactive-salesforce-graphing/</link>
+      <pubDate>Mon, 23 Mar 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://billchambers.me/posts/interactive-salesforce-graphing/</guid>
+      <description>This was a post that I did for Plotly covering the basics of the tool with Salesforce.</description>
+    </item>
+    
+    <item>
+      <title>Exploratory Data Analysis of Crime in San Francisco</title>
+      <link>http://billchambers.me/posts/exploring-sf-crime-tableau/</link>
+      <pubDate>Mon, 16 Mar 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://billchambers.me/posts/exploring-sf-crime-tableau/</guid>
+      <description>Data: The dataset I chose was a data set on crime in San Francisco.
+http://data.sfgov.org/d/tmnf-yvry?category=Public-Safety
+I have filtered the dataset which is large at 350 mb down to only theft incidents in 2014. I did this by taking that file and running commands:
+egrep &amp;#34;2014&amp;#34; SFPD_Incidents_-_from_1_January_2003.csv &amp;gt; SFPD_2014.csv egrep &amp;#34;LARCENY/THEFT&amp;#34; SFPD_2014.csv &amp;gt; SFPD_2014_theft.csv cat col_format.csv SFPD_2014_theft.csv &amp;gt; SFPD_2014_theft_col.csv Dashboards follow each hypothesis.
+Hypotheses: My first hypothesis is that most thefts occur at night in residential neighborhoods.</description>
+    </item>
+    
+    <item>
+      <title>Infographic - Why Hasn’t Russia’s Economic Collapse Affected its Leadership?</title>
+      <link>http://billchambers.me/posts/infographic-russia-leadership/</link>
+      <pubDate>Sun, 01 Mar 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://billchambers.me/posts/infographic-russia-leadership/</guid>
+      <description>This was an infographic I created to answer the question: “Why Hasn’t Russia’s Economic Collapse Affected its Leadership?”
+Over the past year, Russia has gone from a fairly stable growth rate to a significant economic contraction. The value of its currency has been chopped in half in 6 months and they’ve had to defend the currency and the economy. I wanted to tell the story about how much this economic situation has changed nothing in Russia in terms of leadership or potential leadership changes.</description>
+    </item>
+    
+    <item>
+      <title>Hackday - Data Science and Docker Working Together</title>
+      <link>http://billchambers.me/posts/python-datascience-and-docker/</link>
+      <pubDate>Sun, 18 Jan 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://billchambers.me/posts/python-datascience-and-docker/</guid>
+      <description>This past weekend was at the wise.io data science hack day and had a great time. The team is clearly intelligent and I really enjoy working and learning in that kind of environment.
+We went over Docker and its utility in the data science field. While I understood the docker abstraction (and basic motivation) previously I still didn&amp;rsquo;t feel like I &amp;ldquo;got it&amp;rdquo;. This hands on experience with Docker really opened my eyes to how the tool is used and the benefit companies are getting form it.</description>
+    </item>
+    
+    <item>
+      <title>Python NLP - NLTK and scikit-learn</title>
+      <link>http://billchambers.me/posts/python-nlp-cheatsheet-nltk-scikit-learn/</link>
+      <pubDate>Wed, 14 Jan 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://billchambers.me/posts/python-nlp-cheatsheet-nltk-scikit-learn/</guid>
+      <description>This post is meant as a summary of many of the concepts that I learned in Marti Hearst&amp;rsquo;s Natural Language Processing class at the UC Berkeley School of Information. I wanted to record the concepts and approaches that I had learned with quick overviews of the code you need to get it working. I figured that it could help some other people get a handle on the goals and code to get things done.</description>
+    </item>
+    
+    <item>
+      <title>Data Challenge - Rebalancing Bike Terminals in SF</title>
+      <link>http://billchambers.me/posts/rebalancing-bike-terminals-in-sf/</link>
+      <pubDate>Thu, 08 Jan 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://billchambers.me/posts/rebalancing-bike-terminals-in-sf/</guid>
+      <description>Leada has recently set out to email out new datasets every week with a couple of interesting questions. I thought that this week&amp;rsquo;s challenge posed some interesting questions that provide great examples of ways to use Python&amp;rsquo;s pandas library.
+Here&amp;rsquo;s their email.
+You just made your 2015 New Year&amp;#39;s resolution to improve your data analysis skills and become data literate! Every two weeks, we will e-mail you a dataset and some problems to work on.</description>
+    </item>
+    
+    <item>
+      <title>Basic Statistical NLP Part 2 - TF-IDF And Cosine Similarity</title>
+      <link>http://billchambers.me/posts/cosine-similarity-explained-in-python/</link>
+      <pubDate>Mon, 22 Dec 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://billchambers.me/posts/cosine-similarity-explained-in-python/</guid>
+      <description>This is a two part post, you can see part 1 here. Please read that post (if you haven&amp;rsquo;t already) before continuing or just check out the code in this gist.
+from **future** import division import string import math tokenize = lambda doc: doc.lower().split(&amp;quot; &amp;ldquo;)
+document0 = &amp;ldquo;China has a strong economy that is growing at a rapid pace. However politically it differs greatly from the US Economy.&amp;rdquo; document1 = &amp;ldquo;At last, China seems serious about confronting an endemic problem: domestic violence and corruption.</description>
+    </item>
+    
+    <item>
+      <title>Basic Statistical NLP Part 1 - Jaccard Similarity and TF-IDF</title>
+      <link>http://billchambers.me/posts/tf-idf-explained-in-python/</link>
+      <pubDate>Sun, 21 Dec 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://billchambers.me/posts/tf-idf-explained-in-python/</guid>
+      <description>This is a two part post, you can see part 2 here.
+In my natural language processing class we&amp;rsquo;ve been playing around with similarity measures and I thought it would be useful to write them up here. Obviously this isn&amp;rsquo;t an exhaustive list but I think it would be a good resource for anyone looking to learn a bit more about ways of measuring similarity between documents.
+One of the first steps in many NLP operations is tokenization.</description>
+    </item>
+    
+    <item>
+      <title>The Future of Privacy</title>
+      <link>http://billchambers.me/posts/the-future-of-privacy/</link>
+      <pubDate>Fri, 05 Dec 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://billchambers.me/posts/the-future-of-privacy/</guid>
+      <description>Contemporary notions of privacy are complex and it is common to hear commentators calling the current state of privacy, or lack thereof, unprecedented. I would challenge the notion of an unprecedented violations of privacy on the basis of historical relativity. In absolute terms there is little question that the world we live in challenges any notions of privacy that have ever existed. However in relative terms, from a certain level of privacy to another, the rise of newspapers and the telegraph are interesting to compare to the modern era.</description>
+    </item>
+    
+    <item>
+      <title>Deploying PostgreSQL for the California Civic Data Coalition&#39;s Django Project</title>
+      <link>http://billchambers.me/posts/civic-data-postgresql-support/</link>
+      <pubDate>Tue, 25 Nov 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://billchambers.me/posts/civic-data-postgresql-support/</guid>
+      <description>First, I&amp;rsquo;d like to introduce the California Civic Data Coalition. They are self described as a loosely coupled team from the Los Angeles Times Data Desk, The Center for Investigative Reporting and Stanford&amp;rsquo;s Computational Journalism Lab.
+I am not a part of the Los Angeles Times nor Stanford&amp;rsquo;s computation Journalism Lab. However I am passionate about open data and leveraging my skills to help others. So I decided to start contributing.</description>
+    </item>
+    
+    <item>
+      <title>A Gentle Introduction to Static Site Generators</title>
+      <link>http://billchambers.me/posts/introduction-to-static-site-generators/</link>
+      <pubDate>Tue, 11 Nov 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://billchambers.me/posts/introduction-to-static-site-generators/</guid>
+      <description>This document will be a simple introduction to static site generators. We&amp;rsquo;ll go over the basics of what they are, why you should use them, which one you should use and finally how to get started.
+The intended audiences for this tutorial are designers or novice developers with little to no programming experience but with some HTML/CSS skill, simple command line experience. This document was originally written for a presentation I did for a portfolio class at the UC Berkeley School of Information.</description>
+    </item>
+    
+    <item>
+      <title>DataKindSF - Data Analysis for the Greater Good</title>
+      <link>http://billchambers.me/posts/datakind-sf-first-meetup/</link>
+      <pubDate>Wed, 08 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://billchambers.me/posts/datakind-sf-first-meetup/</guid>
+      <description>DataKindSF just got their start and the reception was incredible. There was a huge turn out of people wanting to contribute by using high impact skills for greater good. I found out about the program through their meetup.
+What I found particularly interesting about the whole thing was the vast possibilities for improving the ways that non-profits do business. At Procore, I helped guide the direction of our data quality and was a led the large scale reset of our data architecture and this kind of critical thinking could really make a difference for a lot of organizations.</description>
+    </item>
+    
+    <item>
+      <title>EverDone - A Project for An Evernote Hackathon</title>
+      <link>http://billchambers.me/posts/evernote-hackathon-experience/</link>
+      <pubDate>Wed, 10 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://billchambers.me/posts/evernote-hackathon-experience/</guid>
+      <description>Wow, Hackathons are an experience. Firstly I was amazed by the turn out, realistically probably 40 teams all competed in a 12 hour hackathon for Evernote at the Computer Science Department at Berkeley. I found the atmosphere to be supportive and fiercely competitive at the same time. Hackathon&amp;rsquo;s are a strange creation and I&amp;rsquo;ve struggled to come up with a parallel in history. But that&amp;rsquo;s for another post.
+The Application - EverDone The project we worked on was Everdone.</description>
+    </item>
+    
+    <item>
+      <title>User Experience Critique - Habits in Timeful</title>
+      <link>http://billchambers.me/posts/timeful-user-experience-review/</link>
+      <pubDate>Sun, 31 Aug 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://billchambers.me/posts/timeful-user-experience-review/</guid>
+      <description>Several weeks ago I sent a review of a feature in an app I use called Timeful. This is my letter to that company where I tried to get a better understanding of their motivations for the user experience of part of their application.
+Timeful team,
+Great application. I use it everyday, several times a day! I’m a beast at a to do list, I’m just not so good at scheduling things or getting them on a calendar.</description>
+    </item>
+    
+    <item>
+      <title>SurpriseHaiku - Discovering Unusual Haikus On Twitter</title>
+      <link>http://billchambers.me/posts/surprisehaiku/</link>
+      <pubDate>Wed, 20 Aug 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://billchambers.me/posts/surprisehaiku/</guid>
+      <description>SurpriseHaiku was an experiment that parsed random twitter tweets to see if they followed the Haiku cadence of 5 / 7 / 5 (syllables). I ran this experiment during the 2014 Olympics to try and focus around Olympics related tweets. This was an application that I built to learn more about the twitter API and dip my toes in the world of Natural Language Parsing or NLP.
+While the application is not running at this point, you can check out the historical tweets on the twitter profile.</description>
+    </item>
+    
+  </channel>
 </rss>

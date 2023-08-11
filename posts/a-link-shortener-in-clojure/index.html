@@ -1,91 +1,120 @@
 <!DOCTYPE html>
-<html lang="en-us">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <title>A Simple Link Shortener in Clojure - My Writings - Bill Chambers</title><meta name="Description" content="something"><meta property="og:title" content="A Simple Link Shortener in Clojure" />
-<meta property="og:description" content="Recently I took it upon myself to dive into clojure. This post describes what my reaction was after writing a link shortener service using it. For those only interested in the code, check out my github.
-I&rsquo;ve always wanted to learn a lisp. I played with Scheme, Common Lisp, but never really dug deeply into it. Now knowing python extremely well, I wanted to try and scope an application reasonably and write it in Clojure." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="http://billchambers.me/posts/a-link-shortener-in-clojure/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2015-06-01T00:00:00+00:00" />
-<meta property="article:modified_time" content="2015-06-01T00:00:00+00:00" /><meta property="og:site_name" content="Writings and Musings of Bill Chambers" />
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="A Simple Link Shortener in Clojure"/>
-<meta name="twitter:description" content="Recently I took it upon myself to dive into clojure. This post describes what my reaction was after writing a link shortener service using it. For those only interested in the code, check out my github.
-I&rsquo;ve always wanted to learn a lisp. I played with Scheme, Common Lisp, but never really dug deeply into it. Now knowing python extremely well, I wanted to try and scope an application reasonably and write it in Clojure."/>
-<meta name="application-name" content="My cooldsfasdfsad site">
-<meta name="apple-mobile-web-app-title" content="My cooldsfasdfsad site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://billchambers.me/posts/a-link-shortener-in-clojure/" /><link rel="prev" href="http://billchambers.me/posts/san-francisco-crime-data-visualization/" /><link rel="next" href="http://billchambers.me/posts/a-link-shortener-in-scala/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "BlogPosting",
-        "headline": "A Simple Link Shortener in Clojure",
-        "inLanguage": "en-us",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "http:\/\/billchambers.me\/posts\/a-link-shortener-in-clojure\/"
-        },"genre": "posts","wordcount":  793 ,
-        "url": "http:\/\/billchambers.me\/posts\/a-link-shortener-in-clojure\/","datePublished": "2015-06-01T00:00:00+00:00","dateModified": "2015-06-01T00:00:00+00:00","publisher": {
-            "@type": "Organization",
-            "name": ""},"author": {
-                "@type": "Person",
-                "name": "Bill Chambers"
-            },"description": ""
-    }
-    </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+<html lang="en">
 
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
-    <div class="header-wrapper">
-        <div class="header-title">
-            <a href="/" title="My Writings - Bill Chambers">Writings and Musings of Bill Chambers</a>
-        </div>
-        <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/" title="My Writings - Bill Chambers"> Home </a><a class="menu-item" href="/about/"> About </a><a class="menu-item" href="/products/" title="All Products Built by Bill"> Products </a><a class="menu-item active" href="/posts/" title="Posts"> Posts </a><a class="menu-item" href="/categories/" title="Categories"> Categories </a><a class="menu-item" href="/quotes/"> Quotes </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
-                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-                </a></div>
+<head>
+    
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="HandheldFriendly" content="True" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="generator" content="Hugo 0.112.3">
+
+
+<link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/dsrkafuu/dsr-cdn-main@1/images/favicons/dsrca.ico" />
+
+
+
+<title>A Simple Link Shortener in Clojure - My Writings - Bill Chambers</title>
+
+
+<meta name="author" content="Bill Chambers" />
+
+
+<meta name="description" content="something" />
+
+
+
+<meta property="og:title" content="A Simple Link Shortener in Clojure" />
+<meta name="twitter:title" content="A Simple Link Shortener in Clojure" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://billchambers.me/posts/a-link-shortener-in-clojure/" /><meta property="og:description" content="Recently I took it upon myself to dive into clojure. This post describes what my reaction was after writing a link shortener service using it. For those only interested in the code, check out my github.
+I&rsquo;ve always wanted to learn a lisp. I played with Scheme, Common Lisp, but never really dug deeply into it. Now knowing python extremely well, I wanted to try and scope an application reasonably and write it in Clojure." />
+<meta name="twitter:description" content="Recently I took it upon myself to dive into clojure. This post describes what my reaction was after writing a link shortener service using it. For those only interested in the code, check out my github.
+I&rsquo;ve always wanted to learn a lisp. I played with Scheme, Common Lisp, but never really dug deeply into it. Now knowing python extremely well, I wanted to try and scope an application reasonably and write it in Clojure." /><meta name="twitter:card" content="summary" /><meta property="article:published_time" content="2015-06-01T00:00:00+00:00" /><meta property="article:modified_time" content="2015-06-01T00:00:00+00:00" />
+
+
+<style>
+    @media (prefers-color-scheme: dark) {
+        body[data-theme='auto'] img {
+            filter: brightness(60%);
+        }
+    }
+
+    body[data-theme='dark'] img {
+        filter: brightness(60%);
+    }
+</style>
+
+
+
+
+<link rel="stylesheet" href="http://billchambers.me/assets/css/fuji.min.b4a21b5d3eb1d0a51297e31230a65fc25e387843e45ec3a2d9176cd8d163c216d99b9b13a618b28f537c3b559ec8a408183b0fbfad48daddb9befa7d3ef90eed.css" integrity="sha512-tKIbXT6x0KUSl&#43;MSMKZfwl44eEPkXsOi2Rds2NFjwhbZm5sTphiyj1N8O1WeyKQIGDsPv61I2t25vvp9PvkO7Q==" />
+
+
+
+
+
+
+
+
+</head>
+
+<body
+  data-theme="auto"
+  data-theme-auto='false'
+  >
+    <script data-cfasync="false">
+  
+  var fujiThemeData = localStorage.getItem('fuji_data-theme');
+  
+  if (!fujiThemeData) {
+    localStorage.setItem('fuji_data-theme', 'auto');
+  } else {
+    
+    if (fujiThemeData !== 'auto') {
+      document.body.setAttribute('data-theme', fujiThemeData === 'dark' ? 'dark' : 'light');
+    }
+  }
+</script>
+
+    <header>
+    <div class="container-lg clearfix">
+        <div class="col-12 header">
+            <a class="title-main" href="http://billchambers.me">My Writings - Bill Chambers</a>
+            
         </div>
     </div>
-</header><header class="mobile" id="header-mobile">
-    <div class="header-container">
-        <div class="header-wrapper">
-            <div class="header-title">
-                <a href="/" title="My Writings - Bill Chambers">Writings and Musings of Bill Chambers</a>
-            </div>
-            <div class="menu-toggle" id="menu-toggle-mobile">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
-        <div class="menu" id="menu-mobile"><a class="menu-item" href="/" title="My Writings - Bill Chambers">Home</a><a class="menu-item" href="/about/" title="">About</a><a class="menu-item" href="/products/" title="All Products Built by Bill">Products</a><a class="menu-item" href="/posts/" title="Posts">Posts</a><a class="menu-item" href="/categories/" title="Categories">Categories</a><a class="menu-item" href="/quotes/" title="">Quotes</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
-                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-            </a></div>
+</header>
+
+    <main>
+        <div class="container-lg clearfix">
+            
+            <div class="col-12 col-md-9 float-left content">
+                
+<article>
+    
+    <h2 class="post-item post-title">
+        <a href="http://billchambers.me/posts/a-link-shortener-in-clojure/">A Simple Link Shortener in Clojure</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2015-06-01</span>
+
+
+
+<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
+
     </div>
-</header><main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">Contents</h2>
-            <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">A Simple Link Shortener in Clojure</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Bill Chambers</a></span>&nbsp;<span class="post-category">included in <a href="/categories/tutorials/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>tutorials</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2015-06-01">2015-06-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;793 words&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;4 minutes&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  data-kept="">
-                <div class="details-summary toc-title">
-                    <span>Contents</span>
-                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
-                </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents"></nav></div>
-            </div><div class="content" id="content"><p><em>Recently I took it upon myself to dive into clojure. This post describes what my reaction was after writing a link shortener service using it. For those only interested in the code, <a href="https://github.com/anabranch/JVM-Link-Shorteners/tree/master/clojure-link-shortener" target="_blank" rel="noopener noreffer ">check out my github</a>.</em></p>
-<p>I&rsquo;ve always wanted to learn a lisp. I played with Scheme, Common Lisp, but never really dug deeply into it. Now knowing python extremely well, I wanted to try and scope an application reasonably and write it in <a href="http://clojure.org/" target="_blank" rel="noopener noreffer ">Clojure</a>. For the unitiated, Clojure is a lisp written on the JVM.</p>
+    
+    <div class="post-content markdown-body">
+        <p><em>Recently I took it upon myself to dive into clojure. This post describes what my reaction was after writing a link shortener service using it. For those only interested in the code, <a href="https://github.com/anabranch/JVM-Link-Shorteners/tree/master/clojure-link-shortener" target="_blank">check out my github</a>.</em></p>
+<p>I&rsquo;ve always wanted to learn a lisp. I played with Scheme, Common Lisp, but never really dug deeply into it. Now knowing python extremely well, I wanted to try and scope an application reasonably and write it in <a href="http://clojure.org/" target="_blank">Clojure</a>. For the unitiated, Clojure is a lisp written on the JVM.</p>
 <p>In Clojure&rsquo;s own words:</p>
 <blockquote>
 <p>Clojure is a dynamic programming language that targets the Java Virtual Machine (and the CLR, and JavaScript). It is designed to be a general-purpose language, combining the approachability and interactive development of a scripting language with an efficient and robust infrastructure for multithreaded programming. Clojure is a compiled language - it compiles directly to JVM bytecode, yet remains completely dynamic. Every feature supported by Clojure is supported at runtime. Clojure provides easy access to the Java frameworks, with optional type hints and type inference, to ensure that calls to Java can avoid reflection.</p>
 </blockquote>
-<p>I had recently learned Java and figured that this would be a good way to branch out on the JVM. The application I decided to write was a link shortener - it&rsquo;s a well scoped problem and touches a lot of interesting things that you&rsquo;ll encounter working full time in the language. I forced a couple of requirements, I wanted to <code>jar</code> it and be able to deploy it, I wanted it to connect to <a href="http://redis.io/" target="_blank" rel="noopener noreffer ">Redis</a> in order to store shortened links, and I wanted to make sure that I could deploy it with<a href="https://www.docker.com/" target="_blank" rel="noopener noreffer ">Docker</a>. Lastly I wanted to make sure that I wrote tests as well.</p>
+<p>I had recently learned Java and figured that this would be a good way to branch out on the JVM. The application I decided to write was a link shortener - it&rsquo;s a well scoped problem and touches a lot of interesting things that you&rsquo;ll encounter working full time in the language. I forced a couple of requirements, I wanted to <code>jar</code> it and be able to deploy it, I wanted it to connect to <a href="http://redis.io/" target="_blank">Redis</a> in order to store shortened links, and I wanted to make sure that I could deploy it with<a href="https://www.docker.com/" target="_blank">Docker</a>. Lastly I wanted to make sure that I wrote tests as well.</p>
 <p>What I love about the link shortener application is that you&rsquo;re going to run into plenty of little challenges writing the application.</p>
 <p>You&rsquo;ll touch on:</p>
 <ul>
@@ -97,11 +126,11 @@ I&rsquo;ve always wanted to learn a lisp. I played with Scheme, Common Lisp, but
 <li>Testing</li>
 </ul>
 <p>Now this isn&rsquo;t something that will take very long assuming you have basic programming skill and if you&rsquo;re looking for more of a challenge there are tons of ways to add onto this application. One of the requirements is that code and tutorials are not to be followed - I made myself write it from scratch.</p>
-<p>Now there aren&rsquo;t a lot of resources on the web that teach you how to write Clojure. However there were a couple of websites that really came in handy. <a href="http://www.braveclojure.com/" target="_blank" rel="noopener noreffer ">Brave Clojure was great</a> as is <a href="https://aphyr.com/posts/302-clojure-from-the-ground-up-basic-types" target="_blank" rel="noopener noreffer ">Aphyr&rsquo;s post on Clojure</a>. And of course the Clojure docs. I leveraged their <a href="http://clojure-doc.org/articles/tutorials/basic_web_development.html" target="_blank" rel="noopener noreffer ">how to write a webapp in clojure</a> as a rough guide but wasn&rsquo;t doing any copying and pasting.</p>
+<p>Now there aren&rsquo;t a lot of resources on the web that teach you how to write Clojure. However there were a couple of websites that really came in handy. <a href="http://www.braveclojure.com/" target="_blank">Brave Clojure was great</a> as is <a href="https://aphyr.com/posts/302-clojure-from-the-ground-up-basic-types" target="_blank">Aphyr&rsquo;s post on Clojure</a>. And of course the Clojure docs. I leveraged their <a href="http://clojure-doc.org/articles/tutorials/basic_web_development.html" target="_blank">how to write a webapp in clojure</a> as a rough guide but wasn&rsquo;t doing any copying and pasting.</p>
 <p>There were a couple of things that blew me away about Clojure. Firstly it felt extremely natural, all functions are nice and short and I love polish notation. The regex wasn&rsquo;t too bad (although I had to jump into some javadocs to understand limitations/capabilities) either.</p>
 <p>What took me a bit of getting used to psycologically was immutable data structures, which I&rsquo;m now enamored with. Initially I couldn&rsquo;t figure out the use case, but as I thought about it more, it makes a lot of sense. You make better design decisions and it makes things so much more predictable.</p>
-<p><a href="https://github.com/technomancy/leiningen" target="_blank" rel="noopener noreffer ">Leiningen</a> was also awesome. It&rsquo;s a great build too and made things super easy to work with.</p>
-<p><a href="https://github.com/weavejester/hiccup" target="_blank" rel="noopener noreffer ">Hiccup</a> is honestly one of the most awesome libraries I&rsquo;ve used. It was unbelievably easy to write composable functions that generated HTML so simply. It made writing functions easy and really Clojure really stands out in readability. Once you get past the parens everywhere, it really lends itself to quick understanding.</p>
+<p><a href="https://github.com/technomancy/leiningen" target="_blank">Leiningen</a> was also awesome. It&rsquo;s a great build too and made things super easy to work with.</p>
+<p><a href="https://github.com/weavejester/hiccup" target="_blank">Hiccup</a> is honestly one of the most awesome libraries I&rsquo;ve used. It was unbelievably easy to write composable functions that generated HTML so simply. It made writing functions easy and really Clojure really stands out in readability. Once you get past the parens everywhere, it really lends itself to quick understanding.</p>
 <p>For example:</p>
 <pre tabindex="0"><code>(defn shorten
  [params]
@@ -112,57 +141,196 @@ I&rsquo;ve always wanted to learn a lisp. I played with Scheme, Common Lisp, but
  (gen-shorten-success link possible-link))))
 </code></pre><p>We have to shorten our params, we&rsquo;ll let the link = the link from the input parameters and the possible link be what we get back from our controller. If we get null/false value generate our failure, if not generate success.</p>
 <p>I really loved that I got to avoid html almost completely and didn&rsquo;t have to use some templating engine. All I really want is an HTML generator anyways.</p>
-<p>If you&rsquo;re interested in deploying, you can <a href="https://github.com/anabranch/JVM-Link-Shorteners" target="_blank" rel="noopener noreffer ">download the repository</a> and build and run it yourself. The only requirement is a Redis container which you can get from <a href="https://registry.hub.docker.com/_/redis/" target="_blank" rel="noopener noreffer ">Docker Registry</a>.</p>
+<p>If you&rsquo;re interested in deploying, you can <a href="https://github.com/anabranch/JVM-Link-Shorteners" target="_blank">download the repository</a> and build and run it yourself. The only requirement is a Redis container which you can get from <a href="https://registry.hub.docker.com/_/redis/" target="_blank">Docker Registry</a>.</p>
 <p>Then you just have to run.</p>
 <pre tabindex="0"><code>docker run --name new-red redis
 docker run --name clj --link new-red:new-red -p 5000:5000 -d my-cloj
 </code></pre><p>Navigate to your Docker url on port 5000 and you should be good!</p>
-<p><a href="http://billchambers.me/projects/2015/06/10/a-link-shortener-in-scala.html" target="_blank" rel="noopener noreffer ">Check out my other post on writing a link shortener in Scala.</a></p>
-</div><div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>Updated on 2015-06-01</span>
-            </div></div>
-        <div class="post-info-line">
-            <div class="post-info-md"></div>
-            <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://billchambers.me/posts/a-link-shortener-in-clojure/" data-title="A Simple Link Shortener in Clojure" data-via="bllchmbrs"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://billchambers.me/posts/a-link-shortener-in-clojure/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://billchambers.me/posts/a-link-shortener-in-clojure/" data-title="A Simple Link Shortener in Clojure"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://billchambers.me/posts/a-link-shortener-in-clojure/" data-title="A Simple Link Shortener in Clojure"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://billchambers.me/posts/a-link-shortener-in-clojure/" data-title="A Simple Link Shortener in Clojure"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+<p><a href="http://billchambers.me/projects/2015/06/10/a-link-shortener-in-scala.html" target="_blank">Check out my other post on writing a link shortener in Scala.</a></p>
+
+    </div>
+</article>
+
+
+
+
             </div>
+            <aside class="col-12 col-md-3 float-left sidebar">
+    
+    <div class="sidebar-item sidebar-pages">
+        <h3>Pages</h3>
+        <ul>
+            
+            <li>
+                <a href="/">Home</a>
+            </li>
+            
+            <li>
+                <a href="/about/">About</a>
+            </li>
+            
+            <li>
+                <a href="/products/">Products &amp; Projects</a>
+            </li>
+            
+            <li>
+                <a href="/posts/">Posts</a>
+            </li>
+            
+            <li>
+                <a href="/categories/">Categories</a>
+            </li>
+            
+            <li>
+                <a href="/quotes/">Quotes</a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-links">
+        <h3>Links</h3>
+        <ul>
+            
+            <li>
+                <a href="" target="_blank"><span>GitHub</span></a>
+            </li>
+            
+            <li>
+                <a href="https://www.linkedin.com/in/wachambers/" target="_blank"><span>LinkedIn</span></a>
+            </li>
+            
+            <li>
+                <a href="https://twitter.com/bllchmbrs" target="_blank"><span>Twitter</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags">
+        <h3>Tags</h3>
+        <div>
+            
+            <span>
+                <a href="/tags/privacy/">privacy</a>
+            </span>
+            
         </div>
     </div>
+    <div class="sidebar-item sidebar-toc">
+        <h3>Table of Contents</h3><nav id="TableOfContents"></nav></div>
+</aside>
 
-    <div class="post-info-more">
-        <section class="post-tags"></section>
-        <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
-        </section>
+        </div>
+        <div class="btn">
+    <div class="btn-menu" id="btn-menu">
+        <i class="iconfont icon-grid-sharp"></i>
     </div>
-
-    <div class="post-nav"><a href="/posts/san-francisco-crime-data-visualization/" class="prev" rel="prev" title="Visualizing Crime in San Francisco during the 2014 World Series"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Visualizing Crime in San Francisco during the 2014 World Series</a>
-            <a href="/posts/a-link-shortener-in-scala/" class="next" rel="next" title="A Simple Link Shortener in Scala">A Simple Link Shortener in Scala<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+    <div class="btn-toggle-mode">
+        <i class="iconfont icon-contrast-sharp"></i>
+    </div>
+    <div class="btn-scroll-top">
+        <i class="iconfont icon-chevron-up-circle-sharp"></i>
+    </div>
 </div>
-</article></div>
-            </main><footer class="footer">
-    <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><i> Bill Chambers </i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a
-                    href="/" target="_blank"></a></span></div>
+<aside class="sidebar-mobile" style="display: none;">
+  <div class="sidebar-wrapper">
+    
+    <div class="sidebar-item sidebar-pages">
+        <h3>Pages</h3>
+        <ul>
+            
+            <li>
+                <a href="/">Home</a>
+            </li>
+            
+            <li>
+                <a href="/about/">About</a>
+            </li>
+            
+            <li>
+                <a href="/products/">Products &amp; Projects</a>
+            </li>
+            
+            <li>
+                <a href="/posts/">Posts</a>
+            </li>
+            
+            <li>
+                <a href="/categories/">Categories</a>
+            </li>
+            
+            <li>
+                <a href="/quotes/">Quotes</a>
+            </li>
+            
+        </ul>
     </div>
+    
+    <div class="sidebar-item sidebar-links">
+        <h3>Links</h3>
+        <ul>
+            
+            <li>
+                <a href="" target="_blank"><span>GitHub</span></a>
+            </li>
+            
+            <li>
+                <a href="https://www.linkedin.com/in/wachambers/" target="_blank"><span>LinkedIn</span></a>
+            </li>
+            
+            <li>
+                <a href="https://twitter.com/bllchmbrs" target="_blank"><span>Twitter</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags">
+        <h3>Tags</h3>
+        <div>
+            
+            <span>
+                <a href="/tags/privacy/">privacy</a>
+            </span>
+            
+        </div>
+    </div>
+    
+    
+    
+    
+  </div>
+</aside>
+    </main>
+
+    <footer>
+    <div class="container-lg clearfix">
+        <div class="col-12 footer">
+            
+            <span>&copy; 2023
+                <a href="http://billchambers.me">Bill Chambers</a>
+                
+                | Powered by <a href="https://github.com/dsrkafuu/hugo-theme-fuji/"
+                   target="_blank">Fuji-v2</a> &amp; <a href="https://gohugo.io/"
+                                                    target="_blank">Hugo</a> 
+            </span>
+        </div>
+    </div>
+</footer>
 
     
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R2MMVCLTJ9"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
+<script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js" integrity="sha512-N9IJRoc3LaP3NDoiGkcPa4gG94kapGpaA5Zq9/Dr04uf5TbLFU5q0o8AbRhLKUUlp8QFS2u7S+Yti0U7QtuZvQ==" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js" integrity="sha512-q583ppKrCRc7N5O0n2nzUiJ+suUv7Et1JGels4bXOaMFQcamPk9HjdUknZuuFjBNs7tsMuadge5k9RzdmO+1GQ==" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.27.0/components/prism-core.min.js" integrity="sha512-LCKPTo0gtJ74zCNMbWw04ltmujpzSR4oW+fgN+Y1YclhM5ZrHCZQAJE4quEodcI/G122sRhSGU2BsSRUZ2Gu3w==" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.27.0/plugins/autoloader/prism-autoloader.min.js" integrity="sha512-GP4x8UWxWyh4BMbyJGOGneiTbkrWEF5izsVJByzVLodP8CuJH/n936+yQDMJJrOPUHLgyPbLiGw2rXmdvGdXHA==" crossorigin="anonymous"></script>
 
-        gtag('config', 'G-R2MMVCLTJ9');
-    </script>
-</footer></div>
 
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
-                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
-                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
-            </a>
-        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+
+<script defer src="/assets/js/fuji.min.645f1123be695831f419ab54c1bcba327325895c740014006e57070d4f3e5d6b553e929c4b46f40ea707249e9c7f7c2a446d32a39ce7319f80a34525586a8e0f.js" integrity="sha512-ZF8RI75pWDH0GatUwby6MnMliVx0ABQAblcHDU8&#43;XWtVPpKcS0b0DqcHJJ6cf3wqRG0yo5znMZ&#43;Ao0UlWGqODw=="></script>
+
+
+
+</body>
+
 </html>

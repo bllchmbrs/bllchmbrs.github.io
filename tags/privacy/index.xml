@@ -1,16 +1,21 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>privacy - Tag - My Writings - Bill Chambers</title>
-        <link>http://billchambers.me/tags/privacy/</link>
-        <description>privacy - Tag - My Writings - Bill Chambers</description>
-        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 05 Apr 2015 00:00:00 &#43;0000</lastBuildDate><atom:link href="http://billchambers.me/tags/privacy/" rel="self" type="application/rss+xml" /><item>
-    <title>Visualizing Flights Origins and Departures with d3.js</title>
-    <link>http://billchambers.me/posts/d3-visualization-of-different-flights/</link>
-    <pubDate>Sun, 05 Apr 2015 00:00:00 &#43;0000</pubDate>
-    <author>Bill Chambers</author>
-    <guid>http://billchambers.me/posts/d3-visualization-of-different-flights/</guid>
-    <description><![CDATA[This was built for a class project in my Information Visualization class.
-My goals were pretty straightforward. I wanted to try a multidimensional dataset - with a lot of different connections.I wanted a nice way of exploring it that was relatively simple - clicking to filter, allowing for visual exploration. I would optimally would have liked to include a visualization like this one but I couldn&rsquo;t figure out how to do that without just copying and pasting the code.]]></description>
-</item>
-</channel>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>privacy on My Writings - Bill Chambers</title>
+    <link>http://billchambers.me/tags/privacy/</link>
+    <description>Recent content in privacy on My Writings - Bill Chambers</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 05 Apr 2015 00:00:00 +0000</lastBuildDate><atom:link href="http://billchambers.me/tags/privacy/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Visualizing Flights Origins and Departures with d3.js</title>
+      <link>http://billchambers.me/posts/d3-visualization-of-different-flights/</link>
+      <pubDate>Sun, 05 Apr 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://billchambers.me/posts/d3-visualization-of-different-flights/</guid>
+      <description>This was built for a class project in my Information Visualization class.
+My goals were pretty straightforward. I wanted to try a multidimensional dataset - with a lot of different connections.I wanted a nice way of exploring it that was relatively simple - clicking to filter, allowing for visual exploration. I would optimally would have liked to include a visualization like this one but I couldn&amp;rsquo;t figure out how to do that without just copying and pasting the code.</description>
+    </item>
+    
+  </channel>
 </rss>

@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="HandheldFriendly" content="True" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="generator" content="Hugo 0.112.3">
+
+
+<link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/dsrkafuu/dsr-cdn-main@1/images/favicons/dsrca.ico" />
+
+
+
+<title>investing - My Writings - Bill Chambers</title>
+
+
+<meta name="author" content="Bill Chambers" />
+
+
+<meta name="description" content="something" />
+
+
+<link rel="alternate" type="application/rss+xml" href="http://billchambers.me/categories/investing/index.xml" title="My Writings - Bill Chambers" />
+
+<meta property="og:title" content="investing" />
+<meta name="twitter:title" content="investing" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="http://billchambers.me/categories/investing/" /><meta name="twitter:card" content="summary" /><meta property="og:updated_time" content="2023-06-12T09:34:24-07:00" />
+
+
+<style>
+    @media (prefers-color-scheme: dark) {
+        body[data-theme='auto'] img {
+            filter: brightness(60%);
+        }
+    }
+
+    body[data-theme='dark'] img {
+        filter: brightness(60%);
+    }
+</style>
+
+
+
+
+<link rel="stylesheet" href="http://billchambers.me/assets/css/fuji.min.b4a21b5d3eb1d0a51297e31230a65fc25e387843e45ec3a2d9176cd8d163c216d99b9b13a618b28f537c3b559ec8a408183b0fbfad48daddb9befa7d3ef90eed.css" integrity="sha512-tKIbXT6x0KUSl&#43;MSMKZfwl44eEPkXsOi2Rds2NFjwhbZm5sTphiyj1N8O1WeyKQIGDsPv61I2t25vvp9PvkO7Q==" />
+
+
+
+
+
+
+
+
+</head>
+
+<body
+  data-theme="auto"
+  data-theme-auto='false'
+  >
+    <script data-cfasync="false">
+  
+  var fujiThemeData = localStorage.getItem('fuji_data-theme');
+  
+  if (!fujiThemeData) {
+    localStorage.setItem('fuji_data-theme', 'auto');
+  } else {
+    
+    if (fujiThemeData !== 'auto') {
+      document.body.setAttribute('data-theme', fujiThemeData === 'dark' ? 'dark' : 'light');
+    }
+  }
+</script>
+
+    <header>
+    <div class="container-lg clearfix">
+        <div class="col-12 header">
+            <a class="title-main" href="http://billchambers.me">My Writings - Bill Chambers</a>
+            
+        </div>
+    </div>
+</header>
+
+    <main>
+        <div class="container-lg clearfix">
+            
+            <div class="col-12 col-md-9 float-left content">
+                
+
+
+
+<div class="post">
+    <h2 class="post-item post-title">
+        <a href="http://billchambers.me/posts/kmeans-clustering-sf-crime-data/">K-Means Clustering - Liquor &amp; Assaults in San Francisco</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2015-03-31</span>
+
+
+
+<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
+
+    </div>
+    <div class="post-item post-summary markdown-body">
+        This notebook walks through an example of KMeans clustering crime data with alcohol license locations. This clustering is performed solely based on the Lat/Long locations of stores and crimes. The tools I use are
+Pandas Numpy Scikit-learn Matplotlib The most basic question being answered is:
+Given Lat/Long - can we draw some association between a liquor store&rsquo;s centroid and crime/a type of crime&rsquo;s centroid? Or another way, will groups of crime overlap with groups of liquor stores.
+    </div>
+</div>
+
+<div class="post">
+    <h2 class="post-item post-title">
+        <a href="http://billchambers.me/posts/interactive-salesforce-graphing/">Interactive Salesforce Graphing with Plotly</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2015-03-23</span>
+
+
+
+<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
+
+    </div>
+    <div class="post-item post-summary markdown-body">
+        This was a post that I did for Plotly covering the basics of the tool with Salesforce.
+    </div>
+</div>
+
+<div class="post">
+    <h2 class="post-item post-title">
+        <a href="http://billchambers.me/posts/exploring-sf-crime-tableau/">Exploratory Data Analysis of Crime in San Francisco</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2015-03-16</span>
+
+
+
+<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
+
+    </div>
+    <div class="post-item post-summary markdown-body">
+        Data: The dataset I chose was a data set on crime in San Francisco.
+http://data.sfgov.org/d/tmnf-yvry?category=Public-Safety
+I have filtered the dataset which is large at 350 mb down to only theft incidents in 2014. I did this by taking that file and running commands:
+egrep &#34;2014&#34; SFPD_Incidents_-_from_1_January_2003.csv &gt; SFPD_2014.csv egrep &#34;LARCENY/THEFT&#34; SFPD_2014.csv &gt; SFPD_2014_theft.csv cat col_format.csv SFPD_2014_theft.csv &gt; SFPD_2014_theft_col.csv Dashboards follow each hypothesis.
+Hypotheses: My first hypothesis is that most thefts occur at night in residential neighborhoods.
+    </div>
+</div>
+
+<div class="post">
+    <h2 class="post-item post-title">
+        <a href="http://billchambers.me/posts/infographic-russia-leadership/">Infographic - Why Hasn’t Russia’s Economic Collapse Affected its Leadership?</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2015-03-01</span>
+
+
+
+<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
+
+    </div>
+    <div class="post-item post-summary markdown-body">
+        This was an infographic I created to answer the question: “Why Hasn’t Russia’s Economic Collapse Affected its Leadership?”
+Over the past year, Russia has gone from a fairly stable growth rate to a significant economic contraction. The value of its currency has been chopped in half in 6 months and they’ve had to defend the currency and the economy. I wanted to tell the story about how much this economic situation has changed nothing in Russia in terms of leadership or potential leadership changes.
+    </div>
+</div>
+
+<div class="post">
+    <h2 class="post-item post-title">
+        <a href="http://billchambers.me/posts/python-datascience-and-docker/">Hackday - Data Science and Docker Working Together</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2015-01-18</span>
+
+
+
+<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
+
+    </div>
+    <div class="post-item post-summary markdown-body">
+        This past weekend was at the wise.io data science hack day and had a great time. The team is clearly intelligent and I really enjoy working and learning in that kind of environment.
+We went over Docker and its utility in the data science field. While I understood the docker abstraction (and basic motivation) previously I still didn&rsquo;t feel like I &ldquo;got it&rdquo;. This hands on experience with Docker really opened my eyes to how the tool is used and the benefit companies are getting form it.
+    </div>
+</div>
+
+<div class="post">
+    <h2 class="post-item post-title">
+        <a href="http://billchambers.me/posts/python-nlp-cheatsheet-nltk-scikit-learn/">Python NLP - NLTK and scikit-learn</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2015-01-14</span>
+
+
+
+<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
+
+    </div>
+    <div class="post-item post-summary markdown-body">
+        This post is meant as a summary of many of the concepts that I learned in Marti Hearst&rsquo;s Natural Language Processing class at the UC Berkeley School of Information. I wanted to record the concepts and approaches that I had learned with quick overviews of the code you need to get it working. I figured that it could help some other people get a handle on the goals and code to get things done.
+    </div>
+</div>
+
+<div class="post">
+    <h2 class="post-item post-title">
+        <a href="http://billchambers.me/posts/rebalancing-bike-terminals-in-sf/">Data Challenge - Rebalancing Bike Terminals in SF</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2015-01-08</span>
+
+
+
+<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
+
+    </div>
+    <div class="post-item post-summary markdown-body">
+        Leada has recently set out to email out new datasets every week with a couple of interesting questions. I thought that this week&rsquo;s challenge posed some interesting questions that provide great examples of ways to use Python&rsquo;s pandas library.
+Here&rsquo;s their email.
+You just made your 2015 New Year&#39;s resolution to improve your data analysis skills and become data literate! Every two weeks, we will e-mail you a dataset and some problems to work on.
+    </div>
+</div>
+
+<div class="post">
+    <h2 class="post-item post-title">
+        <a href="http://billchambers.me/posts/cosine-similarity-explained-in-python/">Basic Statistical NLP Part 2 - TF-IDF And Cosine Similarity</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2014-12-22</span>
+
+
+
+<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
+
+    </div>
+    <div class="post-item post-summary markdown-body">
+        This is a two part post, you can see part 1 here. Please read that post (if you haven&rsquo;t already) before continuing or just check out the code in this gist.
+from **future** import division import string import math tokenize = lambda doc: doc.lower().split(&quot; &ldquo;)
+document0 = &ldquo;China has a strong economy that is growing at a rapid pace. However politically it differs greatly from the US Economy.&rdquo; document1 = &ldquo;At last, China seems serious about confronting an endemic problem: domestic violence and corruption.
+    </div>
+</div>
+
+<div class="post">
+    <h2 class="post-item post-title">
+        <a href="http://billchambers.me/posts/tf-idf-explained-in-python/">Basic Statistical NLP Part 1 - Jaccard Similarity and TF-IDF</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2014-12-21</span>
+
+
+
+<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
+
+    </div>
+    <div class="post-item post-summary markdown-body">
+        This is a two part post, you can see part 2 here.
+In my natural language processing class we&rsquo;ve been playing around with similarity measures and I thought it would be useful to write them up here. Obviously this isn&rsquo;t an exhaustive list but I think it would be a good resource for anyone looking to learn a bit more about ways of measuring similarity between documents.
+One of the first steps in many NLP operations is tokenization.
+    </div>
+</div>
+
+<div class="post">
+    <h2 class="post-item post-title">
+        <a href="http://billchambers.me/posts/the-future-of-privacy/">The Future of Privacy</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2014-12-05</span>
+
+
+
+<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
+
+    </div>
+    <div class="post-item post-summary markdown-body">
+        Contemporary notions of privacy are complex and it is common to hear commentators calling the current state of privacy, or lack thereof, unprecedented. I would challenge the notion of an unprecedented violations of privacy on the basis of historical relativity. In absolute terms there is little question that the world we live in challenges any notions of privacy that have ever existed. However in relative terms, from a certain level of privacy to another, the rise of newspapers and the telegraph are interesting to compare to the modern era.
+    </div>
+</div>
+<div class="pagination"><div class="pag-first">
+    <a href="/categories/investing/"><i class="iconfont icon-caret-back-circle-sharp"></i></a>
+  </div><div class="pag-previous">
+    <a href="/categories/investing/page/2/"><i class="iconfont icon-chevron-back-circle-sharp"></i></a>
+  </div><div class="pag-item">
+    <a href="/categories/investing/">1</a>
+  </div><div class="pag-item">
+    <a href="/categories/investing/page/2/">2</a>
+  </div><div class="pag-item pag-current">
+    <a href="/categories/investing/page/3/">3</a>
+  </div><div class="pag-item">
+    <a href="/categories/investing/page/4/">4</a>
+  </div><div class="pag-next">
+    <a href="/categories/investing/page/4/"><i class="iconfont icon-chevron-forward-circle-sharp"></i></a>
+  </div><div class="pag-last">
+    <a href="/categories/investing/page/4/"><i class="iconfont icon-caret-forward-circle-sharp"></i></a>
+  </div></div>
+            </div>
+            <aside class="col-12 col-md-3 float-left sidebar">
+    
+    <div class="sidebar-item sidebar-pages">
+        <h3>Pages</h3>
+        <ul>
+            
+            <li>
+                <a href="/">Home</a>
+            </li>
+            
+            <li>
+                <a href="/about/">About</a>
+            </li>
+            
+            <li>
+                <a href="/products/">Products &amp; Projects</a>
+            </li>
+            
+            <li>
+                <a href="/posts/">Posts</a>
+            </li>
+            
+            <li>
+                <a href="/categories/">Categories</a>
+            </li>
+            
+            <li>
+                <a href="/quotes/">Quotes</a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-links">
+        <h3>Links</h3>
+        <ul>
+            
+            <li>
+                <a href="" target="_blank"><span>GitHub</span></a>
+            </li>
+            
+            <li>
+                <a href="https://www.linkedin.com/in/wachambers/" target="_blank"><span>LinkedIn</span></a>
+            </li>
+            
+            <li>
+                <a href="https://twitter.com/bllchmbrs" target="_blank"><span>Twitter</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags">
+        <h3>Tags</h3>
+        <div>
+            
+            <span>
+                <a href="/tags/privacy/">privacy</a>
+            </span>
+            
+        </div>
+    </div>
+    
+    
+    
+</aside>
+
+        </div>
+        <div class="btn">
+    <div class="btn-menu" id="btn-menu">
+        <i class="iconfont icon-grid-sharp"></i>
+    </div>
+    <div class="btn-toggle-mode">
+        <i class="iconfont icon-contrast-sharp"></i>
+    </div>
+    <div class="btn-scroll-top">
+        <i class="iconfont icon-chevron-up-circle-sharp"></i>
+    </div>
+</div>
+<aside class="sidebar-mobile" style="display: none;">
+  <div class="sidebar-wrapper">
+    
+    <div class="sidebar-item sidebar-pages">
+        <h3>Pages</h3>
+        <ul>
+            
+            <li>
+                <a href="/">Home</a>
+            </li>
+            
+            <li>
+                <a href="/about/">About</a>
+            </li>
+            
+            <li>
+                <a href="/products/">Products &amp; Projects</a>
+            </li>
+            
+            <li>
+                <a href="/posts/">Posts</a>
+            </li>
+            
+            <li>
+                <a href="/categories/">Categories</a>
+            </li>
+            
+            <li>
+                <a href="/quotes/">Quotes</a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-links">
+        <h3>Links</h3>
+        <ul>
+            
+            <li>
+                <a href="" target="_blank"><span>GitHub</span></a>
+            </li>
+            
+            <li>
+                <a href="https://www.linkedin.com/in/wachambers/" target="_blank"><span>LinkedIn</span></a>
+            </li>
+            
+            <li>
+                <a href="https://twitter.com/bllchmbrs" target="_blank"><span>Twitter</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags">
+        <h3>Tags</h3>
+        <div>
+            
+            <span>
+                <a href="/tags/privacy/">privacy</a>
+            </span>
+            
+        </div>
+    </div>
+    
+    
+  </div>
+</aside>
+    </main>
+
+    <footer>
+    <div class="container-lg clearfix">
+        <div class="col-12 footer">
+            
+            <span>&copy; 2023
+                <a href="http://billchambers.me">Bill Chambers</a>
+                
+                | Powered by <a href="https://github.com/dsrkafuu/hugo-theme-fuji/"
+                   target="_blank">Fuji-v2</a> &amp; <a href="https://gohugo.io/"
+                                                    target="_blank">Hugo</a> 
+            </span>
+        </div>
+    </div>
+</footer>
+
+    
+<script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js" integrity="sha512-N9IJRoc3LaP3NDoiGkcPa4gG94kapGpaA5Zq9/Dr04uf5TbLFU5q0o8AbRhLKUUlp8QFS2u7S+Yti0U7QtuZvQ==" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js" integrity="sha512-q583ppKrCRc7N5O0n2nzUiJ+suUv7Et1JGels4bXOaMFQcamPk9HjdUknZuuFjBNs7tsMuadge5k9RzdmO+1GQ==" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.27.0/components/prism-core.min.js" integrity="sha512-LCKPTo0gtJ74zCNMbWw04ltmujpzSR4oW+fgN+Y1YclhM5ZrHCZQAJE4quEodcI/G122sRhSGU2BsSRUZ2Gu3w==" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.27.0/plugins/autoloader/prism-autoloader.min.js" integrity="sha512-GP4x8UWxWyh4BMbyJGOGneiTbkrWEF5izsVJByzVLodP8CuJH/n936+yQDMJJrOPUHLgyPbLiGw2rXmdvGdXHA==" crossorigin="anonymous"></script>
+
+
+
+<script defer src="/assets/js/fuji.min.645f1123be695831f419ab54c1bcba327325895c740014006e57070d4f3e5d6b553e929c4b46f40ea707249e9c7f7c2a446d32a39ce7319f80a34525586a8e0f.js" integrity="sha512-ZF8RI75pWDH0GatUwby6MnMliVx0ABQAblcHDU8&#43;XWtVPpKcS0b0DqcHJJ6cf3wqRG0yo5znMZ&#43;Ao0UlWGqODw=="></script>
+
+
+
+</body>
+
+</html>

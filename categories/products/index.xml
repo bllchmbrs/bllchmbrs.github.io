@@ -1,32 +1,39 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>products - Category - My Writings - Bill Chambers</title>
-        <link>http://billchambers.me/categories/products/</link>
-        <description>products - Category - My Writings - Bill Chambers</description>
-        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Tue, 18 Jul 2023 00:00:00 &#43;0000</lastBuildDate><atom:link href="http://billchambers.me/categories/products/" rel="self" type="application/rss+xml" /><item>
-    <title>Realestatecopywriter.io - AI Powered Real Estate Copywriting</title>
-    <link>http://billchambers.me/posts/realestatecopywriter/</link>
-    <pubDate>Tue, 18 Jul 2023 00:00:00 &#43;0000</pubDate>
-    <author>Bill Chambers</author>
-    <guid>http://billchambers.me/posts/realestatecopywriter/</guid>
-    <description><![CDATA[Penni AI Penni-AI is a Real Estate Copywriting Service, Powered by AI. See more on the website.]]></description>
-</item>
-<item>
-    <title>All Products Built by Bill</title>
-    <link>http://billchambers.me/products/</link>
-    <pubDate>Thu, 06 Jul 2023 00:00:00 &#43;0000</pubDate>
-    <author>Bill Chambers</author>
-    <guid>http://billchambers.me/products/</guid>
-    <description><![CDATA[TenantFlow AI 2023-07 - Tenantflowai.com is an AI-based Leasing Agent for Residential Property Managers.
-Penni AI 2023-07 - Penni-AI is a Real Estate Copywriting Service, Powered by AI.]]></description>
-</item>
-<item>
-    <title>TenantFlow AI - AI Powered Leasing Agent for Residential Property Managers</title>
-    <link>http://billchambers.me/posts/tenantflow-ai/</link>
-    <pubDate>Thu, 06 Jul 2023 00:00:00 &#43;0000</pubDate>
-    <author>Bill Chambers</author>
-    <guid>http://billchambers.me/posts/tenantflow-ai/</guid>
-    <description><![CDATA[TenantFlow AI 2023-07 - Tenantflowai.com is an AI-based Leasing Agent for Residential Property Managers.]]></description>
-</item>
-</channel>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>products on My Writings - Bill Chambers</title>
+    <link>http://billchambers.me/categories/products/</link>
+    <description>Recent content in products on My Writings - Bill Chambers</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 18 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="http://billchambers.me/categories/products/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Realestatecopywriter.io - AI Powered Real Estate Copywriting</title>
+      <link>http://billchambers.me/posts/realestatecopywriter/</link>
+      <pubDate>Tue, 18 Jul 2023 00:00:00 +0000</pubDate>
+      
+      <guid>http://billchambers.me/posts/realestatecopywriter/</guid>
+      <description>Penni AI Penni-AI is a Real Estate Copywriting Service, Powered by AI. See more on the website.</description>
+    </item>
+    
+    <item>
+      <title>All Products Built by Bill</title>
+      <link>http://billchambers.me/products/</link>
+      <pubDate>Thu, 06 Jul 2023 00:00:00 +0000</pubDate>
+      
+      <guid>http://billchambers.me/products/</guid>
+      <description>TenantFlow AI 2023-07 - Tenantflowai.com is an AI-based Leasing Agent for Residential Property Managers.
+Penni AI 2023-07 - Penni-AI is a Real Estate Copywriting Service, Powered by AI.</description>
+    </item>
+    
+    <item>
+      <title>TenantFlow AI - AI Powered Leasing Agent for Residential Property Managers</title>
+      <link>http://billchambers.me/posts/tenantflow-ai/</link>
+      <pubDate>Thu, 06 Jul 2023 00:00:00 +0000</pubDate>
+      
+      <guid>http://billchambers.me/posts/tenantflow-ai/</guid>
+      <description>TenantFlow AI 2023-07 - Tenantflowai.com is an AI-based Leasing Agent for Residential Property Managers.</description>
+    </item>
+    
+  </channel>
 </rss>

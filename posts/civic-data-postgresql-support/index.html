@@ -1,102 +1,121 @@
 <!DOCTYPE html>
-<html lang="en-us">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <title>Deploying PostgreSQL for the California Civic Data Coalition&#39;s Django Project - My Writings - Bill Chambers</title><meta name="Description" content="something"><meta property="og:title" content="Deploying PostgreSQL for the California Civic Data Coalition&#39;s Django Project" />
-<meta property="og:description" content="First, I&rsquo;d like to introduce the California Civic Data Coalition. They are self described as a loosely coupled team from the Los Angeles Times Data Desk, The Center for Investigative Reporting and Stanford&rsquo;s Computational Journalism Lab.
-I am not a part of the Los Angeles Times nor Stanford&rsquo;s computation Journalism Lab. However I am passionate about open data and leveraging my skills to help others. So I decided to start contributing." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="http://billchambers.me/posts/civic-data-postgresql-support/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2014-11-25T00:00:00+00:00" />
-<meta property="article:modified_time" content="2014-11-25T00:00:00+00:00" /><meta property="og:site_name" content="Writings and Musings of Bill Chambers" />
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Deploying PostgreSQL for the California Civic Data Coalition&#39;s Django Project"/>
-<meta name="twitter:description" content="First, I&rsquo;d like to introduce the California Civic Data Coalition. They are self described as a loosely coupled team from the Los Angeles Times Data Desk, The Center for Investigative Reporting and Stanford&rsquo;s Computational Journalism Lab.
-I am not a part of the Los Angeles Times nor Stanford&rsquo;s computation Journalism Lab. However I am passionate about open data and leveraging my skills to help others. So I decided to start contributing."/>
-<meta name="application-name" content="My cooldsfasdfsad site">
-<meta name="apple-mobile-web-app-title" content="My cooldsfasdfsad site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://billchambers.me/posts/civic-data-postgresql-support/" /><link rel="prev" href="http://billchambers.me/posts/introduction-to-static-site-generators/" /><link rel="next" href="http://billchambers.me/posts/the-future-of-privacy/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "BlogPosting",
-        "headline": "Deploying PostgreSQL for the California Civic Data Coalition's Django Project",
-        "inLanguage": "en-us",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "http:\/\/billchambers.me\/posts\/civic-data-postgresql-support\/"
-        },"genre": "posts","wordcount":  1348 ,
-        "url": "http:\/\/billchambers.me\/posts\/civic-data-postgresql-support\/","datePublished": "2014-11-25T00:00:00+00:00","dateModified": "2014-11-25T00:00:00+00:00","publisher": {
-            "@type": "Organization",
-            "name": ""},"author": {
-                "@type": "Person",
-                "name": "Bill Chambers"
-            },"description": ""
-    }
-    </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+<html lang="en">
 
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
-    <div class="header-wrapper">
-        <div class="header-title">
-            <a href="/" title="My Writings - Bill Chambers">Writings and Musings of Bill Chambers</a>
-        </div>
-        <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/" title="My Writings - Bill Chambers"> Home </a><a class="menu-item" href="/about/"> About </a><a class="menu-item" href="/products/" title="All Products Built by Bill"> Products </a><a class="menu-item active" href="/posts/" title="Posts"> Posts </a><a class="menu-item" href="/categories/" title="Categories"> Categories </a><a class="menu-item" href="/quotes/"> Quotes </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
-                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-                </a></div>
+<head>
+    
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="HandheldFriendly" content="True" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="generator" content="Hugo 0.112.3">
+
+
+<link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/dsrkafuu/dsr-cdn-main@1/images/favicons/dsrca.ico" />
+
+
+
+<title>Deploying PostgreSQL for the California Civic Data Coalition&#39;s Django Project - My Writings - Bill Chambers</title>
+
+
+<meta name="author" content="Bill Chambers" />
+
+
+<meta name="description" content="something" />
+
+
+
+<meta property="og:title" content="Deploying PostgreSQL for the California Civic Data Coalition&#39;s Django Project" />
+<meta name="twitter:title" content="Deploying PostgreSQL for the California Civic Data Coalition&#39;s Django Project" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://billchambers.me/posts/civic-data-postgresql-support/" /><meta property="og:description" content="First, I&rsquo;d like to introduce the California Civic Data Coalition. They are self described as a loosely coupled team from the Los Angeles Times Data Desk, The Center for Investigative Reporting and Stanford&rsquo;s Computational Journalism Lab.
+I am not a part of the Los Angeles Times nor Stanford&rsquo;s computation Journalism Lab. However I am passionate about open data and leveraging my skills to help others. So I decided to start contributing." />
+<meta name="twitter:description" content="First, I&rsquo;d like to introduce the California Civic Data Coalition. They are self described as a loosely coupled team from the Los Angeles Times Data Desk, The Center for Investigative Reporting and Stanford&rsquo;s Computational Journalism Lab.
+I am not a part of the Los Angeles Times nor Stanford&rsquo;s computation Journalism Lab. However I am passionate about open data and leveraging my skills to help others. So I decided to start contributing." /><meta name="twitter:card" content="summary" /><meta property="article:published_time" content="2014-11-25T00:00:00+00:00" /><meta property="article:modified_time" content="2014-11-25T00:00:00+00:00" />
+
+
+<style>
+    @media (prefers-color-scheme: dark) {
+        body[data-theme='auto'] img {
+            filter: brightness(60%);
+        }
+    }
+
+    body[data-theme='dark'] img {
+        filter: brightness(60%);
+    }
+</style>
+
+
+
+
+<link rel="stylesheet" href="http://billchambers.me/assets/css/fuji.min.b4a21b5d3eb1d0a51297e31230a65fc25e387843e45ec3a2d9176cd8d163c216d99b9b13a618b28f537c3b559ec8a408183b0fbfad48daddb9befa7d3ef90eed.css" integrity="sha512-tKIbXT6x0KUSl&#43;MSMKZfwl44eEPkXsOi2Rds2NFjwhbZm5sTphiyj1N8O1WeyKQIGDsPv61I2t25vvp9PvkO7Q==" />
+
+
+
+
+
+
+
+
+</head>
+
+<body
+  data-theme="auto"
+  data-theme-auto='false'
+  >
+    <script data-cfasync="false">
+  
+  var fujiThemeData = localStorage.getItem('fuji_data-theme');
+  
+  if (!fujiThemeData) {
+    localStorage.setItem('fuji_data-theme', 'auto');
+  } else {
+    
+    if (fujiThemeData !== 'auto') {
+      document.body.setAttribute('data-theme', fujiThemeData === 'dark' ? 'dark' : 'light');
+    }
+  }
+</script>
+
+    <header>
+    <div class="container-lg clearfix">
+        <div class="col-12 header">
+            <a class="title-main" href="http://billchambers.me">My Writings - Bill Chambers</a>
+            
         </div>
     </div>
-</header><header class="mobile" id="header-mobile">
-    <div class="header-container">
-        <div class="header-wrapper">
-            <div class="header-title">
-                <a href="/" title="My Writings - Bill Chambers">Writings and Musings of Bill Chambers</a>
-            </div>
-            <div class="menu-toggle" id="menu-toggle-mobile">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
-        <div class="menu" id="menu-mobile"><a class="menu-item" href="/" title="My Writings - Bill Chambers">Home</a><a class="menu-item" href="/about/" title="">About</a><a class="menu-item" href="/products/" title="All Products Built by Bill">Products</a><a class="menu-item" href="/posts/" title="Posts">Posts</a><a class="menu-item" href="/categories/" title="Categories">Categories</a><a class="menu-item" href="/quotes/" title="">Quotes</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
-                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-            </a></div>
+</header>
+
+    <main>
+        <div class="container-lg clearfix">
+            
+            <div class="col-12 col-md-9 float-left content">
+                
+<article>
+    
+    <h2 class="post-item post-title">
+        <a href="http://billchambers.me/posts/civic-data-postgresql-support/">Deploying PostgreSQL for the California Civic Data Coalition&#39;s Django Project</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2014-11-25</span>
+
+
+
+<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
+
     </div>
-</header><main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">Contents</h2>
-            <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Deploying PostgreSQL for the California Civic Data Coalition's Django Project</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Bill Chambers</a></span>&nbsp;<span class="post-category">included in <a href="/categories/projects/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>projects</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2014-11-25">2014-11-25</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1348 words&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;7 minutes&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  data-kept="">
-                <div class="details-summary toc-title">
-                    <span>Contents</span>
-                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
-                </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#first-attempt-clean-before-insert">First Attempt: Clean before Insert</a></li>
-        <li><a href="#second-attempt-a-temporary-table">Second Attempt: A Temporary Table</a></li>
-        <li><a href="#conclusions">Conclusions</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav></div>
-            </div><div class="content" id="content"><p>First, I&rsquo;d like to introduce the <a href="http://www.californiacivicdata.org/" target="_blank" rel="noopener noreffer ">California Civic Data Coalition</a>. They are self described as a loosely coupled team from the Los Angeles Times Data Desk, The Center for Investigative Reporting and Stanford&rsquo;s Computational Journalism Lab.</p>
+    
+    <div class="post-content markdown-body">
+        <p>First, I&rsquo;d like to introduce the <a href="http://www.californiacivicdata.org/" target="_blank">California Civic Data Coalition</a>. They are self described as a loosely coupled team from the Los Angeles Times Data Desk, The Center for Investigative Reporting and Stanford&rsquo;s Computational Journalism Lab.</p>
 <p>I am not a part of the Los Angeles Times nor Stanford&rsquo;s computation Journalism Lab. However <strong>I am passionate about open data and leveraging my skills to help others.</strong> So I decided to start contributing. I started off with a rather small change then decided to sink my teeth into PostgreSQL support.</p>
 <p>As a final thought I would encourage anyone and everyone to contribute to open data projects. I learned a lot setting up this feature and there is a lot of room for further contributions.</p>
 <p>The aim of this document is to be a reference for others that may be challenged by similar feature development. I&rsquo;ll be covering some of the minute differences between MySQL and PostgreSQL and how I managed those differences. The project is written in Python and Django and started with only MySQL support.</p>
-<p>Typically <a href="https://www.djangoproject.com/" target="_blank" rel="noopener noreffer ">Django</a> has a pretty strong background for supporting multiple databases so I figured that supporting one or another would be trivial, especially coming from MySQL. I was wrong.</p>
-<p>What you&rsquo;ll find below is a fairly detailed log of the changes that I made and why I wrote the code that I wrote. <a href="https://github.com/california-civic-data-coalition/django-calaccess-raw-data/blob/master/calaccess_raw/management/commands/loadcalaccessrawfile.py" target="_blank" rel="noopener noreffer ">Feel free to take a look at the code.</a></p>
+<p>Typically <a href="https://www.djangoproject.com/" target="_blank">Django</a> has a pretty strong background for supporting multiple databases so I figured that supporting one or another would be trivial, especially coming from MySQL. I was wrong.</p>
+<p>What you&rsquo;ll find below is a fairly detailed log of the changes that I made and why I wrote the code that I wrote. <a href="https://github.com/california-civic-data-coalition/django-calaccess-raw-data/blob/master/calaccess_raw/management/commands/loadcalaccessrawfile.py" target="_blank">Feel free to take a look at the code.</a></p>
 <hr>
-<p>We load our data using some fairly sophisticated Django management commands. Using MySQL&rsquo;s <a href="http://dev.mysql.com/doc/refman/5.1/en/load-data.html" target="_blank" rel="noopener noreffer "><code>INFILE</code></a> support we bulk insert each file (while rearranging, cleaning, and renaming columns on the fly). Now PostgreSQL doesn&rsquo;t support <code>INFILE</code> loading but they&rsquo;ve got a derivative: <a href="http://www.postgresql.org/docs/9.2/static/sql-copy.html" target="_blank" rel="noopener noreffer "><code>COPY</code></a>.</p>
+<p>We load our data using some fairly sophisticated Django management commands. Using MySQL&rsquo;s <a href="http://dev.mysql.com/doc/refman/5.1/en/load-data.html" target="_blank"><code>INFILE</code></a> support we bulk insert each file (while rearranging, cleaning, and renaming columns on the fly). Now PostgreSQL doesn&rsquo;t support <code>INFILE</code> loading but they&rsquo;ve got a derivative: <a href="http://www.postgresql.org/docs/9.2/static/sql-copy.html" target="_blank"><code>COPY</code></a>.</p>
 <p>Here&rsquo;s an example of a MySQL LOAD DATA INFO command.</p>
 <pre tabindex="0"><code>LOAD DATA LOCAL INFILE &#39;&lt;file name&gt;&#39; INTO TABLE &lt;table&gt;
 (@var1)
@@ -109,12 +128,12 @@ WindNorth=SUBSTR(@var1,43,6),
 WindEast=SUBSTR(@var1,51,6),
 WindSamples=SUBSTR(@var1,61,4);
 </code></pre><p>It&rsquo;s important to note all the <code>@var</code> fanciness. That&rsquo;s what makes this so easy(ish).</p>
-<p>The problem is that <code>COPY</code> in Postgres, from my interpretation, is meant for unloading to a text file then loading it back in without really performing any modifications. It doesn&rsquo;t have any of the dexterity shown above. Here&rsquo;s an example of a <a href="http://www.postgresql.org/docs/9.2/static/sql-copy.html" target="_blank" rel="noopener noreffer "><code>COPY</code></a> command.</p>
+<p>The problem is that <code>COPY</code> in Postgres, from my interpretation, is meant for unloading to a text file then loading it back in without really performing any modifications. It doesn&rsquo;t have any of the dexterity shown above. Here&rsquo;s an example of a <a href="http://www.postgresql.org/docs/9.2/static/sql-copy.html" target="_blank"><code>COPY</code></a> command.</p>
 <pre tabindex="0"><code>COPY country FROM &#39;/usr1/proj/bray/sql/country\_data&#39;;
 </code></pre><p>Obviously, we&rsquo;re not just unloading data and loading it back in. We are transforming dates and substrings, not to mention we are moving data from a completely different system into Postgres. That&rsquo;s where things get tricky. I can&rsquo;t format data on the fly and renaming columns isn&rsquo;t going to work with the support <code>COPY</code> has. I don&rsquo;t have nearly as many tools as MySQL does.</p>
 <h3 id="first-attempt-clean-before-insert">First Attempt: Clean before Insert</h3>
 <hr>
-<p>So I figured I could write some little <a href="https://www.python.org/" target="_blank" rel="noopener noreffer ">python</a> script to clean the the data before inputting it. The problem is some of the files are huge (&gt; 1gb) so I could not do it with anything resembling speed. This attempt failed miserably, it was just too slow.</p>
+<p>So I figured I could write some little <a href="https://www.python.org/" target="_blank">python</a> script to clean the the data before inputting it. The problem is some of the files are huge (&gt; 1gb) so I could not do it with anything resembling speed. This attempt failed miserably, it was just too slow.</p>
 <h3 id="second-attempt-a-temporary-table">Second Attempt: A Temporary Table</h3>
 <hr>
 <p>Here&rsquo;s the process from a 10,000 foot view.</p>
@@ -172,7 +191,7 @@ WindSamples=SUBSTR(@var1,61,4);
 FROM temporary\_table;
 </code></pre><p>Now <code>SELECT &quot;&quot;</code> obviously isn&rsquo;t going to work. What was happening is that the columns in that model were getting modified with the case statements. We have to add a dummy column to the temporary table and the new table, then remove it after the successful or unsuccessful insert.</p>
 <p>When I got to this stage, I started getting some strange errors. MySQL using <code>LOAD DATA</code> seems to automatically truncate fields if they are too long. This made things complicated for me because PostgreSQL does no such thing with <code>COPY</code>. I had to find which fields were causing the issues and resolve them.</p>
-<p>When I would <code>grep</code> certain files I&rsquo;d see that there were plenty of fields causing issues. This is a great example (more can be seen in the <a href="https://github.com/california-civic-data-coalition/django-calaccess-raw-data/issues/68" target="_blank" rel="noopener noreffer ">Github issue</a>.</p>
+<p>When I would <code>grep</code> certain files I&rsquo;d see that there were plenty of fields causing issues. This is a great example (more can be seen in the <a href="https://github.com/california-civic-data-coalition/django-calaccess-raw-data/issues/68" target="_blank">Github issue</a>.</p>
 <p>The python code:</p>
 <pre tabindex="0"><code>class FilernameCd(CalAccessBaseModel):
     DATE\_FIELDS = (&#39;EFFECT\_DT&#39;,)
@@ -221,51 +240,200 @@ $ grep &#34;01/0&#34; cvr_registration_cd.csv
 <hr>
 <p>All this logic took a serious amount of time to be able to complete in an appropriate way. Handling these edge cases is an important thing to do and when you&rsquo;re doing it in a system that will be used by a lot of others you have to be confident in what you&rsquo;re doing.</p>
 <p>I hope others come and contribute to this project, it&rsquo;s been really rewarding to work on.</p>
-</div><div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>Updated on 2014-11-25</span>
-            </div></div>
-        <div class="post-info-line">
-            <div class="post-info-md"></div>
-            <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://billchambers.me/posts/civic-data-postgresql-support/" data-title="Deploying PostgreSQL for the California Civic Data Coalition&#39;s Django Project" data-via="bllchmbrs"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://billchambers.me/posts/civic-data-postgresql-support/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://billchambers.me/posts/civic-data-postgresql-support/" data-title="Deploying PostgreSQL for the California Civic Data Coalition&#39;s Django Project"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://billchambers.me/posts/civic-data-postgresql-support/" data-title="Deploying PostgreSQL for the California Civic Data Coalition&#39;s Django Project"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://billchambers.me/posts/civic-data-postgresql-support/" data-title="Deploying PostgreSQL for the California Civic Data Coalition&#39;s Django Project"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+
+    </div>
+</article>
+
+
+
+
             </div>
+            <aside class="col-12 col-md-3 float-left sidebar">
+    
+    <div class="sidebar-item sidebar-pages">
+        <h3>Pages</h3>
+        <ul>
+            
+            <li>
+                <a href="/">Home</a>
+            </li>
+            
+            <li>
+                <a href="/about/">About</a>
+            </li>
+            
+            <li>
+                <a href="/products/">Products &amp; Projects</a>
+            </li>
+            
+            <li>
+                <a href="/posts/">Posts</a>
+            </li>
+            
+            <li>
+                <a href="/categories/">Categories</a>
+            </li>
+            
+            <li>
+                <a href="/quotes/">Quotes</a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-links">
+        <h3>Links</h3>
+        <ul>
+            
+            <li>
+                <a href="" target="_blank"><span>GitHub</span></a>
+            </li>
+            
+            <li>
+                <a href="https://www.linkedin.com/in/wachambers/" target="_blank"><span>LinkedIn</span></a>
+            </li>
+            
+            <li>
+                <a href="https://twitter.com/bllchmbrs" target="_blank"><span>Twitter</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags">
+        <h3>Tags</h3>
+        <div>
+            
+            <span>
+                <a href="/tags/privacy/">privacy</a>
+            </span>
+            
         </div>
     </div>
+    <div class="sidebar-item sidebar-toc">
+        <h3>Table of Contents</h3><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#first-attempt-clean-before-insert">First Attempt: Clean before Insert</a></li>
+        <li><a href="#second-attempt-a-temporary-table">Second Attempt: A Temporary Table</a></li>
+        <li><a href="#conclusions">Conclusions</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+</aside>
 
-    <div class="post-info-more">
-        <section class="post-tags"></section>
-        <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
-        </section>
+        </div>
+        <div class="btn">
+    <div class="btn-menu" id="btn-menu">
+        <i class="iconfont icon-grid-sharp"></i>
     </div>
-
-    <div class="post-nav"><a href="/posts/introduction-to-static-site-generators/" class="prev" rel="prev" title="A Gentle Introduction to Static Site Generators"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>A Gentle Introduction to Static Site Generators</a>
-            <a href="/posts/the-future-of-privacy/" class="next" rel="next" title="The Future of Privacy">The Future of Privacy<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+    <div class="btn-toggle-mode">
+        <i class="iconfont icon-contrast-sharp"></i>
+    </div>
+    <div class="btn-scroll-top">
+        <i class="iconfont icon-chevron-up-circle-sharp"></i>
+    </div>
 </div>
-</article></div>
-            </main><footer class="footer">
-    <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><i> Bill Chambers </i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a
-                    href="/" target="_blank"></a></span></div>
+<aside class="sidebar-mobile" style="display: none;">
+  <div class="sidebar-wrapper">
+    
+    <div class="sidebar-item sidebar-pages">
+        <h3>Pages</h3>
+        <ul>
+            
+            <li>
+                <a href="/">Home</a>
+            </li>
+            
+            <li>
+                <a href="/about/">About</a>
+            </li>
+            
+            <li>
+                <a href="/products/">Products &amp; Projects</a>
+            </li>
+            
+            <li>
+                <a href="/posts/">Posts</a>
+            </li>
+            
+            <li>
+                <a href="/categories/">Categories</a>
+            </li>
+            
+            <li>
+                <a href="/quotes/">Quotes</a>
+            </li>
+            
+        </ul>
     </div>
+    
+    <div class="sidebar-item sidebar-links">
+        <h3>Links</h3>
+        <ul>
+            
+            <li>
+                <a href="" target="_blank"><span>GitHub</span></a>
+            </li>
+            
+            <li>
+                <a href="https://www.linkedin.com/in/wachambers/" target="_blank"><span>LinkedIn</span></a>
+            </li>
+            
+            <li>
+                <a href="https://twitter.com/bllchmbrs" target="_blank"><span>Twitter</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags">
+        <h3>Tags</h3>
+        <div>
+            
+            <span>
+                <a href="/tags/privacy/">privacy</a>
+            </span>
+            
+        </div>
+    </div>
+    
+    
+    
+    
+  </div>
+</aside>
+    </main>
+
+    <footer>
+    <div class="container-lg clearfix">
+        <div class="col-12 footer">
+            
+            <span>&copy; 2023
+                <a href="http://billchambers.me">Bill Chambers</a>
+                
+                | Powered by <a href="https://github.com/dsrkafuu/hugo-theme-fuji/"
+                   target="_blank">Fuji-v2</a> &amp; <a href="https://gohugo.io/"
+                                                    target="_blank">Hugo</a> 
+            </span>
+        </div>
+    </div>
+</footer>
 
     
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R2MMVCLTJ9"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
+<script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js" integrity="sha512-N9IJRoc3LaP3NDoiGkcPa4gG94kapGpaA5Zq9/Dr04uf5TbLFU5q0o8AbRhLKUUlp8QFS2u7S+Yti0U7QtuZvQ==" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js" integrity="sha512-q583ppKrCRc7N5O0n2nzUiJ+suUv7Et1JGels4bXOaMFQcamPk9HjdUknZuuFjBNs7tsMuadge5k9RzdmO+1GQ==" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.27.0/components/prism-core.min.js" integrity="sha512-LCKPTo0gtJ74zCNMbWw04ltmujpzSR4oW+fgN+Y1YclhM5ZrHCZQAJE4quEodcI/G122sRhSGU2BsSRUZ2Gu3w==" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.27.0/plugins/autoloader/prism-autoloader.min.js" integrity="sha512-GP4x8UWxWyh4BMbyJGOGneiTbkrWEF5izsVJByzVLodP8CuJH/n936+yQDMJJrOPUHLgyPbLiGw2rXmdvGdXHA==" crossorigin="anonymous"></script>
 
-        gtag('config', 'G-R2MMVCLTJ9');
-    </script>
-</footer></div>
 
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
-                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
-                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
-            </a>
-        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+
+<script defer src="/assets/js/fuji.min.645f1123be695831f419ab54c1bcba327325895c740014006e57070d4f3e5d6b553e929c4b46f40ea707249e9c7f7c2a446d32a39ce7319f80a34525586a8e0f.js" integrity="sha512-ZF8RI75pWDH0GatUwby6MnMliVx0ABQAblcHDU8&#43;XWtVPpKcS0b0DqcHJJ6cf3wqRG0yo5znMZ&#43;Ao0UlWGqODw=="></script>
+
+
+
+</body>
+
 </html>

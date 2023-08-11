@@ -1,99 +1,116 @@
 <!DOCTYPE html>
-<html lang="en-us">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <title>A Gentle Introduction to Static Site Generators - My Writings - Bill Chambers</title><meta name="Description" content="something"><meta property="og:title" content="A Gentle Introduction to Static Site Generators" />
-<meta property="og:description" content="This document will be a simple introduction to static site generators. We&rsquo;ll go over the basics of what they are, why you should use them, which one you should use and finally how to get started.
-The intended audiences for this tutorial are designers or novice developers with little to no programming experience but with some HTML/CSS skill, simple command line experience. This document was originally written for a presentation I did for a portfolio class at the UC Berkeley School of Information." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="http://billchambers.me/posts/introduction-to-static-site-generators/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2014-11-11T00:00:00+00:00" />
-<meta property="article:modified_time" content="2014-11-11T00:00:00+00:00" /><meta property="og:site_name" content="Writings and Musings of Bill Chambers" />
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="A Gentle Introduction to Static Site Generators"/>
-<meta name="twitter:description" content="This document will be a simple introduction to static site generators. We&rsquo;ll go over the basics of what they are, why you should use them, which one you should use and finally how to get started.
-The intended audiences for this tutorial are designers or novice developers with little to no programming experience but with some HTML/CSS skill, simple command line experience. This document was originally written for a presentation I did for a portfolio class at the UC Berkeley School of Information."/>
-<meta name="application-name" content="My cooldsfasdfsad site">
-<meta name="apple-mobile-web-app-title" content="My cooldsfasdfsad site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://billchambers.me/posts/introduction-to-static-site-generators/" /><link rel="prev" href="http://billchambers.me/posts/datakind-sf-first-meetup/" /><link rel="next" href="http://billchambers.me/posts/civic-data-postgresql-support/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "BlogPosting",
-        "headline": "A Gentle Introduction to Static Site Generators",
-        "inLanguage": "en-us",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "http:\/\/billchambers.me\/posts\/introduction-to-static-site-generators\/"
-        },"genre": "posts","wordcount":  1209 ,
-        "url": "http:\/\/billchambers.me\/posts\/introduction-to-static-site-generators\/","datePublished": "2014-11-11T00:00:00+00:00","dateModified": "2014-11-11T00:00:00+00:00","publisher": {
-            "@type": "Organization",
-            "name": ""},"author": {
-                "@type": "Person",
-                "name": "Bill Chambers"
-            },"description": ""
-    }
-    </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+<html lang="en">
 
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
-    <div class="header-wrapper">
-        <div class="header-title">
-            <a href="/" title="My Writings - Bill Chambers">Writings and Musings of Bill Chambers</a>
-        </div>
-        <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/" title="My Writings - Bill Chambers"> Home </a><a class="menu-item" href="/about/"> About </a><a class="menu-item" href="/products/" title="All Products Built by Bill"> Products </a><a class="menu-item active" href="/posts/" title="Posts"> Posts </a><a class="menu-item" href="/categories/" title="Categories"> Categories </a><a class="menu-item" href="/quotes/"> Quotes </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
-                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-                </a></div>
+<head>
+    
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="HandheldFriendly" content="True" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="generator" content="Hugo 0.112.3">
+
+
+<link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/dsrkafuu/dsr-cdn-main@1/images/favicons/dsrca.ico" />
+
+
+
+<title>A Gentle Introduction to Static Site Generators - My Writings - Bill Chambers</title>
+
+
+<meta name="author" content="Bill Chambers" />
+
+
+<meta name="description" content="something" />
+
+
+
+<meta property="og:title" content="A Gentle Introduction to Static Site Generators" />
+<meta name="twitter:title" content="A Gentle Introduction to Static Site Generators" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://billchambers.me/posts/introduction-to-static-site-generators/" /><meta property="og:description" content="This document will be a simple introduction to static site generators. We&rsquo;ll go over the basics of what they are, why you should use them, which one you should use and finally how to get started.
+The intended audiences for this tutorial are designers or novice developers with little to no programming experience but with some HTML/CSS skill, simple command line experience. This document was originally written for a presentation I did for a portfolio class at the UC Berkeley School of Information." />
+<meta name="twitter:description" content="This document will be a simple introduction to static site generators. We&rsquo;ll go over the basics of what they are, why you should use them, which one you should use and finally how to get started.
+The intended audiences for this tutorial are designers or novice developers with little to no programming experience but with some HTML/CSS skill, simple command line experience. This document was originally written for a presentation I did for a portfolio class at the UC Berkeley School of Information." /><meta name="twitter:card" content="summary" /><meta property="article:published_time" content="2014-11-11T00:00:00+00:00" /><meta property="article:modified_time" content="2014-11-11T00:00:00+00:00" />
+
+
+<style>
+    @media (prefers-color-scheme: dark) {
+        body[data-theme='auto'] img {
+            filter: brightness(60%);
+        }
+    }
+
+    body[data-theme='dark'] img {
+        filter: brightness(60%);
+    }
+</style>
+
+
+
+
+<link rel="stylesheet" href="http://billchambers.me/assets/css/fuji.min.b4a21b5d3eb1d0a51297e31230a65fc25e387843e45ec3a2d9176cd8d163c216d99b9b13a618b28f537c3b559ec8a408183b0fbfad48daddb9befa7d3ef90eed.css" integrity="sha512-tKIbXT6x0KUSl&#43;MSMKZfwl44eEPkXsOi2Rds2NFjwhbZm5sTphiyj1N8O1WeyKQIGDsPv61I2t25vvp9PvkO7Q==" />
+
+
+
+
+
+
+
+
+</head>
+
+<body
+  data-theme="auto"
+  data-theme-auto='false'
+  >
+    <script data-cfasync="false">
+  
+  var fujiThemeData = localStorage.getItem('fuji_data-theme');
+  
+  if (!fujiThemeData) {
+    localStorage.setItem('fuji_data-theme', 'auto');
+  } else {
+    
+    if (fujiThemeData !== 'auto') {
+      document.body.setAttribute('data-theme', fujiThemeData === 'dark' ? 'dark' : 'light');
+    }
+  }
+</script>
+
+    <header>
+    <div class="container-lg clearfix">
+        <div class="col-12 header">
+            <a class="title-main" href="http://billchambers.me">My Writings - Bill Chambers</a>
+            
         </div>
     </div>
-</header><header class="mobile" id="header-mobile">
-    <div class="header-container">
-        <div class="header-wrapper">
-            <div class="header-title">
-                <a href="/" title="My Writings - Bill Chambers">Writings and Musings of Bill Chambers</a>
-            </div>
-            <div class="menu-toggle" id="menu-toggle-mobile">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
-        <div class="menu" id="menu-mobile"><a class="menu-item" href="/" title="My Writings - Bill Chambers">Home</a><a class="menu-item" href="/about/" title="">About</a><a class="menu-item" href="/products/" title="All Products Built by Bill">Products</a><a class="menu-item" href="/posts/" title="Posts">Posts</a><a class="menu-item" href="/categories/" title="Categories">Categories</a><a class="menu-item" href="/quotes/" title="">Quotes</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
-                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-            </a></div>
+</header>
+
+    <main>
+        <div class="container-lg clearfix">
+            
+            <div class="col-12 col-md-9 float-left content">
+                
+<article>
+    
+    <h2 class="post-item post-title">
+        <a href="http://billchambers.me/posts/introduction-to-static-site-generators/">A Gentle Introduction to Static Site Generators</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2014-11-11</span>
+
+
+
+<span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
+
     </div>
-</header><main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">Contents</h2>
-            <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">A Gentle Introduction to Static Site Generators</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Bill Chambers</a></span>&nbsp;<span class="post-category">included in <a href="/categories/tutorials/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>tutorials</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2014-11-11">2014-11-11</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1209 words&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;6 minutes&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  data-kept="">
-                <div class="details-summary toc-title">
-                    <span>Contents</span>
-                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
-                </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#what-is-a-static-site-generator">What is a static site generator?</a></li>
-        <li><a href="#what-problem-does-it-solve">What problem does it solve?</a></li>
-        <li><a href="#how-does-one-get-started">how does one get started?</a></li>
-        <li><a href="#changing-html">Changing HTML</a></li>
-      </ul>
-    </li>
-    <li><a href="#changing-css">Changing CSS</a></li>
-  </ul>
-</nav></div>
-            </div><div class="content" id="content"><p>This document will be a simple introduction to static site generators. We&rsquo;ll go over the basics of what they are, why you should use them, which one you should use and finally how to get started.</p>
-<p>The intended audiences for this tutorial are designers or novice developers with little to no programming experience but with some HTML/CSS skill, simple command line experience. This document was originally written for a presentation I did for a portfolio class at the UC Berkeley School of Information. <a href="https://docs.google.com/a/berkeley.edu/presentation/d/1vnIX6JzYBaHuWY914bSjlNvUoSg7-AB-LEJXM4NsCsI/edit?usp=sharing" target="_blank" rel="noopener noreffer ">You can see the presentation I made here</a></p>
-<p>I&rsquo;m using one on this website called <a href="http://docs.getpelican.com/en/3.5.0/" target="_blank" rel="noopener noreffer ">Pelican</a> but there are <a href="https://staticsitegenerators.net/" target="_blank" rel="noopener noreffer ">many different kinds</a>. Feel free to send me an email with any questions and I can recommend the best one for you.
+    
+    <div class="post-content markdown-body">
+        <p>This document will be a simple introduction to static site generators. We&rsquo;ll go over the basics of what they are, why you should use them, which one you should use and finally how to get started.</p>
+<p>The intended audiences for this tutorial are designers or novice developers with little to no programming experience but with some HTML/CSS skill, simple command line experience. This document was originally written for a presentation I did for a portfolio class at the UC Berkeley School of Information. <a href="https://docs.google.com/a/berkeley.edu/presentation/d/1vnIX6JzYBaHuWY914bSjlNvUoSg7-AB-LEJXM4NsCsI/edit?usp=sharing" target="_blank">You can see the presentation I made here</a></p>
+<p>I&rsquo;m using one on this website called <a href="http://docs.getpelican.com/en/3.5.0/" target="_blank">Pelican</a> but there are <a href="https://staticsitegenerators.net/" target="_blank">many different kinds</a>. Feel free to send me an email with any questions and I can recommend the best one for you.
 <em>When I wrote this tutorial I saw how much more enjoyable it was to use jekyll, so I made the switch myself.</em></p>
 <h3 id="what-is-a-static-site-generator">What is a static site generator?</h3>
 <hr>
@@ -101,7 +118,7 @@ The intended audiences for this tutorial are designers or novice developers with
 <h3 id="what-problem-does-it-solve">What problem does it solve?</h3>
 <hr>
 <p>You want a website or portfolio. You want to continue to add to it overtime and be able to make changes to my template and have those go to every single page of my website.</p>
-<p>If you just have raw html pages, changing details on every page is a nightmare. If you want to change something like the layout, I&rsquo;d have to copy and paste my content into every single one. You could use a web framework like Ruby on Rails or Django but then you have to deal with hosting and all the associated overhead and knowledge those things require. Additionally those require full fledged web servers (if you don&rsquo;t know what this is don&rsquo;t worry about it). You can <a href="https://pages.github.com/" target="_blank" rel="noopener noreffer ">serve static sites for free.</a></p>
+<p>If you just have raw html pages, changing details on every page is a nightmare. If you want to change something like the layout, I&rsquo;d have to copy and paste my content into every single one. You could use a web framework like Ruby on Rails or Django but then you have to deal with hosting and all the associated overhead and knowledge those things require. Additionally those require full fledged web servers (if you don&rsquo;t know what this is don&rsquo;t worry about it). You can <a href="https://pages.github.com/" target="_blank">serve static sites for free.</a></p>
 <p>Static site generators abstract the compilation of templates and source writing of documents. Instead of having that done on the server, it does it on your local machine and allows you to take that static site and put it elsewhere.</p>
 <p>In simplest terms it takes a template of structure and layout and inserts the content you write in other formats into that template.</p>
 <p>I think the working example is easiest to understand.</p>
@@ -125,7 +142,7 @@ mywebsite.com/articles/my_article_about_stuff.html
 </code></pre><h3 id="how-does-one-get-started">how does one get started?</h3>
 <hr>
 <p><strong>THIS TUTORIAL IS INTENDED FOR MAC USERS</strong></p>
-<p>Let&rsquo;s get started with <a href="http://jekyllrb.com/" target="_blank" rel="noopener noreffer ">Jekyll</a>. It&rsquo;s the most popular static site generator and is fairly friendly.</p>
+<p>Let&rsquo;s get started with <a href="http://jekyllrb.com/" target="_blank">Jekyll</a>. It&rsquo;s the most popular static site generator and is fairly friendly.</p>
 <p>You&rsquo;ll need two things for these next steps:</p>
 <ul>
 <li>Your Favorite Text Editor (sublime text, text edit, etc.)</li>
@@ -151,7 +168,7 @@ jekyll serve
 [2014-11-10 14:10:42] INFO  WEBrick 1.3.1
 [2014-11-10 14:10:42] INFO  ruby 2.0.0 (2013-06-27) [x86_64-darwin12.3.0]
 [2014-11-10 14:10:42] INFO  WEBrick::HTTPServer#start: pid=62126 port=4000
-</code></pre><p>Now go to <a href="http://localhost:4000/" target="_blank" rel="noopener noreffer ">http://localhost:4000/</a> and BOOM you&rsquo;ve got a website.</p>
+</code></pre><p>Now go to <a href="http://localhost:4000/" target="_blank">http://localhost:4000/</a> and BOOM you&rsquo;ve got a website.</p>
 <p>So let&rsquo;s dive into customizing the website a bit more.</p>
 <p>Take a look at the directory structure but it should be pretty self explanatory.</p>
 <p><strong>_layouts/</strong> is where you&rsquo;ve got the layouts. Typically you&rsquo;ll have a more navigation centric one then a more post centric one.</p>
@@ -177,7 +194,7 @@ title: Your New Jekyll Site
 </code></pre><p>Now remember, we making <em>your</em> website so we need to customize it for you!</p>
 <p>In your terminal hit <code>control + c</code> where you entered <code>jekyll serve</code>.</p>
 <p>This will turn off the server you started above.</p>
-<p>Now run <code>jekyll serve --watch</code>. What this allows us to do is make changes to our files and jekyll will see those changes and automatically compile our new website on <a href="http://localhost:4000/" target="_blank" rel="noopener noreffer ">http://localhost:4000/</a>.</p>
+<p>Now run <code>jekyll serve --watch</code>. What this allows us to do is make changes to our files and jekyll will see those changes and automatically compile our new website on <a href="http://localhost:4000/" target="_blank">http://localhost:4000/</a>.</p>
 <h3 id="changing-html">Changing HTML</h3>
 <hr>
 <p>Open up <strong>index.html</strong> in your text editor and let&rsquo;s make some changes.</p>
@@ -196,68 +213,219 @@ title: Bill&#39;s Fantastic Portfolio
     {% endfor %}
   &lt;/ul&gt;
 &lt;/div&gt;
-</code></pre><p>Now navigate to <a href="http://localhost:4000/" target="_blank" rel="noopener noreffer ">http://localhost:4000/</a> in your browser and refresh the page. You&rsquo;ll see the title is different now.</p>
+</code></pre><p>Now navigate to <a href="http://localhost:4000/" target="_blank">http://localhost:4000/</a> in your browser and refresh the page. You&rsquo;ll see the title is different now.</p>
 <h2 id="changing-css">Changing CSS</h2>
 <p>Now let&rsquo;s say I want every <code>&lt;h1&gt;</code> tag to be blue. That means changing some css, so I&rsquo;ll head over to <strong>main.css</strong>.</p>
 <p>and add one line at the end of the file</p>
 <pre tabindex="0"><code>h1 {
   color:blue;
 }
-</code></pre><p>Now go back to <a href="http://localhost:4000/" target="_blank" rel="noopener noreffer ">http://localhost:4000/</a> and you&rsquo;ll see that Portfolio on the page is now blue!</p>
+</code></pre><p>Now go back to <a href="http://localhost:4000/" target="_blank">http://localhost:4000/</a> and you&rsquo;ll see that Portfolio on the page is now blue!</p>
 <p>At this point you&rsquo;ve now learned basically everything you need to know to run your own static site. We learned how to:</p>
 <ul>
 <li>Change the home page by editing <strong>index.html</strong></li>
 <li>Change the styles in <strong>main.css</strong></li>
-<li>Add or edit your &ldquo;posts&rdquo; in <strong>_posts</strong> by creating <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank" rel="noopener noreffer ">markdown</a> files.</li>
-<li>To put this up on Github pages check out this <a href="https://help.github.com/articles/using-jekyll-with-pages/" target="_blank" rel="noopener noreffer ">tutorial</a>.</li>
+<li>Add or edit your &ldquo;posts&rdquo; in <strong>_posts</strong> by creating <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank">markdown</a> files.</li>
+<li>To put this up on Github pages check out this <a href="https://help.github.com/articles/using-jekyll-with-pages/" target="_blank">tutorial</a>.</li>
 </ul>
-<p><strong>Typically any questions you have will just be a Google away or <a href="http://jekyllrb.com/docs/usage/" target="_blank" rel="noopener noreffer ">Check out the jekyll site for great documentation.</a></strong></p>
+<p><strong>Typically any questions you have will just be a Google away or <a href="http://jekyllrb.com/docs/usage/" target="_blank">Check out the jekyll site for great documentation.</a></strong></p>
 <p><em>As a side note, when you&rsquo;re ready to finalize the version of the site that you want to run <code>jekyll build</code>. This will put the final version in your _site which you can send up to your static host (like Github Pages).</em></p>
-</div><div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>Updated on 2014-11-11</span>
-            </div></div>
-        <div class="post-info-line">
-            <div class="post-info-md"></div>
-            <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://billchambers.me/posts/introduction-to-static-site-generators/" data-title="A Gentle Introduction to Static Site Generators" data-via="bllchmbrs"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://billchambers.me/posts/introduction-to-static-site-generators/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://billchambers.me/posts/introduction-to-static-site-generators/" data-title="A Gentle Introduction to Static Site Generators"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://billchambers.me/posts/introduction-to-static-site-generators/" data-title="A Gentle Introduction to Static Site Generators"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://billchambers.me/posts/introduction-to-static-site-generators/" data-title="A Gentle Introduction to Static Site Generators"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+
+    </div>
+</article>
+
+
+
+
             </div>
+            <aside class="col-12 col-md-3 float-left sidebar">
+    
+    <div class="sidebar-item sidebar-pages">
+        <h3>Pages</h3>
+        <ul>
+            
+            <li>
+                <a href="/">Home</a>
+            </li>
+            
+            <li>
+                <a href="/about/">About</a>
+            </li>
+            
+            <li>
+                <a href="/products/">Products &amp; Projects</a>
+            </li>
+            
+            <li>
+                <a href="/posts/">Posts</a>
+            </li>
+            
+            <li>
+                <a href="/categories/">Categories</a>
+            </li>
+            
+            <li>
+                <a href="/quotes/">Quotes</a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-links">
+        <h3>Links</h3>
+        <ul>
+            
+            <li>
+                <a href="" target="_blank"><span>GitHub</span></a>
+            </li>
+            
+            <li>
+                <a href="https://www.linkedin.com/in/wachambers/" target="_blank"><span>LinkedIn</span></a>
+            </li>
+            
+            <li>
+                <a href="https://twitter.com/bllchmbrs" target="_blank"><span>Twitter</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags">
+        <h3>Tags</h3>
+        <div>
+            
+            <span>
+                <a href="/tags/privacy/">privacy</a>
+            </span>
+            
         </div>
     </div>
+    <div class="sidebar-item sidebar-toc">
+        <h3>Table of Contents</h3><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#what-is-a-static-site-generator">What is a static site generator?</a></li>
+        <li><a href="#what-problem-does-it-solve">What problem does it solve?</a></li>
+        <li><a href="#how-does-one-get-started">how does one get started?</a></li>
+        <li><a href="#changing-html">Changing HTML</a></li>
+      </ul>
+    </li>
+    <li><a href="#changing-css">Changing CSS</a></li>
+  </ul>
+</nav></div>
+</aside>
 
-    <div class="post-info-more">
-        <section class="post-tags"></section>
-        <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
-        </section>
+        </div>
+        <div class="btn">
+    <div class="btn-menu" id="btn-menu">
+        <i class="iconfont icon-grid-sharp"></i>
     </div>
-
-    <div class="post-nav"><a href="/posts/datakind-sf-first-meetup/" class="prev" rel="prev" title="DataKindSF - Data Analysis for the Greater Good"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>DataKindSF - Data Analysis for the Greater Good</a>
-            <a href="/posts/civic-data-postgresql-support/" class="next" rel="next" title="Deploying PostgreSQL for the California Civic Data Coalition&#39;s Django Project">Deploying PostgreSQL for the California Civic Data Coalition's Django Project<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+    <div class="btn-toggle-mode">
+        <i class="iconfont icon-contrast-sharp"></i>
+    </div>
+    <div class="btn-scroll-top">
+        <i class="iconfont icon-chevron-up-circle-sharp"></i>
+    </div>
 </div>
-</article></div>
-            </main><footer class="footer">
-    <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><i> Bill Chambers </i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a
-                    href="/" target="_blank"></a></span></div>
+<aside class="sidebar-mobile" style="display: none;">
+  <div class="sidebar-wrapper">
+    
+    <div class="sidebar-item sidebar-pages">
+        <h3>Pages</h3>
+        <ul>
+            
+            <li>
+                <a href="/">Home</a>
+            </li>
+            
+            <li>
+                <a href="/about/">About</a>
+            </li>
+            
+            <li>
+                <a href="/products/">Products &amp; Projects</a>
+            </li>
+            
+            <li>
+                <a href="/posts/">Posts</a>
+            </li>
+            
+            <li>
+                <a href="/categories/">Categories</a>
+            </li>
+            
+            <li>
+                <a href="/quotes/">Quotes</a>
+            </li>
+            
+        </ul>
     </div>
+    
+    <div class="sidebar-item sidebar-links">
+        <h3>Links</h3>
+        <ul>
+            
+            <li>
+                <a href="" target="_blank"><span>GitHub</span></a>
+            </li>
+            
+            <li>
+                <a href="https://www.linkedin.com/in/wachambers/" target="_blank"><span>LinkedIn</span></a>
+            </li>
+            
+            <li>
+                <a href="https://twitter.com/bllchmbrs" target="_blank"><span>Twitter</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags">
+        <h3>Tags</h3>
+        <div>
+            
+            <span>
+                <a href="/tags/privacy/">privacy</a>
+            </span>
+            
+        </div>
+    </div>
+    
+    
+    
+    
+  </div>
+</aside>
+    </main>
+
+    <footer>
+    <div class="container-lg clearfix">
+        <div class="col-12 footer">
+            
+            <span>&copy; 2023
+                <a href="http://billchambers.me">Bill Chambers</a>
+                
+                | Powered by <a href="https://github.com/dsrkafuu/hugo-theme-fuji/"
+                   target="_blank">Fuji-v2</a> &amp; <a href="https://gohugo.io/"
+                                                    target="_blank">Hugo</a> 
+            </span>
+        </div>
+    </div>
+</footer>
 
     
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R2MMVCLTJ9"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
+<script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js" integrity="sha512-N9IJRoc3LaP3NDoiGkcPa4gG94kapGpaA5Zq9/Dr04uf5TbLFU5q0o8AbRhLKUUlp8QFS2u7S+Yti0U7QtuZvQ==" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js" integrity="sha512-q583ppKrCRc7N5O0n2nzUiJ+suUv7Et1JGels4bXOaMFQcamPk9HjdUknZuuFjBNs7tsMuadge5k9RzdmO+1GQ==" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.27.0/components/prism-core.min.js" integrity="sha512-LCKPTo0gtJ74zCNMbWw04ltmujpzSR4oW+fgN+Y1YclhM5ZrHCZQAJE4quEodcI/G122sRhSGU2BsSRUZ2Gu3w==" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.27.0/plugins/autoloader/prism-autoloader.min.js" integrity="sha512-GP4x8UWxWyh4BMbyJGOGneiTbkrWEF5izsVJByzVLodP8CuJH/n936+yQDMJJrOPUHLgyPbLiGw2rXmdvGdXHA==" crossorigin="anonymous"></script>
 
-        gtag('config', 'G-R2MMVCLTJ9');
-    </script>
-</footer></div>
 
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
-                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
-                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
-            </a>
-        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+
+<script defer src="/assets/js/fuji.min.645f1123be695831f419ab54c1bcba327325895c740014006e57070d4f3e5d6b553e929c4b46f40ea707249e9c7f7c2a446d32a39ce7319f80a34525586a8e0f.js" integrity="sha512-ZF8RI75pWDH0GatUwby6MnMliVx0ABQAblcHDU8&#43;XWtVPpKcS0b0DqcHJJ6cf3wqRG0yo5znMZ&#43;Ao0UlWGqODw=="></script>
+
+
+
+</body>
+
 </html>

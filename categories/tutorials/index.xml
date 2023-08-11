@@ -1,98 +1,133 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>tutorials - Category - My Writings - Bill Chambers</title>
-        <link>http://billchambers.me/categories/tutorials/</link>
-        <description>tutorials - Category - My Writings - Bill Chambers</description>
-        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 06 Dec 2015 00:00:00 &#43;0000</lastBuildDate><atom:link href="http://billchambers.me/categories/tutorials/" rel="self" type="application/rss+xml" /><item>
-    <title>Getting Started with Apache Spark</title>
-    <link>http://billchambers.me/posts/getting-started-with-apache-spark/</link>
-    <pubDate>Sun, 06 Dec 2015 00:00:00 &#43;0000</pubDate>
-    <author>Bill Chambers</author>
-    <guid>http://billchambers.me/posts/getting-started-with-apache-spark/</guid>
-    <description><![CDATA[Lately I&rsquo;ve been playing around with Spark for data processing. It provides some really amazing features like MLLib and Spark SQL and there&rsquo;s no better way to learn something that to use it. I&rsquo;ve attended a couple of meet ups about Spark and its related tools including the famous ampcamp put on by the developers of spark and, although I&rsquo;m not an expert, I thought it would be good to consolidate my knowledge and teach others.]]></description>
-</item>
-<item>
-    <title>A Simple Link Shortener in Scala</title>
-    <link>http://billchambers.me/posts/a-link-shortener-in-scala/</link>
-    <pubDate>Wed, 10 Jun 2015 00:00:00 &#43;0000</pubDate>
-    <author>Bill Chambers</author>
-    <guid>http://billchambers.me/posts/a-link-shortener-in-scala/</guid>
-    <description><![CDATA[Recently I took it upon myself to dive into Scala. This post describes what my reaction was after writing a link shortener service using it. For those only interested in the code, check out my github.
-After learning the basics of Clojure by writing a simple link shortener, I realized that it was a great way to get to know a language. So I decided to do the same in Scala.]]></description>
-</item>
-<item>
-    <title>A Simple Link Shortener in Clojure</title>
-    <link>http://billchambers.me/posts/a-link-shortener-in-clojure/</link>
-    <pubDate>Mon, 01 Jun 2015 00:00:00 &#43;0000</pubDate>
-    <author>Bill Chambers</author>
-    <guid>http://billchambers.me/posts/a-link-shortener-in-clojure/</guid>
-    <description><![CDATA[Recently I took it upon myself to dive into clojure. This post describes what my reaction was after writing a link shortener service using it. For those only interested in the code, check out my github.
-I&rsquo;ve always wanted to learn a lisp. I played with Scheme, Common Lisp, but never really dug deeply into it. Now knowing python extremely well, I wanted to try and scope an application reasonably and write it in Clojure.]]></description>
-</item>
-<item>
-    <title>Visualizing Crime in San Francisco during the 2014 World Series</title>
-    <link>http://billchambers.me/posts/san-francisco-crime-data-visualization/</link>
-    <pubDate>Wed, 20 May 2015 00:00:00 &#43;0000</pubDate>
-    <author>Bill Chambers</author>
-    <guid>http://billchambers.me/posts/san-francisco-crime-data-visualization/</guid>
-    <description><![CDATA[During the World Series, especially during the Giants win, there was a mass rioting and looting. For our data visualization class, a classmate, John Semerdjian, and I made an interactive visualization of the crime in the city during each game.
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>tutorials on My Writings - Bill Chambers</title>
+    <link>http://billchambers.me/categories/tutorials/</link>
+    <description>Recent content in tutorials on My Writings - Bill Chambers</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 06 Dec 2015 00:00:00 +0000</lastBuildDate><atom:link href="http://billchambers.me/categories/tutorials/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Getting Started with Apache Spark</title>
+      <link>http://billchambers.me/posts/getting-started-with-apache-spark/</link>
+      <pubDate>Sun, 06 Dec 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://billchambers.me/posts/getting-started-with-apache-spark/</guid>
+      <description>Lately I&amp;rsquo;ve been playing around with Spark for data processing. It provides some really amazing features like MLLib and Spark SQL and there&amp;rsquo;s no better way to learn something that to use it. I&amp;rsquo;ve attended a couple of meet ups about Spark and its related tools including the famous ampcamp put on by the developers of spark and, although I&amp;rsquo;m not an expert, I thought it would be good to consolidate my knowledge and teach others.</description>
+    </item>
+    
+    <item>
+      <title>A Simple Link Shortener in Scala</title>
+      <link>http://billchambers.me/posts/a-link-shortener-in-scala/</link>
+      <pubDate>Wed, 10 Jun 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://billchambers.me/posts/a-link-shortener-in-scala/</guid>
+      <description>Recently I took it upon myself to dive into Scala. This post describes what my reaction was after writing a link shortener service using it. For those only interested in the code, check out my github.
+After learning the basics of Clojure by writing a simple link shortener, I realized that it was a great way to get to know a language. So I decided to do the same in Scala.</description>
+    </item>
+    
+    <item>
+      <title>A Simple Link Shortener in Clojure</title>
+      <link>http://billchambers.me/posts/a-link-shortener-in-clojure/</link>
+      <pubDate>Mon, 01 Jun 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://billchambers.me/posts/a-link-shortener-in-clojure/</guid>
+      <description>Recently I took it upon myself to dive into clojure. This post describes what my reaction was after writing a link shortener service using it. For those only interested in the code, check out my github.
+I&amp;rsquo;ve always wanted to learn a lisp. I played with Scheme, Common Lisp, but never really dug deeply into it. Now knowing python extremely well, I wanted to try and scope an application reasonably and write it in Clojure.</description>
+    </item>
+    
+    <item>
+      <title>Visualizing Crime in San Francisco during the 2014 World Series</title>
+      <link>http://billchambers.me/posts/san-francisco-crime-data-visualization/</link>
+      <pubDate>Wed, 20 May 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://billchambers.me/posts/san-francisco-crime-data-visualization/</guid>
+      <description>During the World Series, especially during the Giants win, there was a mass rioting and looting. For our data visualization class, a classmate, John Semerdjian, and I made an interactive visualization of the crime in the city during each game.
 You can view in the entire visualization here on a github project site.. The write up includes descriptions of out process.
-Be sure to check out the final page as it&rsquo;s a completely interactive visualization that allows you to explore and filter the data yourself.]]></description>
-</item>
-<item>
-    <title>Plotting Your AWS Redshift Data with Plotly</title>
-    <link>http://billchambers.me/posts/plotting-aws-redshift-data-with-plotly/</link>
-    <pubDate>Fri, 08 May 2015 00:00:00 &#43;0000</pubDate>
-    <author>Bill Chambers</author>
-    <guid>http://billchambers.me/posts/plotting-aws-redshift-data-with-plotly/</guid>
-    <description><![CDATA[08 May 2015
-This was a post that I did for Plotly covering the basics of plotting Data from an AWS Redshift cluster with plotly.]]></description>
-</item>
-<item>
-    <title>Plotting Spark DataFrames with Plotly</title>
-    <link>http://billchambers.me/posts/apache-spark-and-plotly-graphing/</link>
-    <pubDate>Mon, 04 May 2015 00:00:00 &#43;0000</pubDate>
-    <author>Bill Chambers</author>
-    <guid>http://billchambers.me/posts/apache-spark-and-plotly-graphing/</guid>
-    <description><![CDATA[This was a post that I did for Plotly covering the basics of plotting Spark DataFrames with plotly.]]></description>
-</item>
-<item>
-    <title>K-Means Clustering - Liquor &amp; Assaults in San Francisco</title>
-    <link>http://billchambers.me/posts/kmeans-clustering-sf-crime-data/</link>
-    <pubDate>Tue, 31 Mar 2015 00:00:00 &#43;0000</pubDate>
-    <author>Bill Chambers</author>
-    <guid>http://billchambers.me/posts/kmeans-clustering-sf-crime-data/</guid>
-    <description><![CDATA[This notebook walks through an example of KMeans clustering crime data with alcohol license locations. This clustering is performed solely based on the Lat/Long locations of stores and crimes. The tools I use are
+Be sure to check out the final page as it&amp;rsquo;s a completely interactive visualization that allows you to explore and filter the data yourself.</description>
+    </item>
+    
+    <item>
+      <title>Plotting Your AWS Redshift Data with Plotly</title>
+      <link>http://billchambers.me/posts/plotting-aws-redshift-data-with-plotly/</link>
+      <pubDate>Fri, 08 May 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://billchambers.me/posts/plotting-aws-redshift-data-with-plotly/</guid>
+      <description>08 May 2015
+This was a post that I did for Plotly covering the basics of plotting Data from an AWS Redshift cluster with plotly.</description>
+    </item>
+    
+    <item>
+      <title>Plotting Spark DataFrames with Plotly</title>
+      <link>http://billchambers.me/posts/apache-spark-and-plotly-graphing/</link>
+      <pubDate>Mon, 04 May 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://billchambers.me/posts/apache-spark-and-plotly-graphing/</guid>
+      <description>This was a post that I did for Plotly covering the basics of plotting Spark DataFrames with plotly.</description>
+    </item>
+    
+    <item>
+      <title>K-Means Clustering - Liquor &amp; Assaults in San Francisco</title>
+      <link>http://billchambers.me/posts/kmeans-clustering-sf-crime-data/</link>
+      <pubDate>Tue, 31 Mar 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://billchambers.me/posts/kmeans-clustering-sf-crime-data/</guid>
+      <description>This notebook walks through an example of KMeans clustering crime data with alcohol license locations. This clustering is performed solely based on the Lat/Long locations of stores and crimes. The tools I use are
 Pandas Numpy Scikit-learn Matplotlib The most basic question being answered is:
-Given Lat/Long - can we draw some association between a liquor store&rsquo;s centroid and crime/a type of crime&rsquo;s centroid? Or another way, will groups of crime overlap with groups of liquor stores.]]></description>
-</item>
-<item>
-    <title>Interactive Salesforce Graphing with Plotly</title>
-    <link>http://billchambers.me/posts/interactive-salesforce-graphing/</link>
-    <pubDate>Mon, 23 Mar 2015 00:00:00 &#43;0000</pubDate>
-    <author>Bill Chambers</author>
-    <guid>http://billchambers.me/posts/interactive-salesforce-graphing/</guid>
-    <description><![CDATA[This was a post that I did for Plotly covering the basics of the tool with Salesforce.]]></description>
-</item>
-<item>
-    <title>Data Challenge - Rebalancing Bike Terminals in SF</title>
-    <link>http://billchambers.me/posts/rebalancing-bike-terminals-in-sf/</link>
-    <pubDate>Thu, 08 Jan 2015 00:00:00 &#43;0000</pubDate>
-    <author>Bill Chambers</author>
-    <guid>http://billchambers.me/posts/rebalancing-bike-terminals-in-sf/</guid>
-    <description><![CDATA[Leada has recently set out to email out new datasets every week with a couple of interesting questions. I thought that this week&rsquo;s challenge posed some interesting questions that provide great examples of ways to use Python&rsquo;s pandas library.
-Here&rsquo;s their email.
-You just made your 2015 New Year&#39;s resolution to improve your data analysis skills and become data literate! Every two weeks, we will e-mail you a dataset and some problems to work on.]]></description>
-</item>
-<item>
-    <title>Basic Statistical NLP Part 2 - TF-IDF And Cosine Similarity</title>
-    <link>http://billchambers.me/posts/cosine-similarity-explained-in-python/</link>
-    <pubDate>Mon, 22 Dec 2014 00:00:00 &#43;0000</pubDate>
-    <author>Bill Chambers</author>
-    <guid>http://billchambers.me/posts/cosine-similarity-explained-in-python/</guid>
-    <description><![CDATA[This is a two part post, you can see part 1 here. Please read that post (if you haven&rsquo;t already) before continuing or just check out the code in this gist.
-from **future** import division import string import math tokenize = lambda doc: doc.lower().split(&quot; &ldquo;)
-document0 = &ldquo;China has a strong economy that is growing at a rapid pace. However politically it differs greatly from the US Economy.&rdquo; document1 = &ldquo;At last, China seems serious about confronting an endemic problem: domestic violence and corruption.]]></description>
-</item>
-</channel>
+Given Lat/Long - can we draw some association between a liquor store&amp;rsquo;s centroid and crime/a type of crime&amp;rsquo;s centroid? Or another way, will groups of crime overlap with groups of liquor stores.</description>
+    </item>
+    
+    <item>
+      <title>Interactive Salesforce Graphing with Plotly</title>
+      <link>http://billchambers.me/posts/interactive-salesforce-graphing/</link>
+      <pubDate>Mon, 23 Mar 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://billchambers.me/posts/interactive-salesforce-graphing/</guid>
+      <description>This was a post that I did for Plotly covering the basics of the tool with Salesforce.</description>
+    </item>
+    
+    <item>
+      <title>Data Challenge - Rebalancing Bike Terminals in SF</title>
+      <link>http://billchambers.me/posts/rebalancing-bike-terminals-in-sf/</link>
+      <pubDate>Thu, 08 Jan 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://billchambers.me/posts/rebalancing-bike-terminals-in-sf/</guid>
+      <description>Leada has recently set out to email out new datasets every week with a couple of interesting questions. I thought that this week&amp;rsquo;s challenge posed some interesting questions that provide great examples of ways to use Python&amp;rsquo;s pandas library.
+Here&amp;rsquo;s their email.
+You just made your 2015 New Year&amp;#39;s resolution to improve your data analysis skills and become data literate! Every two weeks, we will e-mail you a dataset and some problems to work on.</description>
+    </item>
+    
+    <item>
+      <title>Basic Statistical NLP Part 2 - TF-IDF And Cosine Similarity</title>
+      <link>http://billchambers.me/posts/cosine-similarity-explained-in-python/</link>
+      <pubDate>Mon, 22 Dec 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://billchambers.me/posts/cosine-similarity-explained-in-python/</guid>
+      <description>This is a two part post, you can see part 1 here. Please read that post (if you haven&amp;rsquo;t already) before continuing or just check out the code in this gist.
+from **future** import division import string import math tokenize = lambda doc: doc.lower().split(&amp;quot; &amp;ldquo;)
+document0 = &amp;ldquo;China has a strong economy that is growing at a rapid pace. However politically it differs greatly from the US Economy.&amp;rdquo; document1 = &amp;ldquo;At last, China seems serious about confronting an endemic problem: domestic violence and corruption.</description>
+    </item>
+    
+    <item>
+      <title>Basic Statistical NLP Part 1 - Jaccard Similarity and TF-IDF</title>
+      <link>http://billchambers.me/posts/tf-idf-explained-in-python/</link>
+      <pubDate>Sun, 21 Dec 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://billchambers.me/posts/tf-idf-explained-in-python/</guid>
+      <description>This is a two part post, you can see part 2 here.
+In my natural language processing class we&amp;rsquo;ve been playing around with similarity measures and I thought it would be useful to write them up here. Obviously this isn&amp;rsquo;t an exhaustive list but I think it would be a good resource for anyone looking to learn a bit more about ways of measuring similarity between documents.
+One of the first steps in many NLP operations is tokenization.</description>
+    </item>
+    
+    <item>
+      <title>A Gentle Introduction to Static Site Generators</title>
+      <link>http://billchambers.me/posts/introduction-to-static-site-generators/</link>
+      <pubDate>Tue, 11 Nov 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://billchambers.me/posts/introduction-to-static-site-generators/</guid>
+      <description>This document will be a simple introduction to static site generators. We&amp;rsquo;ll go over the basics of what they are, why you should use them, which one you should use and finally how to get started.
+The intended audiences for this tutorial are designers or novice developers with little to no programming experience but with some HTML/CSS skill, simple command line experience. This document was originally written for a presentation I did for a portfolio class at the UC Berkeley School of Information.</description>
+    </item>
+    
+  </channel>
 </rss>
